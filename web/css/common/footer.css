@@ -1,0 +1,40 @@
+@charset "UTF-8";
+#footerTotal{
+	font-family:sunFlower;
+	height: 60px;
+}
+#footerLogo{
+	width: 15%;
+	float: left;
+}
+#comInfo{
+	float: left;
+	width: 50%;
+}
+#footerNav{
+	margin-top: 10px;
+	float:left;
+	width: 35%;
+	height: 30px;
+}
+#companyInfo{
+	margin-right: 5px;
+	text-align: center;
+	width: 10%;
+	float:left;
+}
+#serviceTerm{
+	margin-right: 5px;
+	text-align: center;
+	width: 10%;
+	float:left;
+}
+#privacyPolicy{
+	text-align: center;
+	width: 20%;
+	float:left;
+}
+#footerLink{
+	text-decoration: none;
+	color: black;
+}

@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+html{
+	height : 100%;
+}
+
+body{
+	height: 100%;
+}
+
+header{
+	width: 100%;
+	min-height : 10%;
+}
+
+nav {
+	width: 100%;
+	min-height : 10%;
+	background: #FF7DA2;
+}

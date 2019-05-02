@@ -1,0 +1,67 @@
+@charset "UTF-8";
+
+.west {
+	width: 25%;
+	height: 180px;
+	text-align: center;
+	float: left;
+}
+
+.center {
+	width: 50%;
+	height: 180px;
+	float: left;
+	text-align: center;
+}
+
+.east {
+	width: 25%;
+	height: 180px;
+	float: left;
+}
+
+img {
+	width: auto;
+	height: auto;
+	max-width: 190px;
+	max-height: 200px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.west>label {
+	font-size: 45px;
+	color: red;
+	font-family: 'Sunflower';
+}
+
+.login_menu {
+	float: right;
+	list-style: none;
+}
+
+
+.login_menu li {
+	display: inline;;
+	font-family: 'Sunflower', sans-serif;
+	padding:0px;
+}
+
+table{
+	float: right;
+}
+
+td>a{
+	text-decoration: none;
+  	color: black;
+  	padding:5px;
+}
+
+td{
+	padding : 10px;
+}
+
+.badge{
+	background: orangered;
+}
