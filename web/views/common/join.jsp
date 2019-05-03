@@ -36,6 +36,7 @@
 						alt="user" id = "sign_user"><br> 
 					<label>사업자등록번호가 있는 고객님</label><br>
 					<button id="goSign" onclick = "location='<%=request.getContextPath()%>/views/common/JoinService.jsp'">회원가입</button>
+					
 				</div>
 			</div>
 		</div>

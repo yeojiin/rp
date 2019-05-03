@@ -42,7 +42,7 @@
 
 					</tr>
 					<tr>
-						<td colspan = "2"><a href= "<%=request.getContextPath() %>/views/common/joinStart.jsp" class = "sign">회원이 아니신가요?</a></td>
+						<td colspan = "2"><a href= "<%=request.getContextPath() %>/views/common/join.jsp" class = "sign">회원이 아니신가요?</a></td>
 						<td><a href= "#" class ="id_pwd">ID/PWD 찾기</a></td>
 					</tr>
 				</table>

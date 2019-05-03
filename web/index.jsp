@@ -11,14 +11,14 @@
 </style>
 </head>
 <body>
-	<header>
+	
 		<!--회원 header 가져오기-->
 		<jsp:include page = "views/member/m_header.jsp"></jsp:include>
-	</header>
-	<nav>
+
+	
 		<!--회원 메뉴바 가져오기-->
 		<jsp:include page = "views/member/m_nav.jsp"></jsp:include>
-	</nav>
+
 	<section>
 		<a href = "views/company/c_main.jsp">업체 페이지로 이동</a>
 	</section>

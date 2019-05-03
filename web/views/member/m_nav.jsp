@@ -4,15 +4,15 @@
 <link href="https://fonts.googleapis.com/css?family=Sunflower:300"
 	rel="stylesheet">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/common/m_nav.css">
+	href="${pageContext.request.contextPath}/css/member/m_nav.css">
 
-
+<nav>
 <ul>
-	<li><a href="#">Studio</a></li>
-	<li><a href="#">Dress</a></li>
-	<li><a href="#">Makeup & Hair</a></li>
-	<li><a href="#">Community</a></li>
-	<li><a href="#">Event</a></li>
-	<li><a href="#">고객센터</a></li>
+	<li><button>Studio</button></li>
+	<li><button>Dress</button></li>
+	<li><button>Makeup & Hair</button></li>
+	<li><button>Community</button></li>
+	<li><button>고객센터</button></li>
 </ul>
+</nav>
 
