@@ -5,7 +5,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/common/footer.css">
 
-
+<footer>
 <div id="footerTotal">
 	<div id="footerLogo">사진</div>
 	<div id="comInfo">
@@ -23,4 +23,5 @@
 		</div>
 	</div>
 </div>
+</footer>
 

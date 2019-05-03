@@ -16,9 +16,9 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/common/m_header.css">
+	href="${pageContext.request.contextPath}/css/member/m_header.css">
 
-
+<header>
 <!--다 클래스 선언이므로 스타일 바꿀시 id로 적용해주세요 -->
 <div class="west">
 	<%
@@ -38,7 +38,7 @@
 
 		<li><a
 			href="<%=request.getContextPath()%>/views/common/login.jsp">login</a></li>
-		<li><a href="<%=request.getContextPath()%>/views/common/joinStart.jsp">Sign up</a></li>
+		<li><a href="<%=request.getContextPath()%>/views/common/join.jsp">Sign up</a></li>
 	</ul>
 	<%}else{ %>
 	<table>
@@ -55,3 +55,4 @@
 	<%} %>
 </div>
 
+</header>
