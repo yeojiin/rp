@@ -19,40 +19,40 @@
 	href="${pageContext.request.contextPath}/css/member/m_header.css">
 
 <header>
-<!--다 클래스 선언이므로 스타일 바꿀시 id로 적용해주세요 -->
-<div class="west">
-	<%
-			if (memberID != null) {
+	<!--다 클래스 선언이므로 스타일 바꿀시 id로 적용해주세요 -->
+	<div class="west">
+		<%
+				if (memberID != null) {
 		%>
-	<br> <label>D-180</label>
-	<%
-			}
-		%>
-</div>
-<div class="center">
-	<img src="<%=request.getContextPath()%>/images/logo.png" alt="로고">
-</div>
-<div class="east">
-	<%if (memberID == null){%>
-	<ul class="login_menu">
-
-		<li><a
-			href="<%=request.getContextPath()%>/views/common/login.jsp">login</a></li>
-		<li><a href="<%=request.getContextPath()%>/views/common/join.jsp">Sign up</a></li>
-	</ul>
-	<%}else{ %>
-	<table>
-		<tr>
-			<td colspan="2"><%=memberID %>님 환영합니다.</td>
-			<td><label>logout</label></td>
-		</tr>
-		<tr>
-			<td><a href="#">My Page</a></td>
-			<td><a href="#">Wish<span class="badge">5</span></a></td>
-			<td><a href="#">Cupon<span class="badge">5</span></a></td>
-		</tr>
-	</table>
-	<%} %>
-</div>
+		<br> <label>D-180</label>
+		<%
+				}
+			%>
+	</div>
+	<div class="center">
+		<img src="<%=request.getContextPath()%>/images/logo.png" alt="로고" onclick="location.href='<%=request.getContextPath()%>'">
+	</div>
+	<div class="east">
+		<%if (memberID == null){%>
+		<ul class="login_menu">
+	
+			<li><a
+				href="<%=request.getContextPath()%>/views/common/login.jsp">login</a></li>
+			<li><a href="<%=request.getContextPath()%>/views/common/join.jsp">Sign up</a></li>
+		</ul>
+		<%}else{ %>
+		<table class = "headerTable">
+			<tr>
+				<td colspan="2"><%=memberID %>님 환영합니다.</td>
+				<td><label>logout</label></td>
+			</tr>
+			<tr>
+				<td><a href="#">My Page</a></td>
+				<td><a href="#">Wish<span class="badge">5</span></a></td>
+				<td><a href="#">Cupon<span class="badge">5</span></a></td>
+			</tr>
+		</table>
+		<%} %>
+	</div>
 
 </header>
