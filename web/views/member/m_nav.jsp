@@ -7,12 +7,12 @@
 	href="${pageContext.request.contextPath}/css/member/m_nav.css">
 
 <nav>
-<ul>
-	<li><button>Studio</button></li>
-	<li><button>Dress</button></li>
-	<li><button>Makeup & Hair</button></li>
-	<li><button>Community</button></li>
-	<li><button>고객센터</button></li>
-</ul>
+	<ul>
+		<li><button>Studio</button></li>
+		<li><button>Dress</button></li>
+		<li><button>Makeup & Hair</button></li>
+		<li><button>Community</button></li>
+		<li><button>고객센터</button></li>
+	</ul>
 </nav>
 

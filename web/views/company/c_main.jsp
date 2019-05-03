@@ -8,12 +8,9 @@
 <title>Redding</title>
 </head>
 <body>
-	<header>
-		<jsp:include page = "/views/company/c_header.jsp"></jsp:include>
-	</header>
-	<nav>
-		<jsp:include page = "/views/company/c_nav.jsp"></jsp:include>
-	</nav>
+	
+	<jsp:include page = "/views/company/c_header.jsp"></jsp:include>
+	<jsp:include page = "/views/company/c_nav.jsp"></jsp:include>
 	<section>
 	
 	</section>

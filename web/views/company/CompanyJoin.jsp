@@ -3,11 +3,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta  charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-	<nav>
-	</nav>
+	<h1>회원가입</h1>
 </body>
 </html>

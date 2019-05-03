@@ -11,12 +11,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<header>
-		<jsp:include page = "/views/member/m_header.jsp"></jsp:include>
-	</header>
-	<nav>
-		<jsp:include page = "/views/member/m_nav.jsp"></jsp:include>
-	</nav>	
+
+	<jsp:include page = "/views/member/m_header.jsp"></jsp:include>
+	<jsp:include page = "/views/member/m_nav.jsp"></jsp:include>
 	<section>
 		<div class = "form">
 			<br>
@@ -35,7 +32,7 @@
 					<img src="<%=request.getContextPath()%>/images/company.png"
 						alt="user" id = "sign_user"><br> 
 					<label>사업자등록번호가 있는 고객님</label><br>
-					<button id="goSign" onclick = "location='<%=request.getContextPath()%>/views/common/JoinService.jsp'">회원가입</button>
+					<button id="goSign" onclick = "location='<%=request.getContextPath()%>/views/company/CompanyJoin.jsp'">회원가입</button>
 					
 				</div>
 			</div>

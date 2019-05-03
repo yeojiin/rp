@@ -55,17 +55,17 @@ img {
 	text-decoration : none;
 }
 
-table{
+.headerTable{
 	float: right;
 }
 
-td>a{
+.headerTable td>a{
 	text-decoration: none;
   	color: black;
   	padding:5px;
 }
 
-td{
+.headerTable td{
 	padding : 10px;
 }
 
