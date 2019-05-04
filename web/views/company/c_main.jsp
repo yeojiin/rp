@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/company/c_main.css">
+</head>
 <title>Redding</title>
 </head>
 <body>
@@ -12,7 +13,10 @@
 	<jsp:include page = "/views/company/c_header.jsp"></jsp:include>
 	<jsp:include page = "/views/company/c_nav.jsp"></jsp:include>
 	<section>
-	
+		<div id="outer">
+			<div id="menuArea"></div>
+			<div id="contentsArea"></div>
+		</div>
 	</section>
 	
 </body>
