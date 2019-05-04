@@ -23,7 +23,7 @@
 				<div class = "sign_div1 sign1">
 					<img src = "<%=request.getContextPath()%>/images/user_icon.png" alt = "user" id = "sign_user"><br>
 					<label>만 14세 이상 회원가입 가능</label><br>
-					<button id = "goSign">회원가입</button>
+					<button id = "goSign" onclick = "location='<%=request.getContextPath()%>/views/member/memberJoin.jsp'">회원가입</button>
 				</div>
 			</div>
 			<br><br>
