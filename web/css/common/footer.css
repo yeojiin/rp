@@ -1,40 +1,61 @@
 @charset "UTF-8";
 #footerTotal{
-	font-family:sunFlower;
-	height: 60px;
+   font-family:sunFlower;
+   height: 60px;
 }
 #footerLogo{
-	width: 15%;
-	float: left;
+   height: 80px;
+   width: 15%;
+   float: left;
 }
 #comInfo{
-	float: left;
-	width: 50%;
+   margin-top: 10px;
+   float: left;
+   width: 50%;
 }
 #footerNav{
-	margin-top: 10px;
-	float:left;
-	width: 35%;
-	height: 30px;
+   margin-top: 10px;
+   float:left;
+   width: 35%;
+   height: 30px;
 }
-#companyInfo{
-	margin-right: 5px;
-	text-align: center;
-	width: 10%;
-	float:left;
+#comInfoBtn{
+   out-line:0;
+   border:0;
+   height:30px;
+   background: #FB6E5F;
+   color: black;
+   border-radius:10px;
+   margin-right: 15px;
+   float:left;
+}
+#comInfoBtn:hover{
+   color: white;
 }
 #serviceTerm{
-	margin-right: 5px;
-	text-align: center;
-	width: 10%;
-	float:left;
+   out-line:0;
+   border:0;
+   height:30px;
+   background: #FB6E5F;
+   color: black;
+   border-radius:10px;
+   margin-right: 15px;
+   float:left;
+}
+#serviceTerm:hover{
+   color: white;
 }
 #privacyPolicy{
-	text-align: center;
-	width: 20%;
-	float:left;
+   out-line:0;
+   border:0;
+   height:30px;
+   background: #FB6E5F;
+   color: black;
+   border-radius:10px;
+   margin-right: 15px;
+   float:left;
+   width: 140px;
 }
-#footerLink{
-	text-decoration: none;
-	color: black;
+#privacyPolicy:hover{
+   color: white;
 }
