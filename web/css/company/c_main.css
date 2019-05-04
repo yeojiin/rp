@@ -18,3 +18,18 @@ nav {
 	min-height : 10%;
 	background: #FB6E5F;
 }
+#outer {
+	font-size: 0;
+}
+#menuArea {
+	background:MistyRose;
+	width:22.2%;
+	height:600px;
+	display:inline-block;
+}
+#contentsArea {
+	background:WhiteSmoke;
+	width:77.7%;
+	height:600px;
+	display:inline-block;
+}
