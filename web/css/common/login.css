@@ -1,36 +1,48 @@
 @charset "UTF-8";
 
-section {
-	width: 100%;
-	height: 600px;
+.loginArea {
+	text-align:center;
 }
-
-.login{
-	width: 400px;
-	height : 300px;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top:50px;
-	text-align : center;
+.title {
+	color:salmon;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size:35px;
 }
-
-input[type=submit]{
-	width: 100px;
-	height: 100px;
-	background : #5e5e5e;
-	color: white;
-	outline : 0;
-	border: 0;
-	radius: 5px;
+.subTitle {
+	color:gray;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size:12px;
 }
-
-.title{
-	font-size : 30px;
-	padding : 5px;	
+.loginTable td {
+	width:100px;
+	height:50px;
+	font-family: 'Noto Sans KR', sans-serif;
+	text-align:left;
+	padding-left:15px;
 }
-
-
-
-
-
-
+.loginBtn {
+	width:80px;
+	height:80px;
+	background:salmon;
+	color:white;
+	border-style:none;
+}
+.loginBtn:hover {
+	width:80px;
+	height:80px;
+	background:white;
+	color:salmon;
+	border:1px solid salmon;
+}
+.loginMenu {
+	font-family: 'Noto Sans KR', sans-serif;
+	background:white;
+	color:salmon;
+	border-style:none;
+}
+.loginMenu:hover {
+	font-family: 'Noto Sans KR', sans-serif;
+	background:white;
+	color:salmon;
+	border:1px solid salmon;
+}

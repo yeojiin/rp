@@ -1,25 +1,12 @@
 @charset "UTF-8";
-
-
-ul {
-	font-size: 0;
-	padding-left:0px;
+.navbar {
+	margin-bottom:0;
+	border-radius:0;
 }
-
-li {
-	width:10.99%;
-	height:100px;
-	color:white;
-	display:inline-block;
-	text-align:center;
-	border:1px solid white;
-	line-height:25px;
-	padding-top:10px;
-}
-.cbtn {
-	background :#FB6E5F;
-	color:white;
+.logo {
+	height:50px;
+	background:#222;
+	color:salmon;
 	border-style:none;
-	font-size:18px;
-	font-family:'a타이틀고딕1';
-}
+	font-size:20px;
+
