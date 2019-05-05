@@ -1,26 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<link href="https://fonts.googleapis.com/css?family=Sunflower:300"
-	rel="stylesheet">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/common/footer.css">
-
-
-<div id="footerTotal">
-	<div id="footerLogo">사진</div>
-	<div id="comInfo">
-		Redding<br> email : <br> fax : phone : <br> address : <br>
-	</div>
-	<div id="footerNav">
-		<div id="companyInfo">
-			<a href="" id="footerLink">회사소개</a>
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<footer class="container-fluid footer">
+		<div class="footerInfo">
+			<label class="footerInfo">
+				Redding<br> 
+				E-Mail : redding@kh.co.kr<br> 
+				FAX : 02-6959-2158<br> 
+				Phone : 010-1234-5678<br> 
+				Address : 서울특별시 강남구 테헤란로 10길 9 그랑프리 빌딩 4F
+			</label>
 		</div>
-		<div id="serviceTerm">
-			<a href="" id="footerLink">이용약관</a>
+		<div class="footerInfo2">
+			<button class="footerBtn">회사소개</button>&nbsp;&nbsp;&nbsp;&nbsp;
+			<button class="footerBtn">이용약관</button>&nbsp;&nbsp;&nbsp;&nbsp;
+			<button class="footerBtn">개인정보처리방침</button>
 		</div>
-		<div id="privacyPolicy">
-			<a href="" id="footerLink">개인정보 처리방침</a>
-		</div>
-	</div>
-</div>
-
+	</footer>
+</body>
+</html>

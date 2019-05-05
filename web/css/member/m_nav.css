@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+ .navbar-inverse {
+	background:MistyRose;
+	border:1px solid MistyRose;
+}
+.navBtn {
+	height:70px;
+	color:black;
+	border-style:none;
+	background:MistyRose;
+	font-family:'Noto Sans KR', sans-serif;
+	font-size:20px;
+}
+.navBtn:hover {
+	height:70px;
+	border-style:none;
+	background:white;
+	color:salmon;
+	font-family:'Noto Sans KR', sans-serif;
+	font-size:20px;
+	cursor:pointer;
+} 
