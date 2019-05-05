@@ -83,5 +83,6 @@
 		<jsp:include page="/views/common/footer.jsp"></jsp:include>
 	</div>
 
+
 </body>
 </html>
