@@ -32,14 +32,6 @@
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
-.row.content {
-	height: 450px;
-}
-
-.sidenav {
-	height: 100%;
-}
-
 table {
 	border-collapse: collapse;
 	width: 100%;
@@ -55,7 +47,11 @@ td {
 	color:black;
 	text-align:left;
 }
-
+.presult{
+	width:100%;
+	float:left;
+	
+}
 
 /* On small screens, set height to 'auto' for sidenav and grid */
 @media screen and (max-width: 767px) {
@@ -114,6 +110,20 @@ td {
 						</tr>
 					</table>
 
+				</div>
+				
+				<div class="presult">
+					<div align="right">
+						<h1>스튜디오</h1>
+					</div>
+					<div align="center">
+						<h1>드레스</h1>
+					</div>
+					<div align="left">
+						<h1>메이크업</h1>
+					</div>
+					
+				
 				</div>
 
 			</div>
