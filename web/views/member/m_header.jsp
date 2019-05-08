@@ -19,7 +19,7 @@
 					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/common/login.jsp'">LOGIN</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
 					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/common/join.jsp'">JOIN</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
 					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/member/mypage.jsp'">MY PAGE</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
-					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/member/wishlist.jsp'">WISHLIST</button></li>
+					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/wishlist/wishlistForm.jsp'">WISHLIST</button></li>
 					<li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
 				</ul>
 			<% } else { %>
