@@ -54,38 +54,38 @@
 					<label class="subTitle">welcome to redding</label>
 					<br><br><br>
 					
-					<form>
+					<form id="joinForm" action="<%=request.getContextPath()%>/insertMember.me" method="post">
 						<table class="memberJoinTable">
 							<tr>
 								<td class="col1"><label>아이디&nbsp;&nbsp;</label><label class="star">*</label></td>
 								<td class="col2">
-									<input type="text">&nbsp;&nbsp;&nbsp;&nbsp;
+									<input type="text" name="memberId">&nbsp;&nbsp;&nbsp;&nbsp;
 									<button class="check">아이디중복확인</button>&nbsp;&nbsp;&nbsp;&nbsp;(영문소문자/숫자, 4~16자)
 								</td>
 							</tr>
 							<tr>
 								<td class="col1"><label>비밀번호&nbsp;&nbsp;</label><label class="star">*</label></td>
-								<td class="col2"><input type="password">&nbsp;&nbsp;&nbsp;&nbsp;(영문대소문자/숫자/특수문자 중 2가지 이상 조합, 8~16자)</td>
+								<td class="col2"><input type="password" name="memberPwd">&nbsp;&nbsp;&nbsp;&nbsp;(영문대소문자/숫자/특수문자 중 2가지 이상 조합, 8~16자)</td>
 							</tr>
 							<tr>
 								<td class="col1"><label>비밀번호 확인&nbsp;&nbsp;</label><label class="star">*</label></td>
-								<td class="col2"><input type="password"></td>
+								<td class="col2"><input type="password" name="memberPwd2"></td>
 							</tr>
 							<tr>
 								<td class="col1"><label>이름&nbsp;&nbsp;</label><label class="star">*</label></td>
-								<td class="col2"><input type="text"></td>
+								<td class="col2"><input type="text" name="memberName"></td>
 							</tr>
 							<tr>
 								<td class="col1"><label>닉네임&nbsp;&nbsp;</label><label class="star">*</label></td>
 								<td>
-									<input type="text">&nbsp;&nbsp;&nbsp;&nbsp;
+									<input type="text" name="nickName">&nbsp;&nbsp;&nbsp;&nbsp;
 									<button class="check">닉네임중복확인</button>
 								</td>
 							</tr>
 							<tr>
 								<td class="col1"><label>휴대전화&nbsp;&nbsp;</label><label class="star">*</label></td>
 								<td class="col2">
-									<select style="width:53px;">
+									<select name="tel1" style="width:53px;">
 										<option>010</option>
 										<option>011</option>
 										<option>016</option>
@@ -93,15 +93,15 @@
 										<option>018</option>
 										<option>019</option>
 									</select>&nbsp;-
-									<input type="text" style="width:60px;">&nbsp;-
-									<input type="text" style="width:60px;">&nbsp;&nbsp;&nbsp;&nbsp;
+									<input type="text" name="tel2" style="width:60px;">&nbsp;-
+									<input type="text" name="tel3" style="width:60px;">&nbsp;&nbsp;&nbsp;&nbsp;
 									<button class="check">인증하기</button>
 								</td>
 							</tr>
 							<tr>
 								<td class="col1"><label>비상연락번호</label></td>
 								<td class="col2">
-									<select style="width:53px;">
+									<select name="con1" style="width:53px;">
 										<option>010</option>
 										<option>011</option>
 										<option>016</option>
@@ -109,16 +109,16 @@
 										<option>018</option>
 										<option>019</option>
 									</select>&nbsp;-
-									<input type="text" style="width:60px;">&nbsp;-
-									<input type="text" style="width:60px;">
+									<input type="text" name="con2" style="width:60px;">&nbsp;-
+									<input type="text" name="con3" style="width:60px;">
 								</td>
 							</tr>
 							<tr>
 								<td class="col1"><label>이메일&nbsp;&nbsp;</label><label class="star">*</label></td>
 								<td class="col2">
-									<input type="text">&nbsp;&nbsp;@&nbsp;&nbsp;
-									<input type="text">&nbsp;&nbsp;
-									<select>
+									<input type="text" name="email1">&nbsp;&nbsp;@&nbsp;&nbsp;
+									<input type="text" name="email2">&nbsp;&nbsp;
+									<select name="email3">
 										<option>- 이메일 선택 -</option>
 										<option>naver.com</option>
 										<option>daum.net</option>
@@ -207,7 +207,7 @@
 제 6장 손해배상 및 기타사항제 22조(손해배상)회사는 무료로 제공하는 서비스의 이용과 관련하여 개인정보보호정책에서 정하는 내용 등 관련 법령에서 정한 경우 외에는 어떠한 손해도 책임을 지지 않습니다.제 23조(면책조항)1. 회사는 천재지변, 전쟁 및 기타 불가항력, 회사의 합리적인 통제범위를 벗어난 사유로 인하여 서비스를 제공할 수 없는 경우에는 그에 대한 책임이 면제됩니다.2. 회사는 기간통신 사업자가 전기통신 서비스를 중지하거나 정상적으로 제공하지 아니하여 손해가 발생한 경우 책임이 면제됩니다.3. 회사는 서비스용 설비의 보수, 교체, 정기점검, 공사 등 부득이한 사유로 발생한 손해에 대한 책임이 면제됩니다.4. 회사는 이용자의 귀책사유로 인한 서비스 이용의 장애 또는 손해에 대하여 책임을 지지 않습니다.5. 회사는 이용자의 컴퓨터 오류에 의해 손해가 발생한 경우, 또는 회원이 신상정보 및 전자우편 주소를 부실하게 기재하여 손해가 발생한 경우 책임을 지지 않습니다.6. 회사는 회원이 서비스를 이용하면서 얻은 자료로 인한 손해에 대하여 책임을 지지 않습니다. 또한 회사는 회원이 서비스를 이용하는 과정에서 타 회원으로 인하여 인해 입게 되는 정신적 피해에 대하여 보상할 책임을 지지 않습니다.7. 회원이 서비스 화면에 게재한 정보, 자료, 사실 등의 내용에 관한 신뢰도 혹은 정확성에 대하여는 해당회원이 책임을 부담하며, 회사는 내용의 부정확 또는 허위로 인해 회원 또는 제3자에게 발생한 손해에 대하여는 아무런 책임을 부담하지 않습니다.8. 회사는 회원 상호 간 및 회원과 제3자 상호 간에 서비스를 매개로 발생한 분쟁에 대해 개입할 의무가 없으며, 이로 인한 손해를 배상할 책임도 없습니다.9. 회사는 서비스 이용과 관련하여 회원의 고의 또는 과실로 인하여 회원 또는 제3자에게 발생한 손해에 대하여는 아무런 책임을 부담하지 않습니다.10. 회사에서 회원에게 무료로 제공하는 서비스의 이용과 관련해서는 본 약관 및 관련 법령에서 정하는 경우 외에는 어떠한 손해에 대해서도 책임을 지지 않습니다.제 24조(분쟁의 해결)1. 회사와 회원은 서비스와 관련하여 발생한 분쟁을 원만하게 해결하기 위하여 필요한 노력을 합니다.2. 회사는 회원으로부터 제출되는 불만사항 및 의견을 우선적으로 처리합니다. 다만, 신속한 처리가 곤란한 경우에는 회원에게 그 사유와 처리일정을 즉시 통보합니다.제 25조(재판관할 및 준거법)회사와 회원 간에 서비스 이용으로 발생한 분쟁에 대하여는 대한민국법을 적용하며, 해당 본 분쟁으로 인하여 소송이 제기될 경우 민사소송법 상의 관할을 가지는 대한민국의 법원에 제기합니다.[부칙(2016.06.07)]본 약관은 2016년 06월 07일부터 적용됩니다.
 					</textarea>
 						<div class="condition">이용약관에 동의하십니까?
-							<input type="checkbox">동의함
+							<input type="checkbox" name="condition1">동의함
 						</div>
 						<br>
 						<br>
@@ -298,13 +298,13 @@
 제 10장. 개인정보 처리방침의 변경에 관한 사항회사는 본 개인정보처리방침을 변경하는 경우에는 그 이유 및 변경내용을 인터넷 홈페이지 첫 화면의 공지사항란 또는 별도의 창을 통하는 등의 방법으로 최소 7일 이전에 공지할 것입니다.・ 개인정보처리방침 버전번호 : 20160607・ 개인정보처리방침 시행일자 : 2016년 06월 07일
 					</textarea>
 						<div class="condition">개인정보 수집 및 이용에 동의하십니까?
-							<input type="checkbox">동의함
+							<input type="checkbox" name="condition2">동의함
 						</div>
 						<br>
 						<br>
 						<div class="memberJoinBtnArea">
 							<input class="memberJoinBtn" type="reset" value="뒤로가기">&nbsp;&nbsp;&nbsp;&nbsp;
-							<input class="memberJoinBtn" type="submit" value="회원가입">
+							<input class="memberJoinBtn" type="submit" value="회원가입" onclick="insertMember()">
 						</div>
 					
 				</div>
@@ -327,6 +327,12 @@
 	<div class="footerArea">
 		<jsp:include page="/views/common/footer.jsp"></jsp:include>
 	</div>
+	
+	<script>
+		function insertMember() {
+			$("#joinForm").submit();
+		}
+	</script>
 
 </body>
 </html>

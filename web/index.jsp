@@ -20,7 +20,6 @@
 	href="${pageContext.request.contextPath}/css/member/m_nav.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/common/footer.css">
-
 <style>
 
 .container {
@@ -106,6 +105,8 @@
 						</a>
 					</div>
 				</div>
+				<br>
+				<button onclick="location.href='views/member/m_pay.jsp'">payList go</button>
 
 			</div>
 			
