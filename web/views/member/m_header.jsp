@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="redding.member.model.vo.Member"%>
 <%
-	Member loginUser = (Member) session.getAttribute("loginUser");
+   Member loginUser = (Member) session.getAttribute("loginUser");
 %>
 <!DOCTYPE html>
 <html>
@@ -11,35 +11,34 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common/header.css">
 </head>
 <body>
-	<div class="headerArea">
-		<div class="miniMenu">
-			<%if(loginUser == null) {%>
-				<br>
-				<ul>
-					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/common/login.jsp'">LOGIN</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
-					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/common/join.jsp'">JOIN</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
-					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/member/mypage.jsp'">MY PAGE</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
-					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/wishlist/wishlistForm.jsp'">WISHLIST</button></li>
-					<li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
-				</ul>
-			<% } else { %>
-				<br>
-				<ul>
-					<li><button class="miniMenuBtn"><%=loginUser.getNickName() %>님의 방문을 환영합니다!</button></li>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
-					<li><button class="miniMenuBtn" onclick="logout()">LOGOUT</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
-					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/member/mypage.jsp'">MY PAGE</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
-					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/member/wishlist.jsp'">WISHLIST</button></li>
-					<li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
-				</ul>
-			<% } %>
-		</div>
-		<jsp:include page = "/views/common/header.jsp"></jsp:include>
-	</div>
-	<script>
-		function logout() {
-			location.href="<%= request.getContextPath()%>/logout.me";
-		}
-	</script>
+   <div class="headerArea">
+      <div class="miniMenu">
+         <%if(loginUser == null) {%>
+            <br>
+            <ul>
+               <li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/common/login.jsp'">LOGIN</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
+               <li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/common/join.jsp'">JOIN</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
+               <li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/member/mypage.jsp'">MY PAGE</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
+               <li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/wishlist/wishlistForm.jsp'">WISHLIST</button></li>
+               <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+            </ul>
+         <% } else { %>
+            <br>
+            <ul>
+               <li><button class="miniMenuBtn"><%=loginUser.getNickName() %>님의 방문을 환영합니다!</button></li>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
+               <li><button class="miniMenuBtn" onclick="logout()">LOGOUT</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
+               <li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/member/mypage.jsp'">MY PAGE</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
+               <li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/member/wishlist.jsp'">WISHLIST</button></li>
+               <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+            </ul>
+         <% } %>
+      </div>
+      <jsp:include page = "/views/common/header.jsp"></jsp:include>
+   </div>
+   <script>
+      function logout() {
+         location.href="<%= request.getContextPath()%>/logout.me";
+      }
+   </script>
 </body>
 </html>
-
