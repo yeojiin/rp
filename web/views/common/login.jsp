@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="redding.member.model.vo.Member"%>
+<%
+	Member loginUser = (Member) session.getAttribute("loginUser");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +25,7 @@
 	href="${pageContext.request.contextPath}/css/member/m_nav.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/common/footer.css">
-<link rel="stylesheet" type="text/css"
+	<link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/common/login.css">
 </head>
 <body>
@@ -48,7 +52,7 @@
 			<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 
 				<div class="loginArea">
-					<form>
+					<form id="loginForm" action="<%=request.getContextPath()%>/login.me" method="post">
 					
 						<br><br><br>
 						<label class="title">LOGIN</label><br>
@@ -64,13 +68,13 @@
 							</tr>
 							<tr>
 								<td><label>ID : </label></td>
-								<td><input type="text" id="userId"></td>
-								<td rowspan="2"><button class="loginBtn">LOGIN</button></td>
+								<td><input type="text" id="userId" name="memberId"></td>
+								<td rowspan="2"><button class="loginBtn" onclick="login()">LOGIN</button></td>
 
 							</tr>
 							<tr>
 								<td><label>PASSWORD : </label></td>
-								<td><input type="password" id="userPwd"></td>
+								<td><input type="password" id="userPwd" name="memberPwd"></td>
 
 							</tr>
 						</table>
@@ -95,6 +99,12 @@
 	<div class="footerArea">
 		<jsp:include page="/views/common/footer.jsp"></jsp:include>
 	</div>
+	
+	<script>
+		function login() {
+			$("#loginForm").submit();
+		}
+	</script>
 
 </body>
 </html>
