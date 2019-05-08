@@ -107,6 +107,7 @@
 				</div>
 				<br>
 				<button onclick="location.href='views/member/m_pay.jsp'">payList go</button>
+				<button onclick="location.href='views/admin/a_main.jsp'">관리자메인페이지</button>
 
 			</div>
 			
