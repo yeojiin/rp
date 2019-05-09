@@ -22,7 +22,7 @@
 <link rel="stylesheet" type="text/css"
    href="${pageContext.request.contextPath}/css/company/c_main.css">
 <link rel="stylesheet" type="text/css"
-   href="${pageContext.request.contextPath}/css/company/c_customerManager.css"> 
+   href="${pageContext.request.contextPath}/css/company/c_sendMessage.css"> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <style>
    .row.content {
@@ -64,24 +64,20 @@
          <div class="col-sm-8 text-left">
          <%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
          
-            <div class="contentsArea" id="productInsertArea">
-            	<div id="PIHeader">
-            		<h3>상품등록 페이지</h3>
+            <div class="contentsArea" id="sendMessageArea">
+            	<div id="SMHeader">
+            		<h3>관리자에게 쪽지 보내기</h3>
             	</div>
-            	<div id="PISection">
-            		<div id="PITitle">
-            			<input type="text" value="상품명">
+            	<div id="SMSection">
+            		<div id="messageTitleArea">
+            			<input type="text" name="messageTitleArea" id="messageTitleArea" value="쪽지 제목">
             		</div>
-            		<div id="PIContent">
-            			
-            			<div>상품사진등록</div>
-						<textarea>상품내용</textarea>
+            		<div id="messageContentArea">
+            			<textarea name="messageContent" id="messageContent" style="resize:none;">쪽지 내용</textarea>
             		</div>
             	
+               		<div id="sendMessageToAdminBtn">보내기</div>
             	</div>
-               	<div id="PIfooter">
-               		<div id="PIBtn">등록하기</div>
-               	</div>
               
             </div>
          

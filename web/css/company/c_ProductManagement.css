@@ -3,11 +3,16 @@
 #productListContentsArea{
    width: 800px;
    height: 900PX;
-   text-align: center;
    margin-right: auto;
    margin-left: auto;
 }
-#productUploadBtn{
+#productListContentsArea div{
+	border: 1px solid red;
+}
+#productDeleteBtn{
+	margin-right: 27px;
+}
+#productUploadBtn, #productUpdateOrDeleteBtn, #productDeleteBtn{
     width: 100px;
     height: 26px;
     background: salmon;
@@ -15,33 +20,27 @@
     border: 2px double salmon;
     text-align: center;
     border-radius: 5px;
-}
-#productUploadBtn:hover{
    cursor:pointer;
-   
 }
-#productSearchTable{
-   width: 79%;
+#productSearchTB th:first-Child{
+	width: 10%;
+}
+#productSearchTB th:last-Child{
+	width: 90%;
+}
+#productSearchResulTB, #productSearchTB{
+   width: 100%;
    text-align: center;
    margin-right: auto;
    margin-left: auto;
 }
-#productSearchTB tr:first-Child{
+#productSearchTBArea *, #productSearchResulTB *{
+	text-align: center;	
+}
+#productSearchTB tr:first-Child, #productSearchResulTB tr:first-Child{
    background: lightGray;
 }
 #productSearchResultList{
-   width: 100%;
-}
-#productUpdateOrDeleteBtn{
-   width: 100px;
-    height: 26px;
-    background: salmon;
-    color: white;
-    border: 2px double salmon;
-    text-align: center;
-    border-radius: 5px;
-}
-#productUpdateOrDeleteBtn:hover{
-   cursor:pointer;
-   
+	margin-top: 10px;
+    width: 100%;
 }
