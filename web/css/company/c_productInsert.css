@@ -1,0 +1,52 @@
+@charset "UTF-8";
+#productInsertArea h3{
+	color: salmon;
+}
+#PITable{
+	width: 100%;
+}
+#PITable tr{
+	border-top: 1px solid lightgray;
+	border-bottom: 1px solid lightgray;	
+}
+#PITable td:first-child, #PITable td:nth-child(4), #PITable td:nth-child(3){
+	width: 10%;
+}
+#PITable td:nth-child(2), #PITable td:nth-child(5){
+	width: 30%;
+}
+#PITable td:first-child, #PITable td:nth-child(3){
+	text-align: center;
+}
+#PITable select, #PIfooter{
+	width: 100%;
+}
+#PIRestDayCheck *{
+	margin-left: 10px;
+}
+#PITable textarea{
+	resize: none;
+}
+#PITable th{
+	background: lightgray;
+}
+#PIBtns{
+	margin-right: auto;
+	margin-left: auto;
+	width: 220px;
+}
+#PIInsertBtn, #PIResetBtn{
+	width: 100px;
+    height: 26px;
+    background: salmon;
+    color: white;
+    border: 2px double salmon;
+    text-align: center;
+    border-radius: 5px;
+    cursor:pointer;
+    margin-bottom: 3px;
+}
+#PIResetBtn{
+	float: right;
+	margin-top: -29px;
+}

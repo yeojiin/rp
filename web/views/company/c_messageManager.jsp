@@ -26,12 +26,11 @@
    href="${pageContext.request.contextPath}/css/company/c_messageManager.css"> 
 <style>
    .row.content {
-   height: 1500px;
+   height: auto;
    }
 
    .sidenav1 {
       padding-top: 20px;
-      background:MistyRose;
       height: 100%;
    }
    
@@ -88,6 +87,22 @@
                      <!-- 다음 행부터는 자바스크립트로 ajax 처리 -->
                      <!-- radio 버튼도 함께 보내줘야 한다.
                      읽기 버튼도 함께 보내줘야 한다 -->
+                     <tr>
+                     	<td>1</td>
+                     	<td>2</td>
+                     	<td>3</td>
+                     	<td>4</td>
+                     	<td>5</td>
+                     	<td>6</td>
+                     </tr>
+                     <tr>
+                     	<td>1</td>
+                     	<td>2</td>
+                     	<td>3</td>
+                     	<td>4</td>
+                     	<td>5</td>
+                     	<td>6</td>
+                     </tr>
                   </table>
                   
                   <div id="RMPagingArea">
@@ -136,11 +151,28 @@
                        		<th width="100">읽기-버튼영역</th> 
                         </tr>
                         <!-- 자바스크립트로 전체리스트조회 결과 테이블 보여주고 input에서 search한 결과를 ajax로 변경해서 보여준다 -->
+                        <tr>
+                     	<td>1</td>
+                     	<td>2</td>
+                     	<td>3</td>
+                     	<td>4</td>
+                     	<td>5</td>
+                     	<td>6</td>
+                     </tr>
+                     <tr>
+                     	<td>1</td>
+                     	<td>2</td>
+                     	<td>3</td>
+                     	<td>4</td>
+                     	<td>5</td>
+                     	<td>6</td>
+                     </tr>
                      </table>
                   </div>
                   <div id="SMPagingArea">
                   </div>
                </div>
+               <div id="topBtn">▲</div>
             </div>
          
          </div>

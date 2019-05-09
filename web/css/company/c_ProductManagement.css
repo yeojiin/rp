@@ -1,16 +1,22 @@
 @charset "UTF-8";
 /* 상품관리 페이지 css */
 #productListContentsArea{
-   width: 800px;
-   height: 900PX;
+   width: 100%
    margin-right: auto;
    margin-left: auto;
 }
+#productListContentsArea h2{
+	color: salmon;
+}
+/* 
 #productListContentsArea div{
 	border: 1px solid red;
+} */
+#productDeleteBtn, #productUploadBtn{
+	margin-left:90%;
 }
-#productDeleteBtn{
-	margin-right: 27px;
+#productUploadBtn{
+	margin-top: -26px;
 }
 #productUploadBtn, #productUpdateOrDeleteBtn, #productDeleteBtn{
     width: 100px;
@@ -20,7 +26,8 @@
     border: 2px double salmon;
     text-align: center;
     border-radius: 5px;
-   cursor:pointer;
+    cursor:pointer;
+    margin-bottom: 3px;
 }
 #productSearchTB th:first-Child{
 	width: 10%;
@@ -34,13 +41,18 @@
    margin-right: auto;
    margin-left: auto;
 }
-#productSearchTBArea *, #productSearchResulTB *{
+#productSearchTB *, #productSearchResulTB *{
 	text-align: center;	
 }
 #productSearchTB tr:first-Child, #productSearchResulTB tr:first-Child{
    background: lightGray;
 }
+#productSearchTB tr, #productSearchResulTB tr{
+	border-top: 1px solid lightgray;	
+	border-bottom: 1px solid lightgray;	
+}
 #productSearchResultList{
 	margin-top: 10px;
     width: 100%;
+    height: 500px;
 }

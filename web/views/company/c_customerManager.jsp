@@ -26,12 +26,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <style>
    .row.content {
-   height: 1500px;
+   	height: auto;
    }
 
    .sidenav1 {
       padding-top: 20px;
-      background:MistyRose;
       height: 100%;
    }
    
@@ -49,21 +48,27 @@
 <body>
 
    <!-- 업체 나브 -->
-   <div>
+   <div id="CMAreaTop">
       <jsp:include page="/views/company/c_nav.jsp"></jsp:include>
    </div>
 
    <div class="container-fluid text-center">
       <div class="row content">
       
-         <div class="col-sm-2 sidenav1">
+         
+         <div class="visible-md visible-lg visible-sm">
             <ul>
-               <li id=""><h4>고객 문의 관리</h4></li>
-               <li id=""><h4>예약 현황</h4></li>
-               <li id=""><h4>예약자 정보 조회</h4></li>
+               <li class="CMList" id="CMQTableBtn"><h4>고객 문의 관리</h4></li>
+               <li class="CMList" id="customerManagerReservationBtn"><h4>예약 현황</h4></li>
+               <li class="CMList" id="CMBHeaderBtn"><h4>예약자 정보 조회</h4></li>
             </ul>
          </div>
-         
+         <div class="col-sm-2 sidenav1">
+            <div class="visible-xs">
+	            
+            
+            </div>
+         </div>
          
          <div class="col-sm-8 text-left">
          <%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
@@ -73,6 +78,7 @@
             
                <div id="customerManagerQNAArea">
                   <!-- 고객문의 관리 -->
+                  
                   <h3>고객 문의 목록</h3>
                   <table id="CMQTable">
                      <!-- 문의 조회 전체 결과 테이블 -->
@@ -85,6 +91,22 @@
                         <th><div id="replyQNABtn">답변하기</div></th>                     
                      </tr>
                      <!-- 다음 행부터는 자바스크립트로 ajax 처리 -->
+                     <tr>
+                     	<td>1</td>
+                     	<td>2</td>
+                     	<td>3</td>
+                     	<td>4</td>
+                     	<td>5</td>
+                     	<td>6</td>
+                     </tr>
+                     <tr>
+                     	<td>1</td>
+                     	<td>2</td>
+                     	<td>3</td>
+                     	<td>4</td>
+                     	<td>5</td>
+                     	<td>6</td>
+                     </tr>
                   </table>
                   
                   <div id="myModal" class="modal">
@@ -125,13 +147,17 @@
                      <!-- 캘린더 include해서 예약 현황들 보여주기 -->
                   </div>
                </div>
+               <div id="upBtn">▲</div>
                   
                
                <div id="customerManagerBooker">
                   <!-- 예약자 정보 조회 -->   
                   <div id="CMBHeader">
                      <h3>예약자 정보 조회</h3>
-                     <input type="search" name="bookerNickName" placeholder="조회할 회원의 닉네임을 입력해주세요" size="40" id="CMBHeaderInputArea">
+                     <form id="bookerNickNameArea">
+	                     <input type="search" name="bookerNickName" placeholder="조회할 회원의 닉네임을 입력해주세요" size="30" id="CMBHeaderInputArea">
+	                     <div id="bookerNickNameBtn">찾기</div>
+                     </form>
                   </div>
                   <div id="CMBSelectListArea">
                      <table id="CMBTable">
@@ -144,11 +170,28 @@
                            <th><div id="reserveStatus">진행상황</div></th>
                         </tr>
                         <!-- 자바스크립트로 전체리스트조회 결과 테이블 보여주고 input에서 search한 결과를 ajax로 변경해서 보여준다 -->
+                        <tr>
+                     	<td>1</td>
+                     	<td>2</td>
+                     	<td>3</td>
+                     	<td>4</td>
+                     	<td>5</td>
+                     	<td>6</td>
+                     </tr>
+                     <tr>
+                     	<td>1</td>
+                     	<td>2</td>
+                     	<td>3</td>
+                     	<td>4</td>
+                     	<td>5</td>
+                     	<td>6</td>
+                     </tr>
                      </table>
                   </div>
                   <div id="CMBPagingArea">
                   </div>
                </div>
+               <div id="topBtn">▲</div>
             </div>
          
          </div>
@@ -193,6 +236,30 @@
 				modal.style.display = "none";
 				
 			});
+			
+			$("#bookerNickNameBtn").click(function(){
+				$("#bookerNickNameArea").attr("src", "");
+				//회원 조회 서블릿으로 보내주기
+			});
+			
+			$("#CMQTableBtn").click(function(){
+				location.href="#CMAreaTop";
+			});
+			$("#customerManagerReservationBtn").click(function(){
+				location.href="#customerManagerReservation";
+			});
+			$("#CMBHeaderBtn").click(function(){
+				location.href="#customerManagerBooker";
+			});
+			$("#upBtn").click(function(){
+				location.href="#CMAreaTop";
+			});
+			$("#topBtn").click(function(){
+				location.href="#CMAreaTop";
+			});
+			/* CMQTableBtn
+	         customerManagerReservationBtn
+	         CMBHeaderBtn */
 		   
 	   });
 

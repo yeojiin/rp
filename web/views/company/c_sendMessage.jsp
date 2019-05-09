@@ -26,12 +26,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <style>
    .row.content {
-   height: 1500px;
+   height: auto;
    }
 
    .sidenav1 {
       padding-top: 20px;
-      background:MistyRose;
       height: 100%;
    }
    
@@ -70,7 +69,7 @@
             	</div>
             	<div id="SMSection">
             		<div id="messageTitleArea">
-            			<input type="text" name="messageTitleArea" id="messageTitleArea" value="쪽지 제목">
+            			<input type="text" name="messageTitleArea" id="messageTitleInputArea" value="쪽지 제목">
             		</div>
             		<div id="messageContentArea">
             			<textarea name="messageContent" id="messageContent" style="resize:none;">쪽지 내용</textarea>

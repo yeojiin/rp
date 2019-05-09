@@ -32,12 +32,12 @@
    href="${pageContext.request.contextPath}/css/company/c_ProductManagement.css">   
 <style>
    .row.content {
-   height: 920px;
+   height: auto;
+   
    }
 
    .sidenav1 {
       padding-top: 20px;
-      background:MistyRose;
       height: 100%;
    }
    
@@ -70,49 +70,46 @@
          
             <div class="contentsArea" id="productListContentsArea">
                <!-- 상품목록 밑의 전체~ 상품등록하기 버튼까지 -->
-               
-               <div id="productListTitle">
-               		<h2>상품목록</h2>
-	               <div id="productListAll">
-	                  <table id="productCountAll">
-	                     <tr>
-	                        <td>
-	                           <label>전체 : </label>&nbsp;&nbsp;&nbsp;
-	                           <input type="text" name="productTotalCount" value="<%=productTotalCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
-	                           <label>|</label>&nbsp;&nbsp;&nbsp;
-	                        </td>
-	                        <td>
-	                           <label>판매함 : </label>&nbsp;&nbsp;&nbsp;
-	                           <input type="text" name="SaleProductCount" value="<%=SaleProductCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
-	                           <label>|</label>&nbsp;&nbsp;&nbsp;
-	                        </td>
-	                        <td>
-	                           <label>판매 안함 : </label>&nbsp;&nbsp;&nbsp;
-	                           <input type="text" name="NoSaleProductCount" value="<%=NoSaleProductCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
-	                           <label>|</label>&nbsp;&nbsp;&nbsp;
-	                        </td>
-	                        <td>
-	                           <label>공개함 : </label>&nbsp;&nbsp;&nbsp;
-	                           <input type="text" name="OpenProductCount" value="<%=OpenProductCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
-	                           <label>|</label>&nbsp;&nbsp;&nbsp;
-	                        </td>
-	                        <td>
-	                           <label>공개 안함 : </label>&nbsp;&nbsp;&nbsp;
-	                           <input type="text" name="CloseProductCount" value="<%=CloseProductCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
-	                           &nbsp;&nbsp;&nbsp;
-	                        </td>
-	                        <td>
-	                           <div id="productUploadBtn">상품등록하기</div>                           
-	                        </td>
-	                     </tr>
-	                  </table>
+               <div id="PMTotalArea">
+	               <div id="productListTitle">
+	               		<h2>상품목록</h2>
+		               <div id="productListAll" class="visible-md visible-lg visible-sm">
+		                  <table id="productCountAll">
+		                     <tr>
+		                        <td>
+		                           <label>전체 : </label>&nbsp;&nbsp;&nbsp;
+		                           <input type="text" name="productTotalCount" value="<%=productTotalCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
+		                           <label>|</label>&nbsp;&nbsp;&nbsp;
+		                        </td>
+		                        <td>
+		                           <label>판매함 : </label>&nbsp;&nbsp;&nbsp;
+		                           <input type="text" name="SaleProductCount" value="<%=SaleProductCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
+		                           <label>|</label>&nbsp;&nbsp;&nbsp;
+		                        </td>
+		                        <td>
+		                           <label>판매 안함 : </label>&nbsp;&nbsp;&nbsp;
+		                           <input type="text" name="NoSaleProductCount" value="<%=NoSaleProductCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
+		                           <label>|</label>&nbsp;&nbsp;&nbsp;
+		                        </td>
+		                        <td>
+		                           <label>공개함 : </label>&nbsp;&nbsp;&nbsp;
+		                           <input type="text" name="OpenProductCount" value="<%=OpenProductCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
+		                           <label>|</label>&nbsp;&nbsp;&nbsp;
+		                        </td>
+		                        <td>
+		                           <label>공개 안함 : </label>&nbsp;&nbsp;&nbsp;
+		                           <input type="text" name="CloseProductCount" value="<%=CloseProductCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
+		                           &nbsp;&nbsp;&nbsp;
+		                        </td>
+		                     </tr>
+		                  </table>
+		               </div>
+	                   <div id="productUploadBtn">상품등록하기</div> 
 	               </div>
-               </div>
-                  <br>
                
                <!-- 검색분류테이블 -->
                <div id="productSearchTBArea">
-                  <table id="productSearchTB" border="1">
+                  <table id="productSearchTB">
                      <tr>
                         <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>                        
                         <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
@@ -179,8 +176,8 @@
                <div id="productSearchResultList">
                		
 					<!-- 이부분만 수정하는 건 ajax를 사용한다. -->
-					<div id="productDeleteBtn" style="float:right; margin-top:-28px;">삭제하기</div>
-                  <table align="center" id="productSearchResulTB" border="1">
+				  <div id="productDeleteBtn">삭제하기</div>
+                  <table align="center" id="productSearchResulTB">
                      <tr>
                      	<th width="30"></th>
                         <th width="50">No.</th>
@@ -201,6 +198,7 @@
                         </tr>
                      <%-- <% } %> --%>
                   </table>
+               </div>
                </div>
             </div>
          
@@ -225,7 +223,7 @@
          $("#productUpdateOrDeleteBtn").click(function(){
             //결과 조회 목록에서 버튼 클릭시 페이지 이동
             //상세보기 페이지 갓다가 -> 수정페이지 혹은 삭제페이지로 이동하자
-            location.href="c_ProductDetail.jsp";
+            location.href="c_productUpdate.jsp";
          });
          $("#productDeleteBtn").click(function(){
         	 var result = window.confirm("정말 삭제 하시겠습니까?");
