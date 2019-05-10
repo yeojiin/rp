@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/company/c_nav.css">
 <style>
  .sidenav1{
