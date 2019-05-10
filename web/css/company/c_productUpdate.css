@@ -1,42 +1,50 @@
 @charset "UTF-8";
 #productInsertArea h3{
-	color: salmon;
+   color: salmon;
 }
 #PUTable{
-	width: 100%;
+   width: 100%;
+}
+#PUTable td:first-child{
+   text-align: center;
+}
+input[name = startTime], input[name = endTime]{
+   width: 100%;
+}
+#space{
+   text-align: center;
 }
 #PUTable tr{
-	border-top: 1px solid lightgray;
-	border-bottom: 1px solid lightgray;	
+   border-top: 1px solid lightgray;
+   border-bottom: 1px solid lightgray;   
 }
-#PUTable td:nth-child(4), #PUTable td:nth-child(3){
-	width: 15%;
-}
-#PUTable td:nth-child(2), #PUTable td:nth-child(5){
-	width: 25%;
-}
-#PUTable td:first-child, #PUTable td:nth-child(3){
-	text-align: center;
+#puPrice{
+   width: 40%;
 }
 #PUTable select, #PUfooter{
-	width: 100%;
+   width: 100%;
 }
 #PURestDayCheck *{
-	margin-left: 10px;
+   margin-left: 10px;
+}
+#PUCalendar{
+   width: 100%;
+   height: 400px;
 }
 #PUTable textarea{
-	resize: none;
+   resize: none;
 }
 #PUTable th{
-	background: lightgray;
+   background: lightgray;
 }
 #PUBtns{
-	margin-right: auto;
-	margin-left: auto;
-	width: 220px;
+   margin-right: auto;
+   margin-left: auto;
+   width: 30%;
 }
-#PUInsertBtn, #PUResetBtn{
-	width: 100px;
+#PUInsertBtn, #PUResetBtn, #PUDeleteBtn{
+	font-size: 17px;
+    width: 100px;
     height: 26px;
     background: salmon;
     color: white;
@@ -45,8 +53,4 @@
     border-radius: 5px;
     cursor:pointer;
     margin-bottom: 3px;
-}
-#PUResetBtn{
-	float: right;
-	margin-top: -29px;
 }
