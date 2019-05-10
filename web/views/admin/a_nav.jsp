@@ -26,15 +26,14 @@
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">통계관리</a></li>
+					<li class="active"><a href="a_Sstats.jsp">통계관리</a></li>
 					<li><a href="#">정산관리</a></li>
-					<li><a href="#">업체관리</a></li>
+					<li><a href="a_Company.jsp">업체관리</a></li>
 					<li><a href="a_TotalMember.jsp">회원관리</a></li>
 					<li><a href="#">블랙리스트관리</a></li>
-					<li><a href="#">회원서비스관리</a></li>
-					<li><a href="#">이벤트&쿠폰</a></li>
+					<li><a href="#">쿠폰 관리</a></li>
 					<li><a href="#">커뮤니티</a></li>
-					<li><a href="#">고객센터</a></li>
+					<!-- <li><a href="#">고객센터</a></li> -->
 					
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
