@@ -1,1 +1,98 @@
 @charset "UTF-8";
+
+@charset "UTF-8";
+
+com_wrap{
+	width: 100%;
+}
+
+#com_title{
+	color: #989898;
+	font-family: 'Nanum Pen Script', cursive;
+	font-size : 40px;
+}
+
+
+
+#com_label{
+	font-weight : bold;
+	font-size : 23px;
+	font-family: 'Nanum Pen Script', cursive;
+}
+
+.comTable{
+	margin-left : 25%;
+	margin-right : auto;
+}
+
+.comTable tr>td{
+	padding-right : 100px;
+	padding-bottom : 20px;
+	font-family: 'Nanum Pen Script', cursive;
+	font-size : 18px;
+}
+
+.comTable td>button,input[type=button]{
+	border : 0;
+	outline : 0;
+	background: #FB6E5F;
+	color : white;
+	width : 70px;
+	height  : 25px;
+	border-radius : 6%;
+	font-family: 'Nanum Pen Script', cursive;
+	font-size : 15px;
+}
+
+.comTable td>button:hover,.comTable input[type=button]:hover{
+	background: white;
+	color : #FB6E5F;
+	border : 1px solid #FB6E5F;
+}
+
+.com_term{
+	margin-left : 25%;
+	margin-right : auto;
+}
+
+#all_check{
+	font-size : 20px;
+	font-family: 'Nanum Pen Script';
+	font-size : 20px;
+}
+
+.com_wrap textarea{
+	width : 500px;
+	height : 200px;
+	
+}
+
+#com_btn{
+	width : 300px;
+	margin-left : auto;
+	margin-right : auto;
+	margin-bottom : 7%;
+	align : center;
+	font-family: 'Nanum Pen Script', cursive;
+	font-size : 20px;
+}
+
+#com_btn input{
+	border : 0;
+	outline : 0;
+	background: #FB6E5F;
+	color : white;
+	width : 100px;
+	height  : 35px;
+	border-radius : 6%;
+}
+
+#com_btn input:hover{
+	background: white;
+	color : #FB6E5F;
+	border : 1px solid #FB6E5F;
+}
+
+#star{
+	color:red;
+}
