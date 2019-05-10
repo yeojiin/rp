@@ -22,78 +22,13 @@
 	href="${pageContext.request.contextPath}/css/company/c_main.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/common/layout.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/admin/a_memberOrder.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/semantic/semantic.min.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/semantic/transition.js">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/semantic/semantic.min.js">
+	href="<%=request.getContextPath()%>/css/semantic/accordion.css">
 
-<style>
-.memberArea table {
-	margin-left: auto;
-	margin-right: auto;
-	width: 100%;
-}
-
-.memberArea table th {
-	padding: 8px;
-	text-align: center;
-}
-
-.memberArea table tr td {
-	padding: 8px;
-	border-bottom: 1px solid lightgray;
-	text-align: center;
-}
-
-#memberNumt, #plusInfot {
-	border: 1px solid lightgray;
-}
-
-#detailt {
-	border-top: 1px solid gray;
-}
-
-#text1, #text2 {
-	float: left;
-	font-size: 25px;
-	margin-left: 0;
-}
-
-#text3, #text4 {
-	float: left;
-	font-size: 20px;
-	margin-left: 3%;
-}
-
-.sidenav1 {
-	color: black;
-	font-size: 20px;
-}
-
-ul {
-	list-style-type: none;
-	margin-right: 65px;
-	color: gray;
-}
-
-ul h3:hover {
-	background: mistyrose;
-}
-
-.btns {
-	float: right;
-}
-
-.search {
-	float: right;
-}
-
-.memberList {
-	text-align: center;
-}
-</style>
 <title>Insert title here</title>
 </head>
 <body>
@@ -103,13 +38,32 @@ ul h3:hover {
 	<div class="container-fluid text-center">
 		<div class="row content">
 
+		<div class="visible-md visible-lg visible-sm">
 			<div class="col-sm-2 sidenav1">
-				<ul>
-					<h3 onclick="javascript: location.href= 'a_TotalMember.jsp';">전체회원</h3>
-					<h3 onclick="javascript: location.href= 'a_MemberOrder.jsp';">주문내역</h3>
-					<h3 onclick="javascript: location.href= 'a_MemberInquiry.jsp';">문의</h3>
-				</ul>
+				<div class="sidenavArea">
+					<ul class="navList">
+						<li onclick="location.href='a_TotalMember.jsp'">전체 회원</li>
+						<li onclick="location.href='a_MemberOrder.jsp'" style="color:lightgray; padding-left:25px">주문내역</li>
+						<li onclick="location.href='a_MemberInquiry.jsp'">문의</li>
+					</ul>
+				</div>
 			</div>
+		</div>
+		
+		<div class="visible-xs sideListnav2">
+					<div class="col-sm-2 sidenav1">
+						<div class="sidenavArea2">
+						<ul class="navList2">
+						<li onclick="location.href='a_TotalMember.jsp'">전체 회원</li>
+						<li onclick="location.href='a_MemberOrder.jsp'" style="color:lightgray; padding-left:25px">주문내역</li>
+						<li onclick="location.href='a_MemberInquiry.jsp'">문의</li>
+						</ul>
+					</div>
+					</div>
+					
+					<br><br>
+				</div>
+			
 
 
 			<div class="col-sm-8 text-left">
@@ -200,7 +154,7 @@ ul h3:hover {
 								<td></td>
 							</tr>
 						</table>
-						<h4>< 1, 2, 3 ></h4>
+						<h4 style="text-align:center;">< 1, 2, 3 ></h4>
 						<br> <br>
 
 
@@ -253,7 +207,7 @@ ul h3:hover {
 
 
 				</div>
-
+</div>
 
 				<div class="col-sm-2 sidenav2"></div>
 
