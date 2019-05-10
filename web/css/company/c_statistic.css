@@ -2,8 +2,13 @@
 
 .monthgraph{
 	width : 100%;
-	height : 300px;
-	background : red;
+	height : 400px;
+	background : white;
+	border: 1px solid black;
+}
+
+.monthgraphArea h2{
+	font-family: 'Sunflower', sans-serif;
 }
 
 #monthTable{
@@ -11,8 +16,12 @@
 	margin-left : auto;
 	margin-right : auto;
 	margin-top : 2%;
+	text-align : center;
 }
 
 #monthTable tr>th , #monthTable tr>td{
 	border : 1px solid black;
+	text-align : center;
+	font-family: 'Sunflower', sans-serif;
 }
+

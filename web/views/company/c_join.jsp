@@ -52,7 +52,7 @@
 			
 			<div class = "com_wrap">
 			<h3 align = "center" id = "com_title">Join us</h3>
-			<form action = "<%=request.getContextPath() %>/companyjoin.me" method = "post">
+			<form action = "<%=request.getContextPath() %>/companyjoin.me" method = "post" id = "joinCompany">
 				<table class = "comTable">
 					<tr> 
 						<td colspan = "3" id = "com_label">기본 정보 </td>
@@ -67,16 +67,19 @@
 						<td>
 							<input type="text" maxlength="30" name="comid" id="comid">
 							<button type = "button" onclick = "registerCheckFunction()">중복확인</button>
+							<span id = "idcheck"></span>
 						</td>
 					</tr>
 					<tr>
 						<td>비밀번호<span id = "star">*</span></td>
-						<td><input type="password" name="userPwd" id="userPwd"></td>
+						<td><input type="password" name="userPwd" id="userPwd" onchange = "isSame()">
+						<span id = "pwdcheck1"></span></td>
 						<td></td>
 					</tr>
 					<tr>
 						<td>비밀번호 확인<span id = "star">*</span></td>
-						<td><input type="password" name="password2" id="password2"></td>
+						<td><input type="password" name="password2" id="password2" onchange = "isSame()">
+						<span id = "pwdcheck2"></span></td>
 						<td></td>
 					</tr>
 					<tr>
@@ -498,92 +501,98 @@ Redding
          </div>
          <br><br>
          <div id="com_btn">
-            <input id="reset" type="reset" value="뒤로가기">&nbsp;&nbsp;&nbsp;&nbsp;
-            <input id="submit" type="submit" value="회원가입">
+            <input type = "button"  id="reset" value="뒤로가기">&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type = "button" id="submit"  value="회원가입">
          </div>
           </form>
-          		<script>
-		    function execDaumPostcode() {
-		        new daum.Postcode({
-		            oncomplete: function(data) {
-		                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-		
-		                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-		                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-		                var addr = ''; // 주소 변수
-		                var extraAddr = ''; // 참고항목 변수
-		
-		                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-		                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-		                    addr = data.roadAddress;
-		                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-		                    addr = data.jibunAddress;
-		                }
-		
-		                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-		                if(data.userSelectedType === 'R'){
-		                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-		                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-		                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-		                        extraAddr += data.bname;
-		                    }
-		                    // 건물명이 있고, 공동주택일 경우 추가한다.
-		                    if(data.buildingName !== '' && data.apartment === 'Y'){
-		                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-		                    }
-		                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-		                    if(extraAddr !== ''){
-		                        extraAddr = ' (' + extraAddr + ')';
-		                    }
-		                    // 조합된 참고항목을 해당 필드에 넣는다.
-		                    document.getElementById("extraAddress").value = extraAddr;
-		                
-		                } else {
-		                    document.getElementById("extraAddress").value = '';
-		                }
-		
-		                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-		                document.getElementById('postcode').value = data.zonecode;
-		                document.getElementById("address").value = addr;
-		                // 커서를 상세주소 필드로 이동한다.
-		                document.getElementById("detailAddress").focus();
-		            }
-		        }).open();
-		        
-		    }
-		    
-		  
-		  
-		  function registerCheckFunction(){
-			 var UserId = $("#comid").val();
+          	<script>
+			    function execDaumPostcode() {
+			        new daum.Postcode({
+			            oncomplete: function(data) {
+			                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+			
+			                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+			                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+			                var addr = ''; // 주소 변수
+			                var extraAddr = ''; // 참고항목 변수
+			
+			                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+			                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+			                    addr = data.roadAddress;
+			                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+			                    addr = data.jibunAddress;
+			                }
+			
+			                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+			                if(data.userSelectedType === 'R'){
+			                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+			                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+			                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+			                        extraAddr += data.bname;
+			                    }
+			                    // 건물명이 있고, 공동주택일 경우 추가한다.
+			                    if(data.buildingName !== '' && data.apartment === 'Y'){
+			                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+			                    }
+			                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+			                    if(extraAddr !== ''){
+			                        extraAddr = ' (' + extraAddr + ')';
+			                    }
+			                    // 조합된 참고항목을 해당 필드에 넣는다.
+			                    document.getElementById("extraAddress").value = extraAddr;
+			                
+			                } else {
+			                    document.getElementById("extraAddress").value = '';
+			                }
+			
+			                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+			                document.getElementById('postcode').value = data.zonecode;
+			                document.getElementById("address").value = addr;
+			                // 커서를 상세주소 필드로 이동한다.
+			                document.getElementById("detailAddress").focus();
+			            }
+			        }).open();
+			        
+			    }
+			    
 			  
-			 $.ajax({
-				  type : "POST" ,
-				  url : "<%=request.getContextPath()%>/idcheck",
-				  data: {
-	                    UserId : UserId
-	               },
-				  sucess: function(result){
-					  console.log("result :" + result);
-					  if (result = 1){
-						  alert(UserId + "아이디를 사용가능합니다.");
-						  
-					  }else{
-						  alert(UserId + "아이디를 사용할수 없습니다.");
-					  } 
-					  
-					  System.out.println(result);
-					  
-					  alert("성공!");
-				  },
-				  error : function(error){
-					  alert("error :" + error);
-				  }
-				  
-			  });
-		  }
-		  
-		  
+			  
+			  function registerCheckFunction(){
+				  var userId = $("#comid").val();
+          		
+          		$.ajax({
+          			url : "/redding/idcheck.me",
+          			type : "post",
+          			data : {userId : userId},
+          			success : function(data){
+          				if (data === "success"){
+          					//alert("아이디 사용가능");
+          					$("#idcheck").text("아이디사용가능");
+          					$("#idcheck").css("color","blue");
+          				}else {
+          					$("#idcheck").text("아이디중복");
+          					$("#idcheck").css("color","red");
+          					$("#comid").val("");
+          				}
+          			}, 
+          			error : function(){
+          				console.log("실패!");
+          			}
+          		});
+			}
+			  
+		 
+			$(function(){
+				$("#submit").click(function(){
+					if($("#userPwd").val() != $("#password").val()){
+						alert("비밀번호가 틀렸습니다.");
+						return;
+					}
+					
+					
+					$("#joinCompany").submit();
+				})
+			});
 		</script>
 		</div>
 		

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,7 +95,6 @@
 									</select>&nbsp;-
 									<input type="text" name="tel2" style="width:60px;">&nbsp;-
 									<input type="text" name="tel3" style="width:60px;">&nbsp;&nbsp;&nbsp;&nbsp;
-									<button class="check">인증하기</button>
 								</td>
 							</tr>
 							<tr>
@@ -117,8 +116,8 @@
 								<td class="col1"><label>이메일&nbsp;&nbsp;</label><label class="star">*</label></td>
 								<td class="col2">
 									<input type="text" name="email1">&nbsp;&nbsp;@&nbsp;&nbsp;
-									<input type="text" name="email2">&nbsp;&nbsp;
-									<select name="email3">
+									<input type="text" name="email2" id = "email2">&nbsp;&nbsp;
+									<select name="email3" id = "email3">
 										<option>- 이메일 선택 -</option>
 										<option>naver.com</option>
 										<option>daum.net</option>
@@ -138,6 +137,12 @@
 								<td class="col2">
 									<input type="radio" name="gender" value="M" checked>남자&nbsp;&nbsp;&nbsp;&nbsp;
 									<input type="radio" name="gender" value="F">여자
+								</td>
+							</tr>
+							<tr>
+								<td class="col1"><label>결혼날짜&nbsp;&nbsp;</label></td>
+								<td class="col2">
+									<input type="date" name="weddingDate" value= "">&nbsp;&nbsp;&nbsp;&nbsp;
 								</td>
 							</tr>
 						</table>
@@ -351,6 +356,14 @@
 						console.log("통신 실패!")
 					}
 				});
+			});
+			
+			$("#email3").change(function(){
+				$("#email3").children().eq(0).attr("disabled","true");
+				
+				var value = $(this).val();
+				
+				$("#email2").val(value);
 			});
 		});
 	</script>

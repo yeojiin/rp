@@ -14,6 +14,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR"
 	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Sunflower:300" rel="stylesheet">
 <!-- 글꼴 -->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/common/footer.css">
@@ -32,7 +33,6 @@
 /* Set gray background color and 100% height */
 .sidenav1 {
 	padding-top: 20px;
-	background:MistyRose;
 	height: 100%;
 	text-align:left;
 	font-size:20px;
@@ -45,7 +45,7 @@
 		padding: 15px;
 	}
 	.row.content {
-		height: 1000px;
+		height: auto;
 	}
 }
 </style>
@@ -104,7 +104,7 @@
 					</table>
 				</div>	
 				<div class = "monthgraphArea">
-					<h2>월별 매출현황</h2>
+					<h2>요일별 매출현황</h2>
 					<div class = "monthgraph">
 						
 					</div>
@@ -112,34 +112,29 @@
 						<thead>
 							<tr>
 								<th></th>
-								<th>1월</th>
-								<th>2월</th>
-								<th>3월</th>
-								<th>4월</th>
-								<th>5월</th>
-								<th>6월</th>
-								<th>7월</th>
-								<th>8월</th>
-								<th>9월</th>
-								<th>10월</th>
-								<th>11월</th>
-								<th>12월</th>
+								<th>월요일</th>
+								<th>화요일</th>
+								<th>수요일</th>
+								<th>목요일</th>
+								<th>금요일</th>
+								<th>토요일</th>
+								<th>일요일</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<th>금액 </th>
-								<td colspan = "12">등록된 정보가 없습니다.</td>
+								<td colspan = "7">등록된 정보가 없습니다.</td>
 							</tr>
 							<tr>
 								<th>건수</th>
-								<td colspan = "12">등록된 정보가 없습니다.</td>
+								<td colspan = "7">등록된 정보가 없습니다.</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 				<div class = "monthgraphArea">
-					<h2>월별 매출현황</h2>
+					<h2>년 별 매출현황</h2>
 					<div class = "monthgraph">
 						
 					</div>
@@ -147,28 +142,20 @@
 						<thead>
 							<tr>
 								<th></th>
-								<th>1월</th>
-								<th>2월</th>
-								<th>3월</th>
-								<th>4월</th>
-								<th>5월</th>
-								<th>6월</th>
-								<th>7월</th>
-								<th>8월</th>
-								<th>9월</th>
-								<th>10월</th>
-								<th>11월</th>
-								<th>12월</th>
+								<th>2019년</th>
+								<th>2020년</th>
+								<th>2021년</th>
+								<th>2022년</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<th>금액 </th>
-								<td colspan = "12">등록된 정보가 없습니다.</td>
+								<td colspan = "4">등록된 정보가 없습니다.</td>
 							</tr>
 							<tr>
 								<th>건수</th>
-								<td colspan = "12">등록된 정보가 없습니다.</td>
+								<td colspan = "4">등록된 정보가 없습니다.</td>
 							</tr>
 						</tbody>
 					</table>
@@ -179,6 +166,7 @@
 			</div>
 		</div>
 		
+		</div>
 	</div>
 
 	<!-- 커먼 풋터 -->
