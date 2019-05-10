@@ -92,7 +92,7 @@
                      </tr>
                   </thead>
                   <tbody>
-                     <tr style="color:salmon">
+                     <tr style="color:salmon"  onclick="location.href='<%=request.getContextPath() %>/views/board/boardLook.jsp'">
                         <td>공지</td>
                         <td>제목1</td>
                         <td>관리자</td>
@@ -127,7 +127,7 @@
                   </tbody>
                </table>
                <!-- <hr style="align:center; border-color:black; width:100%;" > -->
-               <a class="btn btn-default" style="margin-left:10%">글쓰기</a>
+               <a class="btn btn-default" style="margin-left:10%" onclick="location.href='<%=request.getContextPath() %>/views/board/boardWrite.jsp'">글쓰기</a>
                
                <div class="text-center">
                   <ul class="pagination">
