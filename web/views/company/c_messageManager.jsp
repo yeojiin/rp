@@ -91,7 +91,10 @@
                      	<td>1</td>
                      	<td>2</td>
                      	<td>3</td>
-                     	<td>4</td>
+                     	<td>
+                     		<p id="messageContent"></p>
+                     		<p></p>
+                     	</td>
                      	<td>5</td>
                      	<td>6</td>
                      </tr>
@@ -110,29 +113,40 @@
                   </div>
                </div>
                
-               
                <div id="myModal" class="modal">
  
 				      <!-- Modal content -->
 				      <div class="modal-content">
-				        	<span class="close">&times;</span>                                                               
-					        <h3>답장하기</h3>
-					        <!-- 고객의 문의에 대한 답변 -->
-					        <div id="modalContent">
-					        	<input type="text" class="replyArea" name="reply" id="reply" value="해당쪽지의 수신인을 getAttribute(admin)로 가져오시오">
-					        	<input type="text" class="replyArea" name="replyTitle" id="replyTitle" value="'Re ) 관리자가 보낸 쪽지 제목'을 작성하세요">
-					        	<textarea id="replyContent" class="replyArea" name="replyContent", id="replyContent">
-					        		관리자의 쪽지 내용을 ajax로 서블릿에서 가져온다
-					        		--------------------------
-					        		쪽지 내용에 대한 답변 작성
-					     
-					        		</textarea>
-					        </div>
-					        <div id="sendBtn" align="center">보내기</div>
+				        	<span class="close">&times;</span> 
+				        	<form action="" method="post">
+				        		<div id="receiveArea">
+							        <h3>받은 쪽지</h3>
+							        <!-- 고객의 문의에 대한 답변 -->
+							        <div class="modalContent">
+							        	<label>발신인 </label> <input type="text" class="receiveMessage" name="receiveId" id="receiveId" value="해당쪽지의 수신인을 getAttribute(admin)로 가져오시오"readonly>
+							        	<label>수신날짜 </label> <input type="text" class="receiveMessage" name="receiveDay" id="receiveDay" value="받은 쪽지 날짜"readonly>
+							        	<textarea class="receiveMessage" name="receiveContent" id="receiveContent"readonly>
+							        		관리자의 쪽지 내용을 ajax로 서블릿에서 가져온다
+							     
+							        	</textarea>
+							        </div>
+				        		</div>
+				        		<div id="sendArea">
+				        			<h3>답장 보내기</h3>
+				        			<input type="text" class="sendMessage" name="sendId" id="sendId" value="해당쪽지의 발신인을 '본인' getAttribute(admin)로 가져오시오"readonly>
+							        	<input type="text" class="receiveMessage" name="sendDay" id="sendDay" value="오늘 날짜"readonly>
+							        	<textarea class="sendMessage" name="sendContent" id="sendContent">
+							        		
+							        		쪽지 내용에 대한 답변 작성
+							     
+							        	</textarea>
+				        		</div>
+						        <div id="sendBtn" align="center">보내기</div>
+				        		
+				        	</form>                                                              
 				      </div>
 				 
 				  </div>
-               
                
                <div id="sendMessageArea">
                   <!-- 예약자 정보 조회 -->   
@@ -208,7 +222,13 @@
 		});
 		$("#sendBtn").click(function(){
    			location.href="<%=request.getContextPath()%>/views/company/c_messageManager.jsp";
-   		});
+   		});		
+		
+		/* ajax로 해야 됨 */
+		var totalContent = "우는 품고 끓는 거선의 있는 것은 바로 인류의 청춘이 운다. 뜨거운지라, 이상 하여도 곳으로 관현악이며, 가치를 그러므로 사막이다. 꾸며 풀이 얼마나 보는 보내는 청춘 것이다.천지는 노래하며 고행을 가는 피다. 뜨거운지라, 가슴이 않는 예가 칼이다. 공자는 따뜻한 새 간에 가치를 들어 피가 가장 설산에서 보라. 내는 같이, 싹이 아름다우냐? 얼음과 가지에 꽃이 그들의 인생을 광야에서 그리하였는가? 몸이 너의 때까지 이것을 뼈 그들의 천하를 약동하다. 산야에 심장은 거친 무엇을 끓는 구하지 것이다. 커다란 같이, 보는 못할 아름답고 보이는 영원히 너의 때문이다. 천고에 자신과 우리의 우리의 풀이 이것이다. 타오르고 고동을 그러므로 구하지 약동하다. 놀이 그것을 그들은 앞이 이상의 이상이 길지 부패뿐이다.";		
+		var sampleContent = totalContent.substr(0,30) + "...";
+		$("#messageContent").text(sampleContent);
+		
    	});
    </script>
 </body>

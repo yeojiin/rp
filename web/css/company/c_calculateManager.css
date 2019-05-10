@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+.subSubTitle {
+	font-size:20px;
+	font-family:'Noto Sans KR', sans-serif;
+}
+.calculateStandByList {
+	width:100%;
+	background:white;
+	text-align:center;
+	font-family:'Noto Sans KR', sans-serif;
+}
+.calculateStandByList tr {
+	height:40px;
+}
+.calculateStandByList thead {
+	background:gray;
+	color:white;
+	border-bottom:2px solid gray;
+}
+.calculateStandByList tbody tr {
+	border-bottom:2px solid gray;
+}
+.calculateStandByList tfoot {
+}
+.hold, .normal {
+	border-style:none;
+	background:#ff7566;
+	color:white;
+}
+.paging {
+	border-style:none;
+	background:whitesmoke;
+	color:gray;
+}

@@ -1,9 +1,5 @@
 @charset "UTF-8";
 
-html {
-	font-family: 'Noto Sans KR', sans-serif;
-}
-
 .sidenav1 ul{
 	list-style: none;
     margin: 0;
@@ -12,11 +8,21 @@ html {
 
 .sidenav1 li{
 	padding : 10px;
+    font-family: 'Sunflower', sans-serif;
+}
+
+.sidenav1 li:hover{
+	background : mistyrose;
+}
+
+.con1{
+	font-family: 'Sunflower', sans-serif;
 }
 
 #photoTable h4{
 	padding-left : 15px;
 }
+
 
 #conTitlephoto{
 	width : 300px;
@@ -52,10 +58,72 @@ html {
 	border : 0;
 	background :#FB6E5F;
 	border-radius : 5%;
+	font-size : 20px;
 }
 
 #photoadd:hover{
 	color : #FB6E5F;
 	background :white;
 	border-radius : 5%;
+}
+
+
+.comTable{
+	width : 100%;
+}
+
+.comTable tr>th{
+	padding-right : 100px;
+	padding-bottom : 20px;
+	font-size : 18px;
+}
+
+
+.comTable tr>td{
+	padding-right : 100px;
+	padding-bottom : 20px;
+	font-size : 18px;
+}
+
+.comTable td>button,input[type=button]{
+	border : 0;
+	outline : 0;
+	background: #FB6E5F;
+	color : white;
+	width : 100px;
+	height  : 30px;
+	border-radius : 6%;
+	font-size : 15px;
+}
+
+.comTable td>button:hover,.comTable input[type=button]:hover{
+	background: white;
+	color : #FB6E5F;
+	border : 1px solid #FB6E5F;
+}
+
+.com_term{
+	margin-left : 25%;
+	margin-right : auto;
+}
+
+.form-group button{
+	border : 0;
+	outline : 0;
+	background: #FB6E5F;
+	color : white;
+	width : 100px;
+	height  : 30px;
+	border-radius : 6%;
+	font-size : 15px;
+}
+
+.form-group button:hover{
+	background: white;
+	color : #FB6E5F;
+	border : 1px solid #FB6E5F;
+}
+
+#combtn{
+	margin-left : 300%;
 }
