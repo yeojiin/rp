@@ -49,6 +49,7 @@ public class MemberDao {
 				loginUser.setMno(rset.getInt("MNO"));
 				loginUser.setMemberId(rset.getString("MID"));
 				loginUser.setMemberPwd(rset.getString("MPWD"));
+				loginUser.setMemberName(rset.getString("MNAME"));
 				loginUser.setNickName(rset.getString("NICK_NAME"));
 				loginUser.setPhone(rset.getString("PHONE"));
 				loginUser.setEmergenCon(rset.getString("EMERGEN_CON"));

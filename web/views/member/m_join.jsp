@@ -51,7 +51,7 @@
 					
 					<br><br><br>
 					<label class="title">JOIN</label><br>
-					<label class="subTitle">welcome to redding</label>
+					<label class="welcome">welcome to redding</label>
 					<br><br><br>
 					
 					<form id="joinForm" action="<%=request.getContextPath()%>/insertMember.me" method="post">
@@ -60,7 +60,7 @@
 								<td class="col1"><label>아이디&nbsp;&nbsp;</label><label class="star">*</label></td>
 								<td class="col2">
 									<input type="text" name="memberId">&nbsp;&nbsp;&nbsp;&nbsp;
-									<button class="check">아이디중복확인</button>&nbsp;&nbsp;&nbsp;&nbsp;(영문소문자/숫자, 4~16자)
+									<button class="check" id="idCheck">아이디중복확인</button>&nbsp;&nbsp;&nbsp;&nbsp;(영문소문자/숫자, 4~16자)
 								</td>
 							</tr>
 							<tr>
@@ -332,6 +332,27 @@
 		function insertMember() {
 			$("#joinForm").submit();
 		}
+		$(function() {
+			$("#idCheck").click(function() {
+				var memberId = $("#memberId").val();
+				
+				$.ajax({
+					url:"/redding/idCheck.me",
+					type:"post",
+					data:{memberId:memberId},
+					success:function(data) {
+						if(data === "fail") {
+							alert("중복된 아이디가 존재합니다.");
+						}else {
+							alert("사용가능한 아이디입니다.");
+						}
+					},
+					error:function(data) {
+						console.log("통신 실패!")
+					}
+				});
+			});
+		});
 	</script>
 
 </body>

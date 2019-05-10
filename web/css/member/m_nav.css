@@ -3,6 +3,7 @@
  .navbar-inverse {
 	background:MistyRose;
 	border:1px solid MistyRose;
+	margin-bottom:0;
 }
 .navBtn {
 	height:70px;

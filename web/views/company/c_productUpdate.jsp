@@ -22,7 +22,7 @@
 <link rel="stylesheet" type="text/css"
    href="${pageContext.request.contextPath}/css/company/c_main.css">
 <link rel="stylesheet" type="text/css"
-   href="${pageContext.request.contextPath}/css/company/c_productInsert.css"> 
+   href="${pageContext.request.contextPath}/css/company/c_productUpdate.css"> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <style>
    .row.content {
@@ -64,11 +64,11 @@
          <%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
          
             <div class="contentsArea" id="productInsertArea">
-            	<div id="PIHeader">
-            		<h3>상품등록 페이지</h3>
+            	<div id="PUHeader">
+            		<h3>상품수정 페이지</h3>
             	</div>
-            	<div id="PISection">
-           			<table id="PITable">
+            	<div id="PUSection">
+           			<table id="PUTable">
            				<tr>
            					<th>&nbsp;</th>
            					<th>&nbsp;</th>
@@ -81,7 +81,7 @@
            						<label>구분</label>
            					</td>
            					<td>
-           						<select id="PICategorySelect" name="">
+           						<select id="PUCategorySelect" name="">
            							<option>리허설</option>
            							<option>리허설 + 본식</option>
            							<option>본식</option>
@@ -94,7 +94,7 @@
            						<label>담당자</label>
            					</td>
            					<td>
-           						<select id="PIManagerSelect" name="">
+           						<select id="PUManagerSelect" name="">
            							<option>원장</option>
            							<option>부원장</option>
            							<option>팀장</option>
@@ -116,7 +116,7 @@
            						<label>휴무일</label>
            					</td>
            					<td colspan="4">
-           						<div id="PIRestDayCheck">
+           						<div id="PURestDayCheck">
 	           						<input class="restDayCheck" type="checkbox" name="restDay" id="monday" value="">
 	           						<label for="monday">월</label>
 	           						<input type="checkbox" name="restDay" id="thuesday" value="">
@@ -156,10 +156,10 @@
            			</table>
             	
             	</div>
-               	<div id="PIfooter">
-               		<div id="PIBtns">
-	               		<div id="PIInsertBtn">등록하기</div>
-	               		<div id="PIResetBtn">취소하기</div>
+               	<div id="PUfooter">
+               		<div id="PUBtns">
+	               		<div id="PUInsertBtn">수정하기</div>
+	               		<div id="PUResetBtn">취소하기</div>
                		</div>
                	</div>
               
@@ -178,13 +178,13 @@
    </div>
    <script>
 	   $(function(){
-			$("#PIInsertBtn").click(function(){
-				alert("상품을 등록하셨습니다.");
+			$("#PUInsertBtn").click(function(){
+				alert("상품을 수정하셨습니다.");
 				location.href="<%=request.getContextPath()%>/views/company/c_ProductManagement.jsp";
 				/* 서블릿을 통해 전체상품의 수량을 증가 시켜준다. */
 			});
-			$("#PIResetBtn").click(function(){
-				alert("상품등록을 취소하셨습니다.");
+			$("#PUResetBtn").click(function(){
+				alert("상품수정을 취소하셨습니다.");
 				location.href="<%=request.getContextPath()%>/views/company/c_ProductManagement.jsp";
 			});
 	   });
