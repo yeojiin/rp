@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+#noticeContent{
+	text-align : center;
+}
+
+.wrap{
+	width : 100%;
+}
+
+.noticetable{
+	width : 50%;
+	height : 50%;
+	margin-left : auto;
+	margin-right : auto;
+	margin-top : 2%;
+}
+
+.noticetable td {
+	color : black;
+}
+
+.noticetable tr>td:first-child{
+	
+}
