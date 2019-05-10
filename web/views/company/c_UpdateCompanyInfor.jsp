@@ -14,6 +14,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR"
 	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Sunflower:300" rel="stylesheet">
 <!-- 글꼴 -->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/common/footer.css">
@@ -34,7 +35,6 @@
 /* Set gray background color and 100% height */
 .sidenav1 {
 	padding-top: 20px;
-	background: MistyRose;
 	height: 100%;
 	text-align: left;
 	font-size: 20px;
@@ -52,7 +52,7 @@
 		padding: 15px;
 	}
 	.row.content {
-		height: 1000px;
+		height: auto;
 	}
 }
 </style>
@@ -115,30 +115,30 @@
 							<tr>
 								<td>
 									<div class="form-group">
-										<button>변경하기</button>
-									</div>
+										<button id = "pwdbtn">변경하기</button>
+									</div> 
 								</td>
 							</tr>
 						</table>
 						<hr>
-						<table>
+						<table class = "comTable">
 							<tr>
 								<td>
 									<h2>회원정보 변경</h2>
 								</td>
 							</tr>
 							<tr>
-								<td>사업자 등록번호<span id="star">*</span></td>
+								<th>사업자 등록번호</th>
 								<td><input type="text" id="reg_num" name="reg_num"
 									maxlength="10">
 									<button>확인</button></td>
 							</tr>
 							<tr>
-								<td>아이디<span id="star">*</span></td>
-								<td></td>
+								<th>아이디</th>
+								<td><input type = "text" name = "userId" id = "userId"></td>
 							</tr>
 							<tr>
-								<td>업체 종류<span id="star">*</span></td>
+								<th>업체 종류<span id="star">*</span></th>
 								<td><input type="radio" name="company_type" id="studio"
 									value="스튜디오" checked> <label for="studio">스튜디오</label>
 									<input type="radio" name="company_type" id="dress" value="드레스">
@@ -147,25 +147,25 @@
 									for="make">메이크업 & 헤어</label></td>
 							</tr>
 							<tr>
-								<td>업체명<span id="star">*</span></td>
+								<th>업체명<span id="star">*</span></th>
 								<td><input type="text" maxlength="30" name="name" id="name"></td>
 								<td></td>
 							</tr>
 							<tr>
-								<td>대표자 명<span id="star">*</span></td>
+								<th>대표자 명<span id="star">*</span></th>
 								<td><input type="text" maxlength="30" name="rep_name"
 									id="rep_name"></td>
 								<td></td>
 							</tr>
 							<tr>
-								<td>휴대전화<span id="star">*</span></td>
+								<th>휴대전화<span id="star">*</span></th>
 								<td><input type="text" maxlength="3" name="phone1"
 									id="phone1" size="5"> - <input type="text"
 									maxlength="4" name="phone2" id="phone2" size="5"> - <input
 									type="text" maxlength="4" name="phone3" id="phone3" size="5"></td>
 							</tr>
 							<tr>
-								<td>주소<span id="star">*</span></td>
+								<th>주소<span id="star">*</span></th>
 								<td><input type="text" id="postcode" placeholder="우편번호"
 									name="postcode"> <input type="button"
 									onclick="execDaumPostcode()" value="우편번호 찾기"><br>
@@ -184,7 +184,7 @@
 									name="extraAddress"></td>
 							</tr>
 							<tr>
-								<td>입금계좌<span id="star">*</span></td>
+								<th>입금계좌<span id="star">*</span></th>
 								<td><select name="accountcode">
 										<option>-- 은행선택 --</option>
 										<option value="011">NH농협</option>
@@ -210,7 +210,7 @@
 							<tr>
 								<td></td>
 								<td><input type="text" name="account_num" id="account_num"
-									placeholder="계좌번호(-없이 적어주세요)"></td>
+									placeholder="계좌번호(-없이 적어주세요)" style = "width: 350px"></td>
 							</tr>
 							<tr>
 								<td></td>
@@ -218,25 +218,25 @@
 									id="account_name" placeholder="예금주"></td>
 							</tr>
 							<tr>
-								<td>이메일<span id="star">*</span></td>
+								<th>이메일<span id="star">*</span></th>
 								<td><input type="email" name="email" id="email">
 									<button>인증하기</button> <input id="email_check"
 									name="email_check" type="hidden" value="인증안됨"></td>
 							</tr>
 							<tr>
-								<td>홈페이지</td>
+								<th>홈페이지</th>
 								<td><input type="url" name="homepage" id="homepage"
 									placeholder="http://"></td>
 							</tr>
 							<tr>
-								<td>영업시간</td>
+								<th>영업시간</th>
 								<td><input type="time" name="strartime" id="strartime">
 									~ <input type="time" name="endtime" id="endtime"></td>
 							</tr>
 							<tr>
 								<td>
 									<div class="form-group">
-										<button>변경하기</button>
+										<button id = "combtn">변경하기</button>
 									</div>
 								</td>
 							</tr>
