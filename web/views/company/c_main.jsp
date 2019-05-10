@@ -34,6 +34,8 @@
 	padding-top: 20px;
 	background:MistyRose;
 	height: 100%;
+	text-align:left;
+	font-size:20px;
 }
 
 /* On small screens, set height to 'auto' for sidenav and grid */
@@ -43,7 +45,7 @@
 		padding: 15px;
 	}
 	.row.content {
-		height: auto;
+		height: 1000px;
 	}
 }
 </style>
@@ -52,6 +54,7 @@
 
 	<!-- 업체 나브 -->
 	<div>
+		
 		<jsp:include page="/views/company/c_nav.jsp"></jsp:include>
 	</div>
 
@@ -64,7 +67,10 @@
 			
 			<div class="col-sm-8 text-left">
 			<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
-			
+													
+													
+													
+													
 				<div class="contentsArea">
 
 				</div>
@@ -72,8 +78,10 @@
 			</div>
 			
 			
-			<div class="col-sm-2 sidenav2"></div>
+			<div class="col-sm-2 sidenav2">
+			</div>
 		</div>
+		
 	</div>
 
 	<!-- 커먼 풋터 -->

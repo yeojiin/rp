@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="redding.member.model.vo.Member"%>
 <%
-	Member loginUser = (Member) session.getAttribute("loginUser");
+   Member loginUser = (Member) session.getAttribute("loginUser");
 %>
 <!DOCTYPE html>
 <html>
@@ -44,6 +44,6 @@
 			location.href='<%=request.getContextPath()%>/views/common/login.jsp';
 		}
 	</script>
+
 </body>
 </html>
-

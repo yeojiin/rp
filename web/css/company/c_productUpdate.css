@@ -1,0 +1,52 @@
+@charset "UTF-8";
+#productInsertArea h3{
+	color: salmon;
+}
+#PUTable{
+	width: 100%;
+}
+#PUTable tr{
+	border-top: 1px solid lightgray;
+	border-bottom: 1px solid lightgray;	
+}
+#PUTable td:nth-child(4), #PUTable td:nth-child(3){
+	width: 15%;
+}
+#PUTable td:nth-child(2), #PUTable td:nth-child(5){
+	width: 25%;
+}
+#PUTable td:first-child, #PUTable td:nth-child(3){
+	text-align: center;
+}
+#PUTable select, #PUfooter{
+	width: 100%;
+}
+#PURestDayCheck *{
+	margin-left: 10px;
+}
+#PUTable textarea{
+	resize: none;
+}
+#PUTable th{
+	background: lightgray;
+}
+#PUBtns{
+	margin-right: auto;
+	margin-left: auto;
+	width: 220px;
+}
+#PUInsertBtn, #PUResetBtn{
+	width: 100px;
+    height: 26px;
+    background: salmon;
+    color: white;
+    border: 2px double salmon;
+    text-align: center;
+    border-radius: 5px;
+    cursor:pointer;
+    margin-bottom: 3px;
+}
+#PUResetBtn{
+	float: right;
+	margin-top: -29px;
+}
