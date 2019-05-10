@@ -7,11 +7,6 @@
 <title>Insert title here</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/company/c_nav.css">
-<style>
- .sidenav1{
- 	height:2000px !important;
- }
-</style>
 </head>
 <body>
 	<nav class="navbar navbar-inverse">
@@ -31,7 +26,7 @@
 					<li><a href="a_Company.jsp">업체관리</a></li>
 					<li><a href="a_TotalMember.jsp">회원관리</a></li>
 					<li><a href="#">블랙리스트관리</a></li>
-					<li><a href="#">쿠폰 관리</a></li>
+					<li><a href="a_event.jsp">쿠폰 관리</a></li>
 					<li><a href="#">커뮤니티</a></li>
 					<!-- <li><a href="#">고객센터</a></li> -->
 					

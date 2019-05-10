@@ -1,0 +1,62 @@
+.CouponArea{
+	width:100%;
+	
+}
+.inputArea{
+	float:right;
+}
+
+.CouponDetailArea{
+	width:100%;
+	border:1px solid black;
+	height:auto;
+	text-align:center;
+	float:left;
+}
+
+.CouponDetailArea table{
+	width:100%;	
+	text-align:center;
+}
+.CouponDetailArea img{
+	width:90%;
+	height:auto;
+}
+
+input[type="checkbox"]{
+	float:right;
+	margin-right:10px;
+}
+
+.contentArea1 td{
+	padding:10px;	
+}
+
+.contentArea2 td{
+	padding:20px;	
+}
+
+.cselectBtnArea label{
+	width:3%;
+}
+
+.cselectBtnArea label:hover{
+	background:salmon;
+	border-radius:25%;
+	cursor:pointer;
+}
+
+.esidenavArea{
+	margin-top:25px;
+}
+.text-left{
+	margin-top:25px;
+}
+
+
+
+<!-- 모달 영역 -->
+.modalContent img{
+	width:10% !important;
+	
+}

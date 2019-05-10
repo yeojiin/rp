@@ -18,8 +18,6 @@
 	href="${pageContext.request.contextPath}/css/common/footer.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/admin/a_nav.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/company/c_main.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin/a_stats.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common/layout.css">
 <title>Insert title here</title>
