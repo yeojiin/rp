@@ -22,71 +22,14 @@
 	href="${pageContext.request.contextPath}/css/company/c_main.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/common/layout.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/admin/a_totalMember.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/semantic/semantic.min.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/semantic/transition.js">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/semantic/semantic.min.js">
-
-
-
-
+<script src="<%=request.getContextPath()%>/css/semantic/semantic.min.js"></script>	
+<script src="<%=request.getContextPath()%>/css/semantic/jquery-3.4.1.min.js"></script>
 <style>
-.memberArea table {
-	margin-left: auto;
-	margin-right: auto;
-	width: 100%;
-}
 
-.memberArea table th {
-	padding: 8px;
-	text-align: center;
-}
-
-.memberArea table tr td {
-	padding: 8px;
-	border-bottom: 1px solid gray;
-	text-align: center;
-}
-
-#memberNumt, #plusInfot {
-	border: 1px solid gray;
-}
-
-#detailt {
-	border-top: 1px solid gray;
-}
-
-#text1, #text2 {
-	float: left;
-	font-size: 25px;
-	margin-left: 0;
-}
-
-#text3, #text4 {
-	float: left;
-	font-size: 20px;
-	margin-left: 3%;
-}
-
-.sidenav1 {
-	color: black;
-	font-size: 20px;
-}
-
-ul {
-	list-style-type: none;
-	margin-right: 65px;
-	color:gray;
-}
-ul h3:hover{
-	background:mistyrose;
-}
-
-.btns {
-	float: right;
-}
 </style>
 <title>Insert title here</title>
 </head>
@@ -94,16 +37,36 @@ ul h3:hover{
 	<div>
 		<jsp:include page="/views/admin/a_nav.jsp"></jsp:include>
 	</div>
+	
 	<div class="container-fluid text-center">
 		<div class="row content">
 
+		<div class="visible-md visible-lg visible-sm">
 			<div class="col-sm-2 sidenav1">
-				<ul>
-					<h3 onclick="javascript: location.href= 'a_TotalMember.jsp';">전체회원</h3>
-					<h3 onclick="javascript: location.href= 'a_MemberOrder.jsp';">주문내역</h3>
-					<h3 onclick="javascript: location.href= 'a_MemberInquiry.jsp';">문의</h3>
-				</ul>
+				<div class="sidenavArea">
+					<ul class="navList">
+						<li onclick="location.href='a_TotalMember.jsp'">전체 회원</li>
+						<li onclick="location.href='a_MemberOrder.jsp'"  style="color:lightgray; padding-left:25px">주문내역</li>
+						<li onclick="location.href='a_MemberInquiry.jsp'">문의</li>
+					</ul>
+				</div>
 			</div>
+		</div>
+		
+		<div class="visible-xs sideListnav2">
+					<div class="col-sm-2 sidenav1">
+						<div class="sidenavArea2">
+						<ul class="navList2">
+						<li onclick="location.href='a_TotalMember.jsp'">전체 회원</li>
+						<li onclick="location.href='a_MemberOrder.jsp'"  style="color:lightgray; padding-left:25px">주문내역</li>
+						<li onclick="location.href='a_MemberInquiry.jsp'">문의</li>
+						</ul>
+					</div>
+					</div>
+					
+					<br><br>
+				</div>
+			
 
 
 			<div class="col-sm-8 text-left">
@@ -215,57 +178,51 @@ ul h3:hover{
 										<td>010-5123-7872</td>
 									</tr>
 								</table>
-							</div>
-
-
-
-							<br> <br>
-							<div class="memberPlusInfo">
-								<h4 id="text4">추가정보</h4>
-								<br> <br>
-
-								<!-- <table id="plusInfot">
-								<tr>
-									<td style="background: lightgray;">설문조사
-									<button style="float:right;" id="down">▼</button>
-									</td>
-								</tr>
-							</table>
-							<table id="survey">
-								<tr>
-									<td>설</td>
-								</tr>
-								<tr>
-									<td>문</td>
-								</tr>
-								<tr>
-									<td>조</td>
-								</tr>
-								<tr>
-									<td>사</td>
-								</tr>
-							</table> -->
-
-
-
-								<div class="ui styled fluid accordion">
-									<div class="title active">
-										<i class="dropdown icon"></i>설문조사
-									</div>
-									<div class="content active">
-										<p class="transition visible"
-											style="display: block !important;">상세내용</p>
-									</div>
-								</div>
-
-							</div>
-							<br>
-
-							<div class="btns">
+									<div class="btns">
 								<button class="ui pink button" style="background:salmon;">블랙리스트 추가</button>
 								<button class="ui pink button" style="background:salmon;">탈퇴</button>
 							</div>
+								
+							</div>
 
+
+
+								<br> <br> <br> <br>
+
+								<div class="survey">
+									<h4 id="surveyTitle" onclick="surveyClick(this);">설문조사 <i class="dropdown icon"></i></h4>
+									<table class="surveyTable" id="surveyContent" style="display:none;">
+										<tr id="surveyHead">
+											<th>번호</th>
+											<th>질문</th>
+											<th>내용</th>
+										</tr>
+										<tr>
+											<td>1</td>
+											<td>예식장을 예약하셨나요?</td>
+											<td>Y</td>
+										</tr>
+										<tr>
+											<td>2</td>
+											<td>선호하는 드레스 스타일은?</td>
+											<td><p>보헤미안 스타일</p></td>
+										</tr>
+										<tr>
+											<td>3</td>
+											<td></td>
+											<td></td>
+										</tr>
+										<tr>
+											<td>4</td>
+											<td></td>
+											<td></td>
+										</tr>
+									</table>
+								</div>
+
+							<br>
+
+						
 
 
 						</div>
@@ -280,10 +237,26 @@ ul h3:hover{
 
 			</div>
 		</div>
+		</div>
+		
 
 		<!-- 커먼 풋터 -->
 		<div class="footerArea">
 			<jsp:include page="/views/common/footer.jsp"></jsp:include>
 		</div>
+		
+		<script>
+			function surveyClick(obj){
+				var tr = $(obj);
+				var sub = tr.next();
+				
+				if(sub.is(":visible")){
+					sub.slideUp();
+				}else{
+					sub.slideDown();
+				}
+			}
+		</script>
+		
 </body>
 </html>

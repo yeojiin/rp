@@ -14,6 +14,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR"
 	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Sunflower:300" rel="stylesheet">
 <!-- 글꼴 -->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/common/footer.css">
@@ -31,7 +32,6 @@
 /* Set gray background color and 100% height */
 .sidenav1 {
 	padding-top: 20px;
-	background: MistyRose;
 	height: 100%;
 	text-align: left;
 	font-size: 20px;
@@ -51,7 +51,7 @@
 		padding: 15px;
 	}
 	.row.content {
-		height: 1000px;
+		height: auto;
 	}
 }
 </style>

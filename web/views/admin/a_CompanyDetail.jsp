@@ -17,81 +17,15 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/common/footer.css">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/company/c_nav.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/company/c_main.css">
+	href="${pageContext.request.contextPath}/css/admin/a_nav.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/common/layout.css">
+<link rel="stylesheet" type="text/css" 
+	href="${pageContext.request.contextPath}/css/admin/a_companyDetail.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/semantic/semantic.min.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/semantic/transition.js">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/semantic/semantic.min.js">
 
-<style>
-.memberArea table {
-	margin-left: auto;
-	margin-right: auto;
-	width: 100%;
-}
-
-.memberArea table th {
-	padding: 8px;
-	text-align: center;
-}
-
-.memberArea table tr td {
-	padding: 8px;
-	border-bottom: 1px solid gray;
-	text-align: center;
-}
-
-#memberNumt, #plusInfot {
-	border-bottom: 1px solid gray;
-	border-top: 1px solid gray;
-	width: 100%;
-}
-
-#text1, #text2 {
-	float: left;
-	font-size: 25px;
-	margin-left: 0;
-}
-
-#text3, #text4 {
-	float: left;
-	font-size: 20px;
-	margin-left: 3%;
-}
-
-.sidenav1 {
-	color: black;
-	font-size: 20px;
-}
-
-ul {
-	list-style-type: none;
-	margin-right: 65px;
-	color: gray;
-}
-
-ul h3:hover {
-	background: mistyrose;
-}
-.btns{
-	margin-left:auto;
-	margin-right:auto;
-}
-.search {
-	float: right;
-}
-
-.memberList {
-	text-align: center;
-}
-</style>
-<title>Insert title here</title>
+<title>Redding♥</title>
 </head>
 <body>
 	<div>
@@ -99,26 +33,45 @@ ul h3:hover {
 	</div>
 	<div class="container-fluid text-center">
 		<div class="row content">
-
+		
+			<div class="visible-md visible-lg visible-sm">
 			<div class="col-sm-2 sidenav1">
-				<ul>
-					<h3 onclick="javascript: location.href= 'a_Company.jsp';">업체 목록</h3>
-					<h3 onclick="javascript: location.href= 'a_CompanyDetail.jsp';">업체 정보 조회</h3>
-					<h3 onclick="javascript: location.href= 'a_Message.jsp';">업체 쪽지 관리</h3>
-				</ul>
+				<div class="sidenavArea">
+					<ul class="navList">
+						<li onclick="location.href='a_Company.jsp'">업체 목록</li>
+						<li onclick="location.href= 'a_CompanyDetail.jsp';" style="color:lightgray; padding-left:25px">업체 정보 조회</li>
+						<li onclick="location.href= 'a_Message.jsp';">업체 쪽지 관리</li>
+					</ul>
+				</div>
 			</div>
+		</div>
+		
+		<div class="visible-xs sideListnav2">
+					<div class="col-sm-2 sidenav1">
+						<div class="sidenavArea2">
+							<ul class="navList2">
+								<li onclick="location.href='a_Company.jsp'">업체 목록</li>
+								<li onclick="location.href= 'a_CompanyDetail.jsp';" style="color:lightgray; padding-left:25px">업체 정보 조회</li>
+								<li onclick="location.href= 'a_Message.jsp';">업체 쪽지 관리</li>
+							</ul>
+					</div>
+					</div>
+					
+					<br><br>
+				</div>
+		
 
 
 			<div class="col-sm-8 text-left">
 				<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
-				<div class="memberArea">
-					<div class="memberNum">
+				<div class="comapnyArea">
+					<div class="comapnyNum">
 						<br>
 						<h2>업체정보조회</h2>
-						<table id="memberNumt">
+						<table id="comapnyNumt">
 							<tr>
-								<td width="200" style="background: lightgray;"><span>사용자
-										등록 번호</span></td>
+								<td width="200" style="background: lightgray;">
+								<span>사용자 등록 번호</span></td>
 								<td><input type="text" class="form-control"
 									value="123456789" disabled></td>
 								<td colspan="5"></td>

@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+#b1 {
+	width:100%;
+	align:center;
+	background:salmon;
+}
+#t-name {
+	font-size:20px;
+}

@@ -112,6 +112,7 @@ ul h3:hover {
 			<div class="col-sm-8 text-left">
 				<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 				<div class="messageArea">
+				
 					<div class="message">
 						<br>
 						<div class="recieveMessage">
@@ -119,7 +120,7 @@ ul h3:hover {
 							<br>
 								<div class="ui category search">
 									<div class="ui icon input">
-										<select></select> <input class="prompt" type="text"> 
+										<select ></select> <input class="prompt" type="text"> 
 										<i class="search icon"></i>
 									</div>
 								</div>
