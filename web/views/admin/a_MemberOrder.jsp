@@ -29,9 +29,6 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/semantic/semantic.min.js">
 
-
-
-
 <style>
 .memberArea table {
 	margin-left: auto;
@@ -46,12 +43,12 @@
 
 .memberArea table tr td {
 	padding: 8px;
-	border-bottom: 1px solid gray;
+	border-bottom: 1px solid lightgray;
 	text-align: center;
 }
 
 #memberNumt, #plusInfot {
-	border: 1px solid gray;
+	border: 1px solid lightgray;
 }
 
 #detailt {
@@ -78,14 +75,23 @@
 ul {
 	list-style-type: none;
 	margin-right: 65px;
-	color:gray;
+	color: gray;
 }
-ul h3:hover{
-	background:mistyrose;
+
+ul h3:hover {
+	background: mistyrose;
 }
 
 .btns {
 	float: right;
+}
+
+.search {
+	float: right;
+}
+
+.memberList {
+	text-align: center;
 }
 </style>
 <title>Insert title here</title>
@@ -113,10 +119,14 @@ ul h3:hover{
 						<br>
 						<table id="memberNumt">
 							<tr>
-								<td width="250" style="background: lightgray;">전체 회원 수</td>
-								<td width="100" style="color:salmon;">10</td>
-								<td width="250" style="background: lightgray;">탈퇴 회원 수</td>
-								<td width="100" style="color:salmon;">5</td>
+								<td width="250" style="background: lightgray;" width="100">전체 주문 횟수</td>
+								<td width="100" style="color:salmon">350</td>
+								<td width="250" style="background: lightgray;" width="100">진행중</td>
+								<td width="100" style="color:salmon">15</td>
+								<td width="250" style="background: lightgray;" width="100">예약완료</td>
+								<td width="100" style="color:salmon">11</td>
+								<td width="250" style="background: lightgray;" width="100">결제완료</td>
+								<td width="100" style="color:salmon">18</td>
 							</tr>
 						</table>
 					</div>
@@ -124,149 +134,118 @@ ul h3:hover{
 
 					<h4 id="text1">회원 조회</h4>
 					<br> <br> <br>
+					<div class="ui category search">
+						<div class="ui icon input">
+							<select></select> <input class="prompt" type="text"> <i
+								class="search icon"></i>
+						</div>
+					</div>
+
 					<div class="memberList">
 						<table id="memberListt">
 							<tr style="background: lightgray;">
-								<td><input type="checkbox"></td>
-								<td>회원 아이디</td>
-								<td>닉네임</td>
-								<td>회원 이름</td>
-								<td>성별</td>
-								<td>전화번호</td>
+								<td>주문번호</td>
+								<td>상품이름</td>
+								<td>옵션</td>
+								<td>회원아이디</td>
+								<td>회원이름</td>
+								<td>예약일자</td>
 								<td>휴대전화</td>
 								<td>이메일주소</td>
-								<td>결혼예정일</td>
-								<td>신고횟수</td>
+								<td>진행상태</td>
 								<!-- <td></td> -->
 							</tr>
 							<tr>
-								<td><input type="checkbox"></td>
+								<td>1521</td>
+								<td>KH스튜디오-리허설</td>
+								<td>원장</td>
 								<td>user01</td>
-								<td>user</td>
 								<td>임정연</td>
-								<td>여</td>
-								<td>010-5123-7872</td>
-								<td>010-5123-7872</td>
+								<td>2019-05-30 10:00 ~ 12:00</td>
+								<td>010-5121-7872</td>
 								<td>only1year@naver.com</td>
-								<td>2019-05-30</td>
-								<td>10</td>
-								<!-- <td><button class="negative ui button">신고</button></td> -->
+								<td><a class="ui red label">예약완료</a></td>
 							</tr>
 							<tr>
-								<td><input type="checkbox"></td>
-								<td>user02</td>
-								<td>user2</td>
-								<td>남궁욱</td>
-								<td>남</td>
-								<td>010-5123-7872</td>
-								<td>010-5123-7872</td>
-								<td>only1year22@naver.com</td>
-								<td>2019-05-30</td>
-								<td>0</td>
-								<!-- <td><button class="negative ui button">신고</button></td> -->
+								<td>1521</td>
+								<td>KH스튜디오-리허설</td>
+								<td>원장</td>
+								<td>user01</td>
+								<td>임정연</td>
+								<td>2019-05-30 10:00 ~ 12:00</td>
+								<td>010-5121-7872</td>
+								<td>only1year@naver.com</td>
+								<td><a class="ui blue label">예약대기</a></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
 							</tr>
 						</table>
-						<br>
-						<div class="btns">
-							<button class="ui pink button" style="background:salmon;">블랙리스트 추가</button>
-							<button class="ui pink button" style="background:salmon;">탈퇴</button>
-						</div>
-						<br>
-						<br>
-						<br>
+						<h4>< 1, 2, 3 ></h4>
+						<br> <br>
+
 
 						<div class="memberDetail">
-							<h3 id="text2">회원 상세 조회</h3>
+							<h3 id="text2">주문 상세 조회</h3>
 							<br> <br> <br>
-
 
 							<div class="memberBaseInfo">
 								<h4 id="text3">기본정보</h4>
 								<br> <br>
 								<table id="detailt">
 									<tr>
+										<td style="background: lightgray;">주문번호</td>
+										<td colspan="3">1521</td>
+									</tr>
+									<tr>
+										<td style="background: lightgray;">상품명</td>
+										<td>KH스튜디오-리허설</td>
+										<td style="background: lightgray;">옵션</td>
+										<td>원장</td>
+									</tr>
+									<tr>
 										<td style="background: lightgray;">회원아이디</td>
 										<td>user01</td>
-										<td style="background: lightgray;">신고횟수</td>
-										<td>10</td>
-									</tr>
-									<tr>
-										<td style="background: lightgray;">닉네임</td>
-										<td>user</td>
-										<td style="background: lightgray;">이용여부</td>
-										<td>Y</td>
-									</tr>
-									<tr>
-										<td style="background: lightgray;">생년월일</td>
-										<td>1994-06-04</td>
-										<td style="background: lightgray;">결혼예정일</td>
-										<td>2019-05-30</td>
-									</tr>
-									<tr>
-										<td style="background: lightgray;">이메일</td>
-										<td>only1year@naver.com</td>
-										<td style="background: lightgray;">이벤트 수신여부</td>
-										<td>N</td>
+										<td style="background: lightgray;">회원이름</td>
+										<td>임정연</td>
 									</tr>
 									<tr>
 										<td style="background: lightgray;">전화번호</td>
 										<td>010-5123-7872</td>
-										<td style="background: lightgray;">휴대전화</td>
-										<td>010-5123-7872</td>
+										<td style="background: lightgray;">이메일주소</td>
+										<td>only1year@nave.com</td>
+									</tr>
+									<tr>
+										<td style="background: lightgray;">예약날짜</td>
+										<td>2019-05-30 10:00~12:00</td>
+										<td style="background: lightgray;">진행상태</td>
+										<td><a class="ui red label">예약완료</a></td>
 									</tr>
 								</table>
-							</div>
-
-
-
-							<br> <br>
-							<div class="memberPlusInfo">
-								<h4 id="text4">추가정보</h4>
-								<br> <br>
-
-								<!-- <table id="plusInfot">
-								<tr>
-									<td style="background: lightgray;">설문조사
-									<button style="float:right;" id="down">▼</button>
-									</td>
-								</tr>
-							</table>
-							<table id="survey">
-								<tr>
-									<td>설</td>
-								</tr>
-								<tr>
-									<td>문</td>
-								</tr>
-								<tr>
-									<td>조</td>
-								</tr>
-								<tr>
-									<td>사</td>
-								</tr>
-							</table> -->
-
-
-
-								<div class="ui styled fluid accordion">
-									<div class="title active">
-										<i class="dropdown icon"></i>설문조사
-									</div>
-									<div class="content active">
-										<p class="transition visible"
-											style="display: block !important;">상세내용</p>
-									</div>
+								<div class="btns">
+									<button class="ui pink button" style="background:salmon;">쪽지보내기</button>
+									<button class="ui pink button" style="background:salmon;">예약취소</button>
 								</div>
-
 							</div>
-							<br>
-
-							<div class="btns">
-								<button class="ui pink button" style="background:salmon;">블랙리스트 추가</button>
-								<button class="ui pink button" style="background:salmon;">탈퇴</button>
-							</div>
-
-
 
 						</div>
 
