@@ -1,0 +1,98 @@
+@charset "UTF-8";
+
+.availableCoupon {
+	width:350px;
+	height:170px;
+	border:1px solid #ff7566;
+	background:white;
+	display:inline-block;
+	padding:20px;
+	text-align:right;
+	
+}
+.imminentCoupon {
+	width:350px;
+	height:170px;
+	border:1px solid #ff7566;
+	background:white;
+	display:inline-block;
+	padding:20px;
+	text-align:right;
+	
+}
+.couponLabel1 {
+	color:#ff4733;
+	font-size:18px;
+	text-align:left;
+}
+.couponLabel2 {
+	color:#ff4733;
+	font-size:30px;
+}
+.couponLabel3 {
+	font-size:18px;
+}
+.availableCouponList {
+	width:356px;
+	height:100%;
+	text-align:center;
+	background:white;
+	display:inline-block;
+	font-size:15px;
+	border-style:none;
+	border-bottom:2px solid #ff7566;
+	padding:5px;
+}
+.availableCouponList:hover {
+	width:356px;
+	height:100%;
+	text-align:center;
+	background:#ff7566;
+	display:inline-block;
+	font-size:15px;
+	border-style:2px solid #ff7566;
+	padding:5px;
+	color:white;
+}
+.usedCouponList {
+	width:356px;
+	height:100%;
+	text-align:center;
+	background:white;
+	display:inline-block;
+	font-size:15px;
+	border-style:none;
+	border-bottom:2px solid #ff7566;
+	padding:5px;
+}
+.usedCouponList:hover {
+	width:356px;
+	height:100%;
+	text-align:center;
+	background:#ff7566;
+	display:inline-block;
+	font-size:15px;
+	border:2px solid #ff7566;
+	padding:5px;
+	color:white;
+}
+.couponTable {
+	width:100%;
+}
+.couponTable thead{
+	width:100%;
+	background:lightgray;
+	color:black;
+	text-align:center;
+}
+.couponTable thead td{
+	height:30px;
+}
+.couponTable tbody{
+	width:100%;
+	background:white;
+	text-align:center;
+}
+.couponTable tbody td{
+	height:100px;
+}

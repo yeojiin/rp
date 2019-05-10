@@ -18,7 +18,7 @@
 				<ul>
 					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/common/login.jsp'">LOGIN</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
 					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/common/join.jsp'">JOIN</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
-					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/member/mypage.jsp'">MY PAGE</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
+					<li><button class="miniMenuBtn" onclick="nullMyPage()">MY PAGE</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
 					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/wishlist/wishlistForm.jsp'">WISHLIST</button></li>
 					<li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
 				</ul>
@@ -27,7 +27,7 @@
 				<ul>
 					<li><button class="miniMenuBtn"><%=loginUser.getNickName() %>님의 방문을 환영합니다!</button></li>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
 					<li><button class="miniMenuBtn" onclick="logout()">LOGOUT</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
-					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/member/mypage.jsp'">MY PAGE</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
+					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/member/m_myPage_checkList.jsp'">MY PAGE</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
 					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/member/wishlist.jsp'">WISHLIST</button></li>
 					<li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
 				</ul>
@@ -38,6 +38,10 @@
 	<script>
 		function logout() {
 			location.href="<%= request.getContextPath()%>/logout.me";
+		}
+		function nullMyPage() {
+			alert("로그인 후 이용이 가능합니다♥");
+			location.href='<%=request.getContextPath()%>/views/common/login.jsp';
 		}
 	</script>
 </body>

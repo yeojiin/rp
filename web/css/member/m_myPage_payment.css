@@ -1,0 +1,62 @@
+@charset "UTF-8";
+
+.paymentCompleted, .bookingCompleted, .ongoing {
+	width:228px;
+	height:170px;
+	border:1px solid #ff7566;
+	background:white;
+	display:inline-block;
+	padding:20px;
+	text-align:right;
+}
+.paymentLabel1 {
+	color:#ff4733;
+	font-size:18px;
+	text-align:left;
+}
+.paymentLabel2 {
+	color:#ff4733;
+	font-size:30px;
+}
+.paymentLabel3 {
+	font-size:18px;
+}
+.search {
+	width:100%;
+	text-align:center;
+}
+.searchBtn {
+	border-style:none;
+	background:#ff7566;
+	color:white;
+}
+.paymentList {
+	width:100%;
+	background:white;
+	text-align:center;
+	font-family:'Noto Sans KR', sans-serif;
+}
+.paymentList tr {
+	height:40px;
+}
+.paymentList thead {
+	background:gray;
+	color:white;
+	border-bottom:2px solid gray;
+}
+.paymentList tbody tr {
+	border-bottom:2px solid gray;
+}
+.paymentList tfoot {
+	background:whitesmoke;
+}
+.pay, .cancellation, .review {
+	border-style:none;
+	background:#ff7566;
+	color:white;
+}
+.paging {
+	border-style:none;
+	background:whitesmoke;
+	color:gray;
+}
