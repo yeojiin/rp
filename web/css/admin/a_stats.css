@@ -96,7 +96,6 @@ table td{
 	list-style:none;
 	text-align:center;
 	background:lightgray;
-	height:auto;
 }
 .navList2 li{
 	margin:15px;
@@ -107,7 +106,7 @@ table td{
 	cursor:pointer;
 }
 .sideListnav2{
-	background:lightgray;
+	 background:lightgray; 
 }
 
 /* a_Pstats 컨텐츠영역 */
@@ -146,8 +145,8 @@ table td{
 .sArea{
 	height:auto;
 	border:1px solid black;
-	margin:100px;
-	
+	margin-top:25px;
+	margin-bottom:25px;
 }
 
 .StotalStatsArea table td{
