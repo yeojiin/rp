@@ -102,7 +102,7 @@ td {
             <div class="list1" align="center">
             <table>
                <tr>
-                  <td><a href="#"><img src="../../images/logo.png"></a></td>
+                  <td><a href="m_studioDetail.jsp"><img src="../../images/logo.png"></a></td>
                <tr>
                   <th id="title1">Studio1</th>
                </tr>

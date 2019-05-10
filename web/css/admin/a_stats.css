@@ -96,6 +96,7 @@ table td{
 	list-style:none;
 	text-align:center;
 	background:lightgray;
+	height:auto;
 }
 .navList2 li{
 	margin:15px;
