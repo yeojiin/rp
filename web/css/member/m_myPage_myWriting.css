@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+.subSubTitle {
+	font-size:20px;
+}
+.board {
+	width:100%;
+	background:white;
+	text-align:center;
+	font-family:'Noto Sans KR', sans-serif;
+}
+.board tr {
+	height:40px;
+}
+.board thead {
+	background:gray;
+	color:white;
+	border-bottom:2px solid gray;
+}
+.board tbody tr {
+	border-bottom:2px solid gray;
+}
+.board tfoot {
+	background:whitesmoke;
+}
+.edit, .delete, .chooseAll {
+	border-style:none;
+	background:#ff7566;
+	color:white;
+}
+.paging {
+	border-style:none;
+	background:whitesmoke;
+	color:gray;
+}
