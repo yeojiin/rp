@@ -10,6 +10,8 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
+
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR"
@@ -76,72 +78,246 @@
 
 			<div class="col-sm-8 text-left">
 				<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
-				<p id="companyname">업체명</p>
-				<div id="titleimg">
-					<table id="title">
-						<tr>
-							<td><img src="../../images/logo.png" id="timg"></td>
-
-							<td><p id="text1">
-									예약날짜 &nbsp;&nbsp;&nbsp;&nbsp; <select>
-										<option>2019-04-17</option>
-									</select>
-								</p>
-								<p id="text1">
-									예약시간 &nbsp;&nbsp;&nbsp;&nbsp; <select>
-										<option>15:30</option>
-									</select>
-								</p>
-								<p id="text1">
-									옵션
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<select>
-										<option>옵션선택</option>
-									</select>
-								</p>
-								<button>예약하기</button></td>
-						</tr>
-
-					</table>
-
-
-					<table id="detail2" align="center">
-						<tr>
-							<td>업체정보</td>
-							<td>상품정보</td>
-							<td>후기&nbsp;&nbsp;</td>
-							<td>문의&nbsp;&nbsp;</td>
-
-						</tr>
-					</table>
-					<hr style="border-color: black;">
-
-					<!-- <p style="margin-top: -12px">
-                  <em class="link"> <a href="javascript:void(0);"
-                     onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">
-                        혹시 주소 결과가 잘못 나오는 경우에는 여기에 제보해주세요. </a>
-                  </em>
-               </p> -->
-					<div id="map"
-						style="float: right; width: 30%; height: 350px; margin-right: 10%;">
+				<br>
+				<p style="font-size:40px; text-align:center">KH스튜디오</p>
+				<div id="titleimg" style="width:100%; height:auto;">
+					<div style="width:50%; height:auto; float:left;">
+						<img src="../../images/logo.png" id="timg" style="max-width:100%;">
 					</div>
-					<div
-						style="float: left; width: 30%; height: 500px; margin-left: 10%;">
-						<h1>업체명</h1>
-						<h3>주소&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;서울시
-							강남구 역삼동</h3>
-						<h3>영업시간&nbsp;&nbsp;&nbsp;PM 13:00 ~ PM 18:30</h3>
-						<h3>홈페이지&nbsp;&nbsp;&nbsp;www.kh.or.kr</h3>
-						<h3>인사말</h3>
-						<p style="text-align: justify;">못할 있는 바이며, 무엇을 희망의 청춘은 것이다. 앞이
+					<div style="width:50%; height:auto; float:right;">
+					<br><br><br><br><br>
+						<p style="font-size:20px;">예약날짜 : <select>
+							<option>2019-04-17</option>
+						</select></p><br><br>
+						<p style="font-size:20px;">예약시간 : <select>
+							<option>15:00</option>
+						</select></p><br><br>
+						<p style="font-size:20px;">옵션 : <select>
+							<option>옵션선택</option>
+						</select></p>
+						<br><br>
+						<a class="btn btn-default" style="float:left; border-color:salmon; background:salmon; color:white; width:40%; height:auto; font-size:20px;">예약하기</a>
+					</div><br><br>
+					<hr style="border-color: black; width:100%;">
+				</div>
+				
+					<table border="1"; align="center"; style="width:100%; height:auto; background:salmon; color:white; border-color:white;">
+						<tr>
+							<td align="center" style="width:25%; font-size:20px;" onclick="fnMove('1')">업체정보</td>
+							<td align="center" style="width:25%; font-size:20px;" onclick="fnMove('2')">상품정보</td>						
+							<td align="center" style="width:25%; font-size:20px;" onclick="fnMove('3')">후기</td>
+							<td align="center" style="width:25%; font-size:20px;" onclick="fnMove('4')">문의</td>				
+						</tr>
+					</table>
+										
+					<div style="width:100%; height:auto;">
+						<div id="div1" style=" width:50%; height:auto; float:left">
+						<p style="font-size:30px;">업체명</p>
+						<p style="font-size:30px;">서울시 강남구 역삼동</p>
+						<p style="font-size:30px;">영업시간 : PM 13:00 ~ PM 18:30</p>
+						<p style="font-size:30px;">홈페이지 : www.kh.or.kr</p>
+						<p style="font-size:30px;">인사말</p>
+						
+						<p style="font-size:15px;">못할 있는 바이며, 무엇을 희망의 청춘은 것이다. 앞이
 							청춘 꾸며 뛰노는 동산에는 내려온 인간의 있으랴? 긴지라 방황하였으며, 타오르고 가는 길지 할지니, 현저하게 힘차게
 							풀이 봄바람이다. 없으면, 인도하겠다는 별과 같으며, 인생의 사라지지 교향악이다. 얼음 인생을 산야에 사는가 스며들어
 							그리하였는가? 무엇이 발휘하기 가지에 그들은 있는 되려니와, 것이다. 인생에 얼음이 같이 그러므로 크고 꽃이 것이다.
 							위하여서 돋고, 얼마나 찾아 피는 부패뿐이다. 주며, 안고, 꾸며 위하여서 사막이다. 청춘에서만 피가 하여도
-							유소년에게서 천지는 하는 이는 뜨고, 부패뿐이다.</p>
+							유소년에게서 천지는 하는 이는 뜨고, 부패뿐이다.
+						</p>
+						</div>
+							<div id="map" style="width:50%; height:500px; float:right">
+							</div>	
 					</div>
 
-					<script type="text/javascript"
+					<hr style="align: center; border-color: black; width: 100%;">
+					<div id="div2">
+						<h1>상품정보</h1>
+						<table border:"1" style="width:100%; height:auto;">
+							<tr>
+								<td style="width:50%;"><img src="../../images/dressTest.jpg" id="imgtest" style="max-width:100%;"></td>
+								<td style="width:50%; font-size:20px;">상품설명:못할 있는 바이며, 무엇을 희망의 청춘은 것이다. 앞이 청춘 꾸며
+									뛰노는 동산에는 내려온 인간의 있으랴? 긴지라 방황하였으며, 타오르고 가는 길지 할지니, 현저하게 힘차게 풀이
+									봄바람이다. 없으면, 인도하겠다는 별과 같으며, 인생의 사라지지 교향악이다. 얼음 인생을 산야에 사는가 스며들어
+									그리하였는가? 무엇이 발휘하기 가지에 그들은 있는 되려니와, 것이다. 인생에 얼음이 같이 그러므로 크고 꽃이
+									것이다. 위하여서 돋고, 얼마나 찾아 피는 부패뿐이다. 주며, 안고, 꾸며 위하여서 사막이다. 청춘에서만 피가
+									하여도 유소년에게서 천지는 하는 이는 뜨고, 부패뿐이다.</td>
+							</tr>
+						</table>
+						<table border:"1" style="width:100%; height:auto;">
+							<tr>
+								<td style="width:50%; font-size:20px;">상품설명:못할 있는 바이며, 무엇을 희망의 청춘은 것이다. 앞이 청춘 꾸며
+									뛰노는 동산에는 내려온 인간의 있으랴? 긴지라 방황하였으며, 타오르고 가는 길지 할지니, 현저하게 힘차게 풀이
+									봄바람이다. 없으면, 인도하겠다는 별과 같으며, 인생의 사라지지 교향악이다. 얼음 인생을 산야에 사는가 스며들어
+									그리하였는가? 무엇이 발휘하기 가지에 그들은 있는 되려니와, 것이다. 인생에 얼음이 같이 그러므로 크고 꽃이
+									것이다. 위하여서 돋고, 얼마나 찾아 피는 부패뿐이다. 주며, 안고, 꾸며 위하여서 사막이다. 청춘에서만 피가
+									하여도 유소년에게서 천지는 하는 이는 뜨고, 부패뿐이다.</td>
+								<td style="width:50%;"><img src="../../images/dressTest.jpg" id="imgtest" style="max-width:100%;"></td>
+							</tr>
+						</table>
+						<table border:"1" style="width:100%; height:auto;">
+							<tr>
+								<td style="width:50%;"><img src="../../images/dressTest.jpg" id="imgtest" style="max-width:100%;"></td>
+								<td style="width:50%; font-size:20px;">상품설명:못할 있는 바이며, 무엇을 희망의 청춘은 것이다. 앞이 청춘 꾸며
+									뛰노는 동산에는 내려온 인간의 있으랴? 긴지라 방황하였으며, 타오르고 가는 길지 할지니, 현저하게 힘차게 풀이
+									봄바람이다. 없으면, 인도하겠다는 별과 같으며, 인생의 사라지지 교향악이다. 얼음 인생을 산야에 사는가 스며들어
+									그리하였는가? 무엇이 발휘하기 가지에 그들은 있는 되려니와, 것이다. 인생에 얼음이 같이 그러므로 크고 꽃이
+									것이다. 위하여서 돋고, 얼마나 찾아 피는 부패뿐이다. 주며, 안고, 꾸며 위하여서 사막이다. 청춘에서만 피가
+									하여도 유소년에게서 천지는 하는 이는 뜨고, 부패뿐이다.</td>
+							</tr>
+						</table>
+						<table border:"1" style="width:100%; height:auto;">
+							<tr>
+								<td style="width:50%; font-size:20px;">상품설명:못할 있는 바이며, 무엇을 희망의 청춘은 것이다. 앞이 청춘 꾸며
+									뛰노는 동산에는 내려온 인간의 있으랴? 긴지라 방황하였으며, 타오르고 가는 길지 할지니, 현저하게 힘차게 풀이
+									봄바람이다. 없으면, 인도하겠다는 별과 같으며, 인생의 사라지지 교향악이다. 얼음 인생을 산야에 사는가 스며들어
+									그리하였는가? 무엇이 발휘하기 가지에 그들은 있는 되려니와, 것이다. 인생에 얼음이 같이 그러므로 크고 꽃이
+									것이다. 위하여서 돋고, 얼마나 찾아 피는 부패뿐이다. 주며, 안고, 꾸며 위하여서 사막이다. 청춘에서만 피가
+									하여도 유소년에게서 천지는 하는 이는 뜨고, 부패뿐이다.</td>
+								<td style="width:50%;"><img src="../../images/dressTest.jpg" id="imgtest" style="max-width:100%;"></td>
+							</tr>
+						</table>
+					</div>
+					
+					<hr style="align: center; border-color: black; width: 100%;">
+					<a href="#" class="top" style="position:fixed; left:90%; bottom: 50px; display:none; font-size:30px;">Top</a>
+					<div id="div3">
+						<h1>후기</h1>
+						<p style="font-size: 30px; text-align: center;">
+							<br>★총 평점 3.98
+						</p>
+					</div>
+					<div id="detailsixth">
+						<br>
+						<div id="detail11">
+							<i class="fas fa-user-circle" style="font-size: 100px;"></i>
+						</div>
+						<div id="detail12">
+							<p style="font-size: 20px;">
+								닉네임<br> 2월 결혼 / 업체명<br> ★ 3.5
+							</p>
+						</div>
+					</div>
+					<div id="detailseventh">
+						<p>못할 있는 바이며, 무엇을 희망의 청춘은 것이다. 앞이 청춘 꾸며 뛰노는 동산에는 내려온 인간의 있으랴?
+							긴지라 방황하였으며, 타오르고 가는 길지 할지니, 현저하게 힘차게 풀이 봄바람이다. 없으면, 인도하겠다는 별과
+							같으며, 인생의 사라지지 교향악이다. 얼음 인생을 산야에 사는가 스며들어 그리하였는가? 무엇이 발휘하기 가지에 그들은
+							있는 되려니와, 것이다. 인생에 얼음이 같이 그러므로 크고 꽃이 것이다. 위하여서 돋고, 얼마나 찾아 피는
+							부패뿐이다. 주며, 안고, 꾸며 위하여서 사막이다. 청춘에서만 피가 하여도 유소년에게서 천지는 하는 이는 뜨고,
+							부패뿐이다.</p>
+					</div>
+					<hr style="align: center; border-color: black; width: 100%;">
+					<div id="div4">
+						<h1>문의</h1>
+						<table class="table table-striped" style="width: 100%;">
+							<thead>
+								<tr>
+									<th>번호</th>
+									<th>제목</th>
+									<th>작성자</th>
+									<th>작성일</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="detail">
+									<td>01</td>
+									<td>문의글</td>
+									<td>전효정</td>
+									<td>19.04.16</td>
+								</tr>
+								<tr>
+									<td colspan="4";>못할 있는 바이며, 무엇을 희망의 청춘은 것이다. 앞이 청춘 꾸며 뛰노는 동산에는 내려온 인간의 있으랴?
+							긴지라 방황하였으며, 타오르고 가는 길지 할지니, 현저하게 힘차게 풀이 봄바람이다. 없으면, 인도하겠다는 별과
+							같으며, 인생의 사라지지 교향악이다. 얼음 인생을 산야에 사는가 스며들어 그리하였는가? 무엇이 발휘하기 가지에 그들은
+							있는 되려니와, 것이다. 인생에 얼음이 같이 그러므로 크고 꽃이 것이다. 위하여서 돋고, 얼마나 찾아 피는
+							부패뿐이다. 주며, 안고, 꾸며 위하여서 사막이다. 청춘에서만 피가 하여도 유소년에게서 천지는 하는 이는 뜨고,
+							부패뿐이다.</td>
+								</tr>
+								<tr>
+									<td>02</td>
+									<td>+RE:답변글</td>
+									<td>관리자</td>
+									<td>19.04.16</td>
+								</tr>
+								<tr>
+									<td>03</td>
+									<td>문의글</td>
+									<td>문지원</td>
+									<td>19.04.17</td>
+								</tr>
+								<tr>
+									<td>04</td>
+									<td>+RE:답변글</td>
+									<td>관리자</td>
+									<td>19.04.17</td>
+								</tr>
+							</tbody>
+						</table>
+						<!-- <hr style="align:center; border-color:black; width:100%;" > -->
+						<a class="btn btn-default" style="border-color:salmon; background:salmon; color:white; float:right;">글쓰기</a>
+						<br>
+						<div class="text-center" style="width:100%;">
+							<ul class="pagination">
+								<li><a href="#">1</a></li>
+								<li><a href="#">2</a></li>
+								<li><a href="#">3</a></li>
+								<li><a href="#">4</a></li>
+								<li><a href="#">5</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<!-- 오른쪽 빈공간 -->
+				<div class="col-sm-2 sidenav"></div>
+
+			</div>
+
+		</div>
+	
+		<br>
+
+		<!-- 커먼 풋터 -->
+		<div class="footerArea">
+			<jsp:include page="/views/common/footer.jsp"></jsp:include>
+		</div>
+		<script>
+			$(window).scroll(function(){
+				if($(this).scrollTop() > 200){
+					$('.top').fadeIn();
+				}else{
+					$('.top').fadeOut();
+				}
+			});
+			
+			$('.top').click(function(){
+				$('html, body').animate({scrollTop:0}, 400);
+				return false;
+			});
+		</script>
+		<script>
+    		function fnMove(seq){
+        	var offset = $("#div" + seq).offset();
+        	$('html, body').animate({scrollTop : offset.top}, 400);
+    		}
+		</script>
+		<script>
+			$(".detail").click(function(){            
+    		var myTr = $(this).next();
+    		if(myTr.is(":visible")){
+       		myTr.slideUp();
+    		}else{
+       		myTr.slideDown();
+       		$(this).css({"border-bottom":"none"});
+       		myTr.css({"border-top":"none"});
+    		}
+ 			}).mouseenter(function(){
+    			$(this).css({"background":"MistyRose"});
+ 			}).mouseout(function(){
+    			$(this).css({"background":"white"});
+ 			});
+		</script>
+		<script type="text/javascript"
 						src="//dapi.kakao.com/v2/maps/sdk.js?appkey=48f994d86c014b047dc33cccd8b9996f&libraries=services"></script>
 					<script>
                   var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -180,179 +356,6 @@
                           map.setCenter(coords);
                       } 
                   });    
-               </script>
-
-
-
-					<hr style="align: center; border-color: black; width: 100%;">
-					<h1 style="margin-left: 10%">상품정보</h1>
-					<div id="detailfirst">
-						<div id="detail3">
-							<img src="../../images/dressTest.jpg" id="imgtest">
-						</div>
-						<div id="detail4">
-							<p id="imgcontent">상품설명:못할 있는 바이며, 무엇을 희망의 청춘은 것이다. 앞이 청춘 꾸며
-								뛰노는 동산에는 내려온 인간의 있으랴? 긴지라 방황하였으며, 타오르고 가는 길지 할지니, 현저하게 힘차게 풀이
-								봄바람이다. 없으면, 인도하겠다는 별과 같으며, 인생의 사라지지 교향악이다. 얼음 인생을 산야에 사는가 스며들어
-								그리하였는가? 무엇이 발휘하기 가지에 그들은 있는 되려니와, 것이다. 인생에 얼음이 같이 그러므로 크고 꽃이
-								것이다. 위하여서 돋고, 얼마나 찾아 피는 부패뿐이다. 주며, 안고, 꾸며 위하여서 사막이다. 청춘에서만 피가
-								하여도 유소년에게서 천지는 하는 이는 뜨고, 부패뿐이다.</p>
-						</div>
-					</div>
-					<div id="detailsecond">
-						<div id="detail5">
-							<img src="../../images/dressTest.jpg" id="imgtest2">
-						</div>
-						<div id="detail6">
-							<p id="imgcontent2">상품설명:못할 있는 바이며, 무엇을 희망의 청춘은 것이다. 앞이 청춘 꾸며
-								뛰노는 동산에는 내려온 인간의 있으랴? 긴지라 방황하였으며, 타오르고 가는 길지 할지니, 현저하게 힘차게 풀이
-								봄바람이다. 없으면, 인도하겠다는 별과 같으며, 인생의 사라지지 교향악이다. 얼음 인생을 산야에 사는가 스며들어
-								그리하였는가? 무엇이 발휘하기 가지에 그들은 있는 되려니와, 것이다. 인생에 얼음이 같이 그러므로 크고 꽃이
-								것이다. 위하여서 돋고, 얼마나 찾아 피는 부패뿐이다. 주며, 안고, 꾸며 위하여서 사막이다. 청춘에서만 피가
-								하여도 유소년에게서 천지는 하는 이는 뜨고, 부패뿐이다.</p>
-						</div>
-					</div>
-					<div id="detailthird">
-						<div id="detail7">
-							<img src="../../images/dressTest.jpg" id="imgtest3">
-						</div>
-						<div id="detail8">
-							<p id="imgcontent3">상품설명:못할 있는 바이며, 무엇을 희망의 청춘은 것이다. 앞이 청춘 꾸며
-								뛰노는 동산에는 내려온 인간의 있으랴? 긴지라 방황하였으며, 타오르고 가는 길지 할지니, 현저하게 힘차게 풀이
-								봄바람이다. 없으면, 인도하겠다는 별과 같으며, 인생의 사라지지 교향악이다. 얼음 인생을 산야에 사는가 스며들어
-								그리하였는가? 무엇이 발휘하기 가지에 그들은 있는 되려니와, 것이다. 인생에 얼음이 같이 그러므로 크고 꽃이
-								것이다. 위하여서 돋고, 얼마나 찾아 피는 부패뿐이다. 주며, 안고, 꾸며 위하여서 사막이다. 청춘에서만 피가
-								하여도 유소년에게서 천지는 하는 이는 뜨고, 부패뿐이다.</p>
-						</div>
-					</div>
-					<div id="detailfourth">
-						<div id="detail9">
-							<img src="../../images/dressTest.jpg" id="imgtest4">
-						</div>
-						<div id="detail10">
-							<p id="imgcontent4">상품설명:못할 있는 바이며, 무엇을 희망의 청춘은 것이다. 앞이 청춘 꾸며
-								뛰노는 동산에는 내려온 인간의 있으랴? 긴지라 방황하였으며, 타오르고 가는 길지 할지니, 현저하게 힘차게 풀이
-								봄바람이다. 없으면, 인도하겠다는 별과 같으며, 인생의 사라지지 교향악이다. 얼음 인생을 산야에 사는가 스며들어
-								그리하였는가? 무엇이 발휘하기 가지에 그들은 있는 되려니와, 것이다. 인생에 얼음이 같이 그러므로 크고 꽃이
-								것이다. 위하여서 돋고, 얼마나 찾아 피는 부패뿐이다. 주며, 안고, 꾸며 위하여서 사막이다. 청춘에서만 피가
-								하여도 유소년에게서 천지는 하는 이는 뜨고, 부패뿐이다.</p>
-						</div>
-					</div>
-					<hr style="align: center; border-color: black; width: 100%;">
-					<div id="detailfifth">
-						<p style="font-size: 30px; text-align: center;">
-							<br>★총 평점 3.98
-						</p>
-					</div>
-					<div id="detailsixth">
-						<br>
-						<div id="detail11">
-							<i class="fas fa-user-circle" style="font-size: 100px;"></i>
-						</div>
-						<div id="detail12">
-							<p style="font-size: 20px;">
-								닉네임<br> 2월 결혼 / 업체명<br> ★ 3.5
-							</p>
-						</div>
-					</div>
-					<div id="detailseventh">
-						<p>못할 있는 바이며, 무엇을 희망의 청춘은 것이다. 앞이 청춘 꾸며 뛰노는 동산에는 내려온 인간의 있으랴?
-							긴지라 방황하였으며, 타오르고 가는 길지 할지니, 현저하게 힘차게 풀이 봄바람이다. 없으면, 인도하겠다는 별과
-							같으며, 인생의 사라지지 교향악이다. 얼음 인생을 산야에 사는가 스며들어 그리하였는가? 무엇이 발휘하기 가지에 그들은
-							있는 되려니와, 것이다. 인생에 얼음이 같이 그러므로 크고 꽃이 것이다. 위하여서 돋고, 얼마나 찾아 피는
-							부패뿐이다. 주며, 안고, 꾸며 위하여서 사막이다. 청춘에서만 피가 하여도 유소년에게서 천지는 하는 이는 뜨고,
-							부패뿐이다.</p>
-					</div>
-					<hr style="align: center; border-color: black; width: 100%;">
-					<div id="detaileighth">
-						<h1 style="margin-left: 10%">문의</h1>
-						<table class="table table-striped"
-							style="width: 80%; margin-left: 10%;">
-							<thead>
-								<tr>
-									<th>번호</th>
-									<th>제목</th>
-									<th>작성자</th>
-									<th>작성일</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr class="detail";>
-									<td>01</td>
-									<td>문의글</td>
-									<td>전효정</td>
-									<td>19.04.16</td>
-								</tr>
-								<tr>
-									<td colspan="4">못할 있는 바이며, 무엇을 희망의 청춘은 것이다. 앞이 청춘 꾸며 뛰노는 동산에는 내려온 인간의 있으랴?
-							긴지라 방황하였으며, 타오르고 가는 길지 할지니, 현저하게 힘차게 풀이 봄바람이다. 없으면, 인도하겠다는 별과
-							같으며, 인생의 사라지지 교향악이다. 얼음 인생을 산야에 사는가 스며들어 그리하였는가? 무엇이 발휘하기 가지에 그들은
-							있는 되려니와, 것이다. 인생에 얼음이 같이 그러므로 크고 꽃이 것이다. 위하여서 돋고, 얼마나 찾아 피는
-							부패뿐이다. 주며, 안고, 꾸며 위하여서 사막이다. 청춘에서만 피가 하여도 유소년에게서 천지는 하는 이는 뜨고,
-							부패뿐이다.</td>
-								</tr>
-								<tr>
-									<td>02</td>
-									<td>+RE:답변글</td>
-									<td>관리자</td>
-									<td>19.04.16</td>
-								</tr>
-								<tr>
-									<td>03</td>
-									<td>문의글</td>
-									<td>문지원</td>
-									<td>19.04.17</td>
-								</tr>
-								<tr>
-									<td>04</td>
-									<td>+RE:답변글</td>
-									<td>관리자</td>
-									<td>19.04.17</td>
-								</tr>
-							</tbody>
-						</table>
-						<!-- <hr style="align:center; border-color:black; width:100%;" > -->
-						<a class="btn btn-default" style="margin-left: 10%">글쓰기</a>
-
-						<div class="text-center">
-							<ul class="pagination">
-								<li><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-
-				<!-- 오른쪽 빈공간 -->
-				<div class="col-sm-2 sidenav"></div>
-
-			</div>
-
-		</div>
-		<br>
-
-		<!-- 커먼 풋터 -->
-		<div class="footerArea">
-			<jsp:include page="/views/common/footer.jsp"></jsp:include>
-		</div>
-		<script>
-$(".detail").click(function(){            
-    var myTr = $(this).next();
-    if(myTr.is(":visible")){
-       myTr.slideUp();
-    }else{
-       myTr.slideDown();
-       $(this).css({"border-bottom":"none"});
-       myTr.css({"border-top":"none"});
-    }
- }).mouseenter(function(){
-    $(this).css({"background":"MistyRose"});
- }).mouseout(function(){
-    $(this).css({"background":"white"});
- });
-</script>
+         </script>
 </body>
 </html>

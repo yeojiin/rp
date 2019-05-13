@@ -1,4 +1,4 @@
-@charset "UTF-8";
+/* @charset "UTF-8";
 
 #companyname {
    font-size:20px;
@@ -9,17 +9,17 @@
    width:100%;
    height:auto;
 }
-/* #map {
+#map {
    width:30%;
    height:350px;
-} */
+}
 #timg {
    max-width:100%;
 }
 #title {
    width:100%;
-   height:342px;
-   /* border:1px solid salmon; */
+   height:auto;
+   border:1px solid salmon;
    
 }
 #text1 {
@@ -31,7 +31,7 @@
    font-size:20px;
    font-weight:bold;
    width:50%;
-   /* margin-left:420px; */
+   margin-left:420px;
 }
 #detailfirst{
    width:100%;
@@ -47,7 +47,7 @@
 #detail4 {
    float:right;
    width:40%;
-   height:330.3px;
+   height:auto;
    margin-right:10%;
 }
 #imgcontent {
@@ -68,7 +68,7 @@
 #detail6 {
    float:left;
    width:40%;
-   height:330.3px;
+   height:auto;
    margin-left:10%;
 }
 #imgcontent2 {
@@ -89,7 +89,7 @@
 #detail8 {
    float:right;
    width:40%;
-   height:330.3px;
+   height:auto;
    margin-right:10%;
 }
 #imgcontent3 {
@@ -110,7 +110,7 @@
 #detail10 {
    float:left;
    width:40%;
-   height:330.3px;
+   height:auto;
    margin-left:10%;
 }
 #imgcontent4 {
@@ -119,12 +119,12 @@
 }
 #detailfifth {
    width:100%;
-   height:120px;
+   height:auto;
    background:lightgray;
 }
 #detailsixth {
    width:80%;
-   height:120px;
+   height:auto;
    margin-left:10%;
    margin-right:10%;
 }
@@ -141,4 +141,4 @@
    width:80%;
    margin-left:10%;
    margin-right:10%;
-}
+} */
