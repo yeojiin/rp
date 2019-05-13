@@ -65,7 +65,7 @@
          <%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
          
             <div class="contentsArea" id="productInsertArea">
-               <form action="" method="post">
+               <form action="<%=request.getContextPath() %>/insert.pr" method="post" id = "insertPro">
                
                   <div id="PIHeader">
                      <h3>상품등록 페이지</h3>
@@ -82,14 +82,25 @@
                              <th width="20%">&nbsp;</th>
                           </tr>
                           <tr>
+                          	<td>
+                          		<label>판매 여부</label>
+                          	</td>                    
+                          	<td colspan="6">
+                          		<input type="radio" name="proStatus" id="proStatusYes" value="판매">
+                          		<label for="proStatusYes">판매함</label>
+                          		<input type="radio" name="proStatus" id="proStatusNo" value="판매안함">
+                          		<label for="proStatusNo">판매안함</label>
+                          	</td>      	
+                          </tr>
+                          <tr>
                              <td>
                                 <label>구분</label>
                              </td>
                              <td>
                                 <select id="PICategorySelect" name="picSelect">
-                                   <option value="rehearsal">리허설</option>
-                                   <option value="total">리허설 + 본식</option>
-                                   <option value="wedding">본식</option>
+                                   <option value="리허설">리허설</option>
+                                   <option value="리허설+본식">리허설 + 본식</option>
+                                   <option value="본식">본식</option>
                                 </select>
                              </td>
                              <td id="space">
@@ -98,21 +109,27 @@
                              <td id="space">
                                 <label>담당자</label>
                              </td>
-                             <td>
+                             <td id="manager">
                                 <select id="PIManagerSelect" name="pmiSelect">
-                                   <option value="1">원장</option>
-                                   <option value="2">부원장</option>
-                                   <option value="3">팀장</option>
-                                   <option value="4">스탭</option>
-                                   <option value="5">기타</option>
+                                   <option value="" selected>--선택--</option>
+                                   <option value="원장">원장</option>
+                                   <option value="부원장">부원장</option>
+                                   <option value="팀장">팀장</option>
+                                   <option value="스탭">스탭</option>
+                                   <option value="기타">기타</option>
                                 </select>
                              </td>
                              <td id="space">
                                 <label>수량</label>
                              </td>
-                             <td>
-                                <select id="productAmount">
-                                   
+                             <td id="amount">
+                                <select id="productAmount" name="productAmount">
+                                   <option value="" selected>--선택--</option>
+                                   <option value="1">1</option>
+                                   <option value="2">2</option>
+                                   <option value="3">3</option>
+                                   <option value="4">4</option>
+                                   <option value="기타">기타</option>
                                 </select>
                              </td>
                           </tr>
@@ -121,7 +138,7 @@
                               <label>가격</label>
                              </td>
                              <td colspan="6">
-                                <input type="text" name="piPrice" id="piPrice">
+                                <input type="number" name="piPrice" id="piPrice">
                              </td>
                           </tr>
                           <tr>
@@ -181,6 +198,7 @@
                                 <textarea cols="120" rows="23" name="info" id="info">상품설명</textarea>
                              </td>
                           </tr>
+                          
                        </table>
                   
                   </div>
@@ -207,12 +225,46 @@
    </div>
    <script>
       $(function(){
+    	  /* select 태그에서 기타를 선택시 input태그 생성 */
+			$("#PIManagerSelect").change(function() {
+				var $td = $("#manager");
+				var $input = $("<input type='text' name='etc' id='etc'>");
+				
+				$("#PIManagerSelect option:selected").each(function() {
+					var selectedManager = $("#PIManagerSelect option:selected").val();
+					console.log(selectedManager);
+					if(selectedManager=="기타"){
+						$td.append($input);
+					}
+				});
+			});
+    	  $("#productAmount").change(function(){
+    		  var $td = $("#amount");
+    		  var $input = $("<input type='number' name='proAmount' id='proAmount'>");
+    		  $("#productAmount").each(function(){
+    			  var result = $("#productAmount").val();
+    			  if(result=="기타"){
+    				  $td.append($input);
+    			  }
+    		  		console.log(typeof(result));
+    		  });
+    		  
+    	  });
+    	  
+    	  
+    	 
          $("#PIInsertBtn").click(function(){
+        	 var a = $("#PICategorySelect").val();
+        	 var b = $("#PIManagerSelect").val();
+        	 console.log(a);
+        	 console.log(b);
             alert("상품을 등록하셨습니다.");
-            location.href="<%=request.getContextPath()%>/views/company/c_ProductManagement.jsp";
+            
+            $("#insertPro").submit();
+           
             /* 서블릿을 통해 전체상품의 수량을 증가 시켜준다. */
             
-              var startTime = document.getElementById("startTime").value;
+            var startTime = document.getElementById("startTime").value;
                console.log(startTime);
                console.log("startTime : " + typeof(startTime));
             var endTime = document.getElementById("endTime").value;

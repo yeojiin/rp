@@ -81,6 +81,17 @@
                              <th width="20%">&nbsp;</th>
                           </tr>
                           <tr>
+                          	<td>
+                          		<label>판매 여부</label>
+                          	</td>                    
+                          	<td colspan="6">
+                          		<input type="radio" name="proStatus" id="proStatusYes">
+                          		<label for="proStatusYes">판매함</label>
+                          		<input type="radio" name="proStatus" id="proStatusNo">
+                          		<label for="proStatusNo">판매안함</label>
+                          	</td>      	
+                          </tr>
+                          <tr>
                              <td>
                                 <label>구분</label>
                              </td>
