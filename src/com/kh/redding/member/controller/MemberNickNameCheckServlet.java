@@ -1,4 +1,4 @@
-package com.kh.redding.company.controller;
+package com.kh.redding.member.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,30 +9,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.redding.company.model.service.CompanyService;
+import com.kh.redding.member.model.service.MemberService;
 
-/**
- * Servlet implementation class IdCheckServlet
- */
-@WebServlet("/idcheck.me")
-public class IdCheckServlet extends HttpServlet {
+
+@WebServlet("/nickcheck.me")
+public class MemberNickNameCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     
-    public IdCheckServlet() {
+    public MemberNickNameCheckServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		String userId = request.getParameter("userId");
+		String nickName = request.getParameter("nickname");
 		
-		System.out.println(userId + "넘어옴");
+		System.out.println(nickName);
 		
-		int result = new CompanyService().registerCheck(userId);
-		//int result = 1;
-		System.out.println(result);
+		int result = new MemberService().nickChecked(nickName);
+		
 		PrintWriter out = response.getWriter();
 		
 		if (result > 0) {

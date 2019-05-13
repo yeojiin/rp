@@ -38,4 +38,15 @@ public class MemberService {
 		return result;
 	}
 
+	//닉네임 중복 체크 메소드
+	public int nickChecked(String nickName) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().nickChecked(con, nickName);
+		
+		close(con);
+		
+		return result;
+	}
+
 }

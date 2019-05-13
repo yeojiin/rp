@@ -25,16 +25,18 @@ public class CompanyService {
 		Connection con = getConnection();
 		
 		int mem_result = new CompanyDao().insertMember(con,joinMember);
+		int com_result = 0;
 		
 		if (mem_result > 0) {
 			int mno = new CompanyDao().selectMID(con);
 			
 			joinCompany.setCNO(mno);
 			
+			System.out.println("cno :"+joinCompany.getCNO());
+			
+			com_result = new CompanyDao().insertCompany(con,joinCompany);
 		}
-		
-		int com_result = new CompanyDao().insertCompany(con,joinCompany);
-		
+				
 		if (com_result > 0) {
 			commit(con);
 		}else {

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" %>
+	pageEncoding="UTF-8" import = "java.util.*" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +26,6 @@
 	href="${pageContext.request.contextPath}/css/member/m_join.css">
 </head>
 <body>
-
 	<!-- 멤버 헤더 (미니메뉴, 로고) -->
 	<div class="headerArea">
 		<jsp:include page="/views/member/m_header.jsp"></jsp:include>
@@ -48,76 +48,85 @@
 				<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 
 				<div class="memberJoinArea">
-					
-					<br><br><br>
-					<label class="title">JOIN</label><br>
-					<label class="welcome">welcome to redding</label>
-					<br><br><br>
-					
-					<form id="joinForm" action="<%=request.getContextPath()%>/insertMember.me" method="post">
+
+					<br>
+					<br>
+					<br> <label class="title">JOIN</label><br> <label
+						class="welcome">welcome to redding</label> <br>
+					<br>
+					<br>
+
+					<form id="joinForm"
+						action="<%=request.getContextPath()%>/insertMember.me"
+						method="post">
 						<table class="memberJoinTable">
 							<tr>
-								<td class="col1"><label>아이디&nbsp;&nbsp;</label><label class="star">*</label></td>
-								<td class="col2">
-									<input type="text" name="memberId">&nbsp;&nbsp;&nbsp;&nbsp;
-									<button class="check" id="idCheck">아이디중복확인</button>&nbsp;&nbsp;&nbsp;&nbsp;(영문소문자/숫자, 4~16자)
-								</td>
+								<td class="col1"><label>아이디&nbsp;&nbsp;</label><label
+									class="star">*</label></td>
+								<td class="col2"><input type="text" name="memberId"
+									id="memberId" size = "16">&nbsp;&nbsp;&nbsp;&nbsp;
+									<button type="button" class="check" id="idCheck"
+										onclick="registerId()">아이디중복확인</button>&nbsp;&nbsp;&nbsp;&nbsp;(영문소문자/숫자,
+									4~16자) <span id="Sidcheck"></span></td>
 							</tr>
 							<tr>
-								<td class="col1"><label>비밀번호&nbsp;&nbsp;</label><label class="star">*</label></td>
-								<td class="col2"><input type="password" name="memberPwd">&nbsp;&nbsp;&nbsp;&nbsp;(영문대소문자/숫자/특수문자 중 2가지 이상 조합, 8~16자)</td>
+								<td class="col1"><label>비밀번호&nbsp;&nbsp;</label><label
+									class="star">*</label></td>
+								<td class="col2"><input type="password" name="memberPwd"
+									id="memberPwd">&nbsp;&nbsp;&nbsp;&nbsp;<span id="Spwd1">(8~16자
+										이상 입력)</span></td>
 							</tr>
 							<tr>
-								<td class="col1"><label>비밀번호 확인&nbsp;&nbsp;</label><label class="star">*</label></td>
-								<td class="col2"><input type="password" name="memberPwd2"></td>
+								<td class="col1"><label>비밀번호 확인&nbsp;&nbsp;</label><label
+									class="star">*</label></td>
+								<td class="col2"><input type="password" name="memberPwd2"
+									id="memberPwd2"><span id="Spwd2"></span></td>
 							</tr>
 							<tr>
-								<td class="col1"><label>이름&nbsp;&nbsp;</label><label class="star">*</label></td>
-								<td class="col2"><input type="text" name="memberName"></td>
+								<td class="col1"><label>이름&nbsp;&nbsp;</label><label
+									class="star">*</label></td>
+								<td class="col2"><input type="text" name="memberName"
+									id="memberName"></td>
 							</tr>
 							<tr>
-								<td class="col1"><label>닉네임&nbsp;&nbsp;</label><label class="star">*</label></td>
-								<td>
-									<input type="text" name="nickName">&nbsp;&nbsp;&nbsp;&nbsp;
-									<button class="check">닉네임중복확인</button>
-								</td>
+								<td class="col1"><label>닉네임&nbsp;&nbsp;</label><label
+									class="star">*</label></td>
+								<td><input type="text" name="nickName" id="nickName">&nbsp;&nbsp;&nbsp;&nbsp;
+									<button class="check" type="button" id="nickCheck">닉네임중복확인</button>
+									<span id="nickCheck2"></span></td>
 							</tr>
 							<tr>
-								<td class="col1"><label>휴대전화&nbsp;&nbsp;</label><label class="star">*</label></td>
-								<td class="col2">
-									<select name="tel1" style="width:53px;">
+								<td class="col1"><label>휴대전화&nbsp;&nbsp;</label><label
+									class="star">*</label></td>
+								<td class="col2"><select name="tel1" style="width: 53px;">
 										<option>010</option>
 										<option>011</option>
 										<option>016</option>
 										<option>017</option>
 										<option>018</option>
 										<option>019</option>
-									</select>&nbsp;-
-									<input type="text" name="tel2" style="width:60px;">&nbsp;-
-									<input type="text" name="tel3" style="width:60px;">&nbsp;&nbsp;&nbsp;&nbsp;
+								</select>&nbsp;- <input type="text" name="tel2" style="width: 60px;">&nbsp;-
+									<input type="text" name="tel3" style="width: 60px;">&nbsp;&nbsp;&nbsp;&nbsp;
 								</td>
 							</tr>
 							<tr>
 								<td class="col1"><label>비상연락번호</label></td>
-								<td class="col2">
-									<select name="con1" style="width:53px;">
+								<td class="col2"><select name="con1" style="width: 53px;">
 										<option>010</option>
 										<option>011</option>
 										<option>016</option>
 										<option>017</option>
 										<option>018</option>
 										<option>019</option>
-									</select>&nbsp;-
-									<input type="text" name="con2" style="width:60px;">&nbsp;-
-									<input type="text" name="con3" style="width:60px;">
-								</td>
+								</select>&nbsp;- <input type="text" name="con2" style="width: 60px;">&nbsp;-
+									<input type="text" name="con3" style="width: 60px;"></td>
 							</tr>
 							<tr>
-								<td class="col1"><label>이메일&nbsp;&nbsp;</label><label class="star">*</label></td>
-								<td class="col2">
-									<input type="text" name="email1">&nbsp;&nbsp;@&nbsp;&nbsp;
-									<input type="text" name="email2" id = "email2">&nbsp;&nbsp;
-									<select name="email3" id = "email3">
+								<td class="col1"><label>이메일&nbsp;&nbsp;</label><label
+									class="star">*</label></td>
+								<td class="col2"><input type="text" name="email1">&nbsp;&nbsp;@&nbsp;&nbsp;
+									<input type="text" name="email2" id="email2">&nbsp;&nbsp;
+									<select name="email3" id="email3">
 										<option>- 이메일 선택 -</option>
 										<option>naver.com</option>
 										<option>daum.net</option>
@@ -128,27 +137,27 @@
 										<option>korea.com</option>
 										<option>gmail.com</option>
 										<option>직접입력</option>
-									</select>&nbsp;&nbsp;&nbsp;&nbsp;
-									<button class="check">인증하기</button>
+								</select>&nbsp;&nbsp;&nbsp;&nbsp;
+								<button type= "button" class="check" id = "emailckbtn">인증하기</button>
+								<span id="Semailck"></span>
+								<input type = "hidden" id = "email_check" name = "email_check" value = "인증안됨">
 								</td>
 							</tr>
 							<tr>
-								<td class="col1"><label>성별&nbsp;&nbsp;</label><label class="star">*</label></td>
-								<td class="col2">
-									<input type="radio" name="gender" value="M" checked>남자&nbsp;&nbsp;&nbsp;&nbsp;
-									<input type="radio" name="gender" value="F">여자
-								</td>
+								<td class="col1"><label>성별&nbsp;&nbsp;</label><label
+									class="star">*</label></td>
+								<td class="col2"><input type="radio" name="gender"
+									value="M" checked>남자&nbsp;&nbsp;&nbsp;&nbsp; <input
+									type="radio" name="gender" value="F">여자</td>
 							</tr>
 							<tr>
 								<td class="col1"><label>결혼날짜&nbsp;&nbsp;</label></td>
-								<td class="col2">
-									<input type="date" name="weddingDate" value= "">&nbsp;&nbsp;&nbsp;&nbsp;
-								</td>
+								<td class="col2"><input type="date" name="weddingDate"
+									value="" id = "weddingDate" value = "">&nbsp;&nbsp;&nbsp;&nbsp;</td>
 							</tr>
 						</table>
 					</form>
-					<br>
-					<br>
+					<br> <br>
 					<textarea readonly>제 1장. 총칙제 1조(목적)본 약관은 Redding(이하 "회사"라 합니다.)가 운영하는 인터넷 홈페이지(www.redding.co.kr)에서 제공하는 서비스(이하 "서비스"라 합니다.)의 이용 조건 및 절차에 관한 사항, 회사와 이용자의 권리와 의무 및 책임사항을 규정함을 목적으로 합니다.제 2조(용어의 정의)이 약관에서 사용하는 용어의 정의는 다음과 같습니다.1. 회원: 회사에 개인정보를 제공하여 회원 등록을 한 자로서, 회사의 정보를 제공받으며 회사가 제공하는 서비스를 이용할 수 있는 자를 말합니다.2. 이용자: 본 약관에 따라 회사가 제공하는 서비스를 받는 회원 및 비회원을 말합니다.3. 회원ID: 회원의 식별과 회원의 서비스 이용을 위하여 회원이 선정하고 회사가 승인하는 문자 및 숫자의 조합을 의미합니다.4. 비밀번호: 이용자와 회원ID 사용자가 동일한 사람인지를 확인하고 회원의 개인정보를 보호하기 위하여 회원이 정한 문자와 숫자의 조합을 의미합니다.5. 홈페이지: 회사가 이용자에게 서비스를 제공하기 위하여 컴퓨터 등 정보통신설비를 이용하여 이용자가 열람 및 이용할 수 있도록 설정한 가상의 서비스 공간을 말합니다.6. 회원 탈퇴: 회사 또는 회원이 서비스 이용 이후 그 이용계약을 종료 시키는 의사표시를 말합니다.본 약관에서 사용하는 용어의 정의는 상기 정한 것을 제외하고는 관계법령 및 서비스별 안내에서 정하는 바에 의합니다. 제 3조(약관 이외의 준칙)1. 본 약관은 회사가 제공하는 서비스에 관한 이용규정 및 별도 약관과 함께 적용됩니다.2. 이 약관에 명시되지 않은 사항과 이 약관의 해석에 관하여는 관련 법령 및 상관례에 따릅니다.제 4조(약관의 효력 및 변경)1. 회사는 본 약관의 내용을 회원이 쉽게 알 수 있도록 각 서비스 사이트의 초기 서비스화면에 게시합니다.2. 회사는 약관의 규제에 관한 법률, 전자거래기본법, 전자서명법, 정보통신망 이용촉진 및 정보보호 등에 관한 법률 등 관련법을 위배하지 않는 범위에서 본 약관을 개정할 수 있습니다.3. 회사는 본 약관을 개정할 경우에는 적용일자 및 개정사유를 명시하여 현행 약관과 함께 회사가 제공하는 서비스 사이트의 초기 화면에 그 적용일자 7일 이전부터 적용일자 전일까지 공지합니다. 다만, 회원에게 불리하게 약관내용을 변경하는 경우에는 최소한 30일 이상의 사전 유예기간을 두고 공지합니다. 이 경우 회사는 개정 전 내용과 개정 후 내용을 명확하게 비교하여 회원이 알기 쉽도록 표시합니다. 4. 회원은 개정된 약관에 대해 거부할 권리가 있습니다. 회원은 개정된 약관에 동의하지 않을 경우 서비스 이용을 중단하고 회원등록을 취소(회원 탈퇴)할 수 있습니다. 단, 개정된 약관의 효력 발생일 이후에도 서비스를 계속 이용할 경우에는 약관의 변경사항에 동의한 것으로 간주합니다. 5. 변경된 약관에 대한 정보를 알지 못해 발생하는 회원 피해는 회사가 책임지지 않습니다. 6. 변경된 약관은 회사 사이트에 게시함과 동시에 그 효력이 발생됩니다.
 제 2장 이용계약의 체결제 5조(이용계약의 성립)1. 이용계약은 회원의 본 이용약관 내용에 대한 동의와 이용신청에 대하여 회사의 이용승낙으로 성립합니다.2. 본 이용약관에 대한 동의는 회원등록 당시 본 약관을 읽고 "약관에 동의합니다" 의 체크박스에 표시를 한 후 확인 단추를 누름으로써 의사표시를 한 것으로 간주합니다.제 6조(서비스 이용 신청)1. 회원으로 가입하여 본 서비스를 이용하고자 하는 이용고객은 회사에서 요청하는 제반정보(이름, 메일주소, 연락처 등)를 제공하여야 합니다.2. 타인의 명의(이름 및 메일주소 등)를 도용하여 이용신청을 한 회원의 모든 ID는 삭제되며, 관계법령에 따라 처벌을 받을 수 있습니다.3. 만14세 미만의 아동이 회원으로 가입하기 위해서는 반드시 개인정보의 수집 및 이용목적에 대하여 충분히 숙지하고 법정대리인(부모)의 동의를 받아야 합니다. 법정대리인의 허락을 받지 않은 14세 미만의 아동에 대해서는 회원에서 제외할 수 있습니다.제 7조(개인정보의 보호)1. 회사는 이용자 정보 수집 시 회사측이 필요한 최소한의 정보를 수집합니다.
 다음 사항을 필수사항으로 하며 그 외 사항은 선택사항으로 합니다.회원ID, 이름, 이메일주소, 전화번호(휴대전화), 성별, 서비스이용기록, 접속로그, 쿠키, 접속IP정보2. 회사가 이용자의 개인식별이 가능한 개인정보를 수집하는 때에는 반드시 당해 이용자의 동의를 받습니다.3. 제공된 개인정보는 당해 이용자의 동의 없이 제 3자에게 제공할 수 없으며, 이에 대한 모든 책임은 회사가 집니다. 다만 다음의 경우에는 예외로 합니다.・ 계약의 이행이나 방문상담, 전화상담 등 이용자 요청에 의해 이용・예약에 필요한 경우
@@ -211,11 +220,10 @@
 ⑥ 기타 정상적인 서비스 운영에 방해가 될 경우2. 상기 이용제한 사유에 해당되는 회원에 대해서는 서비스 이용에 대하여 별도 공지 없이 서비스 이용의 일시정지, 초기화, 이용계약 해지 등을 불량이용자 처리규정에 따라 취할 수 있으며, 회원은 전항의 귀책사유로 인하여 회사나 다른 회원에게 입힌 손해를 배상할 책임이 있습니다.
 제 6장 손해배상 및 기타사항제 22조(손해배상)회사는 무료로 제공하는 서비스의 이용과 관련하여 개인정보보호정책에서 정하는 내용 등 관련 법령에서 정한 경우 외에는 어떠한 손해도 책임을 지지 않습니다.제 23조(면책조항)1. 회사는 천재지변, 전쟁 및 기타 불가항력, 회사의 합리적인 통제범위를 벗어난 사유로 인하여 서비스를 제공할 수 없는 경우에는 그에 대한 책임이 면제됩니다.2. 회사는 기간통신 사업자가 전기통신 서비스를 중지하거나 정상적으로 제공하지 아니하여 손해가 발생한 경우 책임이 면제됩니다.3. 회사는 서비스용 설비의 보수, 교체, 정기점검, 공사 등 부득이한 사유로 발생한 손해에 대한 책임이 면제됩니다.4. 회사는 이용자의 귀책사유로 인한 서비스 이용의 장애 또는 손해에 대하여 책임을 지지 않습니다.5. 회사는 이용자의 컴퓨터 오류에 의해 손해가 발생한 경우, 또는 회원이 신상정보 및 전자우편 주소를 부실하게 기재하여 손해가 발생한 경우 책임을 지지 않습니다.6. 회사는 회원이 서비스를 이용하면서 얻은 자료로 인한 손해에 대하여 책임을 지지 않습니다. 또한 회사는 회원이 서비스를 이용하는 과정에서 타 회원으로 인하여 인해 입게 되는 정신적 피해에 대하여 보상할 책임을 지지 않습니다.7. 회원이 서비스 화면에 게재한 정보, 자료, 사실 등의 내용에 관한 신뢰도 혹은 정확성에 대하여는 해당회원이 책임을 부담하며, 회사는 내용의 부정확 또는 허위로 인해 회원 또는 제3자에게 발생한 손해에 대하여는 아무런 책임을 부담하지 않습니다.8. 회사는 회원 상호 간 및 회원과 제3자 상호 간에 서비스를 매개로 발생한 분쟁에 대해 개입할 의무가 없으며, 이로 인한 손해를 배상할 책임도 없습니다.9. 회사는 서비스 이용과 관련하여 회원의 고의 또는 과실로 인하여 회원 또는 제3자에게 발생한 손해에 대하여는 아무런 책임을 부담하지 않습니다.10. 회사에서 회원에게 무료로 제공하는 서비스의 이용과 관련해서는 본 약관 및 관련 법령에서 정하는 경우 외에는 어떠한 손해에 대해서도 책임을 지지 않습니다.제 24조(분쟁의 해결)1. 회사와 회원은 서비스와 관련하여 발생한 분쟁을 원만하게 해결하기 위하여 필요한 노력을 합니다.2. 회사는 회원으로부터 제출되는 불만사항 및 의견을 우선적으로 처리합니다. 다만, 신속한 처리가 곤란한 경우에는 회원에게 그 사유와 처리일정을 즉시 통보합니다.제 25조(재판관할 및 준거법)회사와 회원 간에 서비스 이용으로 발생한 분쟁에 대하여는 대한민국법을 적용하며, 해당 본 분쟁으로 인하여 소송이 제기될 경우 민사소송법 상의 관할을 가지는 대한민국의 법원에 제기합니다.[부칙(2016.06.07)]본 약관은 2016년 06월 07일부터 적용됩니다.
 					</textarea>
-						<div class="condition">이용약관에 동의하십니까?
-							<input type="checkbox" name="condition1">동의함
-						</div>
-						<br>
-						<br>
+					<div class="condition">
+						이용약관에 동의하십니까? <input type="checkbox" name="condition1">동의함
+					</div>
+					<br> <br>
 					<textarea readonly>제 1장. 총칙1. Redding(이하 `회사`라 함)은 고객님의 개인정보보호를 매우 중요하게 여기고 있으며, "개인정보보호법" 등 개인정보보호에 관한 제반 법령을 준수하고 있습니다.2. 회사는 본 개인정보처리방침을 회사 인터넷 홈페이지 첫 화면 또는 첫 화면과의 연결화면을 통하여 공개함으로써 개인정보가 어떠한 용도와 방식으로 이용되고 있으며 당사가 고객님의 개인정보를 안전하게 취급하기 위하여 어떠한 조치를 취하고 있는지를 고객님이 용이하게 확인할 수 있도록 조치하고 있습니다.
 제 2장. 개인정보 수집 및 이용목적1. 서비스의 원활한 제공 및 운영
 - 서비스 제공에 관한 계약 이행 및 서비스 제공에 따른 요금정산, 콘텐츠 제공, 고객님의 행사 ・ 일정에 따른 맞춤 안내, 구매 및 요금 결제, 금융거래 본인 인증 및 금융 서비스, 요금 추심2. 고객관리
@@ -302,16 +310,16 @@
 ・ 경찰청 사이버테러대응센터 : www.netan.go.kr / 1566-0112
 제 10장. 개인정보 처리방침의 변경에 관한 사항회사는 본 개인정보처리방침을 변경하는 경우에는 그 이유 및 변경내용을 인터넷 홈페이지 첫 화면의 공지사항란 또는 별도의 창을 통하는 등의 방법으로 최소 7일 이전에 공지할 것입니다.・ 개인정보처리방침 버전번호 : 20160607・ 개인정보처리방침 시행일자 : 2016년 06월 07일
 					</textarea>
-						<div class="condition">개인정보 수집 및 이용에 동의하십니까?
-							<input type="checkbox" name="condition2">동의함
-						</div>
-						<br>
-						<br>
-						<div class="memberJoinBtnArea">
-							<input class="memberJoinBtn" type="reset" value="뒤로가기">&nbsp;&nbsp;&nbsp;&nbsp;
-							<input class="memberJoinBtn" type="submit" value="회원가입" onclick="insertMember()">
-						</div>
-					
+					<div class="condition">
+						개인정보 수집 및 이용에 동의하십니까? <input type="checkbox" name="condition2">동의함
+					</div>
+					<br> <br>
+					<div class="memberJoinBtnArea">
+						<input class="memberJoinBtn" type="reset" value="뒤로가기">&nbsp;&nbsp;&nbsp;&nbsp;
+						<input class="memberJoinBtn" type="button" value="회원가입"
+							onclick="insertMember()">
+					</div>
+
 				</div>
 
 			</div>
@@ -332,32 +340,200 @@
 	<div class="footerArea">
 		<jsp:include page="/views/common/footer.jsp"></jsp:include>
 	</div>
-	
+
 	<script>
 		function insertMember() {
-			$("#joinForm").submit();
+			var Sidcheck = $("#Sidcheck").text();
+			var Spwd1 = $("#Spwd1").text();
+			var Spwd2 = $("#Spwd2").text();
+			
+			var nickCheck = $("#nickCheck").text();
+			
+			var memberid = $("#memberId").val();
+			var memberpwd1 = $("#memberPwd").val();
+			var memberpwd2 = $("#memberPwd2").val();
+			var nickname = $("#nickName").val();
+			var memberName = $("#memberName").val();
+			var tel1 = $("select[name=tel1]").val();
+			var tel2 = $("input[name=tel2]").val();
+			var tel3 = $("input[name=tel3]").val();
+			var email1 = $("input[name=email1]").val();
+			var email2 = $("#email2").val();
+			var gender = $("input[name=gender]").val();
+		
+			console.log("Spwd1 :" + Spwd1);
+			console.log("Spwd2 :" + Spwd2);
+			console.log("nickCheck :" + nickCheck);
+			
+			console.log("tel1 :" + tel1 + "tel2 :" + tel2 + "tel3 :" + tel3);
+		
+			//회원가입 체크
+			if(memberid == ""){
+				alert("아이디 입력해주세요");			
+			}else if (Sidcheck != "아이디사용가능"){
+				alert("아이디 중복 체크 해주세요");	
+			}else if (memberpwd1 == ""){
+				alert("비밀번호 다시 확인해주세요");
+			}else if (Spwd1 != ""){
+				alert("비밀번호 다시 확인해주세요");
+			}else if (memberpwd2 == "" ){
+				alert("비밀번호 다시 확인해주세요");
+			}else if (Spwd2 != "비밀번호가 일치합니다."){
+				alert("비밀번호 다시 확인해주세요");
+			}else if (memberName == "") {
+				alert("이름 입력해주세요");
+			}else if (nickname == ""){
+				alert("닉네임 입력해주세요.");
+			}else if (nickCheck != "닉네임사용가능"){
+				alert("닉네임 중복 체크 해주세요");
+			}else if (tel1 == ""){
+				alert("전화번호 입력해주세요");
+			}else if (tel2 == "") { 
+				alert("전화번호 입력해주세요");
+			}else if (tel3 == ""){
+				alert("전화번호 입력해주세요");
+			}else if (email1 == ""){
+				alert("이메일 입력해주세요");
+			}else if (email2 == ""){
+				alert("이메일 입력해주세요");
+			}else if ($("input[name=condition1]").is(":checked") == false ){
+				alert("약관의 동의해주세요");
+			}else if ($("input[name=condition2]").is(":checked") == false){
+				alert("약관의 동의해주세요");
+			}else{
+				$("#joinForm").submit();
+			}
+			
+	
+			
 		}
-		$(function() {
-			$("#idCheck").click(function() {
-				var memberId = $("#memberId").val();
+		
+		function registerId(){
+			var userId = $("#memberId").val();
+			var count = 0;
+			
+			//아이디 유효성 검사
+			for (var i = 0 ; i < userId.length; i++){
+				ch = userId.charAt(i);
 				
-				$.ajax({
-					url:"/redding/idCheck.me",
-					type:"post",
-					data:{memberId:memberId},
-					success:function(data) {
-						if(data === "fail") {
-							alert("중복된 아이디가 존재합니다.");
-						}else {
-							alert("사용가능한 아이디입니다.");
-						}
-					},
-					error:function(data) {
-						console.log("통신 실패!")
-					}
-				});
+				if (!(ch >= '0' && ch <= '9') && !(ch >= 'a' && ch <= 'z')
+						&&!(ch >= 'A' && ch <= 'Z')) {
+	                alert("아이디는 대소문자, 숫자만 입력가능합니다.");
+	                return false;
+	            }
+			}
+			
+			//아이디 중복 체크
+			if (userId == ""){
+				alert("아이디를 입력해주세요.");
+			}else if(userId.length < 4){
+				alert("아이디는 4자 이상으로 입력해주셔야합니다.");
+			}else if (count > 0){
+				alert("아이디는 특수기호를 쓸수 없습니다.");
+			}else {
+	    		$.ajax({
+	    			url : "/redding/idcheck.me",
+	    			type : "post",
+	    			data : {userId : userId},
+	    			success : function(data){
+	    				if (data === "success"){
+	    					//alert("아이디 사용가능");
+	    					$("#Sidcheck").text("아이디사용가능");
+	    					$("#Sidcheck").css("color","blue");
+	    				}else {
+	    					$("#Sidcheck").text("아이디중복");
+	    					$("#Sidcheck").css("color","red");
+	    					$("#memberId").val("");
+	    				}
+	    			}, 
+	    			error : function(){
+	    				console.log("실패!");
+	    			}
+	    		});
+			}
+		}
+	
+		
+		
+		$(function() {
+			
+			
+			//엔터 막기
+			document.addEventListener('keydown', function(event) {
+			    if (event.keyCode === 13) {
+			        event.preventDefault();
+			    }
+			}, true);
+			
+			//비밀번호 누를때 생기는 함수
+			$("#memberPwd").change(function(){
+				$("#memberPwd2").val("");
+				var memberPwd = $("#memberPwd").val();
+				
+				if (memberPwd.length < 8){
+					$("#Spwd1").html("8자이상로 작성해주세요");
+					$("#Spwd1").css("color" , "red");
+				}else{
+					$("#Spwd1").html("");
+				}
 			});
 			
+			//비밀번호 확인 누를때 생기는 함수
+			$("#memberPwd2").change(function(){
+				var memberPwd = $("#memberPwd").val();
+				var memberPwd2 = $("#memberPwd2").val()
+				
+				if (memberPwd != memberPwd2){
+					$("#Spwd2").html("비밀번호가 일치하지 않습니다");
+					$("#Spwd2").css("color" , "red");
+				}else {
+					$("#Spwd2").html("비밀번호가 일치합니다.");
+					$("#Spwd2").css("color" , "blue");
+				}
+				
+				
+			});
+			
+			//닉네임 다시 작성할때
+			 $("input[name=nickName]").change(function(){
+				$("#nickCheck").text("닉네임중복확인");
+				$("#nickCheck").css("color","white");
+			});
+			
+			
+			//닉네임 체크 함수
+			$("#nickCheck").click(function(){
+				var nickname = $("input[name=nickName]").val();
+				console.log(nickname);
+				
+				if (nickname == ""){
+					alert("닉네임을 입력해주세요");
+				}else {
+					$.ajax({
+		    			url : "/redding/nickcheck.me",
+		    			type : "post",
+		    			data : {nickname : nickname},
+		    			success : function(data){
+		    				if (data === "success"){
+		    					//alert("아이디 사용가능");
+		    					$("#nickCheck").text("닉네임사용가능");
+		    					$("#nickCheck").css("color","blue");
+		    				}else {
+		    					$("#nickCheck").text("닉네임중복");
+		    					$("#nickCheck").css("color","red");
+		    					$("input[name=nickName]").val("");
+		    				}
+		    			}, 
+		    			error : function(){
+		    				console.log("실패!");
+		    			}
+		    		});
+				}
+				
+			});
+					
+				
+			//select에서 바꿀때
 			$("#email3").change(function(){
 				$("#email3").children().eq(0).attr("disabled","true");
 				
@@ -365,6 +541,14 @@
 				
 				$("#email2").val(value);
 			});
+			
+			//이메일 인증
+			$("#emailckbtn").click(function(){
+				$("#Semailck").text("인증안됨");
+				$("#Semailck").css("color","red");
+			});
+			
+			
 		});
 	</script>
 

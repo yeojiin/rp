@@ -45,7 +45,7 @@
 					
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#">LOGOUT</a></li>
+					<li><a href="<%=request.getContextPath()%>/logout.me">LOGOUT</a></li>
 				</ul>
 			</div>
 		</div>

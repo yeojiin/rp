@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,14 +25,14 @@ public class JoinCompanyServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = request.getParameter("comid");
+		String memberId = request.getParameter("memberId");
 		String reg_num = request.getParameter("reg_num");
-		String userPwd = request.getParameter("userPwd");
+		String memberPwd = request.getParameter("memberPwd");
 		String company_type = request.getParameter("company_type");
 		String name = request.getParameter("name");
-		String tel1 = request.getParameter("phone1");
-		String tel2 = request.getParameter("phone2");
-		String tel3 = request.getParameter("phone3");
+		String tel1 = request.getParameter("tel1");
+		String tel2 = request.getParameter("tel2");
+		String tel3 = request.getParameter("tel3");
 		String rep_name = request.getParameter("rep_name");
 		
 		String phone = tel1 + "-" + tel2 + "-" + tel3;
@@ -46,27 +47,32 @@ public class JoinCompanyServlet extends HttpServlet {
 		int accountcode = Integer.parseInt(request.getParameter("accountcode"));
 		String account_num = request.getParameter("account_num");
 		String account_name = request.getParameter("account_name");
-		String email = request.getParameter("email");
+		String email1 = request.getParameter("email1");
+		String email2 = request.getParameter("email2");
 		String email_check = request.getParameter("email_check");
+		
+		String email = email1 + "@" + email2;		
 	
 		String url = request.getParameter("homepage");
 		String startime = request.getParameter("strartime");
 		String endtime = request.getParameter("endtime");
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		/*Calendar today = Calendar.getInstance();
 		
-		Date start = null;
-		Date end = null;
-		try {
-			start = (Date)sdf.parse(startime);
-			end = (Date)sdf.parse(endtime);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+		SimpleDateFormat format1 = new SimpleDateFormat ("yyyy-MM-dd");
 		
-		System.out.println("userid :" + userId);
+		startime = format1.format(today) + startime;
+		endtime = format1.format(today) + endtime;
+		
+		SimpleDateFormat format2 = new SimpleDateFormat ("yyyy-MM-dd HH:mm");
+		
+		Date StartDate = (Date) format2.parse(startime);
+		Date endDate = (Date) format2.parse(endtime);
+*/
+		
+		System.out.println("memberId :" + memberId);
 		System.out.println("reg_num :" + reg_num);
-		System.out.println("password :" + userPwd);
+		System.out.println("password :" + memberPwd);
 		System.out.println("company_type :" + company_type);
 		System.out.println("name :" + name);
 		System.out.println("phone :" + phone);
@@ -77,8 +83,8 @@ public class JoinCompanyServlet extends HttpServlet {
 		System.out.println("email :" + email);
 		System.out.println("email_check :" + email_check);
 		System.out.println("url :" + url);
-		System.out.println("opentime :" + start);
-		System.out.println("endTime :" + end);
+		System.out.println("opentime :" + startime);
+		System.out.println("endTime :" + endtime);
 		
 		String emailstatus = "";
 		if (email_check.equals("인증안됨")) {
@@ -90,8 +96,8 @@ public class JoinCompanyServlet extends HttpServlet {
 		Member joinMember = new Member();
 		Company joinCompany = new Company();
 		
-		joinMember.setMemberId(userId);
-		joinMember.setMemberPwd(userPwd);
+		joinMember.setMemberId(memberId);
+		joinMember.setMemberPwd(memberPwd);
 		joinMember.setMemberName(name);
 		joinMember.setPhone(phone);
 		joinMember.setEmail(email);
@@ -105,8 +111,8 @@ public class JoinCompanyServlet extends HttpServlet {
 		joinCompany.setRepName(rep_name);
 		joinCompany.setComAddress(totalAddress);
 		joinCompany.setComUrl(url);
-		joinCompany.setOpenTime(start);
-		joinCompany.setEndTime(end);
+		joinCompany.setOpenTime(startime);
+		joinCompany.setEndTime(endtime);
 		
 		int result = new CompanyService().insertCompany(joinMember,joinCompany);
 		

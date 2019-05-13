@@ -1,6 +1,8 @@
 package com.kh.redding.member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,7 +26,6 @@ public class MemberInsertServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String memberId = request.getParameter("memberId");
 		String memberPwd = request.getParameter("memberPwd");
-		String memberPwd2 = request.getParameter("memberPwd2");
 		String memberName = request.getParameter("memberName");
 		String nickName = request.getParameter("nickName");
 		String tel1 = request.getParameter("tel1");
@@ -34,16 +35,31 @@ public class MemberInsertServlet extends HttpServlet {
 		String con1 = request.getParameter("con1");
 		String con2 = request.getParameter("con2");
 		String con3 = request.getParameter("con3");
-		String emergenCon = con1 + "-" + con2 + "-" + con3;
+		
+		String emergenCon = null;
+		
+		System.out.println("con2 :" + con2 );
+		System.out.println("con3 :" + con3);
+		
+		if(!con2.equals("") && !con3.equals("") ) {
+			emergenCon = con1 + "-" + con2 + "-" + con3;
+		}
+		
 		String email1 = request.getParameter("email1");
 		String email2 = request.getParameter("email2");
-		String email3 = request.getParameter("email3");
-		String email = email1 + "@" + email3;
-		String gender = request.getParameter("gender");
-		String condition1 = request.getParameter("condition1");
-		String condition2 = request.getParameter("condition2");
+		String emailck = request.getParameter("email_check");
 		
-		System.out.println("id : " + memberId + ", pwd : " + memberPwd + ", name : " +memberName + ", nickName : " + nickName + ", phone : " + phone + ", emergenCon : " + emergenCon + ", email : " + email + ", gender : " + gender + ", condition[1, 2] : " + condition1 + condition2);
+		String email = email1 + "@" + email2;
+		
+		String gender = request.getParameter("gender");
+		
+		String wedding = request.getParameter("weddingDate");
+		
+		System.out.println("결혼날짜 :"+wedding);
+		
+		Date weddingDate = null;
+		
+		System.out.println("id : " + memberId + ", pwd : " + memberPwd + ", name : " +memberName + ", nickName : " + nickName + ", phone : " + phone + ", emergenCon : " + emergenCon + ", email : " + email + ", gender : " + gender);
 		
 		Member insertMember = new Member();
 		insertMember.setMemberId(memberId);
@@ -54,15 +70,21 @@ public class MemberInsertServlet extends HttpServlet {
 		insertMember.setEmergenCon(emergenCon);
 		insertMember.setEmail(email);
 		insertMember.setGender(gender);
+		insertMember.setWeddingDate(weddingDate);
+		if (!wedding.equals("")) {
+			weddingDate = Date.valueOf(wedding);			
+		}
+		
+		insertMember.setEmailCheck(emailck);
 
 		int result = new MemberService().insertMember(insertMember);
-		
+	
 		String page = "";
 		if(result > 0) {
-			page = "index.jsp";
+			page = "views/common/login.jsp";
 			response.sendRedirect(page);
 		}else {
-			page = "views/common/errorPage.jsp";
+			page = "views/member/m_join.jsp";
 			request.setAttribute("msg", "회원가입을 실패했습니다.");
 			request.getRequestDispatcher(page).forward(request, response);
 		}

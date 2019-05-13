@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.redding.member.model.vo.Member"%>
+<%
+   Member loginUser = (Member) session.getAttribute("loginUser");
+%>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/company/c_header.css">
 	<header>
 		<div class = "wrap">
@@ -11,7 +14,7 @@
 			</div>
 			<div class = "info">
 				<div class = "info3">
-					<label id="userlabel">UserID 님</label>
+					<label id="userlabel"><%=loginUser.getMemberName() %> 님</label>
 					<label>logout</label>
 				</div>
 				<div class = "info2">
