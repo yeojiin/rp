@@ -58,7 +58,7 @@
          
          
          
-         <div class="col-sm-2 sidenav1">
+         <div class="col-sm-2 sidenav1 visible-md visible-lg visible-sm">
             <div class="visible-md visible-lg visible-sm">
                <ul>
                   <li class="CMList" id="CMQTableBtn"><h4>고객 문의 관리</h4></li>
@@ -150,7 +150,7 @@
 				        		</div>
 				        		<div id="sendArea">
 				        			<h3>답장 보내기</h3>
-				        				<label>제목</label><input type="text" class="sendQna" name="sendTitle" id="sendTitle" value="해당쪽지의 발신인을 '본인' getAttribute(admin)로 가져오시오"readonly>
+				        				<label>제목</label><input type="text" class="sendQna" name="sendTitle" id="sendTitle" placeholder="제목을 입력해주세요" value="">
 							        	<textarea class="sendQna" name="sendContent" id="sendContent">
 							        		
 							        		쪽지 내용에 대한 답변 작성
@@ -202,7 +202,7 @@
                            <th width="10%"><div id="reserveStatus">진행상황</div></th>
                         </tr>
                         <!-- 자바스크립트로 전체리스트조회 결과 테이블 보여주고 input에서 search한 결과를 ajax로 변경해서 보여준다 -->
-                        <tr>
+                        <tr class="cmbRow">
                         <td>1</td>
                         <td>2</td>
                         <td>3</td>
@@ -221,7 +221,7 @@
 천지는 노래하며 고행을 가는 피다. 뜨거운지라, 가슴이 않는 예가 칼이다. 공자는 따뜻한 새 간에 가치를 들어 피가 가장 설산에서 보라. 내는 같이, 싹이 아름다우냐? 얼음과 가지에 꽃이 그들의 인생을 광야에서 그리하였는가? 몸이 너의 때까지 이것을 뼈 그들의 천하를 약동하다. 산야에 심장은 거친 무엇을 끓는 구하지 것이다. 커다란 같이, 보는 못할 아름답고 보이는 영원히 너의 때문이다. 천고에 자신과 우리의 우리의 풀이 이것이다. 타오르고 고동을 그러므로 구하지 약동하다. 놀이 그것을 그들은 앞이 이상의 이상이 길지 부패뿐이다.</p>
                      	</td>
                      </tr> -->
-                     <tr>
+                     <tr class="cmbRow">
                         <td>1</td>
                         <td>2</td>
                         <td>3</td>
@@ -298,6 +298,7 @@
          
          $("#CMQTableBtn").click(function(){
             location.href="#CMAreaTop";
+            
          });
          $("#customerManagerReservationBtn").click(function(){
             location.href="#customerManagerReservation";
@@ -324,12 +325,16 @@
         	 $(this).css({"background":"MistyRose"});
          }).mouseout(function(){
         	 $(this).css({"background":"white"});
-         });/* 
-         $("#CMBTableS").mouseenter(function(){
+         });
+         $(".cmbRow").mouseenter(function(){
         	 $(this).css({"background":"MistyRose"});
          }).mouseout(function(){
         	 $(this).css({"background":"white"});
-         }); */
+         });
+         $("#sendBtn").click(function(){
+        	 alert('답장을 보내셨습니다.');
+        	 location.href="<%=request.getContextPath()%>/views/company/c_customerManager.jsp";
+         });
       });
 
    </script>

@@ -55,10 +55,9 @@
    <div class="container-fluid text-center">
       <div class="row content">
       
-         <div class="col-sm-2 sidenav1">
+         <div class="col-sm-2 sidenav1 visible-md visible-lg visible-sm">
             <div id="sendMessageBtn">쪽지 보내기</div>
          </div>
-         
          
          <div class="col-sm-8 text-left">
          <%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
@@ -88,7 +87,9 @@
                      <!-- radio 버튼도 함께 보내줘야 한다.
                      읽기 버튼도 함께 보내줘야 한다 -->
                      <tr>
-                     	<td>1</td>
+                     	<td>
+                     		<input type="checkbox" name="receiveMeessage" id="receiveMeessage">
+                     	</td>
                      	<td>2</td>
                      	<td>3</td>
                      	<td>
@@ -99,7 +100,9 @@
                      	<td>6</td>
                      </tr>
                      <tr>
-                     	<td>1</td>
+                     	<td>
+                     		<input type="checkbox" name="receiveMeessage" id="receiveMeessage">
+                     	</td>
                      	<td>2</td>
                      	<td>3</td>
                      	<td>4</td>
@@ -133,7 +136,7 @@
 				        		</div>
 				        		<div id="sendArea">
 				        			<h3>답장 보내기</h3>
-				        			<input type="text" class="sendMessage" name="sendId" id="sendId" value="해당쪽지의 발신인을 '본인' getAttribute(admin)로 가져오시오"readonly>
+				        			<input type="text" class="sendMessage" name="sendId" id="sendId" value="해당쪽지의 발신인을 '본인' 로 가져오시오"readonly>
 							        	<input type="text" class="receiveMessage" name="sendDay" id="sendDay" value="오늘 날짜"readonly>
 							        	<textarea class="sendMessage" name="sendContent" id="sendContent">
 							        		
@@ -166,7 +169,9 @@
                         </tr>
                         <!-- 자바스크립트로 전체리스트조회 결과 테이블 보여주고 input에서 search한 결과를 ajax로 변경해서 보여준다 -->
                         <tr>
-                     	<td>1</td>
+                     	<td>
+                     		<input type="checkbox" name="sendMessage" id="sendMessage">
+                     	</td>
                      	<td>2</td>
                      	<td>3</td>
                      	<td>4</td>
@@ -174,7 +179,9 @@
                      	<td>6</td>
                      </tr>
                      <tr>
-                     	<td>1</td>
+                     	<td>
+                     		<input type="checkbox" name="sendMessage" id="sendMessage">
+                     	</td>
                      	<td>2</td>
                      	<td>3</td>
                      	<td>4</td>
@@ -229,6 +236,26 @@
 		var sampleContent = totalContent.substr(0,30) + "...";
 		$("#messageContent").text(sampleContent);
 		
+		$("#RMDeleteBtn").click(function(){
+			/* 체크된 메세지들을 삭제 */
+			var resultRM = window.confirm('해당 메세지들을 삭제하시겠습니까?');
+			
+			if(resultRM==true){
+				alert('삭제되었습니다');
+			}else{
+				alert('삭제가 취소되었습니다.');
+			}
+		});
+		$("#SMDeleteBtn").click(function(){
+			/* 체크된 메세지들을 삭제 */
+			var resultSM = window.confirm('해당 메세지들을 삭제하시겠습니까?');
+			
+			if(resultSM==true){
+				alert('삭제되었습니다');
+			}else{
+				alert('삭제가 취소되었습니다.');
+			}
+		});
    	});
    </script>
 </body>
