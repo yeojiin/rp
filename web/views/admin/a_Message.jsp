@@ -14,82 +14,28 @@
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR"
 	rel="stylesheet">
 <!-- 글꼴 -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR"
+	rel="stylesheet">
+<!-- 글꼴 -->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/common/footer.css">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/company/c_nav.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/company/c_main.css">
+	href="${pageContext.request.contextPath}/css/admin/a_nav.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/common/layout.css">
+<link rel="stylesheet" type="text/css" 
+	href="${pageContext.request.contextPath}/css/admin/a_message.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/semantic/semantic.min.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/semantic/transition.js">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/semantic/semantic.min.js">
 
 <style>
-.messageArea table {
-	margin-left: auto;
-	margin-right: auto;
-	width: 100%;
-}
 
-.messageArea table th {
-	padding: 8px;
-	text-align: center;
-}
-
-.messageArea table tr td {
-	padding: 8px;
-	border-bottom: 1px solid gray;
-	text-align: center;
-}
-
-#messaget, #plusInfot {
-	border: 1px solid gray;
-	width: 100%;
-}
-
-#text1, #text2 {
-	float: left;
-	font-size: 25px;
-	margin-left: 0;
-}
-
-#text3, #text4 {
-	float: left;
-	font-size: 20px;
-	margin-left: 3%;
-}
-
-.sidenav1 {
-	color: black;
-	font-size: 20px;
-}
-
-ul {
-	list-style-type: none;
-	margin-right: 65px;
-	color: gray;
-}
-
-ul h3:hover {
-	background: mistyrose;
-}
-
-.btns {
-	float: right;
-}
-
-.search {
-	float: right;
-}
-
-.memberList {
-	text-align: center;
-}
 </style>
 <title>Insert title here</title>
 </head>
@@ -100,15 +46,31 @@ ul h3:hover {
 	<div class="container-fluid text-center">
 		<div class="row content">
 
+		<div class="visible-md visible-lg visible-sm">
 			<div class="col-sm-2 sidenav1">
-				<ul>
-					<h3 onclick="javascript: location.href= 'a_Company.jsp';">업체목록</h3>
-					<h3 onclick="javascript: location.href= 'a_CompanyDetail.jsp';">업체 정보 조회</h3>
-					<h3 onclick="javascript: location.href= 'a_Message.jsp';">업체 쪽지 관리</h3>
-				</ul>
+				<div class="sidenavArea">
+					<ul class="navList">
+						<li onclick="location.href='a_Company.jsp'">업체 목록</li>
+						<li onclick="location.href='a_CompanyDetail.jsp'">업체 정보 조회</li>
+						<li onclick="location.href='a_Message.jsp'" style="color:lightgray; padding-left:25px">업체 쪽지 관리</li>
+					</ul>
+				</div>
 			</div>
-
-
+		</div>
+		
+		<div class="visible-xs sideListnav2">
+					<div class="col-sm-2 sidenav1">
+						<div class="sidenavArea2">
+						<ul class="navList2">
+							<li onclick="location.href='a_Company.jsp'">업체 목록</li>
+						<li onclick="location.href='a_CompanyDetail.jsp'">업체 정보 조회</li>
+						<li onclick="location.href='a_Message.jsp'" style="color:lightgray; padding-left:25px">업체 쪽지 관리</li>
+						</ul>
+					</div>
+					</div>
+					
+					<br><br>
+				</div>
 			<div class="col-sm-8 text-left">
 				<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 				<div class="messageArea">
@@ -244,6 +206,7 @@ ul h3:hover {
 				<div class="col-sm-2 sidenav2"></div>
 
 			</div>
+		</div>
 		</div>
 
 		<!-- 커먼 풋터 -->

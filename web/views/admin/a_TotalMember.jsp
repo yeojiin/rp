@@ -45,8 +45,8 @@
 			<div class="col-sm-2 sidenav1">
 				<div class="sidenavArea">
 					<ul class="navList">
-						<li onclick="location.href='a_TotalMember.jsp'">전체 회원</li>
-						<li onclick="location.href='a_MemberOrder.jsp'"  style="color:lightgray; padding-left:25px">주문내역</li>
+						<li onclick="location.href='a_TotalMember.jsp'" style="color:lightgray; padding-left:25px">전체 회원</li>
+						<li onclick="location.href='a_MemberOrder.jsp'">주문내역</li>
 						<li onclick="location.href='a_MemberInquiry.jsp'">문의</li>
 					</ul>
 				</div>
@@ -57,8 +57,8 @@
 					<div class="col-sm-2 sidenav1">
 						<div class="sidenavArea2">
 						<ul class="navList2">
-						<li onclick="location.href='a_TotalMember.jsp'">전체 회원</li>
-						<li onclick="location.href='a_MemberOrder.jsp'"  style="color:lightgray; padding-left:25px">주문내역</li>
+						<li onclick="location.href='a_TotalMember.jsp'" style="color:lightgray; padding-left:25px">전체 회원</li>
+						<li onclick="location.href='a_MemberOrder.jsp'">주문내역</li>
 						<li onclick="location.href='a_MemberInquiry.jsp'">문의</li>
 						</ul>
 					</div>
@@ -178,6 +178,7 @@
 										<td>010-5123-7872</td>
 									</tr>
 								</table>
+								<br><
 									<div class="btns">
 								<button class="ui pink button" style="background:salmon;">블랙리스트 추가</button>
 								<button class="ui pink button" style="background:salmon;">탈퇴</button>
