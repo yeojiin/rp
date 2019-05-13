@@ -82,8 +82,8 @@
 						</div>
 						<div class="form-group">
 							<label for=content">내용</label>
-							<textarea class="form-control" id="content" name="content" rows="3"></textarea>
-						<button type="submit" class="btn btn-primary" onclick="location.href='<%=request.getContextPath() %>/views/board/board.jsp'">작성</button>
+							<textarea class="form-control" id="content" name="content" rows="3"></textarea><br>
+						<button type="submit" class="btn btn-primary" onclick="location.href='<%=request.getContextPath() %>/views/board/board.jsp'" style="background:salmon; border-color:salmon;">작성</button>
 						</div>
 					</form>
 				</div>
