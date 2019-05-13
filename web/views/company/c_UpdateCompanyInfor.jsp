@@ -37,7 +37,7 @@
 	padding-top: 20px;
 	height: 100%;
 	text-align: left;
-	font-size: 20px;
+	font-size: 17px;
 }
 
 .sidenav1 a {
@@ -123,8 +123,8 @@
 						<hr>
 						<table class = "comTable">
 							<tr>
-								<td>
-									<h2>회원정보 변경</h2>
+								<td colspan = "2">
+									<h3>회원정보 변경</h3>
 								</td>
 							</tr>
 							<tr>
@@ -138,7 +138,7 @@
 								<td><input type = "text" name = "userId" id = "userId"></td>
 							</tr>
 							<tr>
-								<th>업체 종류<span id="star">*</span></th>
+								<th>업체 종류</th>
 								<td><input type="radio" name="company_type" id="studio"
 									value="스튜디오" checked> <label for="studio">스튜디오</label>
 									<input type="radio" name="company_type" id="dress" value="드레스">
@@ -147,25 +147,25 @@
 									for="make">메이크업 & 헤어</label></td>
 							</tr>
 							<tr>
-								<th>업체명<span id="star">*</span></th>
+								<th>업체명</th>
 								<td><input type="text" maxlength="30" name="name" id="name"></td>
 								<td></td>
 							</tr>
 							<tr>
-								<th>대표자 명<span id="star">*</span></th>
+								<th>대표자 명</th>
 								<td><input type="text" maxlength="30" name="rep_name"
 									id="rep_name"></td>
 								<td></td>
 							</tr>
 							<tr>
-								<th>휴대전화<span id="star">*</span></th>
+								<th>휴대전화</th>
 								<td><input type="text" maxlength="3" name="phone1"
 									id="phone1" size="5"> - <input type="text"
 									maxlength="4" name="phone2" id="phone2" size="5"> - <input
 									type="text" maxlength="4" name="phone3" id="phone3" size="5"></td>
 							</tr>
 							<tr>
-								<th>주소<span id="star">*</span></th>
+								<th>주소</th>
 								<td><input type="text" id="postcode" placeholder="우편번호"
 									name="postcode"> <input type="button"
 									onclick="execDaumPostcode()" value="우편번호 찾기"><br>
@@ -184,7 +184,7 @@
 									name="extraAddress"></td>
 							</tr>
 							<tr>
-								<th>입금계좌<span id="star">*</span></th>
+								<th>입금계좌</th>
 								<td><select name="accountcode">
 										<option>-- 은행선택 --</option>
 										<option value="011">NH농협</option>
@@ -218,7 +218,7 @@
 									id="account_name" placeholder="예금주"></td>
 							</tr>
 							<tr>
-								<th>이메일<span id="star">*</span></th>
+								<th>이메일</th>
 								<td><input type="email" name="email" id="email">
 									<button>인증하기</button> <input id="email_check"
 									name="email_check" type="hidden" value="인증안됨"></td>

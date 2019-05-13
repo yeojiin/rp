@@ -108,14 +108,8 @@
 							<tr>
 								<td class="col1">휴대전화&nbsp;&nbsp;<span
 									id="star">*</span></td>
-								<td class="col2"><select name="tel1" style="width: 53px;">
-										<option>010</option>
-										<option>011</option>
-										<option>016</option>
-										<option>017</option>
-										<option>018</option>
-										<option>019</option>
-								</select>&nbsp;- <input type="text" name="tel2" style="width: 60px;">&nbsp;-
+								<td class="col2"><input type="text" name="tel1" style="width: 60px;">
+								&nbsp;- <input type="text" name="tel2" style="width: 60px;">&nbsp;-
 									<input type="text" name="tel3" style="width: 60px;">&nbsp;&nbsp;&nbsp;&nbsp;
 								</td>
 							</tr>
@@ -628,7 +622,7 @@ Redding
 						var memberpwd2 = $("#password2").val();			//비밀번호 확인
 						var memberName = $("#name").val();				//업체명
 						var rep_name = $("#rep_name").val();			//대표자명
-						var tel1 = $("select[name=tel1]").val();		//전화번호1
+						var tel1 = $("input[name=tel1]").val();		//전화번호1
 						var tel2 = $("input[name=tel2]").val();			//전화번호2
 						var tel3 = $("input[name=tel3]").val();			//전화번호3
 						var email1 = $("input[name=email1]").val();		//이메일1
