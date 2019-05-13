@@ -54,7 +54,7 @@
 #CMQTable tr:first-Child, #CMBTable tr:first-Child{
    background: lightGray;
 }
-#productUpdateOrDeleteBtn, #sendReplyBtn, #bookerNickNameBtn, #replyQNABtn{
+#productUpdateOrDeleteBtn, #sendReplyBtn, #bookerNickNameBtn, #replyQNABtn, #sendBtn{
     width: 100px;
     height: 26px;
     background: salmon;

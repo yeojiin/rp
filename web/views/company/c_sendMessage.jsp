@@ -55,7 +55,7 @@
    <div class="container-fluid text-center">
       <div class="row content">
       
-         <div class="col-sm-2 sidenav1">
+         <div class="col-sm-2 sidenav1 visible-md visible-lg visible-sm">
             
          </div>
          
@@ -64,19 +64,24 @@
          <%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
          
             <div class="contentsArea" id="sendMessageArea">
-            	<div id="SMHeader">
-            		<h3>관리자에게 쪽지 보내기</h3>
-            	</div>
-            	<div id="SMSection">
-            		<div id="messageTitleArea">
-            			<input type="text" name="messageTitleArea" id="messageTitleInputArea" value="쪽지 제목">
-            		</div>
-            		<div id="messageContentArea">
-            			<textarea name="messageContent" id="messageContent" style="resize:none;">쪽지 내용</textarea>
-            		</div>
-            	
-               		<div id="sendMessageToAdminBtn">보내기</div>
-            	</div>
+            	<form action="" method="post">
+	            	<div id="SMHeader">
+	            		<h3>관리자에게 쪽지 보내기</h3>
+	            	</div>
+	            	<div id="SMSection">
+	            		<div id="messageTitleArea">
+	            			<input type="text" name="messageTitleArea" id="messageTitleInputArea" value="쪽지 제목">
+	            		</div>
+	            		<div id="messageContentArea">
+	            			<textarea name="messageContent" id="messageContent" style="resize:none;">쪽지 내용</textarea>
+	            		</div>
+	            		<div id="btnsArea">
+		               		<span id="send">보내기</span>
+		               		<span id="reset">취소하기</span>
+	            		</div>
+                        
+	            	</div>
+            	</form>
               
             </div>
          
@@ -93,13 +98,14 @@
    </div>
    <script>
 	   $(function(){
-			$("#sendMessageToAdminBtn").click(function(){
+			$("#send").click(function(){
 				var result = window.confirm("보내시겠습니까?");
 				if(result == true){
 					alert('관리자에게 쪽지를 보내셨습니다.');
 					location.href="<%=request.getContextPath()%>/views/company/c_messageManager.jsp";
 				}else{
 					alert("취소하셨습니다.");
+					location.href="<%=request.getContextPath()%>/views/company/c_messageManager.jsp";
 				}
 			});
 		   
