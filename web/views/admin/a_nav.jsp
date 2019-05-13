@@ -22,7 +22,7 @@
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="a_Sstats.jsp">통계관리</a></li>
-					<li><a href="#">정산관리</a></li>
+					<li><a href="a_calculate.jsp">정산관리</a></li>
 					<li><a href="a_Company.jsp">업체관리</a></li>
 					<li><a href="a_TotalMember.jsp">회원관리</a></li>
 					<li><a href="#">블랙리스트관리</a></li>

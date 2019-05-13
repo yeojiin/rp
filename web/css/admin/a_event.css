@@ -52,11 +52,21 @@ input[type="checkbox"]{
 .text-left{
 	margin-top:25px;
 }
-
+.ul.modal{
+	height:auto !important;
+}
 
 
 <!-- 모달 영역 -->
 .modalContent img{
 	width:10% !important;
 	
+}
+
+.modals.dimmer .ui.scrolling.modal{
+	height:700px !important;
+}
+
+.modalContent label{
+	font-size:4%;
 }
