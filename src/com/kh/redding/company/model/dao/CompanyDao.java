@@ -79,8 +79,7 @@ public class CompanyDao {
 			pstmt.setString(4, joinMember.getEmail());
 			pstmt.setString(5, joinMember.getEmailCheck());
 			pstmt.setString(6, joinMember.getPhone());
-			pstmt.setString(7, joinMember.getGender());
-			pstmt.setString(8, "업체");
+			pstmt.setString(7, "업체");
 			
 			result = pstmt.executeUpdate();
 			
@@ -140,11 +139,13 @@ public class CompanyDao {
 			pstmt.setString(3, joinCompany.getRepName());
 			pstmt.setString(4, joinCompany.getComAddress());
 			pstmt.setString(5, joinCompany.getComUrl());
-			pstmt.setDate(6, joinCompany.getOpenTime());
-			pstmt.setInt(7, joinCompany.getAccountCode());
-			pstmt.setString(8, joinCompany.getAccountNum());
-			pstmt.setString(9, joinCompany.getAccountName());
-			pstmt.setString(10, joinCompany.getComType());
+			pstmt.setString(6, joinCompany.getOpenTime());
+			pstmt.setString(7, joinCompany.getEndTime());
+			pstmt.setInt(8, joinCompany.getAccountCode());
+			pstmt.setString(9, joinCompany.getAccountNum());
+			pstmt.setString(10, joinCompany.getAccountName());
+			pstmt.setString(11, joinCompany.getComType());
+			
 			
 			result = pstmt.executeUpdate();
 			

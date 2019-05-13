@@ -30,15 +30,28 @@ public class MemberLoginServlet extends HttpServlet {
 		System.out.println("memberPwd : " + memberPwd);
 		
 		Member loginUser = new MemberService().loginCheck(memberId, memberPwd);
-		
+	
+		String page = "";
 		if(loginUser != null) {
 			System.out.println("loginUser4(servlet) : " + loginUser);
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
-			response.sendRedirect("index.jsp");
+			
+			if (loginUser.getMemberType().equals("회원")) {	
+				page = "index.jsp";
+				
+			}else if (loginUser.getMemberType().equals("업체")) {
+				page = request.getContextPath() +"/views/company/c_main.jsp";
+				
+			}else if (loginUser.getMemberType().equals("관리자")) {
+				page = request.getContextPath() +"/views/admin/a_main.jsp";
+			}
+			
+			response.sendRedirect(page);
+			
 		}else {
-			request.setAttribute("msg", "로그인 실패했습니다.");
-			request.getRequestDispatcher("views/common.errorPage.jsp").forward(request, response);
+			request.setAttribute("msg", "아이디와 비밀번호를 확인해주세요");
+			request.getRequestDispatcher("views/common/login.jsp").forward(request, response);
 		}
 	}
 

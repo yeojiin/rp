@@ -9,8 +9,8 @@ public class Company implements java.io.Serializable {
 	private String RepName; //대표자번호 
 	private String ComAddress; //주소
 	private String ComUrl; //홈페이지
-	private Date OpenTime; //시작시간
-	private Date EndTime; //종료시간
+	private String OpenTime; //시작시간
+	private String EndTime; //종료시간
 	private int AccountCode;  //은행코드
 	private String AccountNum;  //계좌번호
 	private String AccountName; //예금주
@@ -21,8 +21,8 @@ public class Company implements java.io.Serializable {
 		
 	}
 	
-	public Company(int cNO, String com_Rep_Num, String repName, String comAddress, String comUrl, Date openTime,
-			Date endTime, int accountCode, String accountNum, String accountName, String comType, int comLike) {
+	public Company(int cNO, String com_Rep_Num, String repName, String comAddress, String comUrl, String openTime,
+			String endTime, int accountCode, String accountNum, String accountName, String comType, int comLike) {
 		super();
 		CNO = cNO;
 		Com_Rep_Num = com_Rep_Num;
@@ -80,19 +80,19 @@ public class Company implements java.io.Serializable {
 		ComUrl = comUrl;
 	}
 
-	public Date getOpenTime() {
+	public String getOpenTime() {
 		return OpenTime;
 	}
 
-	public void setOpenTime(Date openTime) {
+	public void setOpenTime(String openTime) {
 		OpenTime = openTime;
 	}
 
-	public Date getEndTime() {
+	public String getEndTime() {
 		return EndTime;
 	}
 
-	public void setEndTime(Date endTime) {
+	public void setEndTime(String endTime) {
 		EndTime = endTime;
 	}
 

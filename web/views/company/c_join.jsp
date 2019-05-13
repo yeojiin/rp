@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,8 +24,10 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/company/c_join.css">
 
-<link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script"
+	rel="stylesheet">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </head>
 <body>
@@ -49,156 +51,170 @@
 			<div class="col-sm-2 sidenav"></div>
 
 			<div class="col-sm-8 text-left">
-			
-			<div class = "com_wrap">
-			<h3 align = "center" id = "com_title">Join us</h3>
-			<form action = "<%=request.getContextPath() %>/companyjoin.me" method = "post" id = "joinCompany">
-				<table class = "comTable">
-					<tr> 
-						<td colspan = "3" id = "com_label">기본 정보 </td>
-					</tr>
-					<tr>
-						<td>사업자 등록번호<span id = "star">*</span></td>
-						<td><input type="text" id="reg_num" name="reg_num" maxlength="10">
-						<button>확인</button></td>
-					</tr>
-					<tr>
-						<td>아이디<span id = "star">*</span></td>
-						<td>
-							<input type="text" maxlength="30" name="comid" id="comid">
-							<button type = "button" onclick = "registerCheckFunction()">중복확인</button>
-							<span id = "idcheck"></span>
-						</td>
-					</tr>
-					<tr>
-						<td>비밀번호<span id = "star">*</span></td>
-						<td><input type="password" name="userPwd" id="userPwd" onchange = "isSame()">
-						<span id = "pwdcheck1"></span></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>비밀번호 확인<span id = "star">*</span></td>
-						<td><input type="password" name="password2" id="password2" onchange = "isSame()">
-						<span id = "pwdcheck2"></span></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>업체 종류<span id = "star">*</span></td>
-						<td>
-							<input type = "radio" name = "company_type" id = "studio" value = "스튜디오" checked>
-							<label for = "studio">스튜디오</label>
-							<input type = "radio" name = "company_type" id = "dress" value = "드레스">
-							<label for = "dress">드레스</label>
-							<input type = "radio" name = "company_type" id = "make" value = "메이크업">
-							<label for = "make">메이크업 & 헤어</label>
-						</td>
-					</tr>
-					<tr>
-						<td>업체명<span id = "star">*</span></td>
-						<td><input type="text" maxlength="30" name="name" id="name"></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>대표자 명<span id = "star">*</span></td>
-						<td><input type="text" maxlength="30" name="rep_name" id="rep_name"></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>휴대전화<span id = "star">*</span></td>
-						<td><input type="text" maxlength="3" name="phone1"
-							id="phone1" size="5"> - <input type="text" maxlength="4"
-							name="phone2" id="phone2" size="5"> - <input type="text"
-							maxlength="4" name="phone3" id="phone3" size="5"></td>
-					</tr>
-					<tr>
-						<td>주소<span id = "star">*</span></td>
-						<td>
-							<input type="text" id="postcode" placeholder="우편번호" name = "postcode">
-							<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-						</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td>
-							<input type="text" id="address" placeholder="주소" name = "address"><br>
-						</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td>
-							<input type="text" id="detailAddress" placeholder="상세주소" name = "detailAddress">
-							<input type="text" id="extraAddress" placeholder="참고항목" name = "extraAddress">
-						</td>
-					</tr>
-					<tr>
-						<td>입금계좌<span id = "star">*</span></td>
-						<td><select name = "accountcode">
-								<option>-- 은행선택 --</option>
-								<option value = "011">NH농협</option>
-								<option value = "020">우리은행</option>
-								<option value = "088">신한은행</option>
-								<option value = "004">국민은행</option>
-								<option value = "081">하나은행</option>
-								<option value = "005">외한은행</option>
-								<option value = "003">IBK기업은행</option>
-								<option value = "045">새마을은행</option>
-								<option value = "032">부산은행</option>
-								<option value = "039">경남은행</option>
-								<option value = "034">광주은행</option>
-								<option value = "037">전북은행</option>
-								<option value = "048">신협은행</option>
-								<option value = "023">SC제일은행</option>
-								<option value = "031">대구은행</option>
-								<option value = "035">제주은행</option>
-								<option value = "071">우체국은행</option>
-								<option value = "007">수협은행</option>
-						</select>
-						</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td>
-							<input type = "text" name = "account_num" id = "account_num" placeholder = "계좌번호(-없이 적어주세요)">
-						</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td>
-							<input type = "text" name = "account_name" id = "account_name"  placeholder = "예금주">
-						</td>
-					</tr>
-					<tr>
-						<td>이메일<span id = "star">*</span></td>
-						<td>
-						<input type = "email" name = "email" id = "email">
-						<button>인증하기</button>
-						<input id="email_check" name="email_check" type="hidden" value="인증안됨">
-						</td>
-					</tr>
-					<tr> 
-						<td colspan = "3" id = "com_label">추가 정보 </td>
-					</tr>
-					<tr>
-						<td>홈페이지 </td>
-						<td>
-						<input type = "url" name = "homepage" id = "homepage" placeholder = "http://">
-						</td>
-					</tr>
-					<tr>
-						<td>영업시간</td>
-						<td>
-						<input type = "time" name = "strartime" id = "strartime"> ~
-						<input type = "time" name = "endtime" id = "endtime">
-						</td>
-					</tr>		
-				</table>
-				<br><br>
-		<div class = "com_term">
-			<input type = "checkbox" id = "terms_all">
-			<label id = "all_check">이용약관,개인정보 처리방침 모두 동의</label>
-			<br><br>
-			<label>이용약관</label><br>
-        	<textarea readonly>
+
+				<div class="com_wrap">
+					<h3 align="center" id="com_title">Join us</h3>
+					<form action="<%=request.getContextPath()%>/companyjoin.me"
+						method="post" id="CompanyJoin">
+						<table class="comTable">
+							<tr>
+								<td colspan="3" id="com_label">기본 정보</td>
+							</tr>
+							<tr>
+								<td>사업자 등록번호<span id="star">*</span></td>
+								<td><input type="text" id="reg_num" name="reg_num"
+									maxlength="10">
+									<button type = "button">확인</button></td>
+							</tr>
+							<tr>
+								<td>아이디<span id="star">*</span></td>
+								<td><input type="text" maxlength="30" name="memberId"
+									id="memberId">
+									<button type="button" onclick="registerCheckFunction()">중복확인</button>
+									<span id="idcheck"></span></td>
+							</tr>
+							<tr>
+								<td>비밀번호<span id="star">*</span></td>
+								<td><input type="password" name="memberPwd" id="memberPwd"> 
+								<span id="Spwd1">(8~16자 이상 입력 )</span></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>비밀번호 확인<span id="star">*</span></td>
+								<td><input type="password" name="password2" id="password2"> 
+								<span id="Spwd2"></span></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>업체 종류<span id="star">*</span></td>
+								<td><input type="radio" name="company_type" id="studio"
+									value="스튜디오" checked> <label for="studio">스튜디오</label>
+									<input type="radio" name="company_type" id="dress" value="드레스">
+									<label for="dress">드레스</label> <input type="radio"
+									name="company_type" id="make" value="메이크업"> <label
+									for="make">메이크업 & 헤어</label></td>
+							</tr>
+							<tr>
+								<td>업체명<span id="star">*</span></td>
+								<td><input type="text" maxlength="30" name="name" id="name"></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>대표자 명<span id="star">*</span></td>
+								<td><input type="text" maxlength="30" name="rep_name"
+									id="rep_name"></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td class="col1">휴대전화&nbsp;&nbsp;<span
+									id="star">*</span></td>
+								<td class="col2"><select name="tel1" style="width: 53px;">
+										<option>010</option>
+										<option>011</option>
+										<option>016</option>
+										<option>017</option>
+										<option>018</option>
+										<option>019</option>
+								</select>&nbsp;- <input type="text" name="tel2" style="width: 60px;">&nbsp;-
+									<input type="text" name="tel3" style="width: 60px;">&nbsp;&nbsp;&nbsp;&nbsp;
+								</td>
+							</tr>
+							<tr>
+								<td>주소<span id="star">*</span></td>
+								<td><input type="text" id="postcode" placeholder="우편번호"
+									name="postcode"> <input type="button"
+									onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><input type="text" id="address" placeholder="주소"
+									name="address"><br></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><input type="text" id="detailAddress"
+									placeholder="상세주소" name="detailAddress"> <input
+									type="text" id="extraAddress" placeholder="참고항목"
+									name="extraAddress"></td>
+							</tr>
+							<tr>
+								<td>입금계좌<span id="star">*</span></td>
+								<td><select name="accountcode">
+										<option>-- 은행선택 --</option>
+										<option value="011">NH농협</option>
+										<option value="020">우리은행</option>
+										<option value="088">신한은행</option>
+										<option value="004">국민은행</option>
+										<option value="081">하나은행</option>
+										<option value="005">외한은행</option>
+										<option value="003">IBK기업은행</option>
+										<option value="045">새마을은행</option>
+										<option value="032">부산은행</option>
+										<option value="039">경남은행</option>
+										<option value="034">광주은행</option>
+										<option value="037">전북은행</option>
+										<option value="048">신협은행</option>
+										<option value="023">SC제일은행</option>
+										<option value="031">대구은행</option>
+										<option value="035">제주은행</option>
+										<option value="071">우체국은행</option>
+										<option value="007">수협은행</option>
+								</select></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><input type="text" name="account_num" id="account_num"
+									placeholder="계좌번호(-없이 적어주세요)"></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><input type="text" name="account_name"
+									id="account_name" placeholder="예금주"></td>
+							</tr>
+							<tr>
+								<td class="col1">이메일&nbsp;&nbsp;<span
+									id="star">*</span></td>
+								<td class="col2"><input type="text" name="email1">&nbsp;&nbsp;@&nbsp;&nbsp;
+									<input type="text" name="email2" id="email2">&nbsp;&nbsp;
+									<select name="email3" id="email3">
+										<option>- 이메일 선택 -</option>
+										<option>naver.com</option>
+										<option>daum.net</option>
+										<option>nate.com</option>
+										<option>hotmail.com</option>
+										<option>yahoo.com</option>
+										<option>empas.com</option>
+										<option>korea.com</option>
+										<option>gmail.com</option>
+										<option>직접입력</option>
+								</select>&nbsp;&nbsp;&nbsp;&nbsp;
+									<button type="button" class="check" id="emailckbtn">인증하기</button>
+									<span id="Semailck"></span> <input type="hidden"
+									id="email_check" name="email_check" value="인증안됨"></td>
+							</tr>
+							<tr>
+								<td colspan="3" id="com_label">추가 정보</td>
+							</tr>
+							<tr>
+								<td>홈페이지</td>
+								<td><input type="url" name="homepage" id="homepage"
+									value="http://"></td>
+							</tr>
+							<tr>
+								<td>영업시간</td>
+								<td><input type="time" name="strartime" id="startime">
+									~ <input type="time" name="endtime" id="endtime"></td>
+							</tr>
+						</table>
+						</form>
+						<br>
+						<br>
+						<div class="com_term">
+							<input type="checkbox" id="terms_all"> <label
+								id="all_check">이용약관,개인정보 처리방침 모두 동의</label> <br>
+							<br> <label>이용약관</label><br>
+							<textarea readonly>
 기업 회원 약관 (개정 및 적용 2019. 05. 05)
 제1조 (목적)
 본 약관은 Redding(이하 "회사")이 각각 운영하는 웹사이트(이하 "사이트")를 통해 인터넷 관련 "서비스"를 제공함에 있어, 회사가 제공하는 "서비스"와 관련하여, 이를 이용하는 가입자(이하 "회원" 또는 "기업회원")의 이용조건 및 제반 절차, 기타 필요한 사항을 규정함을 목적으로 한다.
@@ -408,13 +424,12 @@
 2019.05.05
 Redding        
           </textarea>
-         <div id="terms">
-         	 이용약관에 동의하십니까?&nbsp;&nbsp;
-            <input type="checkbox">동의함
-         </div>
-         <br><br>
-         <label>개인정보처리방침</label><br>
-         <textarea readonly>
+							<div id="terms">
+								이용약관에 동의하십니까?&nbsp;&nbsp; <input type="checkbox" id = "condition1">동의함
+							</div>
+							<br>
+							<br> <label>개인정보처리방침</label><br>
+							<textarea readonly>
 1. 개인정보 수집 및 이용 현황
 가. 회사는 서비스 제공을 위한 최소한의 범위 내에서 이용자의 동의 하에 개인정보를 수집하며, 수집한 모든 개인정보는 고지한 목적 범위 내에서만 사용됩니다. 또한, 제공하는 서비스(채용 정보제공 등) 특성상 「근로기준법」에 따라 만15세 미만인 경우 회원가입을 허용하지 않습니다. 회사에서 제공하는 서비스 유형에 따라 다음과 같이 개인정보를 수집, 이용, 보유 및 파기하고 있습니다.
 
@@ -494,18 +509,17 @@ Redding
 회사는 휴면계정으로 전환되는 시점 도래 30일 이전에 해당내용에 대해 이메일 등을 통해 이용자에게 공지합니다.
 분리 저장된 개인정보는 관련 법령에 특별한 규정이 있는 경우를 제외하고 해당 개인정보를 이용하거나 제공하지 않으며, 관련 법령에 따라 일정기간 동안 보유되고 해당 기간 종료 후 파기됩니다. 다만, 파기되지 않은 개인정보는 해당 이용자의 요청에 따라 서비스 이용을 재개하는 시점에 다시 제공됩니다.
          </textarea>
-         <div id="terms">
-           	 개인정보 수집 및 이용에 동의하십니까?&nbsp;&nbsp;
-            <input type="checkbox">동의함
-         </div>
-         </div>
-         <br><br>
-         <div id="com_btn">
-            <input type = "button"  id="reset" value="뒤로가기">&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type = "button" id="submit"  value="회원가입">
-         </div>
-          </form>
-          	<script>
+							<div id="terms">
+								개인정보 수집 및 이용에 동의하십니까?&nbsp;&nbsp; <input type="checkbox" id = "condition2">동의함
+							</div>
+						</div>
+						<br>
+						<br>
+						<div id="com_btn">
+							<input type="reset" id="reset" value="뒤로가기">&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="button" id="submit" value="회원가입" onclick = "JoinEvent();">
+						</div>
+					<script>
 			    function execDaumPostcode() {
 			        new daum.Postcode({
 			            oncomplete: function(data) {
@@ -556,62 +570,232 @@ Redding
 			    }
 			    
 			  
-			  
+			  //아이디 중복 체크
 			  function registerCheckFunction(){
-				  var userId = $("#comid").val();
-          		
-          		$.ajax({
-          			url : "/redding/idcheck.me",
-          			type : "post",
-          			data : {userId : userId},
-          			success : function(data){
-          				if (data === "success"){
-          					//alert("아이디 사용가능");
-          					$("#idcheck").text("아이디사용가능");
-          					$("#idcheck").css("color","blue");
-          				}else {
-          					$("#idcheck").text("아이디중복");
-          					$("#idcheck").css("color","red");
-          					$("#comid").val("");
-          				}
-          			}, 
-          			error : function(){
-          				console.log("실패!");
-          			}
-          		});
+				var userId = $("#memberId").val();
+				var count = 0;
+				
+				//아이디 유효성 검사
+				for (var i = 0 ; i < userId.length; i++){
+					ch = userId.charAt(i);
+					
+					if (!(ch >= '0' && ch <= '9') && !(ch >= 'a' && ch <= 'z')
+							&&!(ch >= 'A' && ch <= 'Z')) {
+		                alert("아이디는 대소문자, 숫자만 입력가능합니다.");
+		                return false;
+		            }
+				}
+				
+				if (userId == ""){
+					alert("아이디를 입력해주세요.");
+				}else if(userId.length < 4){
+					alert("아이디는 4자 이상으로 입력해주셔야합니다.");
+				}else if (count > 0){
+					alert("아이디는 특수기호를 쓸수 없습니다.");
+				}else {
+				
+	          		$.ajax({
+	          			url : "/redding/idcheck.me",
+	          			type : "post",
+	          			data : {userId : userId},
+	          			success : function(data){
+	          				if (data === "success"){
+	          					//alert("아이디 사용가능");
+	          					$("#idcheck").text("아이디사용가능");
+	          					$("#idcheck").css("color","blue");
+	          				}else {
+	          					$("#idcheck").text("아이디중복");
+	          					$("#idcheck").css("color","red");
+	          					$("#memberId").val("");
+	          				}
+	          			}, 
+	          			error : function(){
+	          				console.log("실패!");
+	          			}
+	          		});
+				}
 			}
+			 
+			  function JoinEvent(){
+				//전송 클릭
+						var Sidcheck = $("#idcheck").text();
+						var Spwd1 = $("#Spwd1").text();
+						var Spwd2 = $("#Spwd2").text();
+						
+						var reg_num = $("#reg_num").val();				//사업자 등록번호
+						var memberid = $("#memberId").val();			//아이디
+						var memberpwd1 = $("#memberPwd").val();			//비밀번호
+						var memberpwd2 = $("#password2").val();			//비밀번호 확인
+						var memberName = $("#name").val();				//업체명
+						var rep_name = $("#rep_name").val();			//대표자명
+						var tel1 = $("select[name=tel1]").val();		//전화번호1
+						var tel2 = $("input[name=tel2]").val();			//전화번호2
+						var tel3 = $("input[name=tel3]").val();			//전화번호3
+						var email1 = $("input[name=email1]").val();		//이메일1
+						var email2 = $("#email2").val();				//이메일2
+						var postcode = $("input[name=postcode]").val();			//인증코드
+						var address = $("#address").val();					//주소1
+						var detailAddress = $("input[name=detailAddress]").val();	//주소2
+						var accountcode = $("input[name=accountcode]").val();		//은행코드
+						var account_num = $("#account_num").val();			//계좌번호
+						var account_name = $("#account_name").val();					//예금주	
+						
+							
+						//회원가입 체크
+						if (reg_num == ""){
+							alert("사업자번호를 입력해주세요");		
+						}else if (reg_num.length < 10){
+							alert("사업자번호를 입력해주세요");	
+						}else if(memberid == ""){
+							alert("아이디 입력해주세요");			
+						}else if (Sidcheck != "아이디사용가능"){
+							alert("아이디 중복 체크 해주세요");	
+						}else if (memberpwd1 == ""){
+							alert("비밀번호 다시 확인해주세요");
+						}else if (Spwd1 != ""){
+							alert("비밀번호 다시 확인해주세요");
+						}else if (memberpwd2 == "" ){
+							alert("비밀번호 다시 확인해주세요");
+						}else if (Spwd2 != "비밀번호가 일치합니다."){
+							alert("비밀번호 다시 확인해주세요");
+						}else if (memberName == "") {
+							alert("업체명을 입력해주세요.");
+						}else if (rep_name == ""){
+							alert("대표자명을 입력해주세요.");
+						}else if (tel1 == ""){
+							alert("전화번호 입력해주세요");
+						}else if (tel2 == "") { 
+							alert("전화번호 입력해주세요");
+						}else if (tel3 == ""){
+							alert("전화번호 입력해주세요");
+						}else if (email1 == ""){
+							alert("이메일 입력해주세요");
+						}else if (email2 == ""){
+							alert("이메일 입력해주세요");
+						}else if (postcode == ""){
+							alert("주소 입력해주세요");
+						}else if (address == ""){
+							alert("주소 입력해주세요");
+						}else if (detailAddress == ""){
+							alert("주소 입력해주세요");
+						}else if (accountcode == "--은행선택--"){
+							alert("은행 입력해주세요");
+						}else if (account_num == ""){
+							alert("은행 입력해주세요");
+						}else if (account_name == ""){
+							alert("은행 입력해주세요");
+						}else if ($("#condition1").is(":checked") == false ){
+							alert("약관의 동의해주세요");
+						}else if ($("#condition2").is(":checked") == false){
+							alert("약관의 동의해주세요");
+						}else{
+							console.log("넘어감");
+							$("#CompanyJoin").submit();
+						}
+						
+					
+
+			  }
 			  
 		 
 			$(function(){
-				$("#submit").click(function(){
-					if($("#userPwd").val() != $("#password").val()){
-						alert("비밀번호가 틀렸습니다.");
-						return;
+				//엔터 막기
+				document.addEventListener('keydown', function(event) {
+				    if (event.keyCode === 13) {
+				        event.preventDefault();
+				    }
+				}, true);
+				
+				//비밀번호 누를때 생기는 함수
+				$("#memberPwd").change(function(){
+					$("#password2").val("");
+					var memberPwd = $("#memberPwd").val();
+					
+					if (memberPwd.length < 8){
+						$("#Spwd1").html("8자이상로 작성해주세요");
+						$("#Spwd1").css("color" , "red");
+					}else{
+						$("#Spwd1").html("");
+					}
+				});
+				
+				//비밀번호 확인 누를때 생기는 함수
+				$("#password2").change(function(){
+					var memberPwd = $("#memberPwd").val();
+					var memberPwd2 = $("#password2").val()
+					
+					if (memberPwd != memberPwd2){
+						$("#Spwd2").html("비밀번호가 일치하지 않습니다");
+						$("#Spwd2").css("color" , "red");
+					}else {
+						$("#Spwd2").html("비밀번호가 일치합니다.");
+						$("#Spwd2").css("color" , "blue");
 					}
 					
 					
-					$("#joinCompany").submit();
-				})
+				});
+				
+				//select에서 바꿀때
+				$("#email3").change(function(){
+					$("#email3").children().eq(0).attr("disabled","true");
+					
+					var value = $(this).val();
+					
+					$("#email2").val(value);
+				});
+				
+				//이메일 인증
+				$("#emailckbtn").click(function(){
+					$("#emailckbtn").text("인증안됨");
+					$("#emailckbtn").css("background","white");
+					$("#emailckbtn").css("border","1px solid red");
+					$("#emailckbtn").css("color","red");
+				});
+				
+				//이용약관 모두 동의
+				$("#all_check").click(function(){
+					$("#terms_all").attr("checked",true);
+					$("#condition1").attr("checked",true);
+					$("#condition2").attr("checked",true);
+				});
+				
+				//이용약관 모두 동의
+			 	$("#terms_all").change(function(){
+			 		if ($("#terms_all").val() == "false"){
+			 			$("#terms_all").attr("checked",true);
+						$("#condition1").attr("checked",true);
+						$("#condition2").attr("checked",true);
+			 		}else {
+				 		$("#terms_all").attr("checked",false);
+						$("#condition1").attr("checked",false);
+						$("#condition2").attr("checked",false);
+			 		}
+				});
+				
+				
+				
+				
+				
 			});
 		</script>
-		</div>
-		
-			</div>
-				<!-- 오른쪽 빈공간 -->
-				<div class="col-sm-2 sidenav"></div>
-			</div>
+				</div>
 
+			</div>
+			<!-- 오른쪽 빈공간 -->
+			<div class="col-sm-2 sidenav"></div>
 		</div>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
 
-		<!-- 커먼 풋터 -->
-		<div class="footerArea">
-			<jsp:include page="/views/common/footer.jsp"></jsp:include>
-		</div>
-		
+	</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+
+	<!-- 커먼 풋터 -->
+	<div class="footerArea">
+		<jsp:include page="/views/common/footer.jsp"></jsp:include>
+	</div>
+
 </body>
 </html>

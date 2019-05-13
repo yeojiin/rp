@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.kh.redding.member.model.vo.Member"%>
 <%
-	Member loginUser = (Member) session.getAttribute("loginUser");
+	String msg = (String) request.getAttribute("msg"); 
 %>
 
 <!DOCTYPE html>
@@ -61,10 +61,10 @@
 						
 						<table class="loginTable" align="center">
 							<tr>
-								<td colspan="3">
+								<!-- <td colspan="3">
 									<input type="radio" name="loginSelection" class="loginSelection" id="loginMember" value="member">&nbsp;&nbsp;회원&nbsp;&nbsp;&nbsp;&nbsp;
 									<input type="radio" name="loginSelection" class="loginSelection" id="loginCompany" value="company">&nbsp;&nbsp;업체<br><br>						
-								</td>
+								</td> -->
 							</tr>
 							<tr>
 								<td><label>ID : </label></td>
@@ -74,8 +74,15 @@
 							</tr>
 							<tr>
 								<td><label>PASSWORD : </label></td>
-								<td><input type="password" id="userPwd" name="memberPwd"></td>
-
+								<td><input type="password" id="userPwd" name="memberPwd">
+								</td>	
+							</tr>
+							<tr>
+								<td colspan = "3">
+								<% if(msg != null){%> 
+								<label style = "color:red"><%=msg %> </label>
+								<% } %>
+								</td>
 							</tr>
 						</table>
 					</form>

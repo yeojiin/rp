@@ -87,11 +87,21 @@ public class MemberDao {
 			pstmt.setString(2, insertMember.getMemberPwd());
 			pstmt.setString(3, insertMember.getMemberName());
 			pstmt.setString(4, insertMember.getNickName());
-			pstmt.setString(5, insertMember.getPhone());
-			pstmt.setString(6, insertMember.getEmergenCon());
-			pstmt.setString(7, insertMember.getEmail());
-			pstmt.setString(8, insertMember.getGender());
-			pstmt.setString(9, insertMember.getStatus());
+			pstmt.setString(5, insertMember.getEmail());
+			
+			String email_check;
+			if (insertMember.getEmailCheck().equals("인증안됨")) {
+				email_check = "N";
+			}else {
+				email_check = "Y";
+			}
+			
+			pstmt.setString(6, email_check);
+			pstmt.setString(7, insertMember.getPhone());
+			pstmt.setString(8, insertMember.getEmergenCon());
+			pstmt.setString(9, insertMember.getGender());
+			pstmt.setString(10, "회원");
+			pstmt.setDate(11, insertMember.getWeddingDate());
 			
 			result = pstmt.executeUpdate();
 			
@@ -100,6 +110,39 @@ public class MemberDao {
 		} finally {
 			close(pstmt);
 		}
+		
+		return result;
+	}
+
+	//닉네임 체크 메소드
+	public int nickChecked(Connection con, String nickName) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("nickChecked");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, nickName);
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
 		
 		return result;
 	}
