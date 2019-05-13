@@ -96,7 +96,8 @@
 							<option>옵션선택</option>
 						</select></p>
 						<br><br>
-						<a class="btn btn-default" style="float:left; border-color:salmon; background:salmon; color:white; width:40%; height:auto; font-size:20px;">예약하기</a>
+						<a class="btn btn-default" style="float:left; border-color:salmon; background:salmon; color:white; width:45%; height:auto; font-size:20px;">예약하기</a>
+						<a class="btn btn-default" style="float:left; margin-left:5%; border-color:salmon; float:right; background:salmon; color:white; width:45%; height:auto; font-size:20px;">위시리스트에 담기</a>
 					</div><br><br>
 					<hr style="border-color: black; width:100%;">
 				</div>
@@ -189,10 +190,10 @@
 					</div>
 					<div id="detailsixth">
 						<br>
-						<div id="detail11">
+						<div id="detail11" style="width:10%; float:left">
 							<i class="fas fa-user-circle" style="font-size: 100px;"></i>
 						</div>
-						<div id="detail12">
+						<div id="detail12" style="width:90%; float:left">
 							<p style="font-size: 20px;">
 								닉네임<br> 2월 결혼 / 업체명<br> ★ 3.5
 							</p>
