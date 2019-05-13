@@ -135,18 +135,29 @@
   	</div>
   	<div class="modalContent">
   		<div class="image content">
-  		<br>
-  			<img src="<%=request.getContextPath()%>/images/dressTest.jpg" style="width:40%">
-  			<input type="text" style="width:50%; height:30px; float:right; margin-right:5%;" class="form-control" placeholder="이벤트 제목 입력">
-  			<br>
-  			
-  		</div>
-  
+  			<img src="<%=request.getContextPath()%>/images/dressTest.jpg" style="width:40%;">
+  			<label style="width:50%; height:30px; float:right; margin-top:2%; margin-right:5%">쿠폰이름</label>
+  			<input type="text" style="width:50%; height:30px; float:right; margin-right:5%; margin-top:-22.5%" class="form-control" placeholder="회원 쿠폰 제목 입력">
+  			<label style="width:50%; height:20px; float:right; margin-top:-17%; margin-right:5%">시작시간</label>
+  			<input type="date" style="width:50%; height:30px; float:right; margin-top:-15%; margin-right:5%" class="form-control">
+  			<label style="width:50%; height:30px; float:right; margin-top:-9.5%; margin-right:5%">종료시간</label>
+  			<input type="date" style="width:50%; height:30px; float:right; margin-top:-7.5%; margin-right:5%" class="form-control">
+  			<label style="width:100%; height:30px; float:left; margin-top:2%; margin-right:5%">쿠폰내용</label>
+  			<textarea style="width:100%; float:right; margin-top:-1%; resize:none;" cols="70" rows="7" class="form-control visible-xs"> </textarea>
+  			<textarea style="width:100%; float:right; margin-top:-1%; resize:none;" cols="70" rows="5" class="form-control hidden-xs"> </textarea>
+  			<label style="width:100%; height:30px; float:left; margin-top:2%; margin-right:5%">사용조건</label>
+  			<textarea style="width:100%; float:right; margin-top:-1%; resize:none;" cols="70" rows="7" class="form-control visible-xs"></textarea>
+  			<textarea style="width:100%; float:right; margin-top:-1%; resize:none;" cols="70" rows="5" class="form-control hidden-xs"></textarea>	
+  		</div>  
   	</div>
+
   	<div class="actions">
+  	<div style="width:100%; height:10px; float:left"></div>
+  	<div class="visible-xs" style="width:100%; height:40px; float:left"></div>
     	<div class="ui button">등록 취소</div>
     	<div class="ui button">등록</div>
   	</div>
+
 
 </div>	
 	
