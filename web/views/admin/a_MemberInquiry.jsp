@@ -11,97 +11,67 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR"
 	rel="stylesheet">
 <!-- 글꼴 -->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/common/footer.css">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/company/c_nav.css">
+	href="${pageContext.request.contextPath}/css/admin/a_nav.css">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/company/c_main.css">
+	href="${pageContext.request.contextPath}/css/admin/a_main.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/common/layout.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/admin/a_memberInquiry.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/semantic/semantic.min.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/semantic/transition.js">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/semantic/semantic.min.js">
+<script src="<%=request.getContextPath()%>/css/semantic/semantic.min.js"></script>	
+<script src="<%=request.getContextPath()%>/css/semantic/jquery-3.4.1.min.js"></script>
 <style>
-.inquiryArea table {
-	margin-left: auto;
-	margin-right: auto;
-	width: 100%;
-}
 
-.inquiryArea table th {
-	padding: 8px;
-	text-align: center;
-}
-
-.inquiryArea table tr td {
-	padding: 8px;
-	border-bottom: 1px solid gray;
-	text-align: center;
-}
-
-ul {
-	list-style-type: none;
-	margin-right: 65px;
-	color: gray;
-}
-
-ul h3:hover {
-	background: mistyrose;
-}
-
-.sidenav1 {
-	color: black;
-	font-size: 20px;
-}
-
-#inquiryNumt {
-	border: 1px solid gray;
-}
-
-#text1, #text2 {
-	float: left;
-	font-size: 25px;
-	margin-left: 0;
-}
-
-.inquiryList {
-	text-align: center;
-}
-#inquiryListt{
-	border-top:1px solid gray;
-}
-.search{
-	float:right;
-}
 </style>
 <title>Insert title here</title>
 </head>
 <body>
-
-
-
 	<div>
 		<jsp:include page="/views/admin/a_nav.jsp"></jsp:include>
 	</div>
-
 	<div class="container-fluid text-center">
 		<div class="row content">
 
+		<div class="visible-md visible-lg visible-sm">
 			<div class="col-sm-2 sidenav1">
-				<ul>
-					<h3 onclick="javascript: location.href= 'a_TotalMember.jsp';">전체회원</h3>
-					<h3 onclick="javascript: location.href= 'a_MemberOrder.jsp';">주문내역</h3>
-					<h3 onclick="javascript: location.href= 'a_MemberInquiry.jsp';">문의</h3>
-				</ul>
+				<div class="sidenavArea">
+					<ul class="navList">
+						<li onclick="location.href='a_TotalMember.jsp'">전체 회원</li>
+						<li onclick="location.href='a_MemberOrder.jsp'">주문내역</li>
+						<li onclick="location.href='a_MemberInquiry.jsp'" style="color:lightgray; padding-left:25px">문의</li>
+					</ul>
+				</div>
 			</div>
-
+		</div>
+		
+		<div class="visible-xs sideListnav2">
+					<div class="col-sm-2 sidenav1">
+						<div class="sidenavArea2">
+						<ul class="navList2">
+						<li onclick="location.href='a_TotalMember.jsp'" style="color:lightgray; padding-left:25px">전체 회원</li>
+						<li onclick="location.href='a_MemberOrder.jsp'">주문내역</li>
+						<li onclick="location.href='a_MemberInquiry.jsp'" style="color:lightgray; padding-left:25px">문의</li>
+						</ul>
+					</div>
+					</div>
+					
+					<br><br>
+				</div>
+			
 
 			<div class="col-sm-8 text-left">
 				<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
@@ -196,11 +166,11 @@ ul h3:hover {
 					</div>
 
 				</div>
-
-
+		</div>
+		</div>
 				<div class="col-sm-2 sidenav2"></div>
 			</div>
-		</div>
+	
 
 		<!-- 커먼 풋터 -->
 		<div class="footerArea">

@@ -1,32 +1,27 @@
 @charset "UTF-8";
-
-.input{
-	float:right;
-	
-}
-.memberArea table {
+.inquiryArea table {
 	margin-left: auto;
 	margin-right: auto;
 	width: 100%;
 }
 
-.memberArea table th {
+.inquiryArea table th {
 	padding: 8px;
 	text-align: center;
 }
 
-.memberArea table tr td {
+.inquiryArea table tr td {
 	padding: 8px;
 	border-bottom: 1px solid gray;
 	text-align: center;
 }
-
-#memberNumt, #plusInfot {
-	border: 1px solid gray;
+.sidenav1 {
+	color: black;
+	font-size: 20px;
 }
 
-#detailt {
-	border-top: 1px solid gray;
+#inquiryNumt {
+	border: 1px solid gray;
 }
 
 #text1, #text2 {
@@ -35,24 +30,16 @@
 	margin-left: 0;
 }
 
-#text3{
-	float: left;
-	font-size: 20px;
-	margin-left: 3%;
+.inquiryList {
+	text-align: center;
 }
-#text4{
-	float:center;
-	width:100%;
+#inquiryListt{
+	border-top:1px solid gray;
 }
-
-.sidenav1 {
-	color: black;
-	font-size: 20px;
+.search{
+	float:right;
 }
 
-.btns {
-	float: right;
-}
 
 /* 욱이 코드 */
 .sidenavArea, .sidenavArea2{
@@ -76,6 +63,7 @@
 	cursor:pointer;
 	color:lightgray;
 }
+
 
 /* a_Mstats 사이드 영역(xs) */
 

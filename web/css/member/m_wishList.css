@@ -1,0 +1,42 @@
+@charset "UTF-8";
+.container {
+/* 	color: salmon;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center; */
+	font-family: 'Noto Sans KR', sans-serif;
+}
+#wishListTable{
+	width:100%;
+	text-align:center;
+	border:1px solid black;
+}
+#wishListTable th{
+	text-align:center;
+}
+#wishListTable td{
+	border:1px solid black;
+}
+#image{
+	width:30%;
+	height:60%;
+}
+#pName{
+	width:50%;
+}
+#pResult{
+	width:100%;
+	border:1px solid black;
+	border:none;
+}
+#package1, #package2, #package3{
+	width:250px;
+	height:300px;
+	text-align:center;
+}
+#price{
+	font-size:30px;
+	color:red;
+	text-align:center;
+}
