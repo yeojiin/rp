@@ -38,11 +38,31 @@ public class MemberService {
 		return result;
 	}
 
-	//닉네임 중복 체크 메소드
+	// 닉네임 중복 체크 메소드
 	public int nickChecked(String nickName) {
 		Connection con = getConnection();
 		
 		int result = new MemberDao().nickChecked(con, nickName);
+		
+		close(con);
+		
+		return result;
+	}
+
+	// member 개인정보 수정 메소드
+	public int updateMember(Member reqMember) {
+		
+		Connection con = getConnection();
+		
+		int result = new MemberDao().updateMember(con, reqMember);
+		
+		System.out.println("result service : " + result);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
 		
 		close(con);
 		

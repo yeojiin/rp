@@ -30,6 +30,7 @@ public class MemberDao {
 		
 	}
 
+	// member 로그인 확인용 메소드
 	public Member loginCheck(Connection con, String memberId, String memberPwd) {
 		
 		PreparedStatement pstmt = null;
@@ -74,6 +75,7 @@ public class MemberDao {
 		return loginUser;
 	}
 
+	// member 회원가입용 메소드
 	public int insertMember(Connection con, Member insertMember) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -114,7 +116,7 @@ public class MemberDao {
 		return result;
 	}
 
-	//닉네임 체크 메소드
+	// 닉네임 체크 메소드
 	public int nickChecked(Connection con, String nickName) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -143,6 +145,34 @@ public class MemberDao {
 		}
 		
 		
+		
+		return result;
+	}
+
+	// member 개인정보 수정 메소드
+	public int updateMember(Connection con, Member reqMember) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateMember");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, reqMember.getMemberPwd());
+			pstmt.setString(2, reqMember.getNickName());
+			pstmt.setString(3, reqMember.getPhone());
+			pstmt.setString(4, reqMember.getEmergenCon());
+			pstmt.setString(5, reqMember.getEmail());
+			pstmt.setString(6, reqMember.getGender());
+			pstmt.setString(7, reqMember.getMemberId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
 		
 		return result;
 	}

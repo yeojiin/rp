@@ -66,7 +66,7 @@
 								<td class="col2"><input type="text" name="memberId"
 									id="memberId" size = "16">&nbsp;&nbsp;&nbsp;&nbsp;
 									<button type="button" class="check" id="idCheck"
-										onclick="registerId()">아이디중복확인</button>&nbsp;&nbsp;&nbsp;&nbsp;(영문소문자/숫자,
+										onclick="registerId()">아이디중복확인</button>&nbsp;&nbsp;&nbsp;&nbsp;(영문대소문자/숫자,
 									4~16자) <span id="Sidcheck"></span></td>
 							</tr>
 							<tr>
