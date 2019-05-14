@@ -37,13 +37,13 @@ public class MemberLoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
 			
-			if (loginUser.getMemberType() == 10) {	
+			if (loginUser.getMemberType().equals("회원")) {	
 				page = "index.jsp";
 				
-			}else if (loginUser.getMemberType()== 20 ) {
+			}else if (loginUser.getMemberType().equals("업체")) {
 				page = request.getContextPath() +"/views/company/c_main.jsp";
 				
-			}else if (loginUser.getMemberType() == 90) {
+			}else if (loginUser.getMemberType().equals("관리자")) {
 				page = request.getContextPath() +"/index.jsp";
 			}
 			

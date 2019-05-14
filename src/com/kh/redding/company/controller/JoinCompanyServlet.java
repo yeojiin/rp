@@ -1,13 +1,6 @@
 package com.kh.redding.company.controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,13 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.redding.attachment.model.vo.Attachment;
-import com.kh.redding.common.MyFileRenamePolicy;
 import com.kh.redding.company.model.service.CompanyService;
 import com.kh.redding.company.model.vo.Company;
 import com.kh.redding.member.model.vo.Member;
 import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-@WebServlet("/companyjoin.cme")
+@WebServlet("/companyjoin.me")
 public class JoinCompanyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -40,30 +33,10 @@ public class JoinCompanyServlet extends HttpServlet {
 		
 		int sizeLimit = 1024*1024*15;
 		
-		MultipartRequest multi = new MultipartRequest(request, savePath, sizeLimit, "utf-8", new MyFileRenamePolicy());
+		MultipartRequest multi = new MultipartRequest(request, savePath, sizeLimit, "utf-8", new DefaultFileRenamePolicy());
 		
 		String memberId = multi.getParameter("memberId");
 		String memberPwd = multi.getParameter("memberPwd");
-		
-		//암호화
-		String encPwd = null;
-		
-		MessageDigest md;
-		try {
-			md = MessageDigest.getInstance("SHA-512");
-	
-			byte[] bytes = memberPwd.getBytes(Charset.forName("utf-8"));
-			
-			md.update(bytes);
-
-			
-			encPwd = Base64.getEncoder().encodeToString(md.digest());
-			
-		} catch (NoSuchAlgorithmException e) {
-		
-			e.printStackTrace();
-		}
-			
 		String company_type = multi.getParameter("company_type");
 		String name = multi.getParameter("name");
 		String tel1 = multi.getParameter("tel1");
@@ -128,34 +101,12 @@ public class JoinCompanyServlet extends HttpServlet {
 			emailstatus = "Y";
 		}
 		
-		ArrayList<String> saveFiles = new ArrayList<String>();
-
-		ArrayList<String> originFiles = new ArrayList<String>();
-		
-		Enumeration<String> fileName = multi.getFileNames();
-		
-		while(fileName.hasMoreElements()) {
-			String fname = fileName.nextElement();
-			
-			saveFiles.add(multi.getFilesystemName(fname));
-			originFiles.add(multi.getOriginalFileName(fname));
-
-		}
-	
-	
 		Member joinMember = new Member();
 		Company joinCompany = new Company();
 		Attachment joinAttach = new Attachment();
 		
-		//for (int i = originFiles.size() -1 ; i >= 0 ; i--) {
-			joinAttach.setFilepath(savePath);
-			joinAttach.setOriginname(originFiles.get(0));
-			joinAttach.setChangename(saveFiles.get(0));
-
-		//}
-		
 		joinMember.setMemberId(memberId);
-		joinMember.setMemberPwd(encPwd);
+		joinMember.setMemberPwd(memberPwd);
 		joinMember.setMemberName(name);
 		joinMember.setPhone(phone);
 		joinMember.setEmail(email);
@@ -172,13 +123,10 @@ public class JoinCompanyServlet extends HttpServlet {
 		joinCompany.setEndTime(endtime);
 		joinCompany.setHoliday(holiday);
 		
-		
-		
 		System.out.println("joinMember :" + joinMember);
 		System.out.println("joinCompany :" + joinCompany);
-		System.out.println("joinAttach: " + joinAttach);
 		
-		int result = new CompanyService().insertCompany(joinMember,joinCompany,joinAttach);
+		/*int result = new CompanyService().insertCompany(joinMember,joinCompany,joinAttach);
 		
 		String page = "";
 		if (result > 0) {
@@ -186,20 +134,13 @@ public class JoinCompanyServlet extends HttpServlet {
 			
 			response.sendRedirect(page);
 		}else {
-			for (int i = 0 ; i< saveFiles.size() ; i++) {
-				File failedFile = new File(savePath + saveFiles.get(i));
-				
-				System.out.println(failedFile.delete());
-			}
-
-			
 			page = "/views/common/errorPage.jsp";
 			
 			request.setAttribute("msg", "회원가입 실패");
 			
 			request.getRequestDispatcher(page).forward(request, response);
 			
-		}
+		}*/
 				
 		
 		

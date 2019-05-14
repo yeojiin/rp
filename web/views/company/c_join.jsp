@@ -54,7 +54,7 @@
 
 				<div class="com_wrap">
 					<h3 align="left" id="com_title">Join us</h3>
-					<form action="<%=request.getContextPath()%>/companyjoin.cme"
+					<form action="<%=request.getContextPath()%>/companyjoin.me"
 						method="post" id="CompanyJoin" enctype="multipart/form-data">
 						<table class="comTable">
 							<tr>
@@ -66,7 +66,7 @@
 									<div class="fileBox">
 										<input type="text" class="fileName" id = "reg_num" name = "reg_num" readonly="readonly">
 										<label for="uploadBtn" class="btn_file">찾아보기</label> <input
-											type="file" name = "uploadFile" id="uploadBtn" class="uploadBtn">
+											type="file" id="uploadBtn" class="uploadBtn">
 									</div>
 								</td>
 							</tr>
@@ -758,11 +758,10 @@ Redding
 				
 				//이메일 인증
 				$("#emailckbtn").click(function(){
-					/* $("#emailckbtn").text("인증안됨");
+					$("#emailckbtn").text("인증안됨");
 					$("#emailckbtn").css("background","white");
 					$("#emailckbtn").css("border","1px solid red");
-					$("#emailckbtn").css("color","red"); */
-					
+					$("#emailckbtn").css("color","red");
 				});
 				
 				//이용약관 모두 동의
