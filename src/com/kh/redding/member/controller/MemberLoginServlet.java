@@ -44,7 +44,7 @@ public class MemberLoginServlet extends HttpServlet {
 				page = request.getContextPath() +"/views/company/c_main.jsp";
 				
 			}else if (loginUser.getMemberType().equals("관리자")) {
-				page = request.getContextPath() +"/views/admin/a_main.jsp";
+				page = request.getContextPath() +"/index.jsp";
 			}
 			
 			response.sendRedirect(page);
