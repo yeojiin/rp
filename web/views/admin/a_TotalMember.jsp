@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.redding.member.model.vo.Member, java.util.*"%>
+<%
+	ArrayList<Member> list = (ArrayList<Member>) request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,10 +79,12 @@
 						<br>
 						<table id="memberNumt">
 							<tr>
-								<td width="250" style="background: lightgray;">전체 회원 수</td>
-								<td width="100" style="color:salmon;">10</td>
-								<td width="250" style="background: lightgray;">탈퇴 회원 수</td>
-								<td width="100" style="color:salmon;">5</td>
+								<td>전체회원</td>
+								<td>명</td>
+								<td>신규회원</td>
+								<td>명</td>
+								<td>탈퇴회원</td>
+								<td>명</td>
 							</tr>
 						</table>
 					</div>
@@ -95,39 +100,24 @@
 								<td>닉네임</td>
 								<td>회원 이름</td>
 								<td>성별</td>
-								<td>전화번호</td>
-								<td>휴대전화</td>
+								<td>연락처</td>
 								<td>이메일주소</td>
 								<td>결혼예정일</td>
 								<td>신고횟수</td>
-								<!-- <td></td> -->
 							</tr>
+							<% for(Member member : list) { %>
 							<tr>
 								<td><input type="checkbox"></td>
-								<td>user01</td>
-								<td>user</td>
-								<td>임정연</td>
-								<td>여</td>
-								<td>010-5123-7872</td>
-								<td>010-5123-7872</td>
-								<td>only1year@naver.com</td>
-								<td>2019-05-30</td>
-								<td>10</td>
-								<!-- <td><button class="negative ui button">신고</button></td> -->
+								<td><%= member.getMemberId()%></td>
+								<td><%= member.getNickName() %></td>
+								<td><%= member.getMemberName() %></td>
+								<td><%= member.getGender() %></td>
+								<td><%= member.getPhone() %></td>
+								<td><%= member.getEmail() %></td>
+								<td><%= member.getWeddingDate() %></td>
+								<td><%= member.getMnotiType() %></td>
 							</tr>
-							<tr>
-								<td><input type="checkbox"></td>
-								<td>user02</td>
-								<td>user2</td>
-								<td>남궁욱</td>
-								<td>남</td>
-								<td>010-5123-7872</td>
-								<td>010-5123-7872</td>
-								<td>only1year22@naver.com</td>
-								<td>2019-05-30</td>
-								<td>0</td>
-								<!-- <td><button class="negative ui button">신고</button></td> -->
-							</tr>
+							<% } %>
 						</table>
 						<br>
 						<div class="btns">
