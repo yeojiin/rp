@@ -104,7 +104,7 @@ public class MemberDao {
 			pstmt.setString(7, insertMember.getPhone());
 			pstmt.setString(8, insertMember.getEmergenCon());
 			pstmt.setString(9, insertMember.getGender());
-			pstmt.setString(10, "회원");
+			pstmt.setInt(10, 10);
 			pstmt.setDate(11, insertMember.getWeddingDate());
 			
 			result = pstmt.executeUpdate();

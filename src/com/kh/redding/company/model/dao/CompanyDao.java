@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+import com.kh.redding.attachment.model.vo.Attachment;
 import com.kh.redding.company.model.vo.Company;
 import com.kh.redding.member.model.vo.Member;
 
@@ -79,7 +80,7 @@ public class CompanyDao {
 			pstmt.setString(4, joinMember.getEmail());
 			pstmt.setString(5, joinMember.getEmailCheck());
 			pstmt.setString(6, joinMember.getPhone());
-			pstmt.setString(7, "업체");
+			pstmt.setInt(7, 20);
 			
 			result = pstmt.executeUpdate();
 			
@@ -135,7 +136,7 @@ public class CompanyDao {
 			pstmt = con.prepareStatement(query);
 			
 			pstmt.setInt(1, joinCompany.getCNO());
-			pstmt.setString(2, joinCompany.getCom_Rep_Num());
+			pstmt.setInt(2, joinCompany.getCom_Rep_Num());
 			pstmt.setString(3, joinCompany.getRepName());
 			pstmt.setString(4, joinCompany.getComAddress());
 			pstmt.setString(5, joinCompany.getComUrl());
@@ -145,7 +146,7 @@ public class CompanyDao {
 			pstmt.setString(9, joinCompany.getAccountNum());
 			pstmt.setString(10, joinCompany.getAccountName());
 			pstmt.setString(11, joinCompany.getComType());
-			
+			pstmt.setString(12, joinCompany.getHoliday());
 			
 			result = pstmt.executeUpdate();
 			
@@ -157,6 +158,61 @@ public class CompanyDao {
 		}
 		
 		return result;
+	}
+
+	public int insertRegNum(Connection con, Attachment joinAttach) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertRegNum");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, joinAttach.getOriginname());
+			pstmt.setString(2, joinAttach.getChangename());
+			pstmt.setString(3, joinAttach.getFilepath());
+			pstmt.setInt(4, joinAttach.getMno());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int selectRegNum(Connection con) {
+		Statement pstmt = null;
+		ResultSet rset = null;
+		int reg_num = 0;
+		
+		String query = prop.getProperty("selectRegNum");
+		
+		try {
+			pstmt = con.createStatement();
+			
+			rset= pstmt.executeQuery(query);
+			
+			if (rset.next()) {
+				reg_num = rset.getInt(1);
+			
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return reg_num;
 	}
 
 

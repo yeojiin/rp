@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.redding.member.model.vo.Member"%>
+<%
+   Member loginUser = (Member) session.getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,7 +67,7 @@
          <%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
          
             <div class="contentsArea" id="productInsertArea">
-            	<form action="" method="post">
+               <form action="" method="post">
                
                   <div id="PUHeader">
                      <h3>상품수정 페이지</h3>
@@ -79,6 +82,23 @@
                              <th width="15%">&nbsp;</th>
                              <th width="10%">&nbsp;</th>
                              <th width="20%">&nbsp;</th>
+                          </tr>
+                          <tr>
+                             <td>
+                                <label>판매 여부</label>
+                             </td>                    
+                             <td colspan="3">
+                                <input type="radio" name="proStatus" id="proStatusYes">
+                                <label for="proStatusYes">판매함</label>
+                                <input type="radio" name="proStatus" id="proStatusNo">
+                                <label for="proStatusNo">판매안함</label>
+                             </td>
+                             <td>
+                                <label>상품등록일</label>
+                             </td>
+                             <td colspan="2">
+                                <input type="text" name="penrollDate" id="penrollDate" value=""readonly>
+                             </td>         
                           </tr>
                           <tr>
                              <td>
@@ -123,7 +143,7 @@
                                 <input type="text" name="puPrice" id="puPrice">
                              </td>
                           </tr>
-                          <tr>
+                          <!-- <tr>
                              <td>
                                 <label>휴무일</label>
                              </td>
@@ -145,16 +165,16 @@
                                    <label for="sunday">일</label>
                                 </div>
                              </td>
-                          </tr>
-                          <tr>
+                          </tr> -->
+                          <!-- <tr>
                              <td>
                                 <label>예약 가능 날짜</label>
                              </td>
                              <td colspan="7">
                                 <div id="PUCalendar">캘린더 영역</div>
                              </td>
-                          </tr>
-                          <tr>
+                          </tr> -->
+                          <!-- <tr>
                              <td>
                                 <label>예약 시작 시간</label>
                              </td>
@@ -171,7 +191,7 @@
                                 <input type="time" name="endTime" id="endTime">
                              </td>
                              <td colspan="2"></td>
-                          </tr>
+                          </tr> -->
                           <tr>
                              <td>
                                 <label>상품 설명</label>
@@ -206,21 +226,21 @@
       <jsp:include page="/views/common/footer.jsp"></jsp:include>
    </div>
    <script>
-	   $(function(){
-			$("#PUInsertBtn").click(function(){
-				alert("상품을 수정하셨습니다.");
-				location.href="<%=request.getContextPath()%>/views/company/c_ProductManagement.jsp";
-				/* 서블릿을 통해 전체상품의 수량을 증가 시켜준다. */
-			});
-			$("#PUResetBtn").click(function(){
-				alert("상품수정을 취소하셨습니다.");
-				location.href="<%=request.getContextPath()%>/views/company/c_ProductManagement.jsp";
-			});
-			$("#PUDeleteBtn").click(function(){
-				alert("상품을 삭제하셨습니다.");
-				location.href="<%=request.getContextPath()%>/views/company/c_ProductManagement.jsp";
-			});
-	   });
+      $(function(){
+         $("#PUInsertBtn").click(function(){
+            alert("상품을 수정하셨습니다.");
+            location.href="<%=request.getContextPath()%>/views/company/c_ProductManagement.jsp";
+            /* 서블릿을 통해 전체상품의 수량을 증가 시켜준다. */
+         });
+         $("#PUResetBtn").click(function(){
+            alert("상품수정을 취소하셨습니다.");
+            location.href="<%=request.getContextPath()%>/views/company/c_ProductManagement.jsp";
+         });
+         $("#PUDeleteBtn").click(function(){
+            alert("상품을 삭제하셨습니다.");
+            location.href="<%=request.getContextPath()%>/views/company/c_ProductManagement.jsp";
+         });
+      });
 
    </script>
 </body>

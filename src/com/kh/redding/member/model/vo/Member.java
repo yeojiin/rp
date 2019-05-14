@@ -102,12 +102,13 @@ public class Member implements java.io.Serializable {
 		return memberType;
 	}
 
-	public Date getOutDate() {
-		return OutDate;
+
+	public int getMemberType() {
+		return memberType;
 	}
 
-	public Date getWeddingDate() {
-		return WeddingDate;
+	public void setMemberType(int string) {
+		this.memberType = string;
 	}
 
 	public int getMnotiType() {

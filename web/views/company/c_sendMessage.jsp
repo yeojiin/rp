@@ -108,6 +108,10 @@
 					location.href="<%=request.getContextPath()%>/views/company/c_messageManager.jsp";
 				}
 			});
+			$("#reset").click(function(){
+				alert("취소하셨습니다.");
+				location.href="<%=request.getContextPath()%>/views/company/c_messageManager.jsp";
+			});
 		   
 	   });
 

@@ -1,10 +1,13 @@
 package com.kh.redding.company.controller;
 
+import java.io.File;
 import java.io.IOException;
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,11 +15,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.redding.attachment.model.vo.Attachment;
+import com.kh.redding.common.MyFileRenamePolicy;
 import com.kh.redding.company.model.service.CompanyService;
 import com.kh.redding.company.model.vo.Company;
 import com.kh.redding.member.model.vo.Member;
+import com.oreilly.servlet.MultipartRequest;
 
-@WebServlet("/companyjoin.me")
+@WebServlet("/companyjoin.cme")
 public class JoinCompanyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -25,53 +31,81 @@ public class JoinCompanyServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String memberId = request.getParameter("memberId");
-		String reg_num = request.getParameter("reg_num");
-		String memberPwd = request.getParameter("memberPwd");
-		String company_type = request.getParameter("company_type");
-		String name = request.getParameter("name");
-		String tel1 = request.getParameter("tel1");
-		String tel2 = request.getParameter("tel2");
-		String tel3 = request.getParameter("tel3");
-		String rep_name = request.getParameter("rep_name");
+		String root = request.getSession().getServletContext().getRealPath("/");
+
+		System.out.println("root : "+root);
+
+		//파일을 저장 경로 설정
+		String savePath = root + "company_upload/";
+		
+		int sizeLimit = 1024*1024*15;
+		
+		MultipartRequest multi = new MultipartRequest(request, savePath, sizeLimit, "utf-8", new MyFileRenamePolicy());
+		
+		String memberId = multi.getParameter("memberId");
+		String memberPwd = multi.getParameter("memberPwd");
+		
+		//암호화
+		String encPwd = null;
+		
+		MessageDigest md;
+		try {
+			md = MessageDigest.getInstance("SHA-512");
+	
+			byte[] bytes = memberPwd.getBytes(Charset.forName("utf-8"));
+			
+			md.update(bytes);
+
+			
+			encPwd = Base64.getEncoder().encodeToString(md.digest());
+			
+		} catch (NoSuchAlgorithmException e) {
+		
+			e.printStackTrace();
+		}
+			
+		String company_type = multi.getParameter("company_type");
+		String name = multi.getParameter("name");
+		String tel1 = multi.getParameter("tel1");
+		String tel2 = multi.getParameter("tel2");
+		String tel3 = multi.getParameter("tel3");
+		String rep_name = multi.getParameter("rep_name");
 		
 		String phone = tel1 + "-" + tel2 + "-" + tel3;
 		
-		String postcode = request.getParameter("postcode");
-		String address1 = request.getParameter("address");
-		String address2 = request.getParameter("detailAddress");
-		String address3 = request.getParameter("extraAddress");
+		String postcode = multi.getParameter("postcode");
+		String address1 = multi.getParameter("address");
+		String address2 = multi.getParameter("detailAddress");
+		String address3 = multi.getParameter("extraAddress");
 		
 		String totalAddress = postcode + "|" + address1 + "|" + address2 + "|" + address3;
 		
-		int accountcode = Integer.parseInt(request.getParameter("accountcode"));
-		String account_num = request.getParameter("account_num");
-		String account_name = request.getParameter("account_name");
-		String email1 = request.getParameter("email1");
-		String email2 = request.getParameter("email2");
-		String email_check = request.getParameter("email_check");
+		int accountcode = Integer.parseInt(multi.getParameter("accountcode"));
+		String account_num = multi.getParameter("account_num");
+		String account_name = multi.getParameter("account_name");
+		String email1 = multi.getParameter("email1");
+		String email2 = multi.getParameter("email2");
+		String email_check = multi.getParameter("email_check");
 		
 		String email = email1 + "@" + email2;		
 	
-		String url = request.getParameter("homepage");
-		String startime = request.getParameter("strartime");
-		String endtime = request.getParameter("endtime");
+		String url = multi.getParameter("homepage");
+		String startime = multi.getParameter("strartime");
+		String endtime = multi.getParameter("endtime");
 		
-		/*Calendar today = Calendar.getInstance();
+		String[] weekend = multi.getParameterValues("weekend");
 		
-		SimpleDateFormat format1 = new SimpleDateFormat ("yyyy-MM-dd");
+		String holiday = "";
+		for (int i = 0 ; i < weekend.length ; i++) {
+			if (i == 0) {
+				holiday += weekend[i]; 
+			}else {
+				holiday += "," + weekend[i];
+			}
+		}
 		
-		startime = format1.format(today) + startime;
-		endtime = format1.format(today) + endtime;
-		
-		SimpleDateFormat format2 = new SimpleDateFormat ("yyyy-MM-dd HH:mm");
-		
-		Date StartDate = (Date) format2.parse(startime);
-		Date endDate = (Date) format2.parse(endtime);
-*/
-		
+	
 		System.out.println("memberId :" + memberId);
-		System.out.println("reg_num :" + reg_num);
 		System.out.println("password :" + memberPwd);
 		System.out.println("company_type :" + company_type);
 		System.out.println("name :" + name);
@@ -85,6 +119,7 @@ public class JoinCompanyServlet extends HttpServlet {
 		System.out.println("url :" + url);
 		System.out.println("opentime :" + startime);
 		System.out.println("endTime :" + endtime);
+		System.out.println("holiday :" + holiday);
 		
 		String emailstatus = "";
 		if (email_check.equals("인증안됨")) {
@@ -93,11 +128,34 @@ public class JoinCompanyServlet extends HttpServlet {
 			emailstatus = "Y";
 		}
 		
+		ArrayList<String> saveFiles = new ArrayList<String>();
+
+		ArrayList<String> originFiles = new ArrayList<String>();
+		
+		Enumeration<String> fileName = multi.getFileNames();
+		
+		while(fileName.hasMoreElements()) {
+			String fname = fileName.nextElement();
+			
+			saveFiles.add(multi.getFilesystemName(fname));
+			originFiles.add(multi.getOriginalFileName(fname));
+
+		}
+	
+	
 		Member joinMember = new Member();
 		Company joinCompany = new Company();
+		Attachment joinAttach = new Attachment();
+		
+		//for (int i = originFiles.size() -1 ; i >= 0 ; i--) {
+			joinAttach.setFilepath(savePath);
+			joinAttach.setOriginname(originFiles.get(0));
+			joinAttach.setChangename(saveFiles.get(0));
+
+		//}
 		
 		joinMember.setMemberId(memberId);
-		joinMember.setMemberPwd(memberPwd);
+		joinMember.setMemberPwd(encPwd);
 		joinMember.setMemberName(name);
 		joinMember.setPhone(phone);
 		joinMember.setEmail(email);
@@ -107,14 +165,20 @@ public class JoinCompanyServlet extends HttpServlet {
 		joinCompany.setAccountName(account_name);
 		joinCompany.setAccountNum(account_num);
 		joinCompany.setComType(company_type);
-		joinCompany.setCom_Rep_Num(reg_num);
 		joinCompany.setRepName(rep_name);
 		joinCompany.setComAddress(totalAddress);
 		joinCompany.setComUrl(url);
 		joinCompany.setOpenTime(startime);
 		joinCompany.setEndTime(endtime);
+		joinCompany.setHoliday(holiday);
 		
-		int result = new CompanyService().insertCompany(joinMember,joinCompany);
+		
+		
+		System.out.println("joinMember :" + joinMember);
+		System.out.println("joinCompany :" + joinCompany);
+		System.out.println("joinAttach: " + joinAttach);
+		
+		int result = new CompanyService().insertCompany(joinMember,joinCompany,joinAttach);
 		
 		String page = "";
 		if (result > 0) {
@@ -122,6 +186,13 @@ public class JoinCompanyServlet extends HttpServlet {
 			
 			response.sendRedirect(page);
 		}else {
+			for (int i = 0 ; i< saveFiles.size() ; i++) {
+				File failedFile = new File(savePath + saveFiles.get(i));
+				
+				System.out.println(failedFile.delete());
+			}
+
+			
 			page = "/views/common/errorPage.jsp";
 			
 			request.setAttribute("msg", "회원가입 실패");
@@ -129,7 +200,7 @@ public class JoinCompanyServlet extends HttpServlet {
 			request.getRequestDispatcher(page).forward(request, response);
 			
 		}
-		
+				
 		
 		
 		

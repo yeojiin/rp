@@ -53,18 +53,22 @@
 			<div class="col-sm-8 text-left">
 
 				<div class="com_wrap">
-					<h3 align="center" id="com_title">Join us</h3>
-					<form action="<%=request.getContextPath()%>/companyjoin.me"
-						method="post" id="CompanyJoin">
+					<h3 align="left" id="com_title">Join us</h3>
+					<form action="<%=request.getContextPath()%>/companyjoin.cme"
+						method="post" id="CompanyJoin" enctype="multipart/form-data">
 						<table class="comTable">
 							<tr>
 								<td colspan="3" id="com_label">기본 정보</td>
 							</tr>
 							<tr>
 								<td>사업자 등록번호<span id="star">*</span></td>
-								<td><input type="text" id="reg_num" name="reg_num"
-									maxlength="10">
-									<button type = "button">확인</button></td>
+								<td>
+									<div class="fileBox">
+										<input type="text" class="fileName" id = "reg_num" name = "reg_num" readonly="readonly">
+										<label for="uploadBtn" class="btn_file">찾아보기</label> <input
+											type="file" name = "uploadFile" id="uploadBtn" class="uploadBtn">
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<td>아이디<span id="star">*</span></td>
@@ -75,14 +79,14 @@
 							</tr>
 							<tr>
 								<td>비밀번호<span id="star">*</span></td>
-								<td><input type="password" name="memberPwd" id="memberPwd"> 
-								<span id="Spwd1">(8~16자 이상 입력 )</span></td>
+								<td><input type="password" name="memberPwd" id="memberPwd">
+									<span id="Spwd1">(8~16자 이상 입력 )</span></td>
 								<td></td>
 							</tr>
 							<tr>
 								<td>비밀번호 확인<span id="star">*</span></td>
-								<td><input type="password" name="password2" id="password2"> 
-								<span id="Spwd2"></span></td>
+								<td><input type="password" name="password2" id="password2">
+									<span id="Spwd2"></span></td>
 								<td></td>
 							</tr>
 							<tr>
@@ -106,17 +110,11 @@
 								<td></td>
 							</tr>
 							<tr>
-								<td class="col1">휴대전화&nbsp;&nbsp;<span
-									id="star">*</span></td>
-								<td class="col2"><select name="tel1" style="width: 53px;">
-										<option>010</option>
-										<option>011</option>
-										<option>016</option>
-										<option>017</option>
-										<option>018</option>
-										<option>019</option>
-								</select>&nbsp;- <input type="text" name="tel2" style="width: 60px;">&nbsp;-
-									<input type="text" name="tel3" style="width: 60px;">&nbsp;&nbsp;&nbsp;&nbsp;
+								<td class="col1">휴대전화&nbsp;&nbsp;<span id="star">*</span></td>
+								<td class="col2"><input type="text" name="tel1"
+									style="width: 60px;"> &nbsp;- <input type="text"
+									name="tel2" style="width: 60px;">&nbsp;- <input
+									type="text" name="tel3" style="width: 60px;">&nbsp;&nbsp;&nbsp;&nbsp;
 								</td>
 							</tr>
 							<tr>
@@ -173,8 +171,7 @@
 									id="account_name" placeholder="예금주"></td>
 							</tr>
 							<tr>
-								<td class="col1">이메일&nbsp;&nbsp;<span
-									id="star">*</span></td>
+								<td class="col1">이메일&nbsp;&nbsp;<span id="star">*</span></td>
 								<td class="col2"><input type="text" name="email1">&nbsp;&nbsp;@&nbsp;&nbsp;
 									<input type="text" name="email2" id="email2">&nbsp;&nbsp;
 									<select name="email3" id="email3">
@@ -206,15 +203,32 @@
 								<td><input type="time" name="strartime" id="startime">
 									~ <input type="time" name="endtime" id="endtime"></td>
 							</tr>
+							<tr>
+								<td>휴무일</td>
+								<td>
+									<input type = "checkbox" value = "월" id = "Monday" name = "weekend">
+									<label for = "Monday">월</label>
+									<input type = "checkbox" value = "화" id = "Tuesday" name = "weekend">
+									<label for = "Tuesday">화</label>
+									<input type = "checkbox" value = "수" id = "Wednesday" name = "weekend">
+									<label for = "Wednesday">수</label>
+									<input type = "checkbox" value = "목" id = "Thusday" name = "weekend">
+									<label for = "Thusday">목</label>
+									<input type = "checkbox" value = "금" id = "Friday" name = "weekend">
+									<label for = "Friday">금</label>
+									<input type = "checkbox" value = "토" id = "Saturday" name = "weekend">
+									<label for = "Saturday">토</label>
+									<input type = "checkbox" value = "일" id = "Sunday" name = "weekend">
+									<label for = "Sunday">일</label>
+								</td>
+							</tr>
 						</table>
-						</form>
-						<br>
-						<br>
-						<div class="com_term">
-							<input type="checkbox" id="terms_all"> <label
-								id="all_check">이용약관,개인정보 처리방침 모두 동의</label> <br>
-							<br> <label>이용약관</label><br>
-							<textarea readonly>
+					</form>
+					<br> <br>
+					<div class="com_term">
+						<input type="checkbox" id="terms_all"> <label
+							id="all_check">이용약관,개인정보 처리방침 모두 동의</label> <br> <br> <label>이용약관</label><br>
+						<textarea readonly>
 기업 회원 약관 (개정 및 적용 2019. 05. 05)
 제1조 (목적)
 본 약관은 Redding(이하 "회사")이 각각 운영하는 웹사이트(이하 "사이트")를 통해 인터넷 관련 "서비스"를 제공함에 있어, 회사가 제공하는 "서비스"와 관련하여, 이를 이용하는 가입자(이하 "회원" 또는 "기업회원")의 이용조건 및 제반 절차, 기타 필요한 사항을 규정함을 목적으로 한다.
@@ -424,12 +438,11 @@
 2019.05.05
 Redding        
           </textarea>
-							<div id="terms">
-								이용약관에 동의하십니까?&nbsp;&nbsp; <input type="checkbox" id = "condition1">동의함
-							</div>
-							<br>
-							<br> <label>개인정보처리방침</label><br>
-							<textarea readonly>
+						<div id="terms">
+							이용약관에 동의하십니까?&nbsp;&nbsp; <input type="checkbox" id="condition1">동의함
+						</div>
+						<br> <br> <label>개인정보처리방침</label><br>
+						<textarea readonly>
 1. 개인정보 수집 및 이용 현황
 가. 회사는 서비스 제공을 위한 최소한의 범위 내에서 이용자의 동의 하에 개인정보를 수집하며, 수집한 모든 개인정보는 고지한 목적 범위 내에서만 사용됩니다. 또한, 제공하는 서비스(채용 정보제공 등) 특성상 「근로기준법」에 따라 만15세 미만인 경우 회원가입을 허용하지 않습니다. 회사에서 제공하는 서비스 유형에 따라 다음과 같이 개인정보를 수집, 이용, 보유 및 파기하고 있습니다.
 
@@ -509,16 +522,17 @@ Redding
 회사는 휴면계정으로 전환되는 시점 도래 30일 이전에 해당내용에 대해 이메일 등을 통해 이용자에게 공지합니다.
 분리 저장된 개인정보는 관련 법령에 특별한 규정이 있는 경우를 제외하고 해당 개인정보를 이용하거나 제공하지 않으며, 관련 법령에 따라 일정기간 동안 보유되고 해당 기간 종료 후 파기됩니다. 다만, 파기되지 않은 개인정보는 해당 이용자의 요청에 따라 서비스 이용을 재개하는 시점에 다시 제공됩니다.
          </textarea>
-							<div id="terms">
-								개인정보 수집 및 이용에 동의하십니까?&nbsp;&nbsp; <input type="checkbox" id = "condition2">동의함
-							</div>
+						<div id="terms">
+							개인정보 수집 및 이용에 동의하십니까?&nbsp;&nbsp; <input type="checkbox"
+								id="condition2">동의함
 						</div>
-						<br>
-						<br>
-						<div id="com_btn">
-							<input type="reset" id="reset" value="뒤로가기">&nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="button" id="submit" value="회원가입" onclick = "JoinEvent();">
-						</div>
+					</div>
+					<br> <br>
+					<div id="com_btn">
+						<input type="reset" id="reset" value="뒤로가기">&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="button" id="submit" value="회원가입"
+							onclick="JoinEvent();">
+					</div>
 					<script>
 			    function execDaumPostcode() {
 			        new daum.Postcode({
@@ -628,7 +642,7 @@ Redding
 						var memberpwd2 = $("#password2").val();			//비밀번호 확인
 						var memberName = $("#name").val();				//업체명
 						var rep_name = $("#rep_name").val();			//대표자명
-						var tel1 = $("select[name=tel1]").val();		//전화번호1
+						var tel1 = $("input[name=tel1]").val();		//전화번호1
 						var tel2 = $("input[name=tel2]").val();			//전화번호2
 						var tel3 = $("input[name=tel3]").val();			//전화번호3
 						var email1 = $("input[name=email1]").val();		//이메일1
@@ -643,9 +657,7 @@ Redding
 							
 						//회원가입 체크
 						if (reg_num == ""){
-							alert("사업자번호를 입력해주세요");		
-						}else if (reg_num.length < 10){
-							alert("사업자번호를 입력해주세요");	
+							alert("사업자등록증을 넣어주세요");			
 						}else if(memberid == ""){
 							alert("아이디 입력해주세요");			
 						}else if (Sidcheck != "아이디사용가능"){
@@ -746,10 +758,11 @@ Redding
 				
 				//이메일 인증
 				$("#emailckbtn").click(function(){
-					$("#emailckbtn").text("인증안됨");
+					/* $("#emailckbtn").text("인증안됨");
 					$("#emailckbtn").css("background","white");
 					$("#emailckbtn").css("border","1px solid red");
-					$("#emailckbtn").css("color","red");
+					$("#emailckbtn").css("color","red"); */
+					
 				});
 				
 				//이용약관 모두 동의
@@ -761,7 +774,7 @@ Redding
 				
 				//이용약관 모두 동의
 			 	$("#terms_all").change(function(){
-			 		if ($("#terms_all").val() == "false"){
+			 		if ($("#terms_all").is(":checked") == true){
 			 			$("#terms_all").attr("checked",true);
 						$("#condition1").attr("checked",true);
 						$("#condition2").attr("checked",true);
@@ -772,13 +785,23 @@ Redding
 			 		}
 				});
 				
+			 	
+			 	var uploadFile = $('.fileBox .uploadBtn');
+			 	uploadFile.on('change', function(){
+			 		if(window.FileReader){
+			 			var filename = $(this)[0].files[0].name;
+			 		} else {
+			 			var filename = $(this).val().split('/').pop().split('\\').pop();
+			 		}
+			 		$(this).siblings('.fileName').val(filename);
+			 	});
 				
 				
-				
-				
+		
 			});
-		</script>
-				</div>
+
+			</script>
+			</div>
 
 			</div>
 			<!-- 오른쪽 빈공간 -->

@@ -39,11 +39,13 @@ public class MemberLoginServlet extends HttpServlet {
 			
 			if (loginUser.getMemberType() == 10) {	
 				page = "index.jsp";
-			}else if (loginUser.getMemberType() == 20) {
+
+				
+			}else if (loginUser.getMemberType()== 20 ) {
 				page = request.getContextPath() +"/views/company/c_main.jsp";
 				
 			}else if (loginUser.getMemberType() == 90) {
-				page = request.getContextPath() +"/views/admin/a_main.jsp";
+				page = request.getContextPath() +"/index.jsp";
 			}
 			
 			response.sendRedirect(page);
