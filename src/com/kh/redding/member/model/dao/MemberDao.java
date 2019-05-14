@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.redding.member.model.vo.Member;
@@ -61,7 +63,7 @@ public class MemberDao {
 				loginUser.setEnrollDate(rset.getDate("ENROLL_DATE"));
 				loginUser.setModifyDate(rset.getDate("MODIFY_DATE"));
 				loginUser.setStatus(rset.getString("STATUS"));
-				loginUser.setMemberType(rset.getString("MTYPE"));
+				loginUser.setMemberType(rset.getInt("MTYPE"));
 			}
 			
 		} catch (SQLException e) {

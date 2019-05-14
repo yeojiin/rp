@@ -24,7 +24,7 @@
 					<li class="active"><a href="a_Sstats.jsp">통계관리</a></li>
 					<li><a href="a_calculate.jsp">정산관리</a></li>
 					<li><a href="a_Company.jsp">업체관리</a></li>
-					<li><a href="a_TotalMember.jsp">회원관리</a></li>
+					<li><a onclick="goTotalMember()">회원관리</a></li>
 					<li><a href="a_BlackList.jsp">블랙리스트 관리</a></li>
 					<li><a href="a_event.jsp">쿠폰 관리</a></li>
 					<li><a href="a_Survey.jsp">설문조사 관리</a></li>
@@ -37,5 +37,10 @@
 		</div>
 	</nav>
 </body>
+<script>
+	function goTotalMember() {
+		location.href="/redding/selectList.me";
+	}
+</script>
 </html>
 

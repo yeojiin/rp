@@ -16,7 +16,7 @@ public class Member implements java.io.Serializable {
 	private Date enrollDate; //등록날짜
 	private Date modifyDate; //수정날짜
 	private String status; //상태
-	private String memberType; //회원타입
+	private int memberType; //회원타입
 	private Date OutDate; //탈퇴날짜
 	private Date WeddingDate; //결혼날짜
 	private int mnotiType; //신고횟수
@@ -25,7 +25,7 @@ public class Member implements java.io.Serializable {
 
 	public Member(int mno, String memberId, String memberPwd, String memberName, String nickName, String phone,
 			String emergenCon, String email, String emailCheck, String gender, Date enrollDate, Date modifyDate,
-			String status, String memberType, Date outDate, Date weddingDate, int mnotiType) {
+			String status, int memberType, Date outDate, Date weddingDate, int mnotiType) {
 		super();
 		this.mno = mno;
 		this.memberId = memberId;
@@ -46,138 +46,136 @@ public class Member implements java.io.Serializable {
 		this.mnotiType = mnotiType;
 	}
 
-
-
 	public int getMno() {
 		return mno;
-	}
-
-	public void setMno(int mno) {
-		this.mno = mno;
 	}
 
 	public String getMemberId() {
 		return memberId;
 	}
 
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
-	}
-
 	public String getMemberPwd() {
 		return memberPwd;
-	}
-
-	public void setMemberPwd(String memberPwd) {
-		this.memberPwd = memberPwd;
 	}
 
 	public String getMemberName() {
 		return memberName;
 	}
 
-	public void setMemberName(String memberName) {
-		this.memberName = memberName;
-	}
-
 	public String getNickName() {
 		return nickName;
-	}
-
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
 	}
 
 	public String getPhone() {
 		return phone;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
 	public String getEmergenCon() {
 		return emergenCon;
-	}
-
-	public void setEmergenCon(String emergenCon) {
-		this.emergenCon = emergenCon;
 	}
 
 	public String getEmail() {
 		return email;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public String getEmailCheck() {
 		return emailCheck;
-	}
-
-	public void setEmailCheck(String emailCheck) {
-		this.emailCheck = emailCheck;
 	}
 
 	public String getGender() {
 		return gender;
 	}
 
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
 	public Date getEnrollDate() {
 		return enrollDate;
-	}
-
-	public void setEnrollDate(Date enrollDate) {
-		this.enrollDate = enrollDate;
 	}
 
 	public Date getModifyDate() {
 		return modifyDate;
 	}
 
-	public void setModifyDate(Date modifyDate) {
-		this.modifyDate = modifyDate;
-	}
-
 	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public String getMemberType() {
+	public int getMemberType() {
 		return memberType;
-	}
-
-	public void setMemberType(String memberType) {
-		this.memberType = memberType;
 	}
 
 	public Date getOutDate() {
 		return OutDate;
 	}
 
-	public void setOutDate(Date outDate) {
-		OutDate = outDate;
-	}
-
 	public Date getWeddingDate() {
 		return WeddingDate;
 	}
 
-	public void setWeddingDate(Date weddingDate) {
-		WeddingDate = weddingDate;
-	}
-
 	public int getMnotiType() {
 		return mnotiType;
+	}
+
+	public void setMno(int mno) {
+		this.mno = mno;
+	}
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+
+	public void setMemberPwd(String memberPwd) {
+		this.memberPwd = memberPwd;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public void setEmergenCon(String emergenCon) {
+		this.emergenCon = emergenCon;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setEmailCheck(String emailCheck) {
+		this.emailCheck = emailCheck;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public void setEnrollDate(Date enrollDate) {
+		this.enrollDate = enrollDate;
+	}
+
+	public void setModifyDate(Date modifyDate) {
+		this.modifyDate = modifyDate;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public void setMemberType(int memberType) {
+		this.memberType = memberType;
+	}
+
+	public void setOutDate(Date outDate) {
+		OutDate = outDate;
+	}
+
+	public void setWeddingDate(Date weddingDate) {
+		WeddingDate = weddingDate;
 	}
 
 	public void setMnotiType(int mnotiType) {
@@ -192,6 +190,9 @@ public class Member implements java.io.Serializable {
 				+ ", modifyDate=" + modifyDate + ", status=" + status + ", memberType=" + memberType + ", OutDate="
 				+ OutDate + ", WeddingDate=" + WeddingDate + ", mnotiType=" + mnotiType + "]";
 	}
+
+	
+
 
 	
 	

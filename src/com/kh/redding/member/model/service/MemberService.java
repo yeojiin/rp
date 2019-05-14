@@ -1,5 +1,6 @@
 package com.kh.redding.member.model.service;
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import com.kh.redding.member.model.dao.MemberDao;
 import com.kh.redding.member.model.vo.Member;
