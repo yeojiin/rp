@@ -59,14 +59,13 @@
 							<th></th>
 						</tr>
 					<%
-					System.out.println(list);
 						for (int i = 0; i < list.size(); i++) {
 						HashMap<String, Object> hmap = list.get(i);
 					%>
 						<tr>
 							<td class="pName"><%=hmap.get("mname") %></td>
 							<td class="imagetd">
-								<img id="image" src="../../images/dressTest.jpg">
+								<img id="image" src="<%= request.getContextPath() %>/images/dressTest.jpg">
 							</td>
 							<td class="detail"><%=hmap.get("upname")%></td>
 							<td class="price"><%=hmap.get("price")%></td>
@@ -81,18 +80,40 @@
 				<br><br>
 				<div class="pResult">
 				<h2>패키지 구성</h2>
-					<table id="pResult">
+					 <div id="packageArea">
+						<div class="packageStudio">
+							<img src="<%= request.getContextPath() %>/images/logo.png">
+							<img src="<%= request.getContextPath() %>/images/plus.png">
+						</div>
+						
+						<div class="packageDress">
+							<img src="<%= request.getContextPath() %>/images/logo.png">
+							<img src="<%= request.getContextPath() %>/images/plus.png">
+						</div>
+						
+						<div class="packageMakeup">
+							<img src="<%= request.getContextPath() %>/images/logo.png"></td>
+							<img src="<%= request.getContextPath() %>/images/equal.png">
+						</div>
+						<div>
+						</div>
+						
+				
+					</div> 
+				
+					<%-- <table id="pResult" style="backgound:lightgray;">
 						<tr>
-						<td id="package1"><img id="image" src="../../images/logo.png"></td>
-						<td><img src="../../images/plus.png"></td>
-						<td id="package2"><img id="image" src="../../images/logo.png"></td>
-						<td><img src="../../images/plus.png"></td>
-						<td id="package3"><img id="image" src="../../images/logo.png"></td>
-						<td><img src="../../images/equal.png"></td>
-						<td id="price"><label id="resultPrice"></label><button onclick="push();">ㅇㅇ</button></td>
+						<td id="package1"><img id="image" src="<%= request.getContextPath() %>/images/logo.png"></td>
+						<td><img src="<%= request.getContextPath() %>/images/plus.png"></td>
+						<td id="package2"><img id="image" src="<%= request.getContextPath() %>/images/logo.png"></td>
+						<td><img src="<%= request.getContextPath() %>/images/plus.png"></td>
+						<td id="package3"><img id="image" src="<%= request.getContextPath() %>/images/logo.png"></td>
+						<td><img src="<%= request.getContextPath() %>/images/equal.png"></td>
+						<td></td>
 						</tr>
-					</table>
+					</table> --%>
 				</div>
+				
 
 			</div>
 

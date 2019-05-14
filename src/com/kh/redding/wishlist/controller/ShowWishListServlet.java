@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.redding.wishlist.model.service.WishListService;
-import com.kh.redding.wishlist.model.vo.WishList;
 
 /**
  * Servlet implementation class ShowWishListServlet
@@ -33,6 +32,7 @@ public class ShowWishListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		int num = Integer.parseInt(request.getParameter("num"));
 		
 		ArrayList<HashMap<String,Object>> list= new WishListService().showWishList(num);
