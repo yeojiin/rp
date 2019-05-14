@@ -12,18 +12,30 @@
 	text-align:center;
 	border:1px solid black;
 }
-#wishListTable th{
+#wishListTable tr th{
 	text-align:center;
+	font-size:20px;
+	 border:1px solid black;
+	 background:#FFA399;
 }
-#wishListTable td{
+#wishListTable tr td{
 	border:1px solid black;
 }
-#image{
-	width:30%;
-	height:60%;
+.imagetd{
+	width:20%;	
 }
-#pName{
-	width:50%;
+#image{
+	max-width:99%;
+}
+.detail{
+	width:30%;
+}
+.pName{
+	width:20%;
+	font-size:18px;
+}
+.price{
+	font-size:18px;
 }
 #pResult{
 	width:100%;

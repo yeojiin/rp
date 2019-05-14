@@ -22,13 +22,23 @@
 					<li><button class="miniMenuBtn" onclick="nullWishList()">WISHLIST</button></li>
 					<li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
 				</ul>
+				
+			<% } else if(loginUser != null && loginUser.getMemberId().equals("admin")) { %>
+				<br>
+				<ul>
+					<li><button class="miniMenuBtn"><%=loginUser.getNickName() %>님의 방문을 환영합니다!</button></li>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
+					<li><button class="miniMenuBtn" onclick="logout()">LOGOUT</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
+					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/admin/a_main.jsp'">MY PAGE</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
+					<li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+				</ul>
+				
 			<% } else { %>
 				<br>
 				<ul>
 					<li><button class="miniMenuBtn"><%=loginUser.getNickName() %>님의 방문을 환영합니다!</button></li>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
 					<li><button class="miniMenuBtn" onclick="logout()">LOGOUT</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
 					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/member/m_myPage_checkList.jsp'">MY PAGE</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
-					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/member/m_wishList.jsp'">WISHLIST</button></li>
+					<li><button class="miniMenuBtn" onclick="goWishList()">WISHLIST</button></li>
 					<li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
 				</ul>
 			<% } %>
@@ -46,6 +56,12 @@
 		function nullWishList() {
 			alert("로그인 후 이용 가능합니다.");
 			location.href='<%=request.getContextPath()%>/views/common/login.jsp';
+		}
+		function goWishList(){
+			<% if (loginUser != null) { %>
+			var num =<%=loginUser.getMno()%>
+			<%} %>
+			location.href='<%=request.getContextPath()%>/showList.wh?num='+num;
 		}
 	</script>
 
