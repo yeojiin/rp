@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
+    pageEncoding="UTF-8" import="com.kh.redding.member.model.vo.Member"%>
+<%
+   Member loginUser = (Member) session.getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,7 +68,7 @@
          
             <div class="contentsArea" id="productInsertArea">
                <form action="<%=request.getContextPath() %>/insert.pr" method="post" id = "insertPro">
-               
+                     
                   <div id="PIHeader">
                      <h3>상품등록 페이지</h3>
                   </div>
@@ -82,15 +84,16 @@
                              <th width="20%">&nbsp;</th>
                           </tr>
                           <tr>
-                          	<td>
-                          		<label>판매 여부</label>
-                          	</td>                    
-                          	<td colspan="6">
-                          		<input type="radio" name="proStatus" id="proStatusYes" value="판매">
-                          		<label for="proStatusYes">판매함</label>
-                          		<input type="radio" name="proStatus" id="proStatusNo" value="판매안함">
-                          		<label for="proStatusNo">판매안함</label>
-                          	</td>      	
+                             <td>
+                                <label>판매 여부</label>
+                                <input type="hidden" value="<%=loginUser.getMno()%>" id="cNo" name="cNo">
+                             </td>                    
+                             <td colspan="6">
+                                <input type="radio" name="proStatus" id="proStatusYes" value="판매">
+                                <label for="proStatusYes">판매함</label>
+                                <input type="radio" name="proStatus" id="proStatusNo" value="판매안함">
+                                <label for="proStatusNo">판매안함</label>
+                             </td>         
                           </tr>
                           <tr>
                              <td>
@@ -141,7 +144,7 @@
                                 <input type="number" name="piPrice" id="piPrice">
                              </td>
                           </tr>
-                          <tr>
+                          <!-- <tr>
                              <td>
                                 <label>휴무일</label>
                              </td>
@@ -163,16 +166,16 @@
                                    <label for="sunday">일</label>
                                 </div>
                              </td>
-                          </tr>
-                          <tr>
+                          </tr> -->
+                          <!-- <tr>
                              <td>
                                 <label>예약 가능 날짜</label>
                              </td>
                              <td colspan="7">
                                 <div id="PICalendar">캘린더 영역</div>
                              </td>
-                          </tr>
-                          <tr>
+                          </tr> -->
+                          <!-- <tr>
                              <td>
                                 <label>예약 시작 시간</label>
                              </td>
@@ -189,7 +192,7 @@
                                 <input type="time" name="endTime" id="endTime">
                              </td>
                              <td colspan="2"></td>
-                          </tr>
+                          </tr> -->
                           <tr>
                              <td>
                                 <label>상품 설명</label>
@@ -225,51 +228,51 @@
    </div>
    <script>
       $(function(){
-    	  /* select 태그에서 기타를 선택시 input태그 생성 */
-			$("#PIManagerSelect").change(function() {
-				var $td = $("#manager");
-				var $input = $("<input type='text' name='etc' id='etc'>");
-				
-				$("#PIManagerSelect option:selected").each(function() {
-					var selectedManager = $("#PIManagerSelect option:selected").val();
-					console.log(selectedManager);
-					if(selectedManager=="기타"){
-						$td.append($input);
-					}
-				});
-			});
-    	  $("#productAmount").change(function(){
-    		  var $td = $("#amount");
-    		  var $input = $("<input type='number' name='proAmount' id='proAmount'>");
-    		  $("#productAmount").each(function(){
-    			  var result = $("#productAmount").val();
-    			  if(result=="기타"){
-    				  $td.append($input);
-    			  }
-    		  		console.log(typeof(result));
-    		  });
-    		  
-    	  });
-    	  
-    	  
-    	 
+         /* select 태그에서 기타를 선택시 input태그 생성 */
+         $("#PIManagerSelect").change(function() {
+            var $td = $("#manager");
+            var $input = $("<input type='text' name='etc' id='etc'>");
+            
+            $("#PIManagerSelect option:selected").each(function() {
+               var selectedManager = $("#PIManagerSelect option:selected").val();
+               console.log(selectedManager);
+               if(selectedManager=="기타"){
+                  $td.append($input);
+               }
+            });
+         });
+         $("#productAmount").change(function(){
+            var $td = $("#amount");
+            var $input = $("<input type='number' name='proAmount' id='proAmount'>");
+            $("#productAmount").each(function(){
+               var result = $("#productAmount").val();
+               if(result=="기타"){
+                  $td.append($input);
+               }
+                  console.log(typeof(result));
+            });
+            
+         });
+         
+         
+        
          $("#PIInsertBtn").click(function(){
-        	 var a = $("#PICategorySelect").val();
-        	 var b = $("#PIManagerSelect").val();
-        	 console.log(a);
-        	 console.log(b);
+            var a = $("#PICategorySelect").val();
+            var b = $("#PIManagerSelect").val();
+            console.log(a);
+            console.log(b);
             alert("상품을 등록하셨습니다.");
             
             $("#insertPro").submit();
            
             /* 서블릿을 통해 전체상품의 수량을 증가 시켜준다. */
-            
+            /* 
             var startTime = document.getElementById("startTime").value;
                console.log(startTime);
                console.log("startTime : " + typeof(startTime));
             var endTime = document.getElementById("endTime").value;
                console.log(startTime);
-               console.log("startTime : " + typeof(startTime));
+               console.log("startTime : " + typeof(startTime)); */
               /* submit, reset */
          });
          $("#PIResetBtn").click(function(){
