@@ -52,3 +52,7 @@
 	color:red;
 	text-align:center;
 }
+.packageStudio, .packageDress, .packageMakeup{
+	float:left;
+	
+}
