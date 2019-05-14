@@ -70,10 +70,15 @@ public class MemberInsertServlet extends HttpServlet {
 		insertMember.setEmergenCon(emergenCon);
 		insertMember.setEmail(email);
 		insertMember.setGender(gender);
-		insertMember.setWeddingDate(weddingDate);
+		
+		
 		if (!wedding.equals("")) {
 			weddingDate = Date.valueOf(wedding);			
 		}
+		
+		insertMember.setWeddingDate(weddingDate);
+		
+		System.out.println(weddingDate);
 		
 		insertMember.setEmailCheck(emailck);
 

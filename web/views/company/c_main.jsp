@@ -32,7 +32,6 @@
 /* Set gray background color and 100% height */
 .sidenav1 {
 	padding-top: 20px;
-	background:MistyRose;
 	height: 100%;
 	text-align:left;
 	font-size:20px;
