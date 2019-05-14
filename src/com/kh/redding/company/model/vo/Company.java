@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Company implements java.io.Serializable {
 	
 	private int CNO;   //업체번호 
-	private String Com_Rep_Num; //사업자번호
+	private int Com_Rep_Num; //사업자번호
 	private String RepName; //대표자번호 
 	private String ComAddress; //주소
 	private String ComUrl; //홈페이지
@@ -16,13 +16,17 @@ public class Company implements java.io.Serializable {
 	private String AccountName; //예금주
 	private String ComType;  //업체타입
 	private int ComLike; //추천수
+	private String holiday;  //휴무일
 	
 	public Company() {
 		
 	}
 	
-	public Company(int cNO, String com_Rep_Num, String repName, String comAddress, String comUrl, String openTime,
-			String endTime, int accountCode, String accountNum, String accountName, String comType, int comLike) {
+	
+
+	public Company(int cNO, int com_Rep_Num, String repName, String comAddress, String comUrl, String openTime,
+			String endTime, int accountCode, String accountNum, String accountName, String comType, int comLike,
+			String holiday) {
 		super();
 		CNO = cNO;
 		Com_Rep_Num = com_Rep_Num;
@@ -36,6 +40,7 @@ public class Company implements java.io.Serializable {
 		AccountName = accountName;
 		ComType = comType;
 		ComLike = comLike;
+		this.holiday = holiday;
 	}
 
 
@@ -48,11 +53,11 @@ public class Company implements java.io.Serializable {
 		CNO = cNO;
 	}
 
-	public String getCom_Rep_Num() {
+	public int getCom_Rep_Num() {
 		return Com_Rep_Num;
 	}
 
-	public void setCom_Rep_Num(String com_Rep_Num) {
+	public void setCom_Rep_Num(int com_Rep_Num) {
 		Com_Rep_Num = com_Rep_Num;
 	}
 
@@ -136,13 +141,23 @@ public class Company implements java.io.Serializable {
 		ComLike = comLike;
 	}
 
+	public String getHoliday() {
+		return holiday;
+	}
+
+	public void setHoliday(String holiday) {
+		this.holiday = holiday;
+	}
+
 	@Override
 	public String toString() {
 		return "Company [CNO=" + CNO + ", Com_Rep_Num=" + Com_Rep_Num + ", RepName=" + RepName + ", ComAddress="
 				+ ComAddress + ", ComUrl=" + ComUrl + ", OpenTime=" + OpenTime + ", EndTime=" + EndTime
 				+ ", AccountCode=" + AccountCode + ", AccountNum=" + AccountNum + ", AccountName=" + AccountName
-				+ ", ComType=" + ComType + ", ComLike=" + ComLike + "]";
+				+ ", ComType=" + ComType + ", ComLike=" + ComLike + ", holiday=" + holiday + "]";
 	}
+	
+	
 
 	
 	
