@@ -16,7 +16,7 @@ public class Member implements java.io.Serializable {
 	private Date enrollDate; //등록날짜
 	private Date modifyDate; //수정날짜
 	private String status; //상태
-	private String memberType; //회원타입
+	private int memberType; //회원타입
 	private Date OutDate; //탈퇴날짜
 	private Date WeddingDate; //결혼날짜
 	private int mnotiType; //신고횟수
@@ -25,7 +25,7 @@ public class Member implements java.io.Serializable {
 
 	public Member(int mno, String memberId, String memberPwd, String memberName, String nickName, String phone,
 			String emergenCon, String email, String emailCheck, String gender, Date enrollDate, Date modifyDate,
-			String status, String memberType, Date outDate, Date weddingDate, int mnotiType) {
+			String status, int memberType, Date outDate, Date weddingDate, int mnotiType) {
 		super();
 		this.mno = mno;
 		this.memberId = memberId;
@@ -152,12 +152,12 @@ public class Member implements java.io.Serializable {
 		this.status = status;
 	}
 
-	public String getMemberType() {
+	public int getMemberType() {
 		return memberType;
 	}
 
-	public void setMemberType(String memberType) {
-		this.memberType = memberType;
+	public void setMemberType(int string) {
+		this.memberType = string;
 	}
 
 	public Date getOutDate() {

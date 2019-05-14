@@ -80,7 +80,7 @@ public class CompanyDao {
 			pstmt.setString(4, joinMember.getEmail());
 			pstmt.setString(5, joinMember.getEmailCheck());
 			pstmt.setString(6, joinMember.getPhone());
-			pstmt.setString(7, "업체");
+			pstmt.setInt(7, 20);
 			
 			result = pstmt.executeUpdate();
 			
@@ -146,7 +146,7 @@ public class CompanyDao {
 			pstmt.setString(9, joinCompany.getAccountNum());
 			pstmt.setString(10, joinCompany.getAccountName());
 			pstmt.setString(11, joinCompany.getComType());
-			
+			pstmt.setString(12, joinCompany.getHoliday());
 			
 			result = pstmt.executeUpdate();
 			
