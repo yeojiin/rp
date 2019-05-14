@@ -21,16 +21,59 @@ com_wrap{
 }
 
 .comTable{
-	width : 100%;
-	margin-left : 15%;
+	width : 200%;
 }
 
 .comTable tr>td{
-	padding-right : 100px;
+	padding-right : 20px;
 	padding-bottom : 20px;
 	font-family: 'Nanum Pen Script', cursive;
 	font-size : 18px;
 }
+
+.fileBox .fileName {
+	display:inline-block;
+	width:190px;height:30px;
+	padding-left:10px;margin-right:5px;
+	line-height:30px;border:1px solid #aaa;
+	background-color:#fff;
+	vertical-align:middle;
+}
+
+.fileBox .btn_file {
+	display:inline-block;
+	border:1px solid #FB6E5F;
+	background : #FB6E5F;
+	color: white;
+	width:100px;height:30px;
+	font-size:12px;
+	line-height:30px;border-radius : 6%;
+	text-align:center;
+	vertical-align:middle;
+}
+
+.fileBox:hover .btn_file:hover {
+	display:inline-block;
+	border:1px solid #FB6E5F;
+	background : white;
+	color: #FB6E5F;
+}
+
+input[type="checkbox"]{
+	padding:10;margin:-1px;
+}
+
+
+
+.fileBox input[type="file"] 
+{
+	position:absolute;
+	width:1px;height:1px;
+	padding:0;margin:-1px;
+	overflow:hidden;
+	clip:rect(0,0,0,0);border:0;
+}
+
 
 .comTable td>button,input[type=button]{
 	border : 0;
@@ -51,7 +94,6 @@ com_wrap{
 }
 
 .com_term{
-	margin-left : 15%;
 	margin-right : auto;
 }
 
