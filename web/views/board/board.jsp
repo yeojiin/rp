@@ -75,8 +75,8 @@
             <br><br>
             <div id="board">
                 <div class="input-append span12" align="right">
-                   <button type="button" class="btn btn-outline-success slideright">정보공유</button>
-                    <button type="button" class="btn btn-outline-success slideright">질문있어요</button>
+                   <button type="button" class="btn btn-outline-success slideright">수다쟁이</button>
+                    <button type="button" class="btn btn-outline-success slideright">후기</button>
                     <input type="text" class="search-query" placeholder="Search">
                     <button type="submit" class="btn"><i class="fas fa-search"></i></button>
                 </div>

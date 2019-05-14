@@ -80,6 +80,12 @@
 						<div class="form-group">
 							<label for="writer">작성자</label> <input type="text" class="form-control" id="writer" name="writer" placeholder="내용을 입력하세요.">
 						</div>
+						<div>
+							이미지1 : <input type="file" name="fileName1"/><br/>
+							이미지2 : <input type="file" name="fileName2"/><br/>
+							이미지3 : <input type="file" name="fileName3"/><br/>
+							이미지4 : <input type="file" name="fileName4"/><br/>
+						</div>
 						<div class="form-group">
 							<label for=content">내용</label>
 							<textarea class="form-control" id="content" name="content" rows="3"></textarea><br>
