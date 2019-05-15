@@ -3,49 +3,52 @@ package com.kh.redding.product.model.vo;
 import java.sql.Date;
 
 public class Product implements java.io.Serializable{
-	private int pno;
-	private String pname;
-	private String pcontent;
+	private int pNo;
+	private String pName;
+	private String pContent;
 	private int price;
-	private Date penroll_date;
-	private int cno;
-	private Date pmodify_date;
+	private Date pEnrollDate;
+	private int cNo;
+	private Date pModifyDate;
+	private String proStatus;
 	
 	public Product() {}
 
-	public Product(int pno, String pname, String pcontent, int price, Date penroll_date, int cno, Date pmodify_date) {
+	public Product(int pNo, String pName, String pContent, int price, Date pEnrollDate, int cNo, Date pModifyDate,
+			String proStatus) {
 		super();
-		this.pno = pno;
-		this.pname = pname;
-		this.pcontent = pcontent;
+		this.pNo = pNo;
+		this.pName = pName;
+		this.pContent = pContent;
 		this.price = price;
-		this.penroll_date = penroll_date;
-		this.cno = cno;
-		this.pmodify_date = pmodify_date;
+		this.pEnrollDate = pEnrollDate;
+		this.cNo = cNo;
+		this.pModifyDate = pModifyDate;
+		this.proStatus = proStatus;
 	}
 
-	public int getPno() {
-		return pno;
+	public int getpNo() {
+		return pNo;
 	}
 
-	public void setPno(int pno) {
-		this.pno = pno;
+	public void setpNo(int pNo) {
+		this.pNo = pNo;
 	}
 
-	public String getPname() {
-		return pname;
+	public String getpName() {
+		return pName;
 	}
 
-	public void setPname(String pname) {
-		this.pname = pname;
+	public void setpName(String pName) {
+		this.pName = pName;
 	}
 
-	public String getPcontent() {
-		return pcontent;
+	public String getpContent() {
+		return pContent;
 	}
 
-	public void setPcontent(String pcontent) {
-		this.pcontent = pcontent;
+	public void setpContent(String pContent) {
+		this.pContent = pContent;
 	}
 
 	public int getPrice() {
@@ -56,35 +59,36 @@ public class Product implements java.io.Serializable{
 		this.price = price;
 	}
 
-	public Date getPenroll_date() {
-		return penroll_date;
+	public Date getpEnrollDate() {
+		return pEnrollDate;
 	}
 
-	public void setPenroll_date(Date penroll_date) {
-		this.penroll_date = penroll_date;
+	public void setpEnrollDate(Date pEnrollDate) {
+		this.pEnrollDate = pEnrollDate;
 	}
 
-	public int getCno() {
-		return cno;
+	public int getcNo() {
+		return cNo;
 	}
 
-	public void setCno(int cno) {
-		this.cno = cno;
+	public void setcNo(int cNo) {
+		this.cNo = cNo;
 	}
 
-	public Date getPmodify_date() {
-		return pmodify_date;
+	public Date getpModifyDate() {
+		return pModifyDate;
 	}
 
-	public void setPmodify_date(Date pmodify_date) {
-		this.pmodify_date = pmodify_date;
+	public void setpModifyDate(Date pModifyDate) {
+		this.pModifyDate = pModifyDate;
 	}
 
-	@Override
-	public String toString() {
-		return "Product [pno=" + pno + ", pname=" + pname + ", pcontent=" + pcontent + ", price=" + price
-				+ ", penroll_date=" + penroll_date + ", cno=" + cno + ", pmodify_date=" + pmodify_date + "]";
+	public String getProStatus() {
+		return proStatus;
 	}
-	
+
+	public void setProStatus(String proStatus) {
+		this.proStatus = proStatus;
+	}
 	
 }
