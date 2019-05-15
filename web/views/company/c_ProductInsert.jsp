@@ -261,9 +261,10 @@
             var b = $("#PIManagerSelect").val();
             console.log(a);
             console.log(b);
-            alert("상품을 등록하셨습니다.");
             
             $("#insertPro").submit();
+            alert("상품을 등록하셨습니다.");
+            
            
             /* 서블릿을 통해 전체상품의 수량을 증가 시켜준다. */
             /* 
