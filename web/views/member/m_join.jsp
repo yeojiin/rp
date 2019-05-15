@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import = "java.util.*" %>
+<%! public int getRandom(){
+	int random = 0;
+	random = (int)Math.floor((Math.random()*(99999-10000+1)))+10000;
+	return random;
 
+}	%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +20,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR"
 	rel="stylesheet">
+
 <!-- 글꼴 -->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/member/m_header.css">
@@ -138,10 +144,11 @@
 										<option>gmail.com</option>
 										<option>직접입력</option>
 								</select>&nbsp;&nbsp;&nbsp;&nbsp;
-								<button type= "button" class="check" id = "emailckbtn">인증하기</button>
+								<button type= "button" id = "emailckbtn" class="check">인증하기</button>
 								<span id="Semailck"></span>
 								<input type = "hidden" id = "email_check" name = "email_check" value = "인증안됨">
-								</td>
+								<input type = "hidden" readonly = "readonly" name = "code_check" id = "code_check" value = "<%=getRandom()%>"></td>
+								
 							</tr>
 							<tr>
 								<td class="col1"><label>성별&nbsp;&nbsp;</label><label
@@ -340,6 +347,7 @@
 	<div class="footerArea">
 		<jsp:include page="/views/common/footer.jsp"></jsp:include>
 	</div>
+
 
 	<script>
 		function insertMember() {
@@ -544,13 +552,49 @@
 			
 			//이메일 인증
 			$("#emailckbtn").click(function(){
-				$("#Semailck").text("인증안됨");
-				$("#Semailck").css("color","red");
+				/* $("#Semailck").text("인증안됨");
+				$("#Semailck").css("color","red"); */
+				var email1 = $("input[name=email1]").val();		//이메일1
+				var email2 = $("#email2").val();
+				
+				var email = email1 + "@" + email2;
+				
+				if (email1 == ""){
+					alert("이메일을 작성해주세요");
+				}else if (email2 == ""){
+					alert("이메일을 작성해주세요");
+				}else {
+					$.ajax({
+	          			url : "/redding/send",
+	          			type : "post",
+	          			data : {email : email , code_check : $("#code_check").val()},
+	          			success : function(data){
+	          	            popupOpen();
+	          			}, 
+	          			error : function(){
+	          				console.log("실패!");
+	          			}
+	          		});
+				}
 			});
 			
 			
+			
 		});
+	
+		
+		function popupOpen(){
+			
+			var url= "<%=request.getContextPath()%>/views/common/checkcode.jsp";    //팝업창에 출력될 페이지 URL
+			var winWidth = 200;
+		    var winHeight = 200;
+		    var popupOption= "width="+winWidth+", height="+winHeight;    //팝업창 옵션(optoin)
+		    var myWindow = window.open(url,"TestName",popupOption);
+		  //  myWindow.document.write("<h1>"+myWindow.name+"</h1>");
+		}
 	</script>
+	
+	
 
 </body>
 </html>

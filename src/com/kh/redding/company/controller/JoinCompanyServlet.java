@@ -96,11 +96,14 @@ public class JoinCompanyServlet extends HttpServlet {
 		String[] weekend = multi.getParameterValues("weekend");
 		
 		String holiday = "";
-		for (int i = 0 ; i < weekend.length ; i++) {
-			if (i == 0) {
-				holiday += weekend[i]; 
-			}else {
-				holiday += "," + weekend[i];
+		
+		if (weekend != null) {
+			for (int i = 0 ; i < weekend.length ; i++) {
+				if (i == 0) {
+					holiday += weekend[i]; 
+				}else {
+					holiday += "," + weekend[i];
+				}
 			}
 		}
 		
