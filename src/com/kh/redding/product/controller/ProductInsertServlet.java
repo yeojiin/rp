@@ -2,7 +2,9 @@ package com.kh.redding.product.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import javax.servlet.ServletException;
@@ -79,6 +81,73 @@ public class ProductInsertServlet extends HttpServlet {
          Company com = new ProductService().selectCompanyOne(cNo);
          
          System.out.println("com : " + com);
+         
+         
+         String datePattern = "yyyy-MM-dd";
+         
+         //상품시작 기간 
+         String inputStartDate = request.getParameter("proStartDay");
+         Date proStartDay = null;
+         if(inputStartDate != "") {
+        	 //판매시작 날짜가 존재할 경우
+        	 proStartDay = Date.valueOf(inputStartDate);
+         }else {
+        	 //판매시작 날짜가 null일 경우
+        	 proStartDay = new Date(new GregorianCalendar().getTimeInMillis());
+         }
+         //판매시작날짜를 다시 String으로 넣어줌
+         inputStartDate = proStartDay+"";
+         System.out.println("startDate : " + inputStartDate);
+         
+         //상품종료 기간
+         String inputEndDate = request.getParameter("proEndDay");
+         Date proEndDay = null;
+         if(inputEndDate != "") {
+        	 //판매종료 날짜가 존재할 경우
+        	 proEndDay = Date.valueOf(inputEndDate);
+         }else {
+        	 //판매종료 날짜가 null일 경우
+        	 proEndDay = new Date(new GregorianCalendar().getTimeInMillis());
+         }
+         //판매종료날짜를 다시 String으로 넣어줌
+         inputEndDate = proEndDay+"";
+         System.out.println("endDate : " + inputEndDate);
+         
+         
+         //날짜형식을 지정해주기 위해 SimpleDateFormat 이용 
+         SimpleDateFormat sdf = new SimpleDateFormat(datePattern);
+
+                
+         ArrayList<String> useDates = new ArrayList<String>();
+         
+         java.util.Date startDay = proStartDay;
+         
+         /*new java.sql.Date(new java.util.Date().getTime());
+         new java.util.Date(new java.util.Date(12345L).getTime());*/
+         
+         while(startDay.compareTo(proEndDay) <= 0) {
+        	 useDates.add(sdf.format(startDay));
+        	 Calendar cal = Calendar.getInstance();
+        	 cal.setTime(startDay);
+        	 
+        	 cal.add(Calendar.DAY_OF_MONTH, 1);
+        	 startDay = cal.getTime();
+        	 
+        	 //System.out.println("useDate : " + useDate);
+        	 //System.out.println("cal " + cal.getTime()) ;
+         }
+         
+         for(String date : useDates) {
+        	 System.out.println("date : " + date);
+         }
+         
+         String dayWeek = com.getHoliday();
+         String[] dayWeeks = dayWeek.split(",");
+         int dayOfWeek = 99;
+         /*switch(dayWeeks) {
+         
+         }*/
+         
          
          String openTimes = com.getOpenTime();   //업체영업시작시간
          String closeTimes = com.getEndTime();   //업체영업종료시간
