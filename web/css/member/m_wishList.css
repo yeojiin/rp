@@ -52,7 +52,21 @@
 	color:red;
 	text-align:center;
 }
-.packageStudio, .packageDress, .packageMakeup{
+#packageArea{
+	width:100%;
+	display :inline;
+}
+.packageStudio, .packageDress, .packageMakeup,  .packageButton, .packagePrice{
 	float:left;
-	
+}
+.packageStudio img, .packageDress img, .packageMakeup img{
+	max-width:100%;
+}
+#totalPrice{
+	margin-top:185px;
+	margin-left:20%;
+	font-size:20px;
+}
+.packageButton {
+	float:right;
 }

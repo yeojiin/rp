@@ -25,6 +25,8 @@
 	href="${pageContext.request.contextPath}/css/member/m_myPage.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/member/m_wishList.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/semantic/semantic.min.css">
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
@@ -92,14 +94,17 @@
 						</div>
 						
 						<div class="packageMakeup">
-							<img src="<%= request.getContextPath() %>/images/logo.png"></td>
+							<img src="<%= request.getContextPath() %>/images/logo.png">
 							<img src="<%= request.getContextPath() %>/images/equal.png">
 						</div>
-						<div>
+						<div class="packagePrice">
+							<label id="totalPrice">1000000</label>
 						</div>
-						
-				
 					</div> 
+					<div class="packageButton">
+						<button class="ui pink button" style="background: salmon;" onclick="">예약하기</button>
+						<button class="ui pink button" style="background: salmon;" onclick="location.href='views/member/m_pay.jsp'">결제하기</button>
+					</div>
 				
 					<%-- <table id="pResult" style="backgound:lightgray;">
 						<tr>
