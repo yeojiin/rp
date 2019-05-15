@@ -21,4 +21,19 @@ public class ReservationService {
 		return list;
 	}
 
+	public int updateReservation(int resNo) {
+		Connection con = getConnection();
+		
+		int result = new ReservationDao().updateReservation(con, resNo);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		return result;
+	}
+
 }

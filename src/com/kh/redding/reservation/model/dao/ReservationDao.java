@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -51,7 +52,7 @@ public class ReservationDao {
 				res.setEndDate(rset.getString("USE_END_TIME"));
 				res.setProductName(rset.getString("UPNAME"));
 				res.setCompletedDate(rset.getDate("RCOMPLETED_DATE"));
-
+				res.setResNo(rset.getInt("RESNO"));
 				list.add(res);				
 			}
 			
@@ -67,6 +68,26 @@ public class ReservationDao {
 		
 		
 		return list;
+	}
+
+	public int updateReservation(Connection con, int resNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateReservation");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, resNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }

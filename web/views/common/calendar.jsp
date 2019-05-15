@@ -62,6 +62,7 @@
 					<tr>
 						<td>
 						<label>예약승인</label>
+						<label id="revStatus" style="display:none; width:100%; color:red;"><br><br>고객의 요청에 취소된 예약입니다.</label>
 						<br>
 							<div class="ui toggle checkbox">
   							<input type="checkbox" name="public" id="changeStatus">
@@ -79,6 +80,8 @@
 			</td>
 			</tr>
 		</table>
+		<input id="colorCheck" type="hidden" value="">
+		<input id="resNoCheck" type="hidden" value="">
 	<script>
 	
 	
@@ -132,14 +135,24 @@
     	  
     	   
       },
-      
+    //캘린더 이벤트 클릭 시 동작할 함수 
     eventClick:function(info){
     	console.log(info.event);
     	var beforeDate = info.event.start;
     	
     	if(info.event.backgroundColor === "salmon"){
+    		$(".checkbox").css("visibility","visible");
+    		$("#revStatus").css("display","none");
+    		$("#changeStatus").attr("disabled",true);
     		$("#changeStatus").attr("checked",true);
+    	}else if(info.event.backgroundColor === "lightgray"){
+    		$(".checkbox").css("visibility","visible");
+    		$("#revStatus").css("display","none");
+    		$("#changeStatus").attr("disabled",false);
+    		$("#changeStatus").attr("checked",false);
     	}else{
+    		$(".checkbox").css("visibility","hidden");
+    		$("#revStatus").css("display","inline");
     		$("#changeStatus").attr("checked",false);
     	}
     	
@@ -161,11 +174,12 @@
     	}else{
     		dateForm += "T" + beforeDate.getHours()  + ":00";    		
     	}
- 		console.log(info.event.description);
+
     	$("#productName").val(info.event.title);
     	$("#productDate").val(dateForm);
-    	$("#userinfo").val(info.event.description);
-
+    	$("#userinfo").val(info.event.allow);
+		$("#colorCheck").val(info.event.backgroundColor);
+		$("#resNoCheck").val(info.event.id);
     }
     
     
@@ -174,13 +188,43 @@
     calendar.render();
     
   });
- 	
+ 	/* 페이지가 로드되면서 서블릿에 예약정보를 ajax로 서블릿에 요청하여 JSON타입으로 ArrayList를 리턴받아 캘린더에 이벤트 추가 */
  	$(function(){	  
-		   $.ajax({
-				url: "<%=request.getContextPath() %>/calendar.po",
+ 		getEvent();
+ 		console.log("11");
+		   /* 예약 상태 변경을 서블릿에 요청*/
+		   $("#changeRservation").click(function(){
+			if($("#productName").val() == ""){
+			   window.alert("예약을 먼저 선택하세요");
+			} else if($("#colorCheck").val() == 'lightgray' && $("#changeStatus").prop('checked') == true){
+					var num = $("#resNoCheck").val();
+					
+					$.ajax({
+						url:"<%=request.getContextPath() %>/updateRes.re",
+						data:{num:num},
+						type:"post",
+						success:function(data){
+							window.alert(data + "개의 예약대기 상태가 예약상태로 변경되었습니다.");
+						},
+						error:function(data){
+						}
+						
+					});
+				   
+			   }else if($("#colorCheck").val() == 'lightgray' && $("#changeStatus").prop('checked') == false){
+				   window.alert("예약 상태를 변경하세요");
+			   }else{
+				   window.alert("예약 승인 상태는 대기 상태만 변경할 수 있습니다.");
+			   }
+		   });
+	  });
+ 	
+ 	  function getEvent(){
+			
+ 		 $.ajax({
+				url: "<%=request.getContextPath() %>/calendar.po",  /*서블릿 요청*/
 				type:"post",
 				success:function(data){
-
 					  	  for(var key in data){
 					  		  var userName = data[key].userName;
 					  		  var userPhone = data[key].userPhone;
@@ -190,41 +234,51 @@
 					  		  var endDate = data[key].endDate;
 					  		  var productName = data[key].productName;
 					  		  var completedDate = data[key].completedDate;
-							  
+							  var resNo = data[key].resNo;
 							  if(status == 20){
+								  //이벤트 객체 생성
 								  var event = {
 											title:productName,	
-											start:rapplyDate + "T" + startDate,
+											start: rapplyDate + "T" + startDate,
 											end: rapplyDate + "T" + endDate,
 											color:"salmon",
-										    description: userName + "("+ userPhone +")"
-										}												
+											allow: userName + "(" + userPhone + ")",
+											id: resNo
+										};
+								  
 							  }else if(status == 10){
 								  var event = {
 											title:productName,	
-											start:rapplyDate + "T" + startDate,
+											start: rapplyDate + "T" + startDate,
 											end: rapplyDate + "T" + endDate,
 											color:"lightgray",
-											description: userName + "("+ userPhone +")"
+											allow: userName + "(" + userPhone + ")",
+											id: resNo
+											
 										};
 							  }else{
 								  var event = {
 											title:productName,	
 											start:rapplyDate + "T" + startDate,
-											end: rapplyDate + "T" + endDate,
+											end: rapplyDate + "T" + endDate, 
 											color:"red",
-											description: userName + "("+ userPhone +")"
+											allow: userName + "(" + userPhone + ")",
+											id: resNo
 										};
 							  }
+							  
+							  //캘린더에 캘린더 이벤트 객체로 이벤트 객체를 변경하여 삽입
 							  calendar.addEvent(event);
+
 					  }					  	  
 					  	  
 				},				
 				error:function(data){
 					//console.log("error : " + data);
 				} 
-			 });   		  
-	  });
+			 });
+ 		  
+ 	  }
 
 </script>
 </body>

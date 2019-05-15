@@ -111,8 +111,8 @@
 										<option>017</option>
 										<option>018</option>
 										<option>019</option>
-								</select>&nbsp;- <input type="text" name="tel2" style="width: 60px;">&nbsp;-
-									<input type="text" name="tel3" style="width: 60px;">&nbsp;&nbsp;&nbsp;&nbsp;
+								</select>&nbsp;- <input type="text" name="tel2" style="width: 60px;" maxlength = "4">&nbsp;-
+									<input type="text" name="tel3" style="width: 60px;" maxlength = "4">&nbsp;&nbsp;&nbsp;&nbsp;
 								</td>
 							</tr>
 							<tr>
@@ -124,8 +124,8 @@
 										<option>017</option>
 										<option>018</option>
 										<option>019</option>
-								</select>&nbsp;- <input type="text" name="con2" style="width: 60px;">&nbsp;-
-									<input type="text" name="con3" style="width: 60px;"></td>
+								</select>&nbsp;- <input type="text" name="con2" style="width: 60px;" maxlength = "4">&nbsp;-
+									<input type="text" name="con3" style="width: 60px;" maxlength = "4"></td>
 							</tr>
 							<tr>
 								<td class="col1"><label>이메일&nbsp;&nbsp;</label><label
@@ -133,7 +133,7 @@
 								<td class="col2"><input type="text" name="email1">&nbsp;&nbsp;@&nbsp;&nbsp;
 									<input type="text" name="email2" id="email2">&nbsp;&nbsp;
 									<select name="email3" id="email3">
-										<option>- 이메일 선택 -</option>
+										<option>직접입력</option>
 										<option>naver.com</option>
 										<option>daum.net</option>
 										<option>nate.com</option>
@@ -142,7 +142,6 @@
 										<option>empas.com</option>
 										<option>korea.com</option>
 										<option>gmail.com</option>
-										<option>직접입력</option>
 								</select>&nbsp;&nbsp;&nbsp;&nbsp;
 								<button type= "button" id = "emailckbtn" class="check">인증하기</button>
 								<span id="Semailck"></span>
@@ -154,8 +153,8 @@
 								<td class="col1"><label>성별&nbsp;&nbsp;</label><label
 									class="star">*</label></td>
 								<td class="col2"><input type="radio" name="gender"
-									value="M" checked>남자&nbsp;&nbsp;&nbsp;&nbsp; <input
-									type="radio" name="gender" value="F">여자</td>
+									value="M">남자&nbsp;&nbsp;&nbsp;&nbsp; <input
+									type="radio" name="gender" value="F" checked>여자</td>
 							</tr>
 							<tr>
 								<td class="col1"><label>결혼날짜&nbsp;&nbsp;</label></td>
@@ -368,6 +367,7 @@
 			var email1 = $("input[name=email1]").val();
 			var email2 = $("#email2").val();
 			var gender = $("input[name=gender]").val();
+			var email_check = $("#email_check").val();
 		
 			console.log("Spwd1 :" + Spwd1);
 			console.log("Spwd2 :" + Spwd2);
@@ -404,6 +404,8 @@
 				alert("이메일 입력해주세요");
 			}else if (email2 == ""){
 				alert("이메일 입력해주세요");
+			}else if (email_check != "인증됨"){
+				alert("이메일 확인해줘야합니다.");
 			}else if ($("input[name=condition1]").is(":checked") == false ){
 				alert("약관의 동의해주세요");
 			}else if ($("input[name=condition2]").is(":checked") == false){

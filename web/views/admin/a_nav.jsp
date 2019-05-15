@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "com.kh.redding.member.model.vo.*"%>
+<%
+	Member loginUser = (Member) session.getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +12,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/company/c_nav.css">
 </head>
 <body>
+	<%-- <% if(loginUser != null){ %> --%>
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -36,11 +40,16 @@
 			</div>
 		</div>
 	</nav>
+<%-- 	<% }else {
+		request.setAttribute("msg","잘못된 경로 접근하셨습니다");
+		request.getRequestDispatcher("../common/errorPage.jsp").forward(request, response);
+	}%> --%>
 </body>
 <script>
 	function goTotalMember() {
 		location.href="<%=request.getContextPath()%>/selectList.me";
 	}
 </script>
+
 </html>
 
