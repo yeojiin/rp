@@ -45,7 +45,7 @@ public class ReservationDao {
 				
 				res.setUserName(rset.getString("MNAME"));
 				res.setUserPhone(rset.getString("PHONE"));
-				res.setRapplyDate(rset.getDate("RAPPLY_DATE"));
+				res.setRapplyDate(rset.getString(3));
 				res.setStatus(rset.getString("RSTATUS"));
 				res.setStartDate(rset.getString("USE_START_TIME"));
 				res.setEndDate(rset.getString("USE_END_TIME"));

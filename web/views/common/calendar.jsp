@@ -53,7 +53,7 @@
 						<td>
 							<label>예약자</label>
 							<br>
-							<input class="form-control" id="productDate" type="text" style="width:100%; height:30px; float:left; margin-right :20px" readonly>
+							<input class="form-control" id="userinfo" type="text" style="width:100%; height:30px; float:left; margin-right :20px" readonly>
 							<br><br><br>
 						</td>
 					</tr>
@@ -81,24 +81,24 @@
 		</table>
 	<script>
 	
-	//ajax 처리용 변수
 	
-	var changeDate;
-	var dateForm;
+	  
 	
- 	document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-    
-	
-	
-    var calendar = new FullCalendar.Calendar(calendarEl, {
+	  
+ 	document.addEventListener('DOMContentLoaded', function() {	
+ 
+ 	var calendarEl = document.getElementById('calendar');
+
+    calendar = new FullCalendar.Calendar(calendarEl, {
       plugins: [ 'interaction', 'dayGrid' ],
       defaultDate: '2019-05-14',
       editable: false,
       eventLimit: true, // allow "more" link when too many events
-      events: [
-        {
-          title: 'Meeting',
+   
+       /* events: [
+  
+    	  {
+          title: "hellow",
           start: '2019-05-14T10:00:00',
           end: '2019-05-14T12:00:00',
           color:"salmon"
@@ -108,9 +108,9 @@
             start: '2019-10-14T10:00:00',
             end: '2019-10-14T12:00:00',
             color:"lightgray"
-          }
+          }     
           
-      ],
+      ],  */
       
       dateClick:function(event) {
     	  /*  changeDate = event.dateStr;
@@ -130,14 +130,12 @@
     		  $("#reservationTime").val(changeDateForm);
     	  }  */
     	  
-    	  
-    	  
+    	   
       },
+      
     eventClick:function(info){
     	console.log(info.event);
     	var beforeDate = info.event.start;
-    	
-    	beforeTime = beforeDate.getHours() + ":00"; //시간 계산
     	
     	if(info.event.backgroundColor === "salmon"){
     		$("#changeStatus").attr("checked",true);
@@ -147,44 +145,86 @@
     	
     	//날짜 계산
     	if(beforeDate.getMonth()<9){
-    		dateForm = beforeDate.getFullYear()+ '-0' + (beforeDate.getMonth()+1) + '-' + beforeDate.getDate() + "T" + beforeTime;
+    		dateForm = beforeDate.getFullYear()+ '-0' + (beforeDate.getMonth()+1) + '-';
     	}else{
-    		dateForm = beforeDate.getFullYear()+ '-' + (beforeDate.getMonth()+1) + '-' + beforeDate.getDate() + "T" + beforeTime;
+    		dateForm = beforeDate.getFullYear()+ '-' + (beforeDate.getMonth()+1) + '-';
     	}
- 
+    	
+    	if(beforeDate.getDate()<10){
+    		dateForm += "0"+ beforeDate.getDate();
+    	}else{
+    		dateForm += beforeDate.getDate();
+    	}
+    	
+    	if(beforeDate.getHours() < 9){
+    		dateForm += "T0" + beforeDate.getHours() + ":00";
+    	}else{
+    		dateForm += "T" + beforeDate.getHours()  + ":00";    		
+    	}
+ 		console.log(info.event.description);
     	$("#productName").val(info.event.title);
     	$("#productDate").val(dateForm);
+    	$("#userinfo").val(info.event.description);
 
-    },
-      
+    }
+    
     
     });
-
+	
     calendar.render();
     
   });
-  
-  $(function(){
-	 
-	  $.ajax({
-		url: "<%=request.getContextPath() %>/calendar.po",
-		type:"get",
-		success:function(data){
-			console.log(data); 
-		},
-		error:function(data){
-			console.log("error : " + data);
-		}
-		 
-	 });
-	  
-	$("#changeRservation").click(function(){
-		$.ajax({
-			
-		});
-	});
-	  
-  });
+ 	
+ 	$(function(){	  
+		   $.ajax({
+				url: "<%=request.getContextPath() %>/calendar.po",
+				type:"post",
+				success:function(data){
+
+					  	  for(var key in data){
+					  		  var userName = data[key].userName;
+					  		  var userPhone = data[key].userPhone;
+					  		  var rapplyDate = data[key].rapplyDate;
+					  		  var status = data[key].status;
+					  		  var startDate = data[key].startDate;
+					  		  var endDate = data[key].endDate;
+					  		  var productName = data[key].productName;
+					  		  var completedDate = data[key].completedDate;
+							  
+							  if(status == 20){
+								  var event = {
+											title:productName,	
+											start:rapplyDate + "T" + startDate,
+											end: rapplyDate + "T" + endDate,
+											color:"salmon",
+										    description: userName + "("+ userPhone +")"
+										}												
+							  }else if(status == 10){
+								  var event = {
+											title:productName,	
+											start:rapplyDate + "T" + startDate,
+											end: rapplyDate + "T" + endDate,
+											color:"lightgray",
+											description: userName + "("+ userPhone +")"
+										};
+							  }else{
+								  var event = {
+											title:productName,	
+											start:rapplyDate + "T" + startDate,
+											end: rapplyDate + "T" + endDate,
+											color:"red",
+											description: userName + "("+ userPhone +")"
+										};
+							  }
+							  calendar.addEvent(event);
+					  }					  	  
+					  	  
+				},				
+				error:function(data){
+					//console.log("error : " + data);
+				} 
+			 });   		  
+	  });
 
 </script>
 </body>
