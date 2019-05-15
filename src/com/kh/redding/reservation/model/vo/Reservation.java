@@ -12,13 +12,12 @@ public class Reservation implements Serializable{
 	private String endDate;
 	private String productName;
 	private Date completedDate;
-	
+	private int resNo;
 	public Reservation() {}
 
-	
 
 	public Reservation(String userName, String userPhone, String rapplyDate, String status, String startDate,
-			String endDate, String productName, Date completedDate) {
+			String endDate, String productName, Date completedDate, int resNo) {
 		super();
 		this.userName = userName;
 		this.userPhone = userPhone;
@@ -28,9 +27,19 @@ public class Reservation implements Serializable{
 		this.endDate = endDate;
 		this.productName = productName;
 		this.completedDate = completedDate;
+		this.resNo = resNo;
 	}
 
-	
+
+	public int getResNo() {
+		return resNo;
+	}
+
+
+	public void setResNo(int resNo) {
+		this.resNo = resNo;
+	}
+
 
 	public Date getCompletedDate() {
 		return completedDate;
@@ -100,12 +109,13 @@ public class Reservation implements Serializable{
 		this.productName = productName;
 	}
 
+
 	@Override
 	public String toString() {
 		return "Reservation [userName=" + userName + ", userPhone=" + userPhone + ", rapplyDate=" + rapplyDate
 				+ ", status=" + status + ", startDate=" + startDate + ", endDate=" + endDate + ", productName="
-				+ productName + "]";
+				+ productName + ", completedDate=" + completedDate + ", resNo=" + resNo + "]";
 	}
-	
+
 	
 }
