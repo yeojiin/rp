@@ -44,7 +44,7 @@
 						<%=msg %>
 					</div>
 					<br><br>
-					<button class="goHome">홈으로 돌아가기</button>
+					<button class="goHome" onclick = "location.href = '<%=request.getContextPath()%>'">홈으로 돌아가기</button>
 					<br><br><br>
 				</div>
 			</div>

@@ -9,6 +9,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 </head>
 <body>
+	<!--이메일 팝업창  -->
 	<form id = "form2" action = "javascript:getPassword()">
 		<table>
 			<tr>
@@ -29,6 +30,7 @@
 	</form>
 	<script>
 		function checkCode(){
+			/* 받아온 이메일 인증번호와 입력정보 확인  */
 			var v1 = $("#child_code_check").val();
 			var v2 =  $("#code").val();
 			

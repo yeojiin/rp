@@ -215,5 +215,37 @@ public class CompanyDao {
 		return reg_num;
 	}
 
+	public Company selectCompanyInf(Connection con, int mno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Company loginCompany = null;
+		
+		String query = prop.getProperty("selectCompany");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, mno);
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				loginCompany = new Company();
+				
+				loginCompany.setCNO(mno);
+				loginCompany.setCom_Rep_Num(rset.getInt(""));
+			}
+					
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return loginCompany;
+	}
+
 
 }

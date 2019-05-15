@@ -1,6 +1,9 @@
 package com.kh.redding.company.model.service;
 
-import static com.kh.redding.common.JDBCTemplate.*;
+import static com.kh.redding.common.JDBCTemplate.close;
+import static com.kh.redding.common.JDBCTemplate.commit;
+import static com.kh.redding.common.JDBCTemplate.getConnection;
+import static com.kh.redding.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 
@@ -22,6 +25,7 @@ public class CompanyService {
 		return result;
 	}
 
+	//업체 insert -> 회원가입
 	public int insertCompany(Member joinMember, Company joinCompany, Attachment joinAttach) {
 		Connection con = getConnection();
 		
@@ -60,4 +64,15 @@ public class CompanyService {
 		return com_result;
 	}
 
+	//업체 정보 조회 
+	public Company selectCompanyInf(int mno) {
+		Connection con = getConnection();
+		
+		Company loginCompany = new CompanyDao().selectCompanyInf(con,mno);
+		
+		close(con);
+		
+		return loginCompany;
+	}
+	
 }
