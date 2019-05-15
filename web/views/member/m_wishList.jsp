@@ -62,7 +62,7 @@
 						for (int i = 0; i < list.size(); i++) {
 						HashMap<String, Object> hmap = list.get(i);
 					%>
-						<tr>
+						<tr >
 							<td class="pName"><%=hmap.get("mname") %></td>
 							<td class="imagetd">
 								<img id="image" src="<%= request.getContextPath() %>/images/dressTest.jpg">
@@ -120,6 +120,10 @@
 
 			<!-- 오른쪽 빈공간 -->
 			<div class="col-sm-2 sidenav"></div>
+			<script>
+				
+			
+			</script>
 
 		</div>
 

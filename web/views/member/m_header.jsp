@@ -36,10 +36,11 @@
 				<br>
 				<ul>
 					<li><button class="miniMenuBtn"><%=loginUser.getNickName() %>님의 방문을 환영합니다!</button></li>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
-					<li><button class="miniMenuBtn" onclick="logout()">LOGOUT</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
+					<li><button class="miniMenuBtn" onclick="logout()">LOGOUT</button></li>&nbsp;&nbsp;|
 					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/member/m_myPage_checkList.jsp'">MY PAGE</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
-					<li><form action="<%=request.getContextPath()%>/showList.wh" method="post"><input type="hidden" name="num" value=<%=loginUser.getMno()%>>
-					<button class="miniMenuBtn" type="submit">WISHLIST</button></form></li>
+					<li><form action="<%=request.getContextPath()%>/showList.wh" method="post" id = "WishForm">
+					<button class="miniMenuBtn" type="submit">WISHLIST</button>
+					<input type="hidden" name="num" value=<%=loginUser.getMno()%>></form></li>
 					<li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
 				</ul>
 			<% } %>
@@ -58,12 +59,12 @@
 			alert("로그인 후 이용 가능합니다.");
 			location.href='<%=request.getContextPath()%>/views/common/login.jsp';
 		}
-		function goWishList(){
+		<%-- function goWishList(){
 			<% if (loginUser != null) { %>
 			var num =<%=loginUser.getMno()%>
 			<%} %>
 			location.href='<%=request.getContextPath()%>/showList.wh?num='+num;
-		}
+		} --%>
 	</script>
 
 </body>

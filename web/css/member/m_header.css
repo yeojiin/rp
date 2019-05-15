@@ -18,3 +18,8 @@
 	color:salmon;
 	background:white;
 	cursor:pointer;
+}
+
+#WishForm{
+	display :inline;
+}
