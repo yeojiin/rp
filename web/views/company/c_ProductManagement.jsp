@@ -90,7 +90,7 @@
 			                           <label>판매 안함 : </label>
 			                           <input type="text" name="NoSaleProductCount" value="<%=NoSaleProductCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
 			                           <label>|</label>&nbsp;&nbsp;&nbsp;
-			                        </td>
+			                        </td><%-- 
 			                        <td>
 			                           <label>공개함 : </label>
 			                           <input type="text" name="OpenProductCount" value="<%=OpenProductCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
@@ -100,7 +100,7 @@
 			                           <label>공개 안함 : </label>
 			                           <input type="text" name="CloseProductCount" value="<%=CloseProductCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
 			                           &nbsp;&nbsp;&nbsp;
-			                        </td>
+			                        </td> --%>
 			                     </tr>
 			                  </table>
 		                  </div>
@@ -138,7 +138,7 @@
                            <input type="radio" name="productSearchAbountSale" id="productSearchNoSale" value="sale3">
                            <label for="productSearchNoSale">판매하지 않는 상품</label>
                         </td>
-                     </tr>
+                     </tr><!-- 
                      <tr>
                         <td>
                            <label>판매 상태</label>
@@ -151,7 +151,7 @@
                            <input type="radio" name="productSearchAboutOpen" id="productSearchClose" value="open3">
                            <label for="productSearchClose">공개하지 않는 상품</label>
                         </td>
-                     </tr>
+                     </tr> -->
                      <tr>
                         <td>
                            <label>상품 등록일</label>

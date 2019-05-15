@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.*"%>
+	pageEncoding="UTF-8" import="com.kh.redding.board.model.vo.*, java.util.*"%>
 <%
 	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
+	BoardPageInfo pi = (BoardPageInfo) request.getAttribute("pi");
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
 %>
 <!DOCTYPE html>
 <html>
@@ -129,11 +134,27 @@
 
 						<div class="text-center">
 							<ul class="pagination">
-								<li><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
+								<button onclick="location.href='<%=request.getContextPath() %>/selectBoardList.bo?currentPage=1'"><<</button>
+								<% if(currentPage <= 1){ %>
+								<button disabled><</button>
+								<% }else{ %>
+								<button onclick="location.href='<%=request.getContextPath() %>/selectBoardList.bo?currentPage=<%=currentPage - 1%>'"><</button>
+								<% } %>
+								
+								<% for(int p = startPage; p <= endPage; p++){
+									if(p == currentPage){%>
+										<button disabled><%= p %></button>
+								<% }else{ %>
+									<button onclick="location.href='<%=request.getContextPath() %>/selectBoardList.bo?currentPage=<%= p %>'"><%= p %></button>
+								<% } %>
+								<% } %>
+								
+								<% if(currentPage >= maxPage){ %>
+								<button disabled>></button>
+								<% }else{ %>
+								<button onclick="location.href='<%=request.getContextPath() %>/selectBoardList.bo?currentPage=<%=currentPage + 1 %>'">></button>
+								<% } %>
+								<button onclick="location.href='<%=request.getContextPath() %>/selectBoardList.bo?currentPage=<%=maxPage %>'">>></button>
 							</ul>
 						</div>
 					</div>

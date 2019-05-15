@@ -64,11 +64,11 @@ public class ProductService {
 		   if(result2 == uProList.size()) {
 			   System.out.println("service result2 : " + result2);
 			   result = 1;
-			   commit(con);
+			   //commit(con);
 		   }else {
 			   System.out.println("service result2 : " + result2);
 			   result = 0;
-			   rollback(con);
+			   //rollback(con);
 		   }
 	   }
 	   close(con);
