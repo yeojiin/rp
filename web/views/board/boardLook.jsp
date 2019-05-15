@@ -77,7 +77,7 @@
 					</div>
 					<div style="width:50%; height:auto; float:right;">
 						<ul class="pager" style="float:right;">
-						<button type="button" class="btn" onclick="location.href='<%=request.getContextPath() %>/views/board/board.jsp'">목록</button>
+						<button type="button" class="btn" onclick="location.href='<%=request.getContextPath() %>/views/board/board.jsp'" style="background:salmon; color:white;">목록</button>
   							<li><a href="#"><</a></li>
   							<li><a href="#">></a></li>
 						</ul>
@@ -106,7 +106,7 @@
 						 <div class="row">
 							  <div class="col-md-4">
 							    <div class="thumbnail">
-							      <a href="/w3images/lights.jpg">
+							      <a href="../../images/dressTest.jpg">
 							        <img src="../../images/dressTest.jpg" alt="Lights" style="width:100%">
 							        <div class="caption">
 							          <p>Lorem ipsum...</p>
@@ -116,7 +116,7 @@
 							  </div>
 							  <div class="col-md-4">
 							    <div class="thumbnail">
-							      <a href="/w3images/nature.jpg">
+							      <a href="../../images/dressTest.jpg">
 							        <img src="../../images/dressTest.jpg" alt="Nature" style="width:100%">
 							        <div class="caption">
 							          <p>Lorem ipsum...</p>
@@ -126,7 +126,7 @@
 							  </div>
 							  <div class="col-md-4">
 							    <div class="thumbnail">
-							      <a href="/w3images/fjords.jpg">
+							      <a href="../../images/dressTest.jpg">
 							        <img src="../../images/dressTest.jpg" alt="Fjords" style="width:100%">
 							        <div class="caption">
 							          <p>Lorem ipsum...</p>
@@ -134,7 +134,7 @@
 							      </a>
 							    </div>
 							  </div>
-							</div>
+						</div>
 					</div>
 					<hr style="width:100%; border: solid 1px lightgray;">
 					<!-- Left-aligned -->
@@ -163,7 +163,7 @@
 					<textarea class="form-control" rows="3" id="comment" style="width:90%; float:left;"></textarea>
 					<button type="button" class="btn btn-default" style="width:8%; float:right;">등록</button>
 				</div>
-               <div class="text-center">
+               	<div class="text-center">
                   <ul class="pagination">
                      <li><a href="#">1</a></li>
                      <li><a href="#">2</a></li>
@@ -172,44 +172,7 @@
                      <li><a href="#">5</a></li>
                   </ul>
                </div>
-				</div>
-				<!-- <br><br>
-				<div class="panel panel-warning">
-					<div class="panel-heading" style="color:white; background:salmon;">여기좋아요~!</div>
-					<img src="../../images/logo.png" class="img-rounded" alt="Cinque Terre"></br>
-					<img src="../../images/logo.png" class="img-rounded" alt="Cinque Terre"></br>
-					<img src="../../images/logo.png" class="img-rounded" alt="Cinque Terre"></br>
-					<img src="../../images/logo.png" class="img-rounded" alt="Cinque Terre"></br>
-					<div class="panel-body">못할 있는 바이며, 무엇을 희망의 청춘은 것이다. 앞이 청춘 꾸며 뛰노는 동산에는 내려온 인간의 있으랴? 긴지라 방황하였으며, 타오르고 가는 길지 할지니, 현저하게 힘차게 풀이 봄바람이다. 없으면, 인도하겠다는 별과 같으며, 인생의 사라지지 교향악이다. 얼음 인생을 산야에 사는가 스며들어 그리하였는가? 무엇이 발휘하기 가지에 그들은 있는 되려니와, 것이다. 인생에 얼음이 같이 그러므로 크고 꽃이 것이다. 위하여서 돋고, 얼마나 찾아 피는 부패뿐이다. 주며, 안고, 꾸며 위하여서 사막이다. 청춘에서만 피가 하여도 유소년에게서 천지는 하는 이는 뜨고, 부패뿐이다.</div>
-				</div>
-				<div class="form-group" style="width:100%;">
-					<label for="comment">댓글</label><br>
-					<textarea class="form-control" rows="3" id="comment" style="width:90%; float:left;"></textarea>
-					<button type="button" class="btn btn-default" style="width:8%; float:right;">등록</button>
-				</div>
-				<br><br><br><br>
-				<hr style="align:center; border-color:black; width:100%;" >
-				 <table class="table table-striped" style="width:100%;">
-                  <thead>
-                     <tr>
-                        <th>댓글작성자</th>
-                        <th>내용</th>
-                        <th>작성일</th>
-                        <th>조회수</th>
-                        <th>좋아요</th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     <tr>
-                        <td>전효정</td>
-                        <td>댓글내용전효정김수민문지원임정연남궁욱</td>
-                        <td>19.04.16</td>
-                        <td>10</td>
-                        <td>15</td>
-                     </tr>
-                  </tbody>
-               </table> -->
-
+			</div>
 			</div>
 
 			<!-- 오른쪽 빈공간 -->
