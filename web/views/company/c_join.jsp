@@ -691,6 +691,8 @@ Redding
 							alert("이메일 입력해주세요");
 						}else if (email2 == ""){
 							alert("이메일 입력해주세요");
+						}else if ($("#email_check").val() != "인증됨"){
+							alert("이메일 확인해주세요");
 						}else if (postcode == ""){
 							alert("주소 입력해주세요");
 						}else if (address == ""){

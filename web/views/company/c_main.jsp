@@ -50,10 +50,9 @@
 </style>
 </head>
 <body>
-
+	
 	<!-- 업체 나브 -->
 	<div>
-		
 		<jsp:include page="/views/company/c_nav.jsp"></jsp:include>
 	</div>
 
@@ -87,7 +86,6 @@
 	<div class="footerArea">
 		<jsp:include page="/views/common/footer.jsp"></jsp:include>
 	</div>
-
 
 </body>
 </html>

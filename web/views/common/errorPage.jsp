@@ -44,8 +44,10 @@
 						<%=msg %>
 					</div>
 					<br><br>
-					<button class="goHome" onclick="location.href='<%=request.getContextPath() %>/index.jsp'">홈으로 돌아가기</button>
-					<br><br><br>
+
+          <button class="goHome" onclick="location.href='<%=request.getContextPath() %>/index.jsp'">홈으로 돌아가기</button>
+					
+          <br><br><br>
 				</div>
 			</div>
 			<div class="col-sm-2 sidenav2"></div>

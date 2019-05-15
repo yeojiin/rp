@@ -82,6 +82,7 @@
 				<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 				<div class="contentsArea">
 					<div class="contentsArea con1">
+						<form action = "" method = "post">
 						<table>
 							<tr>
 								<td>
@@ -91,8 +92,8 @@
 							<tr>
 								<td>
 									<div class="form-group">
-										<label for="inputsm">현재 비밀번호</label> <input
-											class="form-control input-sm" id="inputsm" type="text">
+										<label for="inputsm">현재 비밀번호</label> 
+										<input class="form-control input-sm" id="currentPassword" type="text">
 									</div>
 								</td>
 							</tr>
@@ -100,27 +101,30 @@
 								<td>
 									<div class="form-group">
 										<label for="inputsm">변경할 비밀번호</label> <input
-											class="form-control input-sm" id="inputsm" type="text">
+											class="form-control input-sm" id="passwordChange" type="text">
 									</div>
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<div class="form-group">
-										<label for="inputsm">변경할 비밀번호 확인</label> <input
-											class="form-control input-sm" id="inputsm" type="text">
+										<label for="inputsm">변경할 비밀번호 확인</label> 
+										<input class="form-control input-sm" id="passwordChange2" type="text">
+										<p id = "checkPwd"></p>
 									</div>
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<div class="form-group">
-										<button id = "pwdbtn">변경하기</button>
+										<button id = "pwdbtn" onclick = "PasswordChange();">변경하기</button>
 									</div> 
 								</td>
 							</tr>
 						</table>
+						</form>
 						<hr>
+						<form action = "" method = "post">
 						<table class = "comTable">
 							<tr>
 								<td colspan = "2">
@@ -241,10 +245,33 @@
 								</td>
 							</tr>
 						</table>
+						</form>
 					</div>
 
 
 				</div>
+				 <!-- Modal -->
+				  <div class="modal fade" id="myModal" role="dialog">
+				    <div class="modal-dialog">
+				    
+				      <!-- Modal content-->
+				      <div class="modal-content">
+				        <div class="modal-header">
+				          <button type="button" class="close" data-dismiss="modal">&times;</button>
+				          <h4 class="modal-title">Modal Header</h4>
+				        </div>
+				        <div class="modal-body">
+				          <p>Some text in the modal.</p>
+				        </div>
+				        <div class="modal-footer">
+				          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				        </div>
+				      </div>
+				      
+				    </div>
+				  </div>
+								
+				
 			</div>
 
 
@@ -312,9 +339,17 @@
 					}).open();
 
 		}
+		
+		function PasswordChange(){
+			
+		}
 
 		$(function() {
-
+			
+			
+			$("#pwdbtn").click(function(){
+				
+			});
 		});
 	</script>
 

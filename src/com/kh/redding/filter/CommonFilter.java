@@ -25,16 +25,13 @@ public class CommonFilter implements Filter {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		
-		System.out.println("인코딩 처리 완료");
+		//System.out.println("인코딩 처리 완료");
 		
 		chain.doFilter(request, response);
 	}
 
-	/**
-	 * @see Filter#init(FilterConfig)
-	 */
+	
 	public void init(FilterConfig fConfig) throws ServletException {
-		// TODO Auto-generated method stub
 	}
 
 }
