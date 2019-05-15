@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.*" %>
+	pageEncoding="UTF-8" import="java.util.*"%>
 <%
 	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
 %>
@@ -16,7 +16,8 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR"
-	rel="stylesheet"><!-- 글꼴 -->
+	rel="stylesheet">
+<!-- 글꼴 -->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/member/m_header.css">
 <link rel="stylesheet" type="text/css"
@@ -36,7 +37,8 @@
 	<!-- 멤버 헤더 (미니메뉴, 로고) -->
 	<div class="headerArea">
 		<jsp:include page="/views/member/m_header.jsp"></jsp:include>
-	</div><br>
+	</div>
+	<br>
 
 	<!-- 섹션 -->
 	<div class="container-fluid text-center">
@@ -49,63 +51,75 @@
 				<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 
 				<div class="wishListArea">
-					<h1 style="text-align:center; color:salmon;">Wish List</h1>
-					
+					<h1 style="text-align: center; color: salmon;">Wish List</h1>
 					<div class="wishList">
-					<table id="wishListTable">
-						<tr>
-							<th>상품명</th>
-							<th><img id="image"></th>
-							<th>상세설명</th>
-							<th>상품금액</th>
-							<th></th>
-						</tr>
-					<%
-						for (int i = 0; i < list.size(); i++) {
-						HashMap<String, Object> hmap = list.get(i);
-					%>
-						<tr >
-							<td class="pName"><%=hmap.get("mname") %></td>
-							<td class="imagetd">
-								<img id="image" src="<%= request.getContextPath() %>/images/dressTest.jpg">
-							</td>
-							<td class="detail"><%=hmap.get("upname")%></td>
-							<td class="price"><%=hmap.get("price")%></td>
-							<td><input type="checkbox"></td>
-						</tr>
-					<% 
-						}
-					%>
-					</table>
+						<table id="wishListTable">
+							<tr>
+								<th>상품명</th>
+								<th><img id="image"></th>
+								<th>상세설명</th>
+								<th>상품금액</th>
+								<th></th>
+							</tr>
+							<%
+								for (int i = 0; i < list.size(); i++) {
+									HashMap<String, Object> hmap = list.get(i);
+							%>
+							<tr>
+								<td class="pName"><%=hmap.get("mname")%></td>
+								<td class="imagetd"><img id="image"
+									src="<%=request.getContextPath()%>/images/dressTest.jpg">
+								</td>
+								<td class="detail"><%=hmap.get("pname")%></td>
+								<td class="price"><%=hmap.get("price")%></td>
+								<td><input name="check" type="checkbox"
+									value=<%=hmap.get("upno")%>></td>
+							</tr>
+							<%
+								}
+							%>
+						</table>
 					</div>
+					<br>
+					<div class="button">
+						<button class="ui gray button" id="delete">삭제</button>
+						<form action="<%=request.getContextPath()%>/delete.wi" method="post" id="deleteWishForm">
+						<input type="hidden" name="deleteList" id="deleteList">
+						<input type="hidden" name="deleteListMno">
+						</form>
+					</div>
+
 				</div>
-				<br><br>
+				<br>
+				<br>
 				<div class="pResult">
-				<h2>패키지 구성</h2>
-					 <div id="packageArea">
+					<h2>패키지 구성</h2>
+					<div id="packageArea">
 						<div class="packageStudio">
-							<img src="<%= request.getContextPath() %>/images/logo.png">
-							<img src="<%= request.getContextPath() %>/images/plus.png">
+							<img src="<%=request.getContextPath()%>/images/logo.png">
+							<img src="<%=request.getContextPath()%>/images/plus.png">
 						</div>
-						
+
 						<div class="packageDress">
-							<img src="<%= request.getContextPath() %>/images/logo.png">
-							<img src="<%= request.getContextPath() %>/images/plus.png">
+							<img src="<%=request.getContextPath()%>/images/logo.png">
+							<img src="<%=request.getContextPath()%>/images/plus.png">
 						</div>
-						
+
 						<div class="packageMakeup">
-							<img src="<%= request.getContextPath() %>/images/logo.png">
-							<img src="<%= request.getContextPath() %>/images/equal.png">
+							<img src="<%=request.getContextPath()%>/images/logo.png">
+							<img src="<%=request.getContextPath()%>/images/equal.png">
 						</div>
 						<div class="packagePrice">
 							<label id="totalPrice">1000000</label>
 						</div>
-					</div> 
-					<div class="packageButton">
-						<button class="ui pink button" style="background: salmon;" onclick="">예약하기</button>
-						<button class="ui pink button" style="background: salmon;" onclick="location.href='views/member/m_pay.jsp'">결제하기</button>
 					</div>
-				
+					<div class="button">
+						<button class="ui pink button" style="background: salmon;"
+							onclick="">예약하기</button>
+						<button class="ui pink button" style="background: salmon;"
+							onclick="location.href='views/member/m_pay.jsp'">결제하기</button>
+					</div>
+
 					<%-- <table id="pResult" style="backgound:lightgray;">
 						<tr>
 						<td id="package1"><img id="image" src="<%= request.getContextPath() %>/images/logo.png"></td>
@@ -118,16 +132,31 @@
 						</tr>
 					</table> --%>
 				</div>
-				
+
 
 			</div>
 
 
 			<!-- 오른쪽 빈공간 -->
 			<div class="col-sm-2 sidenav"></div>
+
 			<script>
-				
-			
+				$('#delete').click(function() {
+					var deleteList = "";
+
+					$("input[name=check]:checked").each(function() {
+						if (deleteList == "") {
+							deleteList = $(this).val();
+						} else {
+							deleteList = deleteList + "," + $(this).val();
+						}
+					});
+					//console.log(deleteList);
+					$("#deleteList").val(deleteList);
+					
+					$("#deleteWishForm").submit();
+				});
+
 			</script>
 
 		</div>
@@ -139,15 +168,6 @@
 	<div class="footerArea">
 		<jsp:include page="/views/common/footer.jsp"></jsp:include>
 	</div>
-
-	<script>
-		/* function push(){
-			var price = document.getElementsByName("price");
-			
-			
-		} */
-		
-	</script>
 
 
 </body>

@@ -47,7 +47,8 @@ public class WishListDao {
 				hmap =new HashMap<String, Object>();
 				
 				hmap.put("mno", rset.getInt("MNO"));
-				hmap.put("upname", rset.getString("UPNAME"));
+				hmap.put("upno", rset.getInt("UPNO"));
+				hmap.put("pname", rset.getString("PNAME"));
 				hmap.put("pcontent", rset.getString("PCONTENT"));
 				hmap.put("price", rset.getInt("PRICE"));
 				hmap.put("mname", rset.getString("MNAME"));
@@ -66,6 +67,29 @@ public class WishListDao {
 		}
 		
 		return list;
+	}
+
+	
+	//위시리스트 삭제용 메소드
+	public int deleteWishList(Connection con, ArrayList<String> deleteList, int num) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		
+		
+		String query = prop.getProperty("deleteWishList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			/*pstmt.setInt(2, deletenum);*/
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		return 0;
 	}
 
 }
