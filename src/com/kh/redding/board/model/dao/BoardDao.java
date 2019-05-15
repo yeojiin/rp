@@ -2,15 +2,19 @@ package com.kh.redding.board.model.dao;
 
 import static com.kh.redding.common.JDBCTemplate.close;
 
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
+
+import com.kh.redding.board.model.vo.BoardPageInfo;
 
 public class BoardDao {
 	private Properties prop = new Properties();
@@ -23,14 +27,16 @@ public class BoardDao {
 			e.printStackTrace();
 		}
 	}
-
-	/*//게시물 목록 조회용 메소드
-	public ArrayList<Board> selectList(Connection con, PageInfo pi) {
+	
+	//커뮤니티 게시글 목록 조회용
+	public ArrayList<HashMap<String, Object>> selectBoardList(Connection con, BoardPageInfo pi) {
 		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
 		ResultSet rset = null;
-		ArrayList<Board> list = null;
 		
 		String query = prop.getProperty("selectBoardList");
+		System.out.println(query);
 		
 		//조회 시작할 행 번호와 마지막 행 번호 계산
 		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
@@ -42,38 +48,6 @@ public class BoardDao {
 			pstmt.setInt(2, endRow);
 			
 			rset = pstmt.executeQuery();
-			
-			list = new ArrayList<Board>();
-			
-			while(rset.next()) {
-				Board b = new Board();
-				Member m = new Member();
-				Attachment a = new Attachment();
-				
-				
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return list;
-	}*/
-
-	public ArrayList<HashMap<String, Object>> selectBoardList(Connection con) {
-		Statement stmt = null;
-		ArrayList<HashMap<String, Object>> list = null;
-		HashMap<String, Object> hmap = null;
-		ResultSet rset = null;
-		
-		String query = prop.getProperty("selectBoardList");
-		System.out.println(query);
-		
-		try {
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(query);
 			
 			list = new ArrayList<HashMap<String, Object>>();
 			
@@ -92,11 +66,37 @@ public class BoardDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(stmt);
+			close(pstmt);
 			close(rset);
 		}
 		
 		return list;
+	}
+
+	//게시물 수 조회용 메소드
+	public int getListCount(Connection con) {
+		Statement stmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("listCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return listCount;
 	}
 
 }
