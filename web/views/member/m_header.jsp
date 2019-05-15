@@ -38,7 +38,7 @@
 					<li><button class="miniMenuBtn"><%=loginUser.getNickName() %>님의 방문을 환영합니다!</button></li>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
 					<li><button class="miniMenuBtn" onclick="logout()">LOGOUT</button></li>&nbsp;&nbsp;|
 					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/member/m_myPage_checkList.jsp'">MY PAGE</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
-					<li><form action="<%=request.getContextPath()%>/showList.wh" method="post" id = "WishForm">
+					<li><form action="<%=request.getContextPath()%>/showList.wi" method="post" id = "WishForm">
 					<button class="miniMenuBtn" type="submit">WISHLIST</button>
 					<input type="hidden" name="num" value=<%=loginUser.getMno()%>></form></li>
 					<li>&nbsp;&nbsp;&nbsp;&nbsp;</li>

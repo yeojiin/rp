@@ -11,9 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.redding.attachment.model.vo.Attachment;
 import com.kh.redding.board.model.service.BoardService;
-import com.kh.redding.board.model.vo.Board;
 import com.kh.redding.product.model.vo.PageInfo;
 
 /**
@@ -35,7 +33,7 @@ public class SelectBoardListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("테스트성공!");
+		//System.out.println("테스트성공!");
 		//페이징 추가
 		int currentPage;		//현재 페이지를 표시할 변수
 		int limit;				//한 페이지에서 게시글이 몇 개 보여질 것인지 표시
