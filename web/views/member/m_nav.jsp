@@ -22,7 +22,7 @@
 					<li><button class="navBtn" onclick="location.href='<%=request.getContextPath() %>/views/member/m_studioList.jsp'">&nbsp;&nbsp;&nbsp;STUDIO&nbsp;&nbsp;&nbsp;</button></li>
 					<li><button class="navBtn" onclick="location.href='<%=request.getContextPath() %>/views/member/m_dressList.jsp'">&nbsp;&nbsp;&nbsp;DRESS&nbsp;&nbsp;&nbsp;</button></li>
 					<li><button class="navBtn" onclick="location.href='<%=request.getContextPath() %>/views/member/m_mhList.jsp'">&nbsp;&nbsp;&nbsp;MAKEUP&HAIR&nbsp;&nbsp;&nbsp;</button></li>
-					<li><button class="navBtn" onclick="location.href='<%=request.getContextPath() %>/views/board/board.jsp'">&nbsp;&nbsp;&nbsp;COMMUNITY&nbsp;&nbsp;&nbsp;</button></li>
+					<li><button class="navBtn" onclick="location.href='<%=request.getContextPath() %>/selectBoardList.bo'">&nbsp;&nbsp;&nbsp;COMMUNITY&nbsp;&nbsp;&nbsp;</button></li>
 					<li><button class="navBtn" style="color: gray" onclick="location.href='<%=request.getContextPath()%>/views/company/c_main.jsp'">&nbsp;&nbsp;&nbsp;COMPANY&nbsp;&nbsp;&nbsp;</button></li>
 					<li><button class = "navBtn" id = "noticebtn">&nbsp;&nbsp;&nbsp;고객센터</button>
 						<ul class="nav navbar-nav" id = "noticemenu">

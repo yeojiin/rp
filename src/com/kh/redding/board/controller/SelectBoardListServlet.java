@@ -2,13 +2,16 @@ package com.kh.redding.board.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.redding.attachment.model.vo.Attachment;
 import com.kh.redding.board.model.service.BoardService;
 import com.kh.redding.board.model.vo.Board;
 import com.kh.redding.product.model.vo.PageInfo;
@@ -32,6 +35,7 @@ public class SelectBoardListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("테스트성공!");
 		//페이징 추가
 		int currentPage;		//현재 페이지를 표시할 변수
 		int limit;				//한 페이지에서 게시글이 몇 개 보여질 것인지 표시
@@ -71,7 +75,20 @@ public class SelectBoardListServlet extends HttpServlet {
 		PageInfo pi = new PageInfo(currentPage, limit, maxPage, startPage, endPage);
 		
 		//페이징 처리 후
-		ArrayList<Board> list = new BoardService().selectList(pi);
+		ArrayList<HashMap<String, Object>> list = new BoardService().selectBoardList();
+		
+		String page = "";
+		if(list != null) {
+			page = "views/board/board.jsp";
+			request.setAttribute("list", list);
+		}else {
+			page = "views/common/errorPage.jsp";
+			request.setAttribute("msg", "게시판 목록 조회 실패");
+		}
+		
+		RequestDispatcher view = request.getRequestDispatcher(page);
+		view.forward(request, response);
+		/*ArrayList<Board> list = new BoardService().selectList(pi);
 		
 		System.out.println("list : " + list);
 		
@@ -84,7 +101,7 @@ public class SelectBoardListServlet extends HttpServlet {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "게시판 조회 실패!");
 		}
-		request.getRequestDispatcher(page).forward(request, response);
+		request.getRequestDispatcher(page).forward(request, response);*/
 	}
 
 	/**
