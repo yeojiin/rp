@@ -6,7 +6,7 @@ import java.sql.Date;
 public class Reservation implements Serializable{
 	private String userName;
 	private String userPhone;
-	private Date rapplyDate;
+	private String rapplyDate;
 	private String status;
 	private String startDate;
 	private String endDate;
@@ -17,7 +17,7 @@ public class Reservation implements Serializable{
 
 	
 
-	public Reservation(String userName, String userPhone, Date rapplyDate, String status, String startDate,
+	public Reservation(String userName, String userPhone, String rapplyDate, String status, String startDate,
 			String endDate, String productName, Date completedDate) {
 		super();
 		this.userName = userName;
@@ -60,11 +60,11 @@ public class Reservation implements Serializable{
 		this.userPhone = userPhone;
 	}
 
-	public Date getRapplyDate() {
+	public String getRapplyDate() {
 		return rapplyDate;
 	}
 
-	public void setRapplyDate(Date rapplyDate) {
+	public void setRapplyDate(String rapplyDate) {
 		this.rapplyDate = rapplyDate;
 	}
 
