@@ -88,7 +88,7 @@
                                 <label>판매 여부</label>
                                 <input type="hidden" value="<%=loginUser.getMno()%>" id="cNo" name="cNo">
                              </td>                    
-                             <td colspan="6">
+                             <td>
                                 <input type="radio" name="proStatus" id="proStatusYes" value="판매">
                                 <label for="proStatusYes">판매함</label>
                                 <input type="radio" name="proStatus" id="proStatusNo" value="판매안함">
@@ -167,14 +167,23 @@
                                 </div>
                              </td>
                           </tr> -->
-                          <!-- <tr>
+                          <tr>
                              <td>
-                                <label>예약 가능 날짜</label>
+                                <label>판매 시작 날짜</label>
                              </td>
-                             <td colspan="7">
-                                <div id="PICalendar">캘린더 영역</div>
+                             <td>
+                                <input type="date" name="proStartDay" id="proStartDay">
                              </td>
-                          </tr> -->
+                             <td id="space">
+                             	<label>-</label>
+                             </td>
+                             <td>
+                             	<label>판매 종료 날짜</label>
+                             </td>
+                             <td>
+                             	<input type="date" name="proEndDay" id="proEndDay">
+                             </td>
+                          </tr>
                           <!-- <tr>
                              <td>
                                 <label>예약 시작 시간</label>
@@ -198,7 +207,7 @@
                                 <label>상품 설명</label>
                              </td>
                              <td colspan="6">
-                                <textarea cols="120" rows="23" name="info" id="info">상품설명</textarea>
+                                <textarea cols="130" rows="23" name="info" id="info">상품설명</textarea>
                              </td>
                           </tr>
                           
