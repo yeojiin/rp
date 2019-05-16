@@ -11,6 +11,7 @@ public class UseProduct implements Serializable{
    private int pNo;
    private int uNum;
    
+   
    public UseProduct() {}
 
    public UseProduct(int upNo,Date useDate, String useStartTime, String useEndTime, int pNo,

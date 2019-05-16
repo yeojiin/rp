@@ -35,7 +35,7 @@ public class ProductDao {
       }
       
       //상품리스트조회
-      public ArrayList<Product> selectList(Connection con, PageInfo pi) {
+      public ArrayList<Product> selectList(Connection con, PageInfo pi, int cno) {
          PreparedStatement pstmt = null;
          ResultSet rset = null;
          ArrayList<Product> list = null;
@@ -47,8 +47,9 @@ public class ProductDao {
          
          try {
             pstmt = con.prepareStatement(query);
-            pstmt.setInt(1, startRow);
-            pstmt.setInt(2, endRow);
+            pstmt.setInt(1, cno);
+            pstmt.setInt(2, startRow);
+            pstmt.setInt(3, endRow);
             
             rset = pstmt.executeQuery();
             
@@ -57,14 +58,14 @@ public class ProductDao {
             while(rset.next()) {
                Product p = new Product();
                
-               p.setcNo(rset.getInt("PNO"));
+               p.setpNo(rset.getInt("PNO"));
                p.setpName(rset.getString("PNAME"));
                p.setpContent(rset.getString("PCONTENT"));
                p.setPrice(rset.getInt("PRICE"));
                p.setpEnrollDate(rset.getDate("PENROLL_DATE"));
                p.setcNo(rset.getInt("CNO"));
                p.setpModifyDate(rset.getDate("PMODIFY_DATE"));
-               
+               p.setProStatus(rset.getString("PRO_STATUS"));
                list.add(p);
             }
             
@@ -78,7 +79,7 @@ public class ProductDao {
       }
 
      
-
+      //cno가 일치하는 업체 정보를 가져온다.
       public Company selectCompanyOne(Connection con, int cNo) {
          //cNo일치 하는 컴파니 찾아오기
          PreparedStatement pstmt = null;
@@ -159,7 +160,8 @@ public class ProductDao {
       }
       return result;
    }
-
+   
+   //상품의 현재 pno를 들고 온다
    public int selectProductCurrval(Connection con) {
       Statement stmt = null;
       ResultSet rset = null;
@@ -187,7 +189,7 @@ public class ProductDao {
    }
 
   
-
+   //제품등록용
 	public int insertUseProduct(Connection con, ArrayList<UseProduct> uProList, ArrayList<String> useDate) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -214,6 +216,36 @@ public class ProductDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	
+	
+	//업체가 가지고 있는 상품 전체 조회
+	public Product selectProductList(Connection con, int cno) {
+		return null;
+	}
+	
+	//상품의 전체 갯수 리턴
+	public int getListCount(Connection con, int cno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		
+		String query = prop.getProperty("getListCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, cno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		return listCount;
 	}
 
 }

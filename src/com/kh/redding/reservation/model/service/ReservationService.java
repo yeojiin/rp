@@ -40,8 +40,30 @@ public class ReservationService {
 		return result;
 	}
 
-	
-	//위시리스트 예약
+
+	public ArrayList<Reservation> memberSelectReservation(int pno) {
+		Connection con = getConnection();
+		
+		ArrayList<Reservation> reslist = new ReservationDao().memberSelectReservation(con,pno);
+		
+		close(con);
+			
+		return reslist;
+	}
+
+	public ArrayList<Reservation> memberSelectReservation(int pno, String date) {
+		Connection con = getConnection();
+		
+		ArrayList<Reservation> reslist = new ReservationDao().memberSelectReservation(con,pno,date);
+		
+		close(con);
+		
+		return reslist;
+	}
+
+  
+  
+	//위시리스트 예약(정연)
 	public ArrayList<HashMap<String, Object>> reserveWishList(int userNum, int[] resList) {
 		Connection con = getConnection();
 		
@@ -51,4 +73,5 @@ public class ReservationService {
 	
 		return list;
 	}
+  
 }

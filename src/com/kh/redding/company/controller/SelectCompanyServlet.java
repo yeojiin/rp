@@ -33,7 +33,18 @@ public class SelectCompanyServlet extends HttpServlet {
 		//로그인한 업체 정보 가져오기 
 		HashMap<String,Object> loginCompany = new CompanyService().selectCompanyInf(loginUser);
 		
+		String page = "";
+		if (loginCompany != null) {
+			page = "/views/company/c_UpdateCompanyInfor.jsp";
+			
+			request.setAttribute("loginCompany", loginCompany);	
+		}else {
+			page = "/views/common/errorPage.jsp";
+			
+			request.setAttribute("msg", "조회를 실패했습니다.");
+		}
 		
+		request.getRequestDispatcher(page).forward(request, response);
 		
 	}
 

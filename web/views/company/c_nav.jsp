@@ -42,7 +42,7 @@
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="<%=request.getContextPath()%>/views/company/c_customerManager.jsp">고객관리</a></li><!-- *** -->
-					<li><a href="<%=request.getContextPath()%>/views/company/c_ProductManagement.jsp">상품관리</a></li><!-- *** -->
+					<li><a href="<%=request.getContextPath()%>/selectProList.pr?mno=<%=loginUser.getMno()%>">상품관리</a></li><!-- *** -->
 					<li><a href="<%=request.getContextPath()%>/views/company/c_UpdateCompanyPhoto.jsp">정보수정</a></li>
 					<li><a href="<%=request.getContextPath()%>/views/company/c_calculateManager.jsp">정산관리</a></li>
 					<li><a href="<%=request.getContextPath()%>/views/company/c_messageManager.jsp">쪽지관리</a></li><!-- *** -->

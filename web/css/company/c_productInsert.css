@@ -8,6 +8,10 @@
 #PITable td{
    text-align: center;
 }
+
+textarea{
+	width: 100%;
+}
 input[name = startTime], input[name = endTime], input[name=proStartDay], input[name=proEndDay], input[name=piPrice]{
    width: 100%;
 }

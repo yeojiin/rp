@@ -25,6 +25,7 @@
    href="${pageContext.request.contextPath}/css/company/c_customerManager.css"> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <style>
+
    .row.content {
       height: auto;
    }

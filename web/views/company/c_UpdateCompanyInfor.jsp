@@ -1,11 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import = "java.util.*, com.kh.redding.company.model.vo.*, com.kh.redding.member.model.vo.*, com.kh.redding.attachment.model.vo.*"%>
 <%! public int getRandom(){
 	int random = 0;
 	random = (int)Math.floor((Math.random()*(99999-10000+1)))+10000;
 	return random;
 
 }	%>
+<% 
+   HashMap<String,Object> loginCompany = (HashMap<String,Object>)(request.getAttribute("loginCompany"));
+   Member member = (Member)loginCompany.get("member");
+   Company company = (Company)loginCompany.get("company");
+   Attachment attachment = (Attachment)loginCompany.get("attachment");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -80,7 +86,7 @@
 						href="<%=request.getContextPath()%>/views/company/c_UpdateCompanyPhoto.jsp">업체
 							사진 올리기</a></li>
 					<li><a
-						href="<%=request.getContextPath()%>/views/company/c_UpdateCompanyInfor.jsp">업체
+						href="<%=request.getContextPath()%>/selectcom.me">업체
 							정보 수정 </a></li>
 				</ul>
 			</div>
@@ -88,7 +94,6 @@
 				<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 				<div class="contentsArea">
 					<div class="contentsArea con1">
-						<form action = "" method = "post">
 						<table>
 							<tr>
 								<td>
@@ -123,14 +128,12 @@
 							<tr>
 								<td>
 									<div class="form-group">
-										<button id = "pwdbtn" onclick = "PasswordChange();">변경하기</button>
+										<button type = "button" id = "pwdbtn" onclick = "PasswordChange();">변경하기</button>
 									</div> 
 								</td>
 							</tr>
 						</table>
-						</form>
 						<hr>
-						<form action = "" method = "post">
 						<table class = "comTable">
 							<tr>
 								<td colspan = "2">
@@ -138,10 +141,10 @@
 								</td>
 							</tr>
 							<tr>
-								<td>사업자 등록번호</td>
+								<th>사업자 등록번호</th>
 								<td>
 									<div class="fileBox">
-										<input type="text" class="fileName" id = "reg_num" name = "reg_num" readonly="readonly">
+										<input type="text" class="fileName" id = "reg_num" name = "reg_num" readonly="readonly" value = "<%=attachment.getOriginname()%>">
 										<label for="uploadBtn" class="btn_file">찾아보기</label> <input
 											type="file" name = "uploadFile" id="uploadBtn" class="uploadBtn">
 									</div>
@@ -149,7 +152,11 @@
 							</tr>
 							<tr>
 								<th>아이디</th>
-								<td><input type = "text" name = "userId" id = "userId"></td>
+								<td><input type = "text" name = "memberId" id = "memberId" value = "<%=member.getMemberId() %>"  readonly></td>
+							</tr>
+							<tr>
+								<th>비밀번호</th>
+								<td><input type = "password" name = "memberPwd" id = "memberPwd"></td>
 							</tr>
 							<tr>
 								<th>업체 종류</th>
@@ -162,44 +169,57 @@
 							</tr>
 							<tr>
 								<th>업체명</th>
-								<td><input type="text" maxlength="30" name="name" id="name"></td>
+								<td><input type="text" maxlength="30" name="name" id="name" value = "<%=member.getMemberName() %>"></td>
 								<td></td>
 							</tr>
 							<tr>
 								<th>대표자 명</th>
 								<td><input type="text" maxlength="30" name="rep_name"
-									id="rep_name"></td>
+									id="rep_name" value = "<%= company.getRepName()  %>"></td>
 								<td></td>
 							</tr>
+							<%
+            					String phone = member.getPhone();
+            	
+            					String tel1 = phone.split("-")[0];
+            					String tel2 = phone.split("-")[1];
+            					String tel3 = phone.split("-")[2];
+            	
+            				%>
 							<tr>
 								<th>전화번호</th>
 								<td><input type="text" maxlength="3" name="phone1"
-									id="phone1" size="5"> - <input type="text"
-									maxlength="4" name="phone2" id="phone2" size="5"> - <input
-									type="text" maxlength="4" name="phone3" id="phone3" size="5"></td>
+									id="phone1" size="5" value = "<%=tel1%>"> - <input type="text"
+									maxlength="4" name="phone2" id="phone2" size="5" value = "<%=tel2%>"> - <input
+									type="text" maxlength="4" name="phone3" id="phone3" size="5" value = "<%=tel3%>"></td>
 							</tr>
+							<%
+            					String address = company.getComAddress();
+            					String[] addresses = address.split("\\|");
+            				%>
 							<tr>
 								<th>주소</th>
 								<td><input type="text" id="postcode" placeholder="우편번호"
-									name="postcode"> <input type="button"
+									name="postcode" value = "<%= addresses[0] %>"> <input type="button"
 									onclick="execDaumPostcode()" value="우편번호 찾기"><br>
 								</td>
 							</tr>
 							<tr>
 								<td></td>
+								
 								<td><input type="text" id="address" placeholder="주소"
-									name="address"><br></td>
+									name="address" value = "<%= addresses[1] %>" style = "width : 250px;"><br></td>
 							</tr>
 							<tr>
 								<td></td>
 								<td><input type="text" id="detailAddress"
-									placeholder="상세주소" name="detailAddress"> <input
-									type="text" id="extraAddress" placeholder="참고항목"
-									name="extraAddress"></td>
+									placeholder="상세주소" name="detailAddress" value = "<%= addresses[2]%>"> 	
+									<input type="text" id="extraAddress" placeholder="참고항목" name="extraAddress">
+							
 							</tr>
 							<tr>
 								<th>입금계좌</th>
-								<td><select name="accountcode">
+								<td><select name="accountcode" id = "accountcode" style = "height : 25px;">
 										<option>-- 은행선택 --</option>
 										<option value="011">NH농협</option>
 										<option value="020">우리은행</option>
@@ -224,18 +244,25 @@
 							<tr>
 								<td></td>
 								<td><input type="text" name="account_num" id="account_num"
-									placeholder="계좌번호(-없이 적어주세요)" style = "width: 350px"></td>
+									placeholder="계좌번호(-없이 적어주세요)" style = "width: 350px"
+									value = "<%=company.getAccountNum() %>"></td>
 							</tr>
 							<tr>
 								<td></td>
 								<td><input type="text" name="account_name"
-									id="account_name" placeholder="예금주"></td>
+									id="account_name" placeholder="예금주" value = "<%=company.getAccountName() %>"></td>
 							</tr>
+							<%
+								String email = member.getEmail();
+								
+								String email1 = email.split("@")[0];
+								String email2 = email.split("@")[1];
+							%>
 							<tr>
-								<td class="col1">이메일&nbsp;&nbsp;<span id="star">*</span></td>
-								<td class="col2"><input type="text" name="email1">&nbsp;&nbsp;@&nbsp;&nbsp;
-									<input type="text" name="email2" id="email2">&nbsp;&nbsp;
-									<select name="email3" id="email3">
+								<th class="col1">이메일&nbsp;&nbsp;</th>
+								<td class="col2"><input type="text" name="email1" value = "<%=email1%>">&nbsp;&nbsp;@&nbsp;&nbsp;
+									<input type="text" name="email2" id="email2" value = "<%=email2%>">&nbsp;&nbsp;
+									<select name="email3" id="email3" style = "height:25px;">
 										<option>직접입력</option>
 										<option>naver.com</option>
 										<option>daum.net</option>
@@ -251,18 +278,19 @@
 									id="email_check" name="email_check" value="인증안됨">
 									<input type = "hidden" readonly = "readonly" name = "code_check" id = "code_check" value = "<%=getRandom()%>"></td>
 							</tr>
+							
 							<tr>
 								<th>홈페이지</th>
 								<td><input type="url" name="homepage" id="homepage"
-									placeholder="http://"></td>
+									placeholder="http://" value = "<%=company.getComUrl()%>" style = "width:200px;"></td>
 							</tr>
 							<tr>
 								<th>영업시간</th>
-								<td><input type="time" name="strartime" id="strartime">
-									~ <input type="time" name="endtime" id="endtime"></td>
+								<td><input type="time" name="strartime" id="strartime" value = "<%=company.getOpenTime()%>">
+									~ <input type="time" name="endtime" id="endtime" value = "<%=company.getEndTime()%>"></td>
 							</tr>
 							<tr>
-								<td>휴무일</td>
+								<th>휴무일</th>
 								<td>
 									<input type = "checkbox" value = "월" id = "Monday" name = "weekend">
 									<label for = "Monday">월</label>
@@ -283,45 +311,25 @@
 							<tr>
 								<td>
 									<div class="form-group">
-										<button id = "combtn">변경하기</button>
+										<button type = "button" id = "combtn">변경하기</button>
 									</div>
 								</td>
 							</tr>
 						</table>
-						</form>
 					</div>
 
 
 				</div>
-				 <!-- Modal -->
-				  <div class="modal fade" id="myModal" role="dialog">
-				    <div class="modal-dialog">
-				    
-				      <!-- Modal content-->
-				      <div class="modal-content">
-				        <div class="modal-header">
-				          <button type="button" class="close" data-dismiss="modal">&times;</button>
-				          <h4 class="modal-title">Modal Header</h4>
-				        </div>
-				        <div class="modal-body">
-				          <p>Some text in the modal.</p>
-				        </div>
-				        <div class="modal-footer">
-				          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				        </div>
-				      </div>
-				      
-				    </div>
-				  </div>
-								
 				
-			</div>
 
 
 			<div class="col-sm-2 sidenav2"></div>
 		</div>
 
 	</div>
+	
+		
+	
 
 	<!-- 커먼 풋터 -->
 	<div class="footerArea">
@@ -329,6 +337,7 @@
 	</div>
 
 	<script>
+		//주소 api
 		function execDaumPostcode() {
 			new daum.Postcode(
 					{
@@ -383,17 +392,100 @@
 
 		}
 		
+		//비밀번호 변경 클릭
 		function PasswordChange(){
+			var pwd =  $("#currentPassword").val();
+			var changepwd = $("#passwordchange").val();
+			var changepwd2 = $("#passwordchange2").val();
+			var memberId = $("#memberId").val();
 			
+			if (pwd == ""){
+				alert("비밀번호 입력해주세요");
+			}else if (changepwd == ""){
+				alert("변경할 비밀번호 다시 확인해주세요");
+			}else if (changepwd2 == ""){
+				alert("변경할 비밀번호 다시 확인해주세요");
+			}else if (changepwd == changepwd2){
+				alert("변경할 비밀번호 다시 확인해주세요");
+			}else {
+				$.ajax({
+          			url : "/redding/changePassword.me",
+          			type : "post",
+          			data : {pwd : pwd , changepwd : changepwd, memberId : memberId},
+          			success : function(data){
+          				
+          			}, 
+          			error : function(){
+          				console.log("실패!");
+          			}
+          		});
+			}			
+		}
+		
+		
+		function popupOpen(){
+			
+			var url= "<%=request.getContextPath()%>/views/common/checkcode.jsp";    //팝업창에 출력될 페이지 URL
+			var winWidth = 200;
+		    var winHeight = 200;
+		    var popupOption= "width="+winWidth+", height="+winHeight;    //팝업창 옵션(optoin)
+		    var myWindow = window.open(url,"TestName",popupOption);
+		  //  myWindow.document.write("<h1>"+myWindow.name+"</h1>");
 		}
 
 		$(function() {
+			document.addEventListener('keydown', function(event) {
+			    if (event.keyCode === 13) {
+			        event.preventDefault();
+			    }
+			}, true);
 			
+			var accountCode = <%= company.getAccountCode() %>;
+					
+			//은행 select 선택 - 조회시 기본으로 보여주는
+			$("#accountcode option").each(function(){
+			    if($(this).val() == accountCode){
+			      $(this).prop("selected","true"); // attr적용안될경우 prop으로 
+			    }
+			});
 			
-			$("#pwdbtn").click(function(){
+			//이메일 select 선택 
+			$("#email3 option").each(function(){
+				if ($(this).val() == $("#email2").val()){
+					$(this).prop("selected", "true");
+				}
+			});
+			
+			$("input[name = weekend]").each(function(){
+				var weekends = '<%=company.getHoliday()%>'.split(",");
+							
+				for (var i = 0 ; i < weekends.length ; i++){
+        			if ($(this).val() == weekends[i]){
+        				$(this).attr("checked",true);
+            		}
+        		}
 				
 			});
+			
+			$("#combtn").click(function(){
+				$("#myModal").modal();
+			});
+			
+			
+			var uploadFile = $('.fileBox .uploadBtn');
+		 	uploadFile.on('change', function(){
+		 		if(window.FileReader){
+		 			var filename = $(this)[0].files[0].name;
+		 		} else {
+		 			var filename = $(this).val().split('/').pop().split('\\').pop();
+		 		}
+		 		$(this).siblings('.fileName').val(filename);
+		 	});
+		 	
 		});
+		
+		
+		
 	</script>
 
 </body>
