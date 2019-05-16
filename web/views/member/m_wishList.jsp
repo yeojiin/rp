@@ -55,22 +55,23 @@
 					<div class="wishList">
 						<table id="wishListTable">
 							<tr>
-								<th>상품명</th>
+								<th>업체명</th>
 								<th><img id="image"></th>
-								<th>상세설명</th>
+								<th>제품명</th>
 								<th>상품금액</th>
 								<th></th>
 							</tr>
 							<%
+								/* 해쉬맵으로 받은 객체  꺼내주기*/ 
 								for (int i = 0; i < list.size(); i++) {
 									HashMap<String, Object> hmap = list.get(i);
 							%>
 							<tr>
-								<td class="pName"><%=hmap.get("mname")%></td>
+								<td class="cName"><%=hmap.get("mname")%></td>
 								<td class="imagetd"><img id="image"
 									src="<%=request.getContextPath()%>/images/dressTest.jpg">
 								</td>
-								<td class="detail"><%=hmap.get("pname")%></td>
+								<td class="pName"><%=hmap.get("pname")%></td>
 								<td class="price"><%=hmap.get("price")%></td>
 								<td><input name="check" type="checkbox"
 									value=<%=hmap.get("upno")%>></td>
@@ -114,10 +115,8 @@
 						</div>
 					</div>
 					<div class="button">
-						<button class="ui pink button" style="background: salmon;"
-							onclick="">예약하기</button>
-						<button class="ui pink button" style="background: salmon;"
-							onclick="location.href='views/member/m_pay.jsp'">결제하기</button>
+						<button class="ui pink button" style="background: salmon;" id="reserve">예약하기</button>
+						<button class="ui pink button" style="background: salmon;" onclick="location.href='views/member/m_pay.jsp'">결제하기</button>
 					</div>
 
 					<%-- <table id="pResult" style="backgound:lightgray;">
@@ -141,6 +140,8 @@
 			<div class="col-sm-2 sidenav"></div>
 
 			<script>
+			
+			
 				$('#delete').click(function() {
 					var deleteList = "";
 
@@ -156,7 +157,36 @@
 					
 					$("#deleteWishForm").submit();
 				});
+				
+				
+				//예약하기
+				$('#reserve').click(function(){
+					var reserveList = "";
+					var page = "";
+					
+					$("input[name=check]:checked").each(function(){
+						if(reserveList == ""){
+							reserveList = $(this).val();
+						}else{
+							reserveList = reserveList + "," + $(this).val();
+						}
+					});
+					
+				/* 	if(reserveList != "") {
+					location.href="views/member/m_reservation.jsp?reserveList="+reserveList; 
+					}else {
+						alert("선택하신 상품이 없습니다.");
+					} */
 
+					if(reserveList != "") {
+						location.href="<%=request.getContextPath()%>/wishList.re?reserveList="+reserveList; 
+						}else {
+							alert("선택하신 상품이 없습니다.");
+						}
+					
+				});
+	
+				
 			</script>
 
 		</div>

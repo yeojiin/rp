@@ -1,12 +1,16 @@
 package com.kh.redding.reservation.model.service;
 
+import static com.kh.redding.common.JDBCTemplate.close;
+import static com.kh.redding.common.JDBCTemplate.commit;
+import static com.kh.redding.common.JDBCTemplate.getConnection;
+import static com.kh.redding.common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.redding.reservation.model.dao.ReservationDao;
 import com.kh.redding.reservation.model.vo.Reservation;
-
-import static com.kh.redding.common.JDBCTemplate.*;
 
 public class ReservationService {
 
@@ -36,6 +40,7 @@ public class ReservationService {
 		return result;
 	}
 
+
 	public ArrayList<Reservation> memberSelectReservation(int pno) {
 		Connection con = getConnection();
 		
@@ -56,4 +61,17 @@ public class ReservationService {
 		return reslist;
 	}
 
+  
+  
+	//위시리스트 예약(정연)
+	public ArrayList<HashMap<String, Object>> reserveWishList(int userNum, int[] resList) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new ReservationDao().reserveWishList(userNum, resList, con);
+		
+		close(con);
+	
+		return list;
+	}
+  
 }
