@@ -25,11 +25,12 @@ import oracle.jrockit.jfr.events.DynamicValueDescriptor;
 public class ProductInsertServlet extends HttpServlet {
       private static final long serialVersionUID = 1L;
           
+      
        public ProductInsertServlet() {
            super();
        }
       protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-         System.out.println("상품등록 서블릿");
+         //System.out.println("상품등록 서블릿");
          String proStatus = request.getParameter("proStatus");
          //System.out.println("proStatus : " + proStatus);
          String pName1 = request.getParameter("picSelect");
@@ -125,7 +126,7 @@ public class ProductInsertServlet extends HttpServlet {
          }
          //판매시작날짜를 다시 String으로 넣어줌
          inputStartDate = proStartDay+"";
-         System.out.println("startDate : " + inputStartDate);
+         //System.out.println("startDate : " + inputStartDate);
          
          //상품종료 기간
          String inputEndDate = request.getParameter("proEndDay");
@@ -139,7 +140,7 @@ public class ProductInsertServlet extends HttpServlet {
          }
          //판매종료날짜를 다시 String으로 넣어줌
          inputEndDate = proEndDay+"";
-         System.out.println("endDate : " + inputEndDate);
+         //System.out.println("endDate : " + inputEndDate);
          
          
          //날짜형식을 지정해주기 위해 SimpleDateFormat 이용 
@@ -220,14 +221,14 @@ public class ProductInsertServlet extends HttpServlet {
             if(checkList[i]==1) {
                //System.out.println("짜증나 ㅅㅂ");
             	useDate.add(useDates.get(i));
-            	System.out.println("useDates.get(i) : " + useDates.get(i));
+            	//System.out.println("useDates.get(i) : " + useDates.get(i));
             }else {
                //System.out.println("i : " + i);
             }
          }
 //         왜 목요일만 들고와 ㅁㅊ녀나
          for(String date : useDate) {
-            System.out.println("date : " + date);
+            //System.out.println("date : " + date);
          }
 //         for(String date : useDate) {
 //            System.out.println("final date : " + date);
@@ -259,10 +260,10 @@ public class ProductInsertServlet extends HttpServlet {
          
          
          int ctn = 0;
-         for(int i=openTime ; i<closeTime ; i++) {
+         /*for(int i=openTime ; i<closeTime ; i++) {
         	 System.out.println("start : " + i);
         	 System.out.println("end : " + (i+1));
-         }
+         }*/
          int k = 0;
          for(int i=0 ; i<useDate.size() ; i++) {
         	 for(int j=openTime ; j<closeTime ; j++) {
@@ -283,24 +284,24 @@ public class ProductInsertServlet extends HttpServlet {
         			 end = k + ":00";
         			 
         		 }
-        		 System.out.println("start for : " + start);
-        		 System.out.println("end for : " + end);
+        		 //System.out.println("start for : " + start);
+        		 //System.out.println("end for : " + end);
         		 upro.setUseStartTime(start);
         		 upro.setUseEndTime(end);
-        		 System.out.println("upr : " + upro);
-        		 System.out.println("upro.getUseStartTime() : " + upro.getUseStartTime());
-        		 System.out.println("upro.getUseEndTime() : " + upro.getUseEndTime() );
+        		 //System.out.println("upr : " + upro);
+        		 //System.out.println("upro.getUseStartTime() : " + upro.getUseStartTime());
+        		 //System.out.println("upro.getUseEndTime() : " + upro.getUseEndTime() );
         		 uProList.add(upro);
-        		 System.out.println("uProList.get("+ctn+") : " + uProList.get(ctn));
+        		 //System.out.println("uProList.get("+ctn+") : " + uProList.get(ctn));
         		 ctn++;
         	 }
          }
-         for(UseProduct list:uProList) {
+         /*for(UseProduct list:uProList) {
         	 System.out.println("list  : "+list);
-         }
+         }*/
          
          //휴무일까지 받아옴
-         System.out.println("uProList size : " + uProList.size());
+         //System.out.println("uProList size : " + uProList.size());
          int result = new ProductService().insertUseProduct(pro,uProList, useDate);
          
          //System.out.println("servlet result : " + result);

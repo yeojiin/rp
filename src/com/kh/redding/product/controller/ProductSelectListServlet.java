@@ -38,6 +38,7 @@ public class ProductSelectListServlet extends HttpServlet {
 		//페이지 수 처리용 변수
 		currentPage = 1;
 		
+		
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}

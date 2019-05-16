@@ -54,9 +54,9 @@ public class ProductService {
 	   
 	   if(result1 > 0) {
 		   //상품등록 성공
-	   System.out.println("service result1 : " + result1);
+	   //System.out.println("service result1 : " + result1);
 	   int pNo = new ProductDao().selectProductCurrval(con);
-	   System.out.println("service pno : " + pNo);
+	   //System.out.println("service pno : " + pNo);
 	   
 	   for(int i=0 ; i<uProList.size() ; i++) {
 		   //제품에 상품코드를 넣어준다.

@@ -218,6 +218,7 @@ public class ProductDao {
 		return result;
 	}
 	
+	
 	//업체가 가지고 있는 상품 전체 조회
 	public Product selectProductList(Connection con, int cno) {
 		return null;

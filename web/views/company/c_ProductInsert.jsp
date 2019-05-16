@@ -2,6 +2,7 @@
     pageEncoding="UTF-8" import="com.kh.redding.member.model.vo.Member"%>
 <%
    Member loginUser = (Member) session.getAttribute("loginUser");
+
 %>
 <!DOCTYPE html>
 <html>

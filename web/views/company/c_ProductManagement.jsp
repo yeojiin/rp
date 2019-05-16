@@ -15,6 +15,7 @@
          int NoSaleProductCount = 100;
          int OpenProductCount = 50;
          int CloseProductCount = 1;
+         
 %>
 <!DOCTYPE html>
 <html>

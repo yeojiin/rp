@@ -105,6 +105,7 @@
                                    <option value="리허설+본식">리허설 + 본식</option>
                                    <option value="본식">본식</option>
                                 </select>
+                                
                              </td>
                              <td id="space">
                                 <label>-</label>
