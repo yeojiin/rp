@@ -71,25 +71,30 @@ public class WishListDao {
 
 	
 	//위시리스트 삭제용 메소드
-	public int deleteWishList(Connection con, ArrayList<String> deleteList, int num) {
+	public int deleteWishList(Connection con, int[] deleteList, int userNum) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		
-		
-		String query = prop.getProperty("deleteWishList");
-		
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, num);
-			/*pstmt.setInt(2, deletenum);*/
-		} catch (SQLException e) {
-			e.printStackTrace();
+		for(int deleteNum : deleteList) {
+			//int deleteNum = deleteList[i];
+			
+			String query = prop.getProperty("deleteWishList");
+			
+			try {
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, userNum);
+				pstmt.setInt(2, deleteNum);
+				
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
 		}
-		
-		
-		
-		return 0;
+			
+		return result;
 	}
 
 }

@@ -32,32 +32,35 @@ public class DeleteWishList extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//String배열로 넘어온 걸 ,로 쪼개기
 		String[] list = request.getParameter("deleteList").split(",");
+		System.out.println(request.getParameter("deleteList"));
 		
-		//받아 온 리스트를 , 단위로 쪼갠 뒤 배열에 넣기
-		ArrayList<String> deleteList = new ArrayList<String>();
+		//int배열 생성
+		int[] deleteList = new int[list.length];
+		
 		for(int i=0; i<list.length; i++) {
-			deleteList.add(list[i]);
+			try {
+			deleteList[i] = Integer.parseInt(list[i]);
+			} catch (NumberFormatException nfe) {
+				
+			};
 		}
-		//System.out.println(deleteList);
+
 		
-		//세션으로 로그인 정보 받아오기
+		//세션으로 로그인 유저 정보 받아오기
 		Member loginUser = (Member) request.getSession().getAttribute("loginUser");
-		int num = loginUser.getMno();
-		//System.out.println("회원번호:"+num);
+		int userNum = loginUser.getMno();
 		
-		
-		int result = new WishListService().deleteWishList(deleteList, num);
+		int result = new WishListService().deleteWishList(deleteList, userNum);
 		
 		String page = "";
 		if(result>0) {
-			response.sendRedirect("/redding/showList.wi");
+			response.sendRedirect("/redding/showList.wi?num="+userNum);
 		}else {
-			page="views/common/errorPage.jsp";
+			request.setAttribute("msg", "위시리스트 삭제 실패!");
+			request.getRequestDispatcher(page).forward(request, response);
 		}
-		
-		RequestDispatcher view = request.getRequestDispatcher(page);
-		view.forward(request, response); 
 		
 	}
 

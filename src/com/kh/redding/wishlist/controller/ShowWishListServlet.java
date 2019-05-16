@@ -43,6 +43,7 @@ public class ShowWishListServlet extends HttpServlet {
 			request.setAttribute("list", list);
 		}else {
 			page="views/common/errorPage.jsp";
+			request.setAttribute("msg", "위시리스트 조회 실패!");
 		}
 		
 		RequestDispatcher view = request.getRequestDispatcher(page);

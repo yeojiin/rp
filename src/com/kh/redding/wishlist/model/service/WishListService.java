@@ -26,10 +26,10 @@ public class WishListService {
 
 
 	//위시리스트 삭제용 메소드
-	public int deleteWishList(ArrayList<String> deleteList, int num) {
+	public int deleteWishList(int[] deleteList, int userNum) {
 		Connection con = getConnection();
 		
-		int result = new WishListDao().deleteWishList(con, deleteList, num);
+		int result = new WishListDao().deleteWishList(con, deleteList, userNum);
 		
 		if(result>0) {
 			commit(con);
@@ -41,5 +41,8 @@ public class WishListService {
 		
 		return result;
 	}
+
+
+	
 
 }
