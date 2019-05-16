@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "com.kh.redding.member.model.vo.*"%>
+<%
+	Member loginUser = (Member) session.getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,7 +56,10 @@
 	<div>
 		<jsp:include page="/views/admin/a_nav.jsp"></jsp:include>
 	</div>
-	
+	<% if( loginUser == null || loginUser.getMemberType() != 90) {
+		request.setAttribute("msg","잘못된 경로 접근하셨습니다");
+		request.getRequestDispatcher("/views/common/errorPage.jsp").forward(request, response);
+	 } else {%>
 	<div class="container-fluid text-center">
 		<div class="row content">
 		
@@ -82,7 +88,7 @@
 	<div class="footerArea">
 		<jsp:include page="/views/common/footer.jsp"></jsp:include>
 	</div>
-
+	<% }%> 
 	
 
 </body>

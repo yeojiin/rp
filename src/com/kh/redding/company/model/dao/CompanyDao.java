@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.redding.attachment.model.vo.Attachment;
@@ -215,25 +216,58 @@ public class CompanyDao {
 		return reg_num;
 	}
 
-	public Company selectCompanyInf(Connection con, int mno) {
+	public HashMap<String, Object> selectCompanyInf(Connection con, Member loginUser) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		Company loginCompany = null;
+		HashMap<String,Object> loginCompany =null;
+		Company company = null;
+		Member member = null;
+		Attachment attachment = null;
 		
 		String query = prop.getProperty("selectCompany");
 		
 		try {
 			pstmt = con.prepareStatement(query);
 			
-			pstmt.setInt(1, mno);
+			pstmt.setInt(1, loginUser.getMno());
 			
 			rset = pstmt.executeQuery();
 			
 			if (rset.next()) {
-				loginCompany = new Company();
+				member = new Member();
+				company = new Company();
+				attachment = new Attachment();
 				
-				loginCompany.setCNO(mno);
-				loginCompany.setCom_Rep_Num(rset.getInt(""));
+				member.setMno(rset.getInt("MNO"));
+				member.setMemberId(rset.getString("MID"));
+				member.setMemberPwd(rset.getString("MPWD"));
+				member.setMemberName(rset.getString("MNAME"));
+				member.setEmail(rset.getString("EMAIL"));
+				member.setEmailCheck(rset.getString("EMAIL_CHECK"));
+				member.setPhone(rset.getString("PHONE"));
+				
+				company.setCNO(rset.getInt("MNO"));
+				company.setCom_Rep_Num(rset.getInt("AID"));
+				company.setRepName(rset.getString("rep_name"));
+				company.setComAddress(rset.getString("com_address"));
+				company.setComUrl(rset.getString("com_url"));
+				company.setOpenTime(rset.getString("open_times"));
+				company.setEndTime(rset.getString("close_times"));
+				company.setAccountCode(rset.getInt("account_code"));
+				company.setAccountNum(rset.getString("account_num"));
+				company.setAccountName(rset.getString("account_name"));
+				company.setComType(rset.getString("com_type"));
+				company.setHoliday(rset.getString("hoilday"));
+				
+				attachment.setAid(rset.getInt("AID"));
+				attachment.setOriginname(rset.getString("orgin_name"));
+				attachment.setChangename(rset.getString("change_name"));
+				attachment.setFilepath(rset.getString("file_path"));
+				attachment.setAdivision(rset.getInt("adivsion"));
+				
+				
+				
+				
 			}
 					
 			

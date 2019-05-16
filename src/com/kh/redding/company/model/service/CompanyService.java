@@ -6,6 +6,7 @@ import static com.kh.redding.common.JDBCTemplate.getConnection;
 import static com.kh.redding.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.HashMap;
 
 import com.kh.redding.attachment.model.vo.Attachment;
 import com.kh.redding.company.model.dao.CompanyDao;
@@ -65,10 +66,11 @@ public class CompanyService {
 	}
 
 	//업체 정보 조회 
-	public Company selectCompanyInf(int mno) {
+	public HashMap<String, Object> selectCompanyInf(Member loginUser) {
+		//업체 정보를 담아놓는 객체
 		Connection con = getConnection();
 		
-		Company loginCompany = new CompanyDao().selectCompanyInf(con,mno);
+		HashMap<String,Object> loginCompany= new CompanyDao().selectCompanyInf(con,loginUser);
 		
 		close(con);
 		
