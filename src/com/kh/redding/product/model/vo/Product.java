@@ -12,6 +12,7 @@ public class Product implements java.io.Serializable{
 	private Date pModifyDate;
 	private String proStatus;
 	
+	
 	public Product() {}
 
 	public Product(int pNo, String pName, String pContent, int price, Date pEnrollDate, int cNo, Date pModifyDate,
