@@ -637,7 +637,7 @@ Redding
 			}
 			 
 			  function JoinEvent(){
-				//전송 클릭
+						//전송 클릭
 						var Sidcheck = $("#idcheck").text();
 						var Spwd1 = $("#Spwd1").text();
 						var Spwd2 = $("#Spwd2").text();
@@ -782,37 +782,8 @@ Redding
 		          			type : "post",
 		          			data : {email : email , code_check : $("#code_check").val()},
 		          			success : function(data){
-		          				<%-- // window.name = "부모창 이름"; 
-		          	            /*window.name = "c_join";  */ 
-		          	            // window.open("open할 window", "자식창 이름", "팝업창 옵션");
-		          	            openWin = window.open("<%=request.getContextPath()%>/common/checkcode.jsp",
-		          	                    "checkcode", "width=570, height=350, resizable = no, scrollbars = no");
-		          	            var jbResult = prompt('인증번호를 입력해주세요', '' );
-		          	            
-		          	            console.log(jbResult);
-		          	            
-		          	          var jbResult = prompt('인증번호를 입력해주세요', '인증코드입력' );
-		          	            //$("#myModal").modal();
-		          	            
-		          	            console.log(jbResult);
-		          	            if (jbResult == null){
-		          	            	jbResult = prompt('인증번호를 입력해주세요', '인증코드입력' );
-		          	            }else if (data == jbResult){
-		          	            	alert("인증성공");
-		          	            	$("#emailckbtn").text("인증됨");
-		         					$("#emailckbtn").css("background","white");
-		         					$("#emailckbtn").css("border","1px solid blue");
-		         					$("#emailckbtn").css("color","blue");
-		         					$("#email_check").val("인증됨");
-		          	            }else {
-		          	            	alert("인증실패")
-		          	            	$("#emailckbtn").text("인증안됨");
-		         					$("#emailckbtn").css("background","white");
-		         					$("#emailckbtn").css("border","1px solid red");
-		         					$("#emailckbtn").css("color","red");
-		         					$("#email_check").val("인증안됨");
-		          	            } --%>
-		          	            
+		          				
+		          	   
 		          	          	popupOpen();
 		          	                    
 		          			}, 

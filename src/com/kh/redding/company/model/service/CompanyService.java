@@ -76,5 +76,14 @@ public class CompanyService {
 		
 		return loginCompany;
 	}
+
+	public int UpdateMemberPasword(String password, String changepassword, String memberId) {
+		Connection con = getConnection();
+		
+		//int result = new CompanyDao().UpdateMemberPassword
+		
+		
+		return 0;
+	}
 	
 }

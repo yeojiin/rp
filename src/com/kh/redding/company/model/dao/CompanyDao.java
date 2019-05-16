@@ -234,6 +234,8 @@ public class CompanyDao {
 			rset = pstmt.executeQuery();
 			
 			if (rset.next()) {
+				loginCompany = new HashMap<String,Object>();
+				
 				member = new Member();
 				company = new Company();
 				attachment = new Attachment();
@@ -257,20 +259,18 @@ public class CompanyDao {
 				company.setAccountNum(rset.getString("account_num"));
 				company.setAccountName(rset.getString("account_name"));
 				company.setComType(rset.getString("com_type"));
-				company.setHoliday(rset.getString("hoilday"));
+				company.setHoliday(rset.getString("holiday"));
 				
 				attachment.setAid(rset.getInt("AID"));
-				attachment.setOriginname(rset.getString("orgin_name"));
-				attachment.setChangename(rset.getString("change_name"));
-				attachment.setFilepath(rset.getString("file_path"));
-				attachment.setAdivision(rset.getInt("adivsion"));
-				
-				
-				
-				
+				attachment.setOriginname(rset.getString("origin_name"));
+				attachment.setChangename(rset.getString("CHANGE_NAME"));
+				attachment.setFilepath(rset.getString("FILE_PATH"));
+				attachment.setAdivision(rset.getInt("ADIVISION"));		
 			}
-					
 			
+			loginCompany.put("member", member);
+			loginCompany.put("company", company);
+			loginCompany.put("attachment", attachment);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
