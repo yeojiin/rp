@@ -62,6 +62,7 @@
       <div class="row content">
       
          <div class="col-sm-2 sidenav1 visible-md visible-lg visible-sm">
+         	<div id="productUploadBtn">상품 등록하기</div>
          </div>
          
          
@@ -138,20 +139,7 @@
                            <input type="radio" name="productSearchAbountSale" id="productSearchNoSale" value="sale3">
                            <label for="productSearchNoSale">판매하지 않는 상품</label>
                         </td>
-                     </tr><!-- 
-                     <tr>
-                        <td>
-                           <label>판매 상태</label>
-                        </td>
-                        <td>
-                           <input type="radio" name="productSearchAboutOpen" id="productSearchAllAboutOpen" value="open1">
-                           <label for="productSearchAllAboutOpen">전체 상품</label>
-                           <input type="radio" name="productSearchAboutOpen" id="productSearchOpen" value="open2">
-                           <label for="productSearchOpen">공개 상품</label>
-                           <input type="radio" name="productSearchAboutOpen" id="productSearchClose" value="open3">
-                           <label for="productSearchClose">공개하지 않는 상품</label>
-                        </td>
-                     </tr> -->
+                     </tr>
                      <tr>
                         <td>
                            <label>상품 등록일</label>
@@ -181,10 +169,7 @@
                <div id="productSearchResultList">
                		
 					<!-- 이부분만 수정하는 건 ajax를 사용한다. -->
-				  <div id="PMBtns">
-	                  <span id="productUploadBtn">상품등록하기</span>				  
-					  <span id="productDeleteBtn">삭제하기</span>
-				  </div>
+				  
                   <table align="center" id="productSearchResulTB">
                      <tr>
                      	<th width="30"></th>
@@ -192,7 +177,7 @@
                         <th>상품명</th>
                         <th>상품등록일</th>
                         <th width="70">판매 여부</th>
-                        <th width="100">수정/삭제</th>
+                        <th width="100"></th>
                      </tr>
                      <%-- <% for(CompanyProduct cp : list){ %> --%>
                         <tr>
@@ -202,9 +187,16 @@
                            <td></td>
                            <td></td>
                            <td></td>
-                           <td><div id="productUpdateOrDeleteBtn">수정/삭제하기</div></td>
+                           <td><div id="productUpdateOrDeleteBtn">상세보기</div></td>
                         </tr>
                      <%-- <% } %> --%>
+                     <tr>
+                     	<td colspan="6">
+                     		<div id="PMBtns">
+                     			<span id="productDeleteBtn">삭제하기</span>
+                     		</div>
+                     	</td>
+                     </tr>
                   </table>
                </div>
                </div>

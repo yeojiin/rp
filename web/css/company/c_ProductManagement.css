@@ -14,19 +14,30 @@
 #productCountAllTb{
 	width: 80%;
 }
-#PMBtns{
-	margin-left: 80%;
-}
-#searchBtn{
+#searchBtn, #PMBtns{
 	margin-left: 90%;
 }
 #productDeleteBtn{
 	margin-left: 3px;
 }
-#productUploadBtn, #productDeleteBtn{
+#productDeleteBtn{
 	float: left;
 }
-#productUploadBtn, #productUpdateOrDeleteBtn, #productDeleteBtn, #searchBtn{
+
+#productUploadBtn{
+	width: 180px;
+    height: 35px;
+    font-size: 22px;
+    background: salmon;
+    color: white;
+    border: 2px double salmon;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: auto;
+    margin-left: auto;
+}
+#productUpdateOrDeleteBtn, #productDeleteBtn, #searchBtn{
     width: 100px;
     height: 26px;
     background: salmon;
