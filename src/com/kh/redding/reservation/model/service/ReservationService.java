@@ -36,4 +36,24 @@ public class ReservationService {
 		return result;
 	}
 
+	public ArrayList<Reservation> memberSelectReservation(int pno) {
+		Connection con = getConnection();
+		
+		ArrayList<Reservation> reslist = new ReservationDao().memberSelectReservation(con,pno);
+		
+		close(con);
+			
+		return reslist;
+	}
+
+	public ArrayList<Reservation> memberSelectReservation(int pno, String date) {
+		Connection con = getConnection();
+		
+		ArrayList<Reservation> reslist = new ReservationDao().memberSelectReservation(con,pno,date);
+		
+		close(con);
+		
+		return reslist;
+	}
+
 }

@@ -50,7 +50,7 @@ public class ReservationDao {
 				res.setStatus(rset.getString("RSTATUS"));
 				res.setStartDate(rset.getString("USE_START_TIME"));
 				res.setEndDate(rset.getString("USE_END_TIME"));
-				res.setProductName(rset.getString("UPNAME"));
+				res.setProductName(rset.getString("PNAME"));
 				res.setCompletedDate(rset.getDate("RCOMPLETED_DATE"));
 				res.setResNo(rset.getInt("RESNO"));
 				list.add(res);				
@@ -88,6 +88,76 @@ public class ReservationDao {
 		}
 		
 		return result;
+	}
+
+	public ArrayList<Reservation> memberSelectReservation(Connection con, int pno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("memberSelectReservation");
+		ArrayList<Reservation> reslist = null;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pno);
+			
+			rset = pstmt.executeQuery();
+			reslist = new ArrayList<Reservation>();
+			while(rset.next()) {
+				Reservation reservation = new Reservation();
+				
+				reservation.setUseDate(rset.getString(1));
+				
+				reslist.add(reservation);
+			}
+				
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		
+		return reslist;
+	}
+
+	public ArrayList<Reservation> memberSelectReservation(Connection con, int pno, String date) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Reservation> reslist = null;
+		String query = prop.getProperty("memberUseSelectReservation");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pno);
+			pstmt.setString(2, date);
+			
+			rset = pstmt.executeQuery();
+			
+			
+			reslist = new ArrayList<Reservation>();
+			while(rset.next()) {
+				Reservation reservation = new Reservation();
+				
+				reservation.setStartDate(rset.getString("USE_START_DATE"));
+				reservation.setEndDate(rset.getString("USE_END_DATE"));
+				reservation.setuNum(rset.getInt("UNUM"));
+				reservation.setuPno(rset.getInt("UPNO"));
+				reslist.add(reservation);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);  
+			close(pstmt);
+		}
+		
+
+		return reslist;
 	}
 
 }
