@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>	
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +29,8 @@
 <body>
 	<!-- 멤버 헤더 (미니메뉴, 로고) -->
 	<div class="headerArea">
-		<jsp:include page="/views/member/m_header.jsp"></jsp:include>
+		<%@ include file="/views/member/m_header.jsp"%>
+		<%-- <jsp:include page="/views/member/m_header.jsp"></jsp:include> --%>
 	</div>
 	<br>
 
@@ -177,16 +179,14 @@
 	   
 	   function requestPay(){
 	      IMP.request_pay({
-	          pg : 'inicis', // version 1.1.0부터 지원.
-	          pay_method : 'card',
+	          pg : 'danal', // version 1.1.0부터 지원.
+	          pay_method :'card',
 	          merchant_uid : 'merchant_' + new Date().getTime(),
-	          name : '주문명:결제테스트',
+	          name : '스드메는 지옥이야',
 	          amount : 1000,
-	          buyer_email : 'iamport@siot.do',
-	          buyer_name : '구매자이름',
-	          buyer_tel : '010-1234-5678',
-	          buyer_addr : '서울특별시 강남구 삼성동',
-	          buyer_postcode : '123-456',
+	          buyer_email : '<%= loginUser.getEmail() %>',
+	          buyer_name : '<%= loginUser.getMemberName() %>',
+	          buyer_tel : '<%= loginUser.getPhone() %>',
 	          m_redirect_url : 'https://www.yourdomain.com/payments/complete'
 	      }, function(rsp) {
 	          if ( rsp.success ) {

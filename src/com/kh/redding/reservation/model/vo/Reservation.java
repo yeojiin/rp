@@ -4,20 +4,25 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class Reservation implements Serializable{
-	private String userName;
-	private String userPhone;
-	private String rapplyDate;
-	private String status;
-	private String startDate;
-	private String endDate;
-	private String productName;
-	private Date completedDate;
-	private int resNo;
+	private String userName;       //사용자 이름
+	private String userPhone;      //사용자 전화번호
+	private String rapplyDate;     //예약일
+	private String status;         //예약 상태
+	private String startDate;      //제품 이용 시간
+	private String endDate;        //제품 이용 마감시간
+	private String productName;    //상품명
+	private Date completedDate;    //완료 날짜
+	private int resNo;             //예약 번호
+	private int uNum;              //수량
+	private String useDate;        //사용가능 날짜
+	private int uPno;              //제품 번호
+	
 	public Reservation() {}
 
+	
 
 	public Reservation(String userName, String userPhone, String rapplyDate, String status, String startDate,
-			String endDate, String productName, Date completedDate, int resNo) {
+			String endDate, String productName, Date completedDate, int resNo, int uNum, String useDate, int uPno) {
 		super();
 		this.userName = userName;
 		this.userPhone = userPhone;
@@ -28,7 +33,48 @@ public class Reservation implements Serializable{
 		this.productName = productName;
 		this.completedDate = completedDate;
 		this.resNo = resNo;
+		this.uNum = uNum;
+		this.useDate = useDate;
+		this.uPno = uPno;
 	}
+
+	
+
+
+	public int getuNum() {
+		return uNum;
+	}
+
+
+
+	public void setuNum(int uNum) {
+		this.uNum = uNum;
+	}
+
+
+
+	public String getUseDate() {
+		return useDate;
+	}
+
+
+
+	public void setUseDate(String useDate) {
+		this.useDate = useDate;
+	}
+
+
+
+	public int getuPno() {
+		return uPno;
+	}
+
+
+
+	public void setuPno(int uPno) {
+		this.uPno = uPno;
+	}
+
 
 
 	public int getResNo() {
@@ -109,13 +155,12 @@ public class Reservation implements Serializable{
 		this.productName = productName;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Reservation [userName=" + userName + ", userPhone=" + userPhone + ", rapplyDate=" + rapplyDate
 				+ ", status=" + status + ", startDate=" + startDate + ", endDate=" + endDate + ", productName="
-				+ productName + ", completedDate=" + completedDate + ", resNo=" + resNo + "]";
+				+ productName + ", completedDate=" + completedDate + ", resNo=" + resNo + ", uNum=" + uNum
+				+ ", useDate=" + useDate + ", uPno=" + uPno + "]";
 	}
-
 	
 }
