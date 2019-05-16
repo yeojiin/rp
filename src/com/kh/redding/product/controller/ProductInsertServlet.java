@@ -263,14 +263,26 @@ public class ProductInsertServlet extends HttpServlet {
         	 System.out.println("start : " + i);
         	 System.out.println("end : " + (i+1));
          }
+         int k = 0;
          for(int i=0 ; i<useDate.size() ; i++) {
         	 for(int j=openTime ; j<closeTime ; j++) {
         		 UseProduct upro = new UseProduct();
         		 upro.setUseDate(Date.valueOf(useDate.get(i)));;
         		 upro.setuNum(uNum);
         		 System.out.println("j : " + j);
-        		 start = j +":00";
-        		 end = (j+1) + ":00";
+        		 k = j+1;
+        		 if(j<10) {
+        			 start = "0" + j + ":00";
+        			 if(k<10) {
+        				 end = "0"+ k + ":00";
+        			 }
+            		 end = k + ":00";
+        		 }else {
+        			 
+        			 start = j +":00";
+        			 end = k + ":00";
+        			 
+        		 }
         		 System.out.println("start for : " + start);
         		 System.out.println("end for : " + end);
         		 upro.setUseStartTime(start);
@@ -297,7 +309,7 @@ public class ProductInsertServlet extends HttpServlet {
          
          if(result > 0) {
             //상품, 제품등록 성공시 
-            page = request.getContextPath() + "/views/company/c_ProductManagement.jsp";
+            page = request.getContextPath() + "/selectProList.pr?mno="+cNo;
             response.sendRedirect(page);
          }else {
             //에러

@@ -25,7 +25,7 @@
 }
 
 #productUploadBtn{
-	width: 180px;
+    width: 140px;
     height: 35px;
     font-size: 22px;
     background: salmon;
@@ -37,7 +37,7 @@
     margin-right: auto;
     margin-left: auto;
 }
-#productUpdateOrDeleteBtn, #productDeleteBtn, #searchBtn{
+#productDetailBtn, #productDeleteBtn, #searchBtn{
     width: 100px;
     height: 26px;
     background: salmon;

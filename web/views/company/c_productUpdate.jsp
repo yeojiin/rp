@@ -25,7 +25,7 @@
 <link rel="stylesheet" type="text/css"
    href="${pageContext.request.contextPath}/css/company/c_main.css">
 <link rel="stylesheet" type="text/css"
-   href="${pageContext.request.contextPath}/css/company/c_productUpdate.css"> 
+   href="${pageContext.request.contextPath}/css/company/c_productInsert.css"> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <style>
    .row.content {
@@ -67,18 +67,18 @@
          <%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
          
             <div class="contentsArea" id="productInsertArea">
-               <form action="" method="post">
-               
-                  <div id="PUHeader">
+               <form action="<%=request.getContextPath() %>/updateProduct.pr" method="post" id = "insertPro">
+                     
+                  <div id="PIHeader">
                      <h3>상품수정 페이지</h3>
                   </div>
-                  <div id="PUSection">
-                       <table id="PUTable">
+                  <div id="PISection">
+                       <table id="PITable">
                           <tr>
-                             <th width="10%">&nbsp;</th>
+                             <th width="15%">&nbsp;</th>
                              <th width="15%" >&nbsp;</th>
                              <th width="5%">&nbsp;</th>
-                             <th width="10%">&nbsp;</th>
+                             <th width="15%">&nbsp;</th>
                              <th width="15%">&nbsp;</th>
                              <th width="10%">&nbsp;</th>
                              <th width="20%">&nbsp;</th>
@@ -86,18 +86,13 @@
                           <tr>
                              <td>
                                 <label>판매 여부</label>
+                                <input type="hidden" value="<%=loginUser.getMno()%>" id="cNo" name="cNo">
                              </td>                    
-                             <td colspan="3">
-                                <input type="radio" name="proStatus" id="proStatusYes">
-                                <label for="proStatusYes">판매함</label>
-                                <input type="radio" name="proStatus" id="proStatusNo">
-                                <label for="proStatusNo">판매안함</label>
-                             </td>
                              <td>
-                                <label>상품등록일</label>
-                             </td>
-                             <td colspan="2">
-                                <input type="text" name="penrollDate" id="penrollDate" value=""readonly>
+                                <input type="radio" name="proStatus" id="proStatusYes" value="판매">
+                                <label for="proStatusYes">판매함</label>
+                                <input type="radio" name="proStatus" id="proStatusNo" value="판매안함">
+                                <label for="proStatusNo">판매안함</label>
                              </td>         
                           </tr>
                           <tr>
@@ -105,10 +100,10 @@
                                 <label>구분</label>
                              </td>
                              <td>
-                                <select id="PUCategorySelect" name="pucSelect">
-                                   <option value="rehearsal">리허설</option>
-                                   <option value="total">리허설 + 본식</option>
-                                   <option value="wedding">본식</option>
+                                <select id="PICategorySelect" name="picSelect">
+                                   <option value="리허설">리허설</option>
+                                   <option value="리허설+본식">리허설 + 본식</option>
+                                   <option value="본식">본식</option>
                                 </select>
                              </td>
                              <td id="space">
@@ -117,21 +112,27 @@
                              <td id="space">
                                 <label>담당자</label>
                              </td>
-                             <td>
-                                <select id="PUManagerSelect" name="pmiSelect">
-                                   <option value="1">원장</option>
-                                   <option value="2">부원장</option>
-                                   <option value="3">팀장</option>
-                                   <option value="4">스탭</option>
-                                   <option value="5">기타</option>
+                             <td id="manager">
+                                <select id="PIManagerSelect" name="pmiSelect">
+                                   <option value="" selected>--선택--</option>
+                                   <option value="원장">원장</option>
+                                   <option value="부원장">부원장</option>
+                                   <option value="팀장">팀장</option>
+                                   <option value="스탭">스탭</option>
+                                   <option value="기타">기타</option>
                                 </select>
                              </td>
                              <td id="space">
                                 <label>수량</label>
                              </td>
-                             <td>
-                                <select id="productAmount">
-                                   
+                             <td id="amount">
+                                <select id="productAmount" name="productAmount">
+                                   <option value="" selected>--선택--</option>
+                                   <option value="1">1</option>
+                                   <option value="2">2</option>
+                                   <option value="3">3</option>
+                                   <option value="4">4</option>
+                                   <option value="기타">기타</option>
                                 </select>
                              </td>
                           </tr>
@@ -140,7 +141,7 @@
                               <label>가격</label>
                              </td>
                              <td colspan="6">
-                                <input type="text" name="puPrice" id="puPrice">
+                                <input type="number" name="piPrice" id="piPrice">
                              </td>
                           </tr>
                           <!-- <tr>
@@ -148,7 +149,7 @@
                                 <label>휴무일</label>
                              </td>
                              <td colspan="6">
-                                <div id="PURestDayCheck">
+                                <div id="PIRestDayCheck">
                                    <input class="restDayCheck" type="checkbox" name="restDay" id="monday" value="">
                                    <label for="monday">월</label>
                                    <input type="checkbox" name="restDay" id="thuesday" value="">
@@ -166,14 +167,23 @@
                                 </div>
                              </td>
                           </tr> -->
-                          <!-- <tr>
+                          <tr>
                              <td>
-                                <label>예약 가능 날짜</label>
+                                <label>판매 시작 날짜</label>
                              </td>
-                             <td colspan="7">
-                                <div id="PUCalendar">캘린더 영역</div>
+                             <td>
+                                <input type="date" name="proStartDay" id="proStartDay">
                              </td>
-                          </tr> -->
+                             <td id="space">
+                             	<label>-</label>
+                             </td>
+                             <td>
+                             	<label>판매 종료 날짜</label>
+                             </td>
+                             <td>
+                             	<input type="date" name="proEndDay" id="proEndDay">
+                             </td>
+                          </tr>
                           <!-- <tr>
                              <td>
                                 <label>예약 시작 시간</label>
@@ -197,17 +207,17 @@
                                 <label>상품 설명</label>
                              </td>
                              <td colspan="6">
-                                <textarea cols="120" rows="23" name="info" id="info">상품설명</textarea>
+                                <textarea cols="70" rows="23" name="info" id="info">상품설명</textarea>
                              </td>
                           </tr>
+                          
                        </table>
                   
                   </div>
-                     <div id="PUfooter">
-                        <div id="PUBtns">
-                           <span id="PUInsertBtn">수정하기</span>
-                           <span id="PUDeleteBtn">삭제하기</span>
-                           <span id="PUResetBtn">취소하기</span>
+                     <div id="PIfooter">
+                        <div id="PIBtns">
+                           <div id="PIInsertBtn">등록하기</div>
+                           <div id="PIResetBtn">취소하기</div>
                         </div>
                      </div>
                </form>
@@ -227,17 +237,56 @@
    </div>
    <script>
       $(function(){
-         $("#PUInsertBtn").click(function(){
-            alert("상품을 수정하셨습니다.");
-            location.href="<%=request.getContextPath()%>/views/company/c_ProductManagement.jsp";
+         /* select 태그에서 기타를 선택시 input태그 생성 */
+         $("#PIManagerSelect").change(function() {
+            var $td = $("#manager");
+            var $input = $("<input type='text' name='etc' id='etc'>");
+            
+            $("#PIManagerSelect option:selected").each(function() {
+               var selectedManager = $("#PIManagerSelect option:selected").val();
+               console.log(selectedManager);
+               if(selectedManager=="기타"){
+                  $td.append($input);
+               }
+            });
+         });
+         $("#productAmount").change(function(){
+            var $td = $("#amount");
+            var $input = $("<input type='number' name='proAmount' id='proAmount'>");
+            $("#productAmount").each(function(){
+               var result = $("#productAmount").val();
+               if(result=="기타"){
+                  $td.append($input);
+               }
+                  console.log(typeof(result));
+            });
+            
+         });
+         
+         
+        
+         $("#PIInsertBtn").click(function(){
+            var a = $("#PICategorySelect").val();
+            var b = $("#PIManagerSelect").val();
+            console.log(a);
+            console.log(b);
+            
+            $("#insertPro").submit();
+            alert("상품을 등록하셨습니다.");
+            
+           
             /* 서블릿을 통해 전체상품의 수량을 증가 시켜준다. */
+            /* 
+            var startTime = document.getElementById("startTime").value;
+               console.log(startTime);
+               console.log("startTime : " + typeof(startTime));
+            var endTime = document.getElementById("endTime").value;
+               console.log(startTime);
+               console.log("startTime : " + typeof(startTime)); */
+              /* submit, reset */
          });
-         $("#PUResetBtn").click(function(){
-            alert("상품수정을 취소하셨습니다.");
-            location.href="<%=request.getContextPath()%>/views/company/c_ProductManagement.jsp";
-         });
-         $("#PUDeleteBtn").click(function(){
-            alert("상품을 삭제하셨습니다.");
+         $("#PIResetBtn").click(function(){
+            alert("상품등록을 취소하셨습니다.");
             location.href="<%=request.getContextPath()%>/views/company/c_ProductManagement.jsp";
          });
       });

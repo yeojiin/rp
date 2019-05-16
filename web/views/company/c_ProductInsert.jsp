@@ -75,10 +75,10 @@
                   <div id="PISection">
                        <table id="PITable">
                           <tr>
-                             <th width="10%">&nbsp;</th>
+                             <th width="15%">&nbsp;</th>
                              <th width="15%" >&nbsp;</th>
                              <th width="5%">&nbsp;</th>
-                             <th width="10%">&nbsp;</th>
+                             <th width="15%">&nbsp;</th>
                              <th width="15%">&nbsp;</th>
                              <th width="10%">&nbsp;</th>
                              <th width="20%">&nbsp;</th>
@@ -207,7 +207,7 @@
                                 <label>상품 설명</label>
                              </td>
                              <td colspan="6">
-                                <textarea cols="130" rows="23" name="info" id="info">상품설명</textarea>
+                                <textarea cols="70" rows="23" name="info" id="info">상품설명</textarea>
                              </td>
                           </tr>
                           

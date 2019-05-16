@@ -1,14 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-   <%   
+    pageEncoding="UTF-8" import="java.util.*, com.kh.redding.product.model.vo.*"%>
+<%   
+	ArrayList<Product> proList = (ArrayList<Product>) request.getAttribute("proList"); 
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();		
          //vo.상품에서 가져올 값  : 즉, 테이블에도 존재해야 함 아니면 count(*) 함수 사용하든가
 
-       int productTotalCount = 400 ;
+         int productTotalCount = 400 ;
          int SaleProductCount = 300;
          int NoSaleProductCount = 100;
          int OpenProductCount = 50;
          int CloseProductCount = 1;
-   %>
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,7 +69,7 @@
       <div class="row content">
       
          <div class="col-sm-2 sidenav1 visible-md visible-lg visible-sm">
-         	<div id="productUploadBtn">상품 등록하기</div>
+         	<div id="productUploadBtn">상품 등록</div>
          </div>
          
          
@@ -166,38 +173,77 @@
                <br><br>
                <!-- 조회결과물 보여주는 목록 -->
                <!-- 페이징 처리 해야 함 -->
+               
                <div id="productSearchResultList">
                		
 					<!-- 이부분만 수정하는 건 ajax를 사용한다. -->
 				  
                   <table align="center" id="productSearchResulTB">
                      <tr>
-                     	<th width="30"></th>
-                        <th width="50">No.</th>
-                        <th>상품명</th>
-                        <th>상품등록일</th>
-                        <th width="70">판매 여부</th>
-                        <th width="100"></th>
+                     	<th width="3%"></th>
+                        <th width="5%">No.</th>
+                        <th width="15%">상품명</th>
+                        <th width="10%">가격</th>
+                        <th width="15%">상품등록일</th>
+                        <th width="15%">상품수정일</th>
+                        <th width="10%">판매 여부</th>
+                        <th width="10%"></th>
                      </tr>
-                     <%-- <% for(CompanyProduct cp : list){ %> --%>
+                     <% for(Product pro : proList){ %>
                         <tr>
                         <!-- ajax로 행 처리하기 처리할때 아래와 같이 체크박스와 버튼 도 같이 나와야 한다. -->
-                        	<td><input type="checkbox" name="" id=""></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td><div id="productUpdateOrDeleteBtn">상세보기</div></td>
+                           <td><input type="checkbox" name="" id=""></td>
+                           <td><%=pro.getpNo() %></td>
+                           <td><%=pro.getpName() %></td>
+                           <td><%=pro.getPrice() %></td>
+                           <td><%=pro.getpEnrollDate() %></td>
+                           <%if(pro.getpModifyDate() == null){ %>
+                           		<td>-</td>
+                           <%}else{ %>
+	                           <td><%=pro.getpModifyDate() %></td>
+                           		
+                           <%} %>
+                           <td><%=pro.getProStatus() %></td>
+                           <td><div id="productDetailBtn" class="productDetail">상세보기</div></td>
                         </tr>
-                     <%-- <% } %> --%>
+                     <% } %>
                      <tr>
-                     	<td colspan="6">
+                     	<td colspan="8">
                      		<div id="PMBtns">
                      			<span id="productDeleteBtn">삭제하기</span>
                      		</div>
                      	</td>
                      </tr>
                   </table>
+                  <div class="paginArea" align = "center">
+					<button onclick="location.href='<%=request.getContextPath()%>/selectProList.pr?currentPage=1'>>"> << </button>
+					<%if(currentPage<=1){ %>			
+						<button disabled> < </button>
+					<%} else{%>
+						<button onclick="location.href='<%=request.getContextPath() %>/selectProList.pr?currentPage=<%=currentPage - 1 %>'"> < </button>
+					<%} %>
+					
+					
+					<%for(int p=startPage ; p<=endPage ; p++){ 
+						if(p == currentPage){%>
+							<button disabled> <%=p %> </button>
+						<%}else{ %>
+							<button onclick="location.href='<%=request.getContextPath()%>/selectProList.pr?currentPage=<%=p%>'"> <%=p %> </button>
+						<%} %>
+					
+					<%} %>
+					
+					
+					<%if(currentPage >= maxPage){ %>
+						<button disabled> > </button>
+					<%}else{ %>
+						<button onclick="location.href='<%=request.getContextPath()%>/selectProList.pr?currentPage=<%=currentPage + 1%>'"> > </button>
+					<%} %>			
+					
+					<button onclick="location.href='<%=request.getContextPath()%>/selectProList.pr?currentPage=<%=maxPage%>'"> >> </button>
+			
+			
+				</div>
                </div>
                </div>
             </div>
@@ -220,7 +266,7 @@
             //c_ProductUpload.jsp로 페이지 이동해주기
             location.href="<%=request.getContextPath()%>/views/company/c_ProductInsert.jsp";
          });   
-         $("#productUpdateOrDeleteBtn").click(function(){
+         $(".productDetail").click(function(){
             //결과 조회 목록에서 버튼 클릭시 페이지 이동
             //상세보기 페이지 갓다가 -> 수정페이지 혹은 삭제페이지로 이동하자
             location.href="<%=request.getContextPath()%>/views/company/c_productUpdate.jsp";
