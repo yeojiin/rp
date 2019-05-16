@@ -40,10 +40,6 @@
 			</div>
 		</div>
 	</nav>
-<%-- 	<% }else {
-		request.setAttribute("msg","잘못된 경로 접근하셨습니다");
-		request.getRequestDispatcher("../common/errorPage.jsp").forward(request, response);
-	}%> --%>
 </body>
 <script>
 	function goTotalMember() {

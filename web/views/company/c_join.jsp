@@ -181,7 +181,7 @@
 								<td class="col2"><input type="text" name="email1">&nbsp;&nbsp;@&nbsp;&nbsp;
 									<input type="text" name="email2" id="email2">&nbsp;&nbsp;
 									<select name="email3" id="email3">
-										<option>- 이메일 선택 -</option>
+										<option>직접입력</option>
 										<option>naver.com</option>
 										<option>daum.net</option>
 										<option>nate.com</option>
@@ -190,7 +190,6 @@
 										<option>empas.com</option>
 										<option>korea.com</option>
 										<option>gmail.com</option>
-										<option>직접입력</option>
 								</select>&nbsp;&nbsp;&nbsp;&nbsp;
 									<button type="button" class="check" id="emailckbtn">인증하기</button>
 									<span id="Semailck"></span> <input type="hidden"

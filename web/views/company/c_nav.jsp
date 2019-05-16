@@ -2,7 +2,9 @@
     pageEncoding="UTF-8" import="com.kh.redding.member.model.vo.Member"%>
 <%
    Member loginUser = (Member) session.getAttribute("loginUser");
+   
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,10 +28,7 @@
 </style>
 </head>
 <body>
-	<% if( loginUser == null || loginUser.getMemberType() != 20) {
-		request.setAttribute("msg","잘못된 경로 접근하셨습니다");
-		request.getRequestDispatcher("../common/errorPage.jsp").forward(request, response);
-	 }else {%>
+	
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -57,6 +56,6 @@
 			</div>
 		</div>
 	</nav>
-	<%} %>
+	
 </body>
 </html>

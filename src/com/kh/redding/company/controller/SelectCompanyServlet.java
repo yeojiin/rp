@@ -1,6 +1,7 @@
 package com.kh.redding.company.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.kh.redding.company.model.service.CompanyService;
-import com.kh.redding.company.model.vo.Company;
 import com.kh.redding.member.model.vo.Member;
 
 
@@ -31,7 +31,7 @@ public class SelectCompanyServlet extends HttpServlet {
 		int mno = loginUser.getMno();
 		
 		//로그인한 업체 정보 가져오기 
-		Company loginCompany = new CompanyService().selectCompanyInf(mno);
+		HashMap<String,Object> loginCompany = new CompanyService().selectCompanyInf(loginUser);
 		
 		
 		

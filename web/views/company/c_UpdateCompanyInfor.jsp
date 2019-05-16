@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%! public int getRandom(){
+	int random = 0;
+	random = (int)Math.floor((Math.random()*(99999-10000+1)))+10000;
+	return random;
+
+}	%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -132,10 +138,14 @@
 								</td>
 							</tr>
 							<tr>
-								<th>사업자 등록번호</th>
-								<td><input type="text" id="reg_num" name="reg_num"
-									maxlength="10">
-									<button>확인</button></td>
+								<td>사업자 등록번호</td>
+								<td>
+									<div class="fileBox">
+										<input type="text" class="fileName" id = "reg_num" name = "reg_num" readonly="readonly">
+										<label for="uploadBtn" class="btn_file">찾아보기</label> <input
+											type="file" name = "uploadFile" id="uploadBtn" class="uploadBtn">
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<th>아이디</th>
@@ -162,7 +172,7 @@
 								<td></td>
 							</tr>
 							<tr>
-								<th>휴대전화</th>
+								<th>전화번호</th>
 								<td><input type="text" maxlength="3" name="phone1"
 									id="phone1" size="5"> - <input type="text"
 									maxlength="4" name="phone2" id="phone2" size="5"> - <input
@@ -222,10 +232,24 @@
 									id="account_name" placeholder="예금주"></td>
 							</tr>
 							<tr>
-								<th>이메일</th>
-								<td><input type="email" name="email" id="email">
-									<button>인증하기</button> <input id="email_check"
-									name="email_check" type="hidden" value="인증안됨"></td>
+								<td class="col1">이메일&nbsp;&nbsp;<span id="star">*</span></td>
+								<td class="col2"><input type="text" name="email1">&nbsp;&nbsp;@&nbsp;&nbsp;
+									<input type="text" name="email2" id="email2">&nbsp;&nbsp;
+									<select name="email3" id="email3">
+										<option>직접입력</option>
+										<option>naver.com</option>
+										<option>daum.net</option>
+										<option>nate.com</option>
+										<option>hotmail.com</option>
+										<option>yahoo.com</option>
+										<option>empas.com</option>
+										<option>korea.com</option>
+										<option>gmail.com</option>
+								</select>&nbsp;&nbsp;&nbsp;&nbsp;
+									<button type="button" class="check" id="emailckbtn">인증하기</button>
+									<span id="Semailck"></span> <input type="hidden"
+									id="email_check" name="email_check" value="인증안됨">
+									<input type = "hidden" readonly = "readonly" name = "code_check" id = "code_check" value = "<%=getRandom()%>"></td>
 							</tr>
 							<tr>
 								<th>홈페이지</th>
@@ -236,6 +260,25 @@
 								<th>영업시간</th>
 								<td><input type="time" name="strartime" id="strartime">
 									~ <input type="time" name="endtime" id="endtime"></td>
+							</tr>
+							<tr>
+								<td>휴무일</td>
+								<td>
+									<input type = "checkbox" value = "월" id = "Monday" name = "weekend">
+									<label for = "Monday">월</label>
+									<input type = "checkbox" value = "화" id = "Tuesday" name = "weekend">
+									<label for = "Tuesday">화</label>
+									<input type = "checkbox" value = "수" id = "Wednesday" name = "weekend">
+									<label for = "Wednesday">수</label>
+									<input type = "checkbox" value = "목" id = "Thusday" name = "weekend">
+									<label for = "Thusday">목</label>
+									<input type = "checkbox" value = "금" id = "Friday" name = "weekend">
+									<label for = "Friday">금</label>
+									<input type = "checkbox" value = "토" id = "Saturday" name = "weekend">
+									<label for = "Saturday">토</label>
+									<input type = "checkbox" value = "일" id = "Sunday" name = "weekend">
+									<label for = "Sunday">일</label>
+								</td>
 							</tr>
 							<tr>
 								<td>
