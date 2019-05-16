@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.redding.member.model.vo.Member, java.util.*"%>
+	pageEncoding="UTF-8" import="com.kh.redding.member.model.vo.*, com.kh.redding.admin.model.vo.*, java.util.*"%>
 <%
 	ArrayList<Member> list = (ArrayList<Member>) request.getAttribute("list");
+	TotalMemberPageInfo pi = (TotalMemberPageInfo) request.getAttribute("pi");
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
 %>
 <!DOCTYPE html>
 <html>
@@ -80,11 +85,11 @@
 						<table id="memberNumt">
 							<tr>
 								<td>전체회원</td>
-								<td>명</td>
+								<td><%=request.getAttribute("allMemberlistCount")%>명</td>
 								<td>신규회원</td>
-								<td>명</td>
+								<td><%=request.getAttribute("newMemberlistCount")%>명</td>
 								<td>탈퇴회원</td>
-								<td>명</td>
+								<td><%=request.getAttribute("withdrawalMemberlistCount")%>명</td>
 							</tr>
 						</table>
 					</div>
@@ -119,6 +124,31 @@
 							</tr>
 							<% } %>
 						</table>
+						<br>
+						<!-- 페이지 버튼 처리 -->
+						<div class="pagingArea" align="center">
+						<button onclick="location.href='<%= request.getContextPath() %>/selectList.me?currentPage=1'"><<</button>
+						<% if(currentPage <= 1) { %>
+						<button disabled><</button>
+						<% } else { %>
+						<button onclick="location.href='<%= request.getContextPath() %>/selectList.me?currentPage=<%= currentPage - 1 %>'"><</button>
+						<% } %>
+						
+						<% for(int p = startPage; p <= endPage; p++) { 
+								if(p == currentPage) { %>
+									<button disabled><%= p %></button>
+						<% 		}else {%>
+									<button onclick="location.href='<%= request.getContextPath() %>/selectList.me?currentPage=<%= p %>'"><%= p %></button>
+						<%		} %>
+							
+						<% } %>
+						
+						<% if(currentPage >= maxPage) { %>
+						<button disabled>></button>
+						<% } else { %>
+						<button onclick="location.href='<%= request.getContextPath() %>/selectList.me?currentPage=<%= currentPage + 1 %>'">></button>
+						<% } %>
+						<button onclick="location.href='<%= request.getContextPath() %>/selectList.me?currentPage=<%= maxPage %>'">>></button>
 						<br>
 						<div class="btns">
 							<button class="ui pink button" style="background:salmon;">블랙리스트 추가</button>

@@ -1,6 +1,7 @@
 package com.kh.redding.admin.controller;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -10,12 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.redding.admin.model.sevice.AdminService;
+import com.kh.redding.admin.model.vo.TotalMemberPageInfo;
 import com.kh.redding.member.model.service.MemberService;
 import com.kh.redding.member.model.vo.Member;
 
-/**
- * Servlet implementation class SelectMemberListServlet
- */
 @WebServlet("/selectList.me")
 public class SelectMemberListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -33,19 +32,45 @@ public class SelectMemberListServlet extends HttpServlet {
 		int startPage;
 		int endPage;
 		
-		// 페이지 수 처리용 변수
 		currentPage = 1;
 		
-		if(request.getParameter("currentPae") != null) {
-			
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		ArrayList<Member> list = new AdminService().selectList();
+		limit = 10;
+		
+		int allMemberlistCount = new AdminService().getAllListCount();
+		int newMemberlistCount = new AdminService().getNewListCount();
+		int withdrawalMemberlistCount = new AdminService().getWithdrawalListCount();
+		
+		System.out.println("allMemberlistCount : " + allMemberlistCount);
+		System.out.println("newMemberlistCount : " + newMemberlistCount);
+		System.out.println("withdrawalMemberlistCount : " + withdrawalMemberlistCount);
+		
+		maxPage = (int)((double) allMemberlistCount / limit + 0.9);
+		
+		startPage = (((int)((double) currentPage / limit + 0.9)) - 1) * 10 + 1;
+		
+		endPage = startPage + 10 - 1;
+		
+		if(maxPage < endPage) {
+			endPage = maxPage;
+		}
+		
+		TotalMemberPageInfo pi = new TotalMemberPageInfo(currentPage, limit, maxPage, startPage, endPage);
+		
+		ArrayList<Member> list = new AdminService().selectList(pi);
 				
 		String page = "";
 		if(list != null) {
 			page = "views/admin/a_TotalMember.jsp";
 			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
+			request.setAttribute("allMemberlistCount", allMemberlistCount);
+			request.setAttribute("newMemberlistCount", newMemberlistCount);
+			request.setAttribute("withdrawalMemberlistCount", withdrawalMemberlistCount);
+			
 		} else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "전체 회원 조회 실패!");
