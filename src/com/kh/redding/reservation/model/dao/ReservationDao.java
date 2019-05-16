@@ -1,16 +1,17 @@
 package com.kh.redding.reservation.model.dao;
 
+import static com.kh.redding.common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
-import static com.kh.redding.common.JDBCTemplate.*;
 
 import com.kh.redding.reservation.model.vo.Reservation;
 
@@ -88,6 +89,28 @@ public class ReservationDao {
 		}
 		
 		return result;
+	}
+
+	
+	
+	//위시리스트 예약
+	public ArrayList<HashMap<String, Object>> reserveWishList(int userNum, int[] resList, Connection con) {
+		/*for(int i=0; i<resList.length; i++) {
+			System.out.println("resList: " + resList[i]);
+		}
+		System.out.println("userNum: " +userNum);*/
+		
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String,Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		
+		
+		
+		/*코드 작성????????어렵다 어려워*/
+		
+		
+		return list;
 	}
 
 }

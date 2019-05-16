@@ -27,11 +27,11 @@
 #image{
 	max-width:99%;
 }
-.detail{
+.pName{
 	width:30%;
 }
-.pName{
-	width:20%;
+.cName{
+	width:20%; 
 	font-size:18px;
 }
 .price{
