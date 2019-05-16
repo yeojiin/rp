@@ -11,7 +11,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.redding.admin.model.vo.TotalMemberPageInfo;
 import com.kh.redding.member.model.vo.Member;
+import static com.kh.redding.common.JDBCTemplate.*;
 
 public class AdminDao {
 	
@@ -29,18 +31,24 @@ public class AdminDao {
 		}
 		
 	}
-	
-	public ArrayList<Member> selectList(Connection con) {
-		Statement stmt = null;
+
+	// 전체 회원 목록 조회 (페이징 처리)
+	public ArrayList<Member> selectList(Connection con, TotalMemberPageInfo pi) {
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Member> list = null;
 		
-		String query = prop.getProperty("selectList");
+		String query = prop.getProperty("selectListAfterPaging");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
 		
 		try {
-			stmt = con.createStatement();
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 						
-			rset = stmt.executeQuery(query);
+			rset = pstmt.executeQuery();
 						
 			list = new ArrayList<Member>();
 			
@@ -67,8 +75,122 @@ public class AdminDao {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
 		}
+		
 		return list;
 	}
+	
+	// 전체 회원 수 조회용 메소드
+	public int getAllListCount(Connection con) {
+		
+		Statement stmt = null;
+		int allMemberListCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("allMemberlistCount");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				allMemberListCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return allMemberListCount;
+	}
+		
+	// 신규 회원 수 조회용 메소드
+	public int getNewListCount(Connection con) {
+		Statement stmt = null;
+		int newMemberlistCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("newMemberlistCount");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				newMemberlistCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return newMemberlistCount;
+	}
+
+	// 탈퇴 회원 수 조회용 메소드
+	public int allMemberListCount(Connection con) {
+		Statement stmt = null;
+		int withdrawalMemberlistCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("withdrawalMemberlistCount");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				withdrawalMemberlistCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return withdrawalMemberlistCount;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
