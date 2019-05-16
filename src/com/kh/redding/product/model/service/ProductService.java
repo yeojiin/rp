@@ -1,8 +1,12 @@
 package com.kh.redding.product.model.service;
 
-import static com.kh.redding.common.JDBCTemplate.*;
+import static com.kh.redding.common.JDBCTemplate.close;
+import static com.kh.redding.common.JDBCTemplate.commit;
+import static com.kh.redding.common.JDBCTemplate.getConnection;
+import static com.kh.redding.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import com.kh.redding.company.model.vo.Company;
@@ -41,8 +45,9 @@ public class ProductService {
    }
    
 
-   public int insertUseProduct(Product pro, ArrayList<UseProduct> uProList) {
-	   Connection con = getConnection();
+
+	public int insertUseProduct(Product pro, ArrayList<UseProduct> uProList, ArrayList<String> useDate) {
+		Connection con = getConnection();
 	   int result = 0 ;
 	   
 	   //상품등록
@@ -59,21 +64,20 @@ public class ProductService {
 			   uProList.get(i).setpNo(pNo);
 			   
 		   }
-		   int result2 = new ProductDao().insertUseProduct(con, uProList);
+		   int result2 = new ProductDao().insertUseProduct(con, uProList, useDate);
 		   
 		   if(result2 == uProList.size()) {
 			   System.out.println("service result2 : " + result2);
 			   result = 1;
-			   //commit(con);
+			   commit(con);
 		   }else {
 			   System.out.println("service result2 : " + result2);
 			   result = 0;
-			   //rollback(con);
+			   rollback(con);
 		   }
 	   }
 	   close(con);
 	   
 	   return result;
-   }
-
+	}
 }

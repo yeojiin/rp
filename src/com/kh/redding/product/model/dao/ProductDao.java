@@ -25,12 +25,12 @@ public class ProductDao {
          String fileName = ProductDao.class.getResource("/sql/product/product-query.properties").getPath();
          
          try {
-			prop.load(new FileReader(fileName));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+         prop.load(new FileReader(fileName));
+      } catch (FileNotFoundException e) {
+         e.printStackTrace();
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
          
       }
       
@@ -131,87 +131,89 @@ public class ProductDao {
          return com;
       }
 
-	
+   
 
-	public int insertProduct(Connection con, Product pro) {
+   public int insertProduct(Connection con, Product pro) {
+      PreparedStatement pstmt = null;
+      int result = 0;
+      
+      String query = prop.getProperty("insertProduct");
+      
+      try {
+         pstmt = con.prepareStatement(query);
+         
+         pstmt.setString(1, pro.getpName());
+         pstmt.setString(2, pro.getpContent());
+         pstmt.setInt(3, pro.getPrice());
+         pstmt.setInt(4, pro.getcNo());
+         pstmt.setString(5, pro.getProStatus());
+         
+         result = pstmt.executeUpdate();
+         
+         
+         System.out.println("result : " + result);
+      } catch (SQLException e) {
+         e.printStackTrace();
+      } finally {
+         close(pstmt);
+      }
+      return result;
+   }
+
+   public int selectProductCurrval(Connection con) {
+      Statement stmt = null;
+      ResultSet rset = null;
+      int pno = 0;
+      String query = prop.getProperty("selectProductCurrval");
+      
+      try {
+         stmt = con.createStatement();
+         
+         rset = stmt.executeQuery(query);
+         
+         if(rset.next()) {
+            pno = rset.getInt("currval");
+         }
+      } catch (SQLException e) {
+         e.printStackTrace();
+      } finally {
+         
+         close(stmt);
+         close(rset);
+      }
+   
+      
+      return pno;
+   }
+
+  
+
+	public int insertUseProduct(Connection con, ArrayList<UseProduct> uProList, ArrayList<String> useDate) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = prop.getProperty("insertProduct");
-		
-		try {
-			pstmt = con.prepareStatement(query);
-			
-			pstmt.setString(1, pro.getpName());
-			pstmt.setString(2, pro.getpContent());
-			pstmt.setInt(3, pro.getPrice());
-			pstmt.setInt(4, pro.getcNo());
-			pstmt.setString(5, pro.getProStatus());
-			
-			result = pstmt.executeUpdate();
-			
-			
-			System.out.println("result : " + result);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
-	}
-
-	public int selectProductCurrval(Connection con) {
-		Statement stmt = null;
-		ResultSet rset = null;
-		int pno = 0;
-		String query = prop.getProperty("selectProductCurrval");
-		
-		try {
-			stmt = con.createStatement();
-			
-			rset = stmt.executeQuery(query);
-			
-			if(rset.next()) {
-				pno = rset.getInt("currval");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			
-			close(stmt);
-			close(rset);
-		}
-	
-		
-		return pno;
-	}
-
-	public int insertUseProduct(Connection con, ArrayList<UseProduct> uProList) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		
-		String query = prop.getProperty("insertUseProduct");
+		String query = prop.getProperty("insertDateTime");
 		
 		try {
 			for(int i=0 ; i<uProList.size() ; i++) {
-				pstmt = con.prepareStatement(query);
 				
-				pstmt.setString(1, uProList.get(i).getUpName());
-				pstmt.setDate(2, uProList.get(i).getUseDate());
-				pstmt.setString(3, uProList.get(i).getUseStartTime());
-				pstmt.setString(4, uProList.get(i).getUseEndTime());
-				pstmt.setInt(5, uProList.get(i).getpNo());
-				pstmt.setInt(6, uProList.get(i).getuNum());
+				pstmt =con.prepareStatement(query);
 				
-				result += pstmt.executeUpdate();
+				pstmt.setDate(1, uProList.get(i).getUseDate());
+				
+				pstmt.setString(2, uProList.get(i).getUseStartTime());
+	            pstmt.setString(3, uProList.get(i).getUseEndTime());
+	            pstmt.setInt(4, uProList.get(i).getpNo());
+	            pstmt.setInt(5, uProList.get(i).getuNum());
+	            
+	            result += pstmt.executeUpdate();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
-				
 		return result;
 	}
 
-   }
+}

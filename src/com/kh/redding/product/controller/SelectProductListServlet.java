@@ -13,24 +13,12 @@ import com.kh.redding.product.model.service.ProductService;
 import com.kh.redding.product.model.vo.PageInfo;
 import com.kh.redding.product.model.vo.Product;
 
-/**
- * Servlet implementation class SelectProductListServlet
- */
 @WebServlet("/selectProductList.bo")
 public class SelectProductListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public SelectProductListServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//페이징 추가
 		int currentPage;		//현재 페이지를 표시할 변수
