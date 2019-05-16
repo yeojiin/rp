@@ -78,9 +78,7 @@
 					<li><a
 						href="<%=request.getContextPath()%>/views/company/c_UpdateCompanyPhoto.jsp">업체
 							사진 올리기</a></li>
-					<li><a
-						href="<%=request.getContextPath()%>/views/company/c_UpdateCompanyInfor.jsp">업체
-							정보 수정 </a></li>
+					<li><a href="<%=request.getContextPath()%>/selectcom.me">업체 정보 수정 </a></li>
 				</ul>
 			</div>
 			<div class="col-sm-8 text-left">
@@ -178,6 +176,11 @@
 				reader.readAsDataURL(value.files[0]);
 			}
 		}
+		
+		
+	
+	
+		
 	</script>
 
 </body>
