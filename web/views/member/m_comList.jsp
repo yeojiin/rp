@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8" import="com.kh.redding.member.model.vo.*, com.kh.redding.attachment.model.vo.*, java.util.*"%>
+<%
+	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
+	M_comListPageInfo pi = (M_comListPageInfo) request.getAttribute("clpi");
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -99,50 +107,25 @@ td {
 
          <div class="col-sm-8 text-left">
             <%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
+            <form action="<%=request.getContextPath()%>/listcomtype.mb">
             <div class="list1" align="center">
             <table>
+            	<%
+            		HashMap<String, Object> hmap = null;
+            		for (int i = 0; i < list.size(); i++) {
+            			hmap = list.get(i);
+            	%>
                <tr>
-                  <td><a href="#"><img src="../../images/logo.png"></a></td>
-               <tr>
-                  <th id="title1">Dress1</th>
+              	  <%-- <td><%=hmap.get("filepath") %></td> --%>
+                  <td><img src="/redding/company_upload/<%=hmap.get("changename") %>"></td>
+                  <td><%=hmap.get("membername") %></td>
+                  <td><%=hmap.get("price") %></td>
+                  <td><%=hmap.get("ComLike") %></td>
                </tr>
-               <tr>
-                  <th id="price1">500000</th>
-               </tr>
-               <tr>
-                  <th id="grade1">★★★★★</th>
-               </tr>
-               </tr>
-            </table>
-            <table>
-               <tr>
-                  <td><a href="#"><img src="../../images/logo.png"></a></td>
-               <tr>
-                  <th id="title1">Dress2</th>
-               </tr>
-               <tr>
-                  <th id="price1">400000</th>
-               </tr>
-               <tr>
-                  <th id="grade1">★★★★☆</th>
-               </tr>
-               </tr>
-            </table>
-            <table>
-               <tr>
-                  <td><a href="#"><img src="../../images/logo.png"></a></td>
-               <tr>
-                  <th id="title1">Dress3</th>
-               </tr>
-               <tr>
-                  <th id="price1">300000</th>
-               </tr>
-               <tr>
-                  <th id="grade1">★★★☆☆</th>
-               </tr>
-               </tr>
+               <% } %>
             </table>
             </div>
+            </form>
          </div>
 
          <!-- 오른쪽 빈공간 -->

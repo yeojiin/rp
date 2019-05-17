@@ -77,7 +77,7 @@
 					</div>
 					<div style="width:50%; height:auto; float:right;">
 						<ul class="pager" style="float:right;">
-						<button type="button" class="btn" onclick="location.href='<%=request.getContextPath() %>/views/board/board.jsp'" style="background:salmon; color:white;">목록</button>
+						<button type="button" class="btn" onclick="location.href='<%=request.getContextPath() %>/selectBoardList.bo'" style="background:salmon; color:white;">목록</button>
   							<li><a href="#"><</a></li>
   							<li><a href="#">></a></li>
 						</ul>
