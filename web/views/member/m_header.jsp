@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common/header.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/member/m_header.css">
 </head>
 <body>
 	<div class="headerArea">
@@ -26,17 +27,17 @@
 			<% } else if(loginUser != null && loginUser.getMemberId().equals("admin")) { %>
 				<br>
 				<ul>
-					<li><button class="miniMenuBtn"><%=loginUser.getNickName() %>님의 방문을 환영합니다!</button></li>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
+					<li><button class="miniMenuBtn"><%=loginUser.getNickName() %>님의 방문을 환영합니다!</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
 					<li><button class="miniMenuBtn" onclick="logout()">LOGOUT</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
-					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/admin/a_main.jsp'">MY PAGE</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
+					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/admin/a_main.jsp'">MY PAGE</button></li>
 					<li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
 				</ul>
 				
 			<% } else { %>
 				<br>
 				<ul>
-					<li><button class="miniMenuBtn"><%=loginUser.getNickName() %>님의 방문을 환영합니다!</button></li>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
-					<li><button class="miniMenuBtn" onclick="logout()">LOGOUT</button></li>&nbsp;&nbsp;|
+					<li><button class="miniMenuBtn"><%=loginUser.getNickName() %>님의 방문을 환영합니다!</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
+					<li><button class="miniMenuBtn" onclick="logout()">LOGOUT</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
 					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/member/m_myPage_checkList.jsp'">MY PAGE</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
 					<li><form action="<%=request.getContextPath()%>/showList.wi" method="post" id = "WishForm">
 					<button class="miniMenuBtn" type="submit">WISHLIST</button>
