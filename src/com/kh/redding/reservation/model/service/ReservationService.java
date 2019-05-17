@@ -70,7 +70,7 @@ public class ReservationService {
 		ArrayList<HashMap<String, Object>> list = new ReservationDao().reserveWishList(userNum, resList, con);
 		
 		close(con);
-	
+		
 		return list;
 	}
   
