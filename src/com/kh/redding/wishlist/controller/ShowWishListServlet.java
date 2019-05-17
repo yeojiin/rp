@@ -35,6 +35,8 @@ public class ShowWishListServlet extends HttpServlet {
 		
 		int num = Integer.parseInt(request.getParameter("num"));
 		
+		System.out.println(num);
+		
 		ArrayList<HashMap<String,Object>> list= new WishListService().showWishList(num);
 		
 		String page = "";

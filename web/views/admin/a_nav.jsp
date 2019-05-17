@@ -45,6 +45,24 @@
 	function goTotalMember() {
 		location.href="<%=request.getContextPath()%>/selectList.me";
 	}
+	function goTotalMember() {
+		location.href="<%=request.getContextPath()%>/selectList.me";
+	}
+	function goTotalMember() {
+		location.href="<%=request.getContextPath()%>/selectList.me";
+	}
+	function goTotalMember() {
+		location.href="<%=request.getContextPath()%>/selectList.me";
+	}
+	function goTotalMember() {
+		location.href="<%=request.getContextPath()%>/selectList.me";
+	}
+	function goTotalMember() {
+		location.href="<%=request.getContextPath()%>/selectList.me";
+	}
+	function goTotalMember() {
+		location.href="<%=request.getContextPath()%>/selectList.me";
+	}
 </script>
 
 </html>

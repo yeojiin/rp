@@ -47,8 +47,9 @@ public class WishListReserve extends HttpServlet {
 		
 		String page="";
 		if(list != null) {
-			page = "views/member/m_wishList.jsp";
+			page = "views/member/m_reservation.jsp";
 			request.setAttribute("list", list);
+			
 		}else {
 			page="views/common/errorPage.jsp";
 			request.setAttribute("msg", "예약 조회 실패!");
