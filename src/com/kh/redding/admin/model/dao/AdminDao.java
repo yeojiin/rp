@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.redding.admin.model.vo.TotalMemberPageInfo;
@@ -33,10 +34,13 @@ public class AdminDao {
 	}
 
 	// 전체 회원 목록 조회 (페이징 처리)
-	public ArrayList<Member> selectList(Connection con, TotalMemberPageInfo pi) {
+	public ArrayList<HashMap<String, Object>> selectList(Connection con, TotalMemberPageInfo pi) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<Member> list = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String,Object> hlist = null;
+		String num = "";
+		Member member = null;
 		
 		String query = prop.getProperty("selectListAfterPaging");
 		
@@ -50,11 +54,13 @@ public class AdminDao {
 						
 			rset = pstmt.executeQuery();
 						
-			list = new ArrayList<Member>();
+			list = new ArrayList<HashMap<String, Object>>();
 			
 			while(rset.next()) {
-				Member member = new Member();
+				hlist = new HashMap<String,Object>();
+				member = new Member();
 				
+				num = rset.getInt("RNUM")+ "";
 				member.setMno(rset.getInt("MNO"));
 				member.setMemberId(rset.getString("MID"));
 				member.setMemberPwd(rset.getString("MPWD"));
@@ -69,9 +75,18 @@ public class AdminDao {
 				member.setModifyDate(rset.getDate("MODIFY_DATE"));
 				member.setStatus(rset.getString("STATUS"));
 				member.setMemberType(rset.getInt("MTYPE"));
+				member.setWeddingDate(rset.getDate("WEDDING_DATE"));
 				
-				list.add(member);
+				System.out.println(num);
+				
+				
+				hlist.put("num", num);
+				hlist.put("member", member);
+				list.add(hlist);
 			}
+			
+			
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -163,6 +178,52 @@ public class AdminDao {
 		}
 		
 		return withdrawalMemberlistCount;
+	}
+
+	// 회원 상세 정보 조회용 메소드
+	public Member selectOneMember(Connection con, int num) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member onemember = null;
+		
+		String query = prop.getProperty("selectOneMember");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				onemember = new Member();
+				
+				onemember.setMno(rset.getInt("MNO"));
+				onemember.setMemberId(rset.getString("MID"));
+				onemember.setMemberPwd(rset.getString("MPWD"));
+				onemember.setMemberName(rset.getString("MNAME"));
+				onemember.setNickName(rset.getString("NICK_NAME"));
+				onemember.setPhone(rset.getString("PHONE"));
+				onemember.setEmergenCon(rset.getString("EMERGEN_CON"));
+				onemember.setEmail(rset.getString("EMAIL"));
+				onemember.setEmailCheck(rset.getString("EMAIL_CHECK"));
+				onemember.setGender(rset.getString("GENDER"));
+				onemember.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				onemember.setMnotiType(rset.getInt("MNOTI_TYPE"));
+				onemember.setStatus(rset.getString("STATUS"));
+				onemember.setWeddingDate(rset.getDate("WEDDING_DATE"));
+				onemember.setOutDate(rset.getDate("OUT_DATE"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return onemember;
+		
 	}
 	
 	

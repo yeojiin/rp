@@ -1,10 +1,10 @@
 package com.kh.redding.admin.model.sevice;
 
-import static com.kh.redding.common.JDBCTemplate.close;
-import static com.kh.redding.common.JDBCTemplate.getConnection;
+import static com.kh.redding.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.redding.admin.model.dao.AdminDao;
 import com.kh.redding.admin.model.vo.TotalMemberPageInfo;
@@ -13,11 +13,11 @@ import com.kh.redding.member.model.vo.Member;
 public class AdminService {
 
 	// 전체 회원 목록 조회 (페이징 처리)
-	public ArrayList<Member> selectList(TotalMemberPageInfo pi) {
+	public ArrayList<HashMap<String, Object>> selectList(TotalMemberPageInfo pi) {
 
 		Connection con = getConnection();
 		
-		ArrayList<Member> list = new AdminDao().selectList(con, pi);
+		ArrayList<HashMap<String, Object>> list = new AdminDao().selectList(con, pi);
 		
 		close(con);
 		
@@ -58,6 +58,24 @@ public class AdminService {
 		close(con);
 		
 		return withdrawalMemberlistCount;
+	}
+
+	// 회원 상세 정보 조회용 메소드
+	public Member selectOneMember(int num) {
+		
+		Connection con = getConnection();
+		
+		Member onemember = new AdminDao().selectOneMember(con, num);
+		
+		if(onemember != null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return onemember;
 	}
 
 }

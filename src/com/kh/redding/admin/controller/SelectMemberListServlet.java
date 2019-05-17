@@ -1,8 +1,8 @@
 package com.kh.redding.admin.controller;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.redding.admin.model.sevice.AdminService;
 import com.kh.redding.admin.model.vo.TotalMemberPageInfo;
-import com.kh.redding.member.model.service.MemberService;
-import com.kh.redding.member.model.vo.Member;
 
 @WebServlet("/selectList.me")
 public class SelectMemberListServlet extends HttpServlet {
@@ -60,7 +58,7 @@ public class SelectMemberListServlet extends HttpServlet {
 		
 		TotalMemberPageInfo pi = new TotalMemberPageInfo(currentPage, limit, maxPage, startPage, endPage);
 		
-		ArrayList<Member> list = new AdminService().selectList(pi);
+		ArrayList<HashMap<String,Object>> list = new AdminService().selectList(pi);
 				
 		String page = "";
 		if(list != null) {
