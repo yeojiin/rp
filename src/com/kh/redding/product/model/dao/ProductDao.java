@@ -42,14 +42,14 @@ public class ProductDao {
          
          String query = prop.getProperty("selectProductList");
          
-         int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
-         int endRow = startRow + pi.getLimit() - 1;
+         /*int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+         int endRow = startRow + pi.getLimit() - 1;*/
          
          try {
             pstmt = con.prepareStatement(query);
             pstmt.setInt(1, cno);
-            pstmt.setInt(2, startRow);
-            pstmt.setInt(3, endRow);
+            pstmt.setInt(2, pi.getStartRow());
+            pstmt.setInt(3, pi.getEndRow());
             
             rset = pstmt.executeQuery();
             
@@ -190,105 +190,195 @@ public class ProductDao {
 
   
    //제품등록용
-	public int insertUseProduct(Connection con, ArrayList<UseProduct> uProList, ArrayList<String> useDate) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		
-		String query = prop.getProperty("insertDateTime");
-		
-		try {
-			for(int i=0 ; i<uProList.size() ; i++) {
-				
-				pstmt =con.prepareStatement(query);
-				
-				pstmt.setDate(1, uProList.get(i).getUseDate());
-				
-				pstmt.setString(2, uProList.get(i).getUseStartTime());
-	            pstmt.setString(3, uProList.get(i).getUseEndTime());
-	            pstmt.setInt(4, uProList.get(i).getpNo());
-	            pstmt.setInt(5, uProList.get(i).getuNum());
-	            
-	            result += pstmt.executeUpdate();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
-	}
-	
-	
-	//업체가 가지고 있는 상품 전체 조회
-	public Product selectProductList(Connection con, int cno) {
-		return null;
-	}
-	
-	//상품의 전체 갯수 리턴
-	public int getListCount(Connection con, int cno) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		int listCount = 0;
-		
-		String query = prop.getProperty("getListCount");
-		
-		try {
+   public int insertUseProduct(Connection con, ArrayList<UseProduct> uProList, ArrayList<String> useDate) {
+      PreparedStatement pstmt = null;
+      int result = 0;
+      
+      String query = prop.getProperty("insertDateTime");
+      
+      try {
+         for(int i=0 ; i<uProList.size() ; i++) {
+            
+            pstmt =con.prepareStatement(query);
+            
+            pstmt.setDate(1, uProList.get(i).getUseDate());
+            
+            pstmt.setString(2, uProList.get(i).getUseStartTime());
+               pstmt.setString(3, uProList.get(i).getUseEndTime());
+               pstmt.setInt(4, uProList.get(i).getpNo());
+               pstmt.setInt(5, uProList.get(i).getuNum());
+               
+               result += pstmt.executeUpdate();
+         }
+      } catch (SQLException e) {
+         e.printStackTrace();
+      } finally {
+         close(pstmt);
+      }
+      return result;
+   }
+   
+   
+   //상품의 전체 갯수 리턴
+   public int getListCount(Connection con, int cno) {
+      PreparedStatement pstmt = null;
+      ResultSet rset = null;
+      int listCount = 0;
+      
+      String query = prop.getProperty("getListCount");
+      
+      try {
+         pstmt = con.prepareStatement(query);
+         
+         pstmt.setInt(1, cno);
+         
+         rset = pstmt.executeQuery();
+         
+         if(rset.next()) {
+            listCount = rset.getInt(1);
+         }
+      } catch (SQLException e) {
+         e.printStackTrace();
+      } finally {
+    	  close(pstmt);
+    	  close(rset);
+      }
+      return listCount;
+   }
+   //상품 1개 들고오기
+   public Product selectProductOne(Connection con, int pno) {
+      PreparedStatement pstmt = null;
+      ResultSet rset = null;
+      Product product = null;
+      
+      String query = prop.getProperty("selectProductOne");
+      
+      try {
+         pstmt = con.prepareStatement(query);
+         pstmt.setInt(1, pno);
+         rset = pstmt.executeQuery();
+         
+         if(rset.next()) {
+            product = new Product();
+            product.setpNo(rset.getInt("PNO"));
+            product.setpName(rset.getString("PNAME"));
+            product.setpContent(rset.getString("PCONTENT"));
+            product.setPrice(rset.getInt("PRICE"));
+            product.setpEnrollDate(rset.getDate("PENROLL_DATE"));
+            product.setcNo(rset.getInt("CNO"));
+            product.setpModifyDate(rset.getDate("PMODIFY_DATE"));
+            product.setProStatus(rset.getString("PRO_STATUS"));
+         }
+      } catch (SQLException e) {
+         e.printStackTrace();
+      } finally {
+         close(pstmt);
+         close(rset);
+      }
+      
+      return product;
+   }
+
+   public ArrayList<UseProduct> selectUseProductList(Connection con, int pno, PageInfo pi, int cno) {
+      PreparedStatement pstmt = null;
+      ResultSet rset = null;
+      ArrayList<UseProduct> useProList = null;
+      UseProduct usePro = null;
+      
+      String query = prop.getProperty("selectUseProductList");
+      try {
 			pstmt = con.prepareStatement(query);
 			
 			pstmt.setInt(1, cno);
+			pstmt.setInt(2, pno);
 			
 			rset = pstmt.executeQuery();
 			
-			if(rset.next()) {
-				listCount = rset.getInt(1);
+			useProList = new ArrayList<UseProduct>();
+			while(rset.next()) {
+				usePro = new UseProduct();
+				
+				usePro.setUpNo(rset.getInt("UPNO"));
+				usePro.setUseDate(rset.getDate("USE_DATE"));
+				usePro.setUseStartTime(rset.getString("USE_START_TIME"));
+				usePro.setUseEndTime(rset.getString("USE_END_TIME"));
+				usePro.setpNo(rset.getInt("PNO"));
+				usePro.setuNum(rset.getInt("UNUM"));
+				usePro.setUstatus(rset.getString("USTATUS"));
+				
+				
+				useProList.add(usePro);				
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}		
-		return listCount;
-	}
-	//상품 1개 들고오기
-	public Product selectProductOne(Connection con, int pno) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		Product product = null;
-		
-		String query = prop.getProperty("selectProductOne");
-		
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, pno);
-			rset = pstmt.executeQuery();
 			
-			if(rset.next()) {
-				product = new Product();
-				product.setpNo(rset.getInt("PNO"));
-				product.setpName(rset.getString("PNAME"));
-				product.setpContent(rset.getString("PCONTENT"));
-				product.setPrice(rset.getInt("PRICE"));
-				product.setpEnrollDate(rset.getDate("PENROLL_DATE"));
-				product.setcNo(rset.getInt("CNO"));
-				product.setpModifyDate(rset.getDate("PMODIFY_DATE"));
-				product.setProStatus(rset.getString("PRO_STATUS"));
-			}
-		} catch (SQLException e) {
+	  } catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			close(pstmt);
-			close(rset);
-		}
-		
-		return product;
-	}
+	  } finally {
+		  close(pstmt);
+		  close(rset);
+	  }
+      
+      return useProList;
+   }
+   /*
+   try {
+      pstmt = con.prepareStatement(query);
+      pstmt.setInt(1, cno);
+      pstmt.setInt(2, pi.getStartRow());
+      pstmt.setInt(3, pi.getEndRow());
+      
+      rset = pstmt.executeQuery();
+      
+      list = new ArrayList<Product>();
+      
+      while(rset.next()) {
+         Product p = new Product();
+         
+         p.setpNo(rset.getInt("PNO"));
+         p.setpName(rset.getString("PNAME"));
+         p.setpContent(rset.getString("PCONTENT"));
+         p.setPrice(rset.getInt("PRICE"));
+         p.setpEnrollDate(rset.getDate("PENROLL_DATE"));
+         p.setcNo(rset.getInt("CNO"));
+         p.setpModifyDate(rset.getDate("PMODIFY_DATE"));
+         p.setProStatus(rset.getString("PRO_STATUS"));
+         list.add(p);
+      }
+      
+   } catch (SQLException e) {
+      e.printStackTrace();
+   } finally {
+      close(rset);
+      close(pstmt);
+   }
+   return list;
+}*/
 
-	public ArrayList<UseProduct> selectUseProductList(Connection con, int pno) {
+
+	public int getUseProductListCount(Connection con, int pno, int cno) {
 		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ArrayList<UseProduct> useProList = null;
-		UseProduct usePro = null;
-		
-		
-		return useProList;
+	    ResultSet rset = null;
+	    int listCount = 0;
+	    
+	    String query = prop.getProperty("getUseProductListCount");
+	    
+	    try {
+	       pstmt = con.prepareStatement(query);
+	       
+	       pstmt.setInt(1, cno);
+	       pstmt.setInt(2, pno);
+	       
+	       rset = pstmt.executeQuery();
+	       
+	       if(rset.next()) {
+	          listCount = rset.getInt(1);
+	       }
+	    } catch (SQLException e) {
+	       e.printStackTrace();
+	    } finally {
+	    	close(pstmt);
+	    	close(rset);
+	    }
+	    return listCount;
 	}
 
 }

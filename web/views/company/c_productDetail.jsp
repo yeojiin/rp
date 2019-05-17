@@ -1,7 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.redding.member.model.vo.Member"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.redding.member.model.vo.Member, com.kh.redding.product.model.vo.*"%>
 <%
-   Member loginUser = (Member) session.getAttribute("loginUser");
+	Member loginUser = (Member) session.getAttribute("loginUser");
+	ArrayList<UseProduct> useProList = (ArrayList<UseProduct>)request.getAttribute("useProList"); 
+	Product pro = (Product) request.getAttribute("pro");
+	PageInfo pi = (PageInfo) request.getAttribute("pi");
+	
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int startRow = pi.getStartRow();
+	int endRow = pi.getEndRow();
+
 %>
 <!DOCTYPE html>
 <html>
@@ -25,7 +36,7 @@
 <link rel="stylesheet" type="text/css"
    href="${pageContext.request.contextPath}/css/company/c_main.css">
 <link rel="stylesheet" type="text/css"
-   href="${pageContext.request.contextPath}/css/company/c_productInsert.css"> 
+   href="${pageContext.request.contextPath}/css/company/c_productDetail.css"> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <style>
    .row.content {
@@ -67,7 +78,7 @@
          <%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
          
             <div class="contentsArea" id="productInsertArea">
-               <form action="<%=request.getContextPath() %>/updateProduct.pr" method="post" id = "insertPro">
+               <form action="<%=request.getContextPath() %>/updateProduct.pr" method="post" id ="updatePro">
                      
                   <div id="PIHeader">
                      <h3>상품상세 페이지</h3>
@@ -75,141 +86,36 @@
                   <div id="PISection">
                        <table id="PITable">
                           <tr>
-                             <th width="15%">&nbsp;</th>
-                             <th width="15%" >&nbsp;</th>
-                             <th width="5%">&nbsp;</th>
-                             <th width="15%">&nbsp;</th>
-                             <th width="15%">&nbsp;</th>
-                             <th width="10%">&nbsp;</th>
-                             <th width="20%">&nbsp;</th>
+                             <th width="15%">상품명</th>
+                             <th width="15%">등록일</th>
+                             <th width="15%">가격(원)</th>
+                             <th width="20%">판매여부</th>
+                                <%-- <input type="hidden" value="<%=loginUser.getMno()%>" id="cNo" name="cNo"> --%>
                           </tr>
                           <tr>
-                             <td>
-                                <label>판매 여부</label>
-                                <input type="hidden" value="<%=loginUser.getMno()%>" id="cNo" name="cNo">
-                             </td>                    
-                             <td>
-                                <input type="radio" name="proStatus" id="proStatusYes" value="판매">
+                          	<td>
+                          		<input type="text" name="proName" id="proName" value="<%=pro.getpName()%>" readonly>
+                          	</td>
+                          	<td>
+                          		<input type="text" name="proEnrollDate" id="proEnrollDate" value="<%=pro.getpEnrollDate()%>" readonly>
+                          	</td>
+                          	<td>
+                          		<input type="number" name="proPrice" id="proPrice" value="<%=pro.getPrice()%>">
+                          	</td>
+                          	<td>
+                          		<%-- <input type="text" name="" id="" value="<%=pro.getProStatus()%>"> --%>
+                          		<input type="radio" name="proStatus" id="proStatusYes" value="판매">
                                 <label for="proStatusYes">판매함</label>
                                 <input type="radio" name="proStatus" id="proStatusNo" value="판매안함">
                                 <label for="proStatusNo">판매안함</label>
-                             </td>         
-                          </tr>
-                          <tr>
-                             <td>
-                                <label>구분</label>
-                             </td>
-                             <td>
-                                <select id="PICategorySelect" name="picSelect">
-                                   <option value="리허설">리허설</option>
-                                   <option value="리허설+본식">리허설 + 본식</option>
-                                   <option value="본식">본식</option>
-                                </select>
-                                
-                             </td>
-                             <td id="space">
-                                <label>-</label>
-                             </td>
-                             <td id="space">
-                                <label>담당자</label>
-                             </td>
-                             <td id="manager">
-                                <select id="PIManagerSelect" name="pmiSelect">
-                                   <option value="" selected>--선택--</option>
-                                   <option value="원장">원장</option>
-                                   <option value="부원장">부원장</option>
-                                   <option value="팀장">팀장</option>
-                                   <option value="스탭">스탭</option>
-                                   <option value="기타">기타</option>
-                                </select>
-                             </td>
-                             <td id="space">
-                                <label>수량</label>
-                             </td>
-                             <td id="amount">
-                                <select id="productAmount" name="productAmount">
-                                   <option value="" selected>--선택--</option>
-                                   <option value="1">1</option>
-                                   <option value="2">2</option>
-                                   <option value="3">3</option>
-                                   <option value="4">4</option>
-                                   <option value="기타">기타</option>
-                                </select>
-                             </td>
-                          </tr>
-                          <tr>
-                             <td>
-                              <label>가격</label>
-                             </td>
-                             <td colspan="6">
-                                <input type="number" name="piPrice" id="piPrice">
-                             </td>
-                          </tr>
-                          <!-- <tr>
-                             <td>
-                                <label>휴무일</label>
-                             </td>
-                             <td colspan="6">
-                                <div id="PIRestDayCheck">
-                                   <input class="restDayCheck" type="checkbox" name="restDay" id="monday" value="">
-                                   <label for="monday">월</label>
-                                   <input type="checkbox" name="restDay" id="thuesday" value="">
-                                   <label for="thuesday">화</label>
-                                   <input type="checkbox" name="restDay" id="wednesday" value="">
-                                   <label for="wednesday">수</label>
-                                   <input type="checkbox" name="restDay" id="thursday" value="">
-                                   <label for="thursday">목</label>
-                                   <input type="checkbox" name="restDay" id="friday" value="">
-                                   <label for="friday">금</label>
-                                   <input type="checkbox" name="restDay" id="saturday" value="">
-                                   <label for="saturday">토</label>
-                                   <input type="checkbox" name="restDay" id="sunday" value="">
-                                   <label for="sunday">일</label>
-                                </div>
-                             </td>
-                          </tr> -->
-                          <tr>
-                             <td>
-                                <label>판매 시작 날짜</label>
-                             </td>
-                             <td>
-                                <input type="date" name="proStartDay" id="proStartDay">
-                             </td>
-                             <td id="space">
-                             	<label>-</label>
-                             </td>
-                             <td>
-                             	<label>판매 종료 날짜</label>
-                             </td>
-                             <td>
-                             	<input type="date" name="proEndDay" id="proEndDay">
-                             </td>
-                          </tr>
-                          <!-- <tr>
-                             <td>
-                                <label>예약 시작 시간</label>
-                             </td>
-                             <td>
-                                <input type="time" name="startTime" id="startTime">
-                             </td>
-                             <td id="space">
-                                <label> - </label>
-                             </td>
-                             <td id="space">
-                                <label>예약 종료시간</label>
-                             </td>
-                             <td>
-                                <input type="time" name="endTime" id="endTime">
-                             </td>
-                             <td colspan="2"></td>
-                          </tr> -->
-                          <tr>
-                             <td>
-                                <label>상품 설명</label>
-                             </td>
-                             <td colspan="6">
-                                <textarea cols="70" rows="23" name="info" id="info">상품설명</textarea>
-                             </td>
+                          	</td>
+                       	</tr>
+                       	<tr>
+                          	<td colspan="5">
+                          		<textarea name="proContent" id="proContent">
+                          			 <%=pro.getpContent()%>
+                          		</textarea>
+                          	</td>                          	
                           </tr>
                           
                        </table>
@@ -217,12 +123,77 @@
                   </div>
                      <div id="PIfooter">
                         <div id="PIBtns">
-                           <div id="PIInsertBtn">등록하기</div>
+                           <div id="PIInsertBtn">수정하기</div>
                            <div id="PIResetBtn">취소하기</div>
                         </div>
                      </div>
                </form>
-              
+               <div id="selectArea">
+               
+               </div>
+               <table id="selectTable">
+               		<tr>
+               			<th width="3%"></th>
+               			<th width="3%">No.</th>
+               			<th width="10%">예약가능날짜</th>
+               			<th width="10%">예약시작시간</th>
+               			<th width="10%">예약종료시간</th>
+               			<th width="5%">수량</th>
+               			<th width="5%">판매여부</th>
+               			<th width="5%"></th>
+               		</tr>
+               		<% for(UseProduct uproList : useProList){ %>
+                        <tr>
+                        <!-- ajax로 행 처리하기 처리할때 아래와 같이 체크박스와 버튼 도 같이 나와야 한다. -->
+                           <td><input type="checkbox" name="proCheck" id="proCheck"></td>
+                           <td><%=startRow %>
+                              <input type="hidden" name="proNum" id="proNum" value="<%=uproList.getUpNo()%>">
+                           </td>
+                           <td><%=uproList.getUseDate()%></td>
+                           <td><%=uproList.getUseStartTime()%></td>
+                           <td><%=uproList.getUseEndTime()%></td>
+                           <td><%=uproList.getuNum()%></td>
+                           <td><%=uproList.getUstatus()%></td>
+                           <td>
+                                 <div id="productDetailBtn" class="productDetail">상세보기</div>
+                           </td>
+                        </tr>
+                        <%                        
+                           startRow = startRow+1;
+                           %>
+                     <% } %>
+                     <tr>
+                     	<td colspan="8">
+                     		<div id="productDeleteBtn">삭제하기</div>
+                     	</td>
+                     </tr>
+               </table>
+              <div class="paginArea" align = "center">
+               <button onclick="location.href='<%=request.getContextPath()%>/proDetail.pr?currentPage=1&pno=<%=pro.getpNo()%>'"> << </button>
+               <%if(currentPage<=1){ %>         
+                  <button disabled> < </button>
+               <%} else{%>
+                  <button onclick="location.href='<%=request.getContextPath() %>/proDetail.pr?currentPage=<%=currentPage - 1 %>&pno=<%=pro.getpNo()%>'"> < </button>
+               <%} %>
+               
+               
+               <%for(int p=startPage ; p<=endPage ; p++){ 
+                  if(p == currentPage){%>
+                     <button disabled> <%=p %> </button>
+                  <%}else{ %>
+                     <button onclick="location.href='<%=request.getContextPath()%>/proDetail.pr?currentPage=<%=p%>&pno=<%=pro.getpNo()%>'"> <%=p %> </button>
+                  <%} %>
+               
+               <%} %>
+               
+               
+               <%if(currentPage >= maxPage){ %>
+                  <button disabled> > </button>
+               <%}else{ %>
+                  <button onclick="location.href='<%=request.getContextPath()%>/proDetail.pr?currentPage=<%=currentPage + 1%>&pno=<%=pro.getpNo()%>'"> > </button>
+               <%} %>         
+               
+               <button onclick="location.href='<%=request.getContextPath()%>/proDetail.pr?currentPage=<%=maxPage%>&pno=<%=pro.getpNo()%>'"> >> </button>
             </div>
          
          </div>
@@ -238,7 +209,20 @@
    </div>
    <script>
       $(function(){
-         /* select 태그에서 기타를 선택시 input태그 생성 */
+   		  var pstatus = '<%=pro.getProStatus()%>';
+    	  
+   		  /* console.log(pstatus);
+   		  console.log(typeof(pstatus)); */
+   		  
+    	  $("input[name=proStatus]").each(function(){
+    		  var proStatus = $(this).val();
+    		  /* console.log(proStatus);
+    		  console.log(typeof(proStatus)); */
+    		  if(proStatus==pstatus){
+    			  $(this).attr("checked",true);
+    		  }
+    	  });
+         <%-- /* select 태그에서 기타를 선택시 input태그 생성 */
          $("#PIManagerSelect").change(function() {
             var $td = $("#manager");
             var $input = $("<input type='text' name='etc' id='etc'>");
@@ -290,8 +274,8 @@
             alert("상품등록을 취소하셨습니다.");
             location.href="<%=request.getContextPath()%>/views/company/c_ProductManagement.jsp";
          });
+ --%>
       });
-
    </script>
 </body>
 </html>
