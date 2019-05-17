@@ -83,44 +83,105 @@
 			</div>
 			<div class="col-sm-8 text-left">
 				<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
-				<form action ="" method="post">
-					<div class="wrap">
-						<div class="container" id="container">
-							<h2>대표사진</h2>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<div class="imgArea">
-										<img class="img" id="img">
-									</div>
-									<input type="file" id="companyTitle"
-										onchange="loadImg1(this,1)">
-								</div>
-								<div class="form-group">
-									<label for="comment">Comment:</label>
-									<textarea class="form-control" rows="5" id="Titlecomment" style = "resize:none;"></textarea>
-								</div>
-							</div>
-						</div>
-						<div id="subPhoto">
-							<h2>
-								서브사진
-								<button type="button" id="addSubPhoto">+</button>
-							</h2>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<div class="imgArea">
-										<img class="img" id="subPhoto">
-									</div>
-									<input type="file" id="subPhoto" onchange="loadImg1(this,1)">
-								</div>
-								<div class="form-group">
-									<label for="comment">Comment:</label>
-									<textarea class="form-control" rows="5" id="subcomment"
-										style="resize: none;"></textarea>
-								</div>
-							</div>
-						</div>
+				<form action = "" method = "post">
+					<div id = "titlePicture">
+						<img src = "/redding/images/logo.png" alt = "대표사진" id = "titleimg">
 					</div>
+					<hr>
+					<div id = "subPicture">
+						<label>수량을 적어주세요 (최대 10개)</label>&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type = "number" id = "imgcount" value = "0" style = "width : 50px"> 
+						<input type = "button" id = "countbtn" value = "확인">
+						<span id = "guid" style = "width : 100px;"></span>
+					</div>
+					<table id="imgTable" border="1" cellspacing="0">
+					  <tbody></tbody>
+					</table>
+					<div id = "fileArea" align = "left">
+					<input type = "file" id = "thumbnailImg1" name = "thumbnailImg1" onchange = "loadImg(this,1)">
+					<!-- <input type = "file" id = "thumbnailImg2" name = "thumbnailImg2" onchange = "loadImg(this,2)">
+					<input type = "file" id = "thumbnailImg3" name = "thumbnailImg3" onchange = "loadImg(this,3)">
+					<input type = "file" id = "thumbnailImg4" name = "thumbnailImg4" onchange = "loadImg(this,4)"> -->
+					</div>
+					<script>
+						$(function(){
+							//서브 이미지 정하고 클릭시 뿌려주기
+							$("#countbtn").click(function(){
+								$("#guid").css("color", "red");
+								$("#guid").text("영역을 클릭해주세요");
+								console.log("클릭");
+								var imgcount = $("#imgcount").val();
+								
+								var input = "";
+								
+								var tr = "<tr>";
+								var td = "<td>";
+								
+								//테이블에 이미지 뿌려주기
+								input += "<tr>";
+								for(var i = 0 ; i < imgcount ; i++){
+									if (i % 2 != 0){
+										input += "<td>" 
+										input += "<div class = 'imgArea' id = img" + i + ">" 
+										input += "<img id = 'subimg" + i + "' class = 'subimg'>" 
+										input += "</div>";
+										input += "</td>"; 
+									 }else if (i % 2 == 0){
+										 input += "</tr>"
+										 input += "<tr>";
+										 input += "<td>" 
+										 input += "<div class = 'imgArea' id = img" + i + ">" 
+										 input += "<img id = 'subimg" + i + "' class = 'subimg'>" 
+										 input += "</div>";
+										 input += "</td>"; 
+									 }
+								 }
+								 input += "</tr>";
+								 
+								 $("#imgTable tbody").html(input);
+								 
+								 console.log("!! :" +  $("#imgTable").html());
+								 
+								 //클릭 하면 파일도 생성 되어야함
+								 var file = "";
+								 
+								 for (var i = 0; i <  imgcount ; i++ ){
+									 file += "<input type = 'file' id = 'thumbnailImg" + i+2 + "' name = 'thumbnailImg" + i+2 + "' onchange = 'loadImg(this,"+ i+2+ ")'>"
+								 }
+								 
+								 
+								 $("#fileArea").append(file);
+								 
+								 console.log( $("#fileArea").html());
+								 
+								
+							});
+						});
+						
+						function loadImg(value, num) {
+							if (value.files && value.files[0]) {
+								var reader = new FileReader();
+								reader.onload = function(e) {
+									switch (num) {
+									case 1:
+										$("#titleImg").attr("src", e.target.result);
+										break;
+									case 2:
+										$("#contentImg1").attr("src", e.target.result);
+										break;
+									case 3:
+										$("#contentImg2").attr("src", e.target.result);
+										break;
+									case 4:
+										$("#contentImg3").attr("src", e.target.result);
+										break;
+									}
+								}
+								reader.readAsDataURL(value.files[0]);
+							}
+						}
+					</script>
+
 				</form>
 			</div>
 

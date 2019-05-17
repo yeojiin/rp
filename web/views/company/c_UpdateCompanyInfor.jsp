@@ -1,11 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import = "java.util.*, com.kh.redding.company.model.vo.*, com.kh.redding.member.model.vo.*, com.kh.redding.attachment.model.vo.*"%>
-<%! public int getRandom(){
-	int random = 0;
-	random = (int)Math.floor((Math.random()*(99999-10000+1)))+10000;
-	return random;
-
-}	%>
 <% 
    HashMap<String,Object> loginCompany = (HashMap<String,Object>)(request.getAttribute("loginCompany"));
    Member member = (Member)loginCompany.get("member");
@@ -15,7 +9,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Bootstrap Example</title>
+<title>REDDING♥</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -104,15 +98,16 @@
 								<td>
 									<div class="form-group">
 										<label for="inputsm">현재 비밀번호</label> 
-										<input class="form-control input-sm" id="currentPassword" type="text">
+										<input type = "password"
+										class="form-control input-sm" id="currentPwd">
 									</div>
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<div class="form-group">
-										<label for="inputsm">변경할 비밀번호</label> <input
-											class="form-control input-sm" id="passwordChange" type="text">
+										<label for="inputsm">변경할 비밀번호</label> <input type = "password" 
+											class="form-control input-sm" id="changePwd">
 									</div>
 								</td>
 							</tr>
@@ -120,7 +115,7 @@
 								<td>
 									<div class="form-group">
 										<label for="inputsm">변경할 비밀번호 확인</label> 
-										<input class="form-control input-sm" id="passwordChange2" type="text">
+										<input class="form-control input-sm" id="passwordChange2" type="password">
 										<p id = "checkPwd"></p>
 									</div>
 								</td>
@@ -134,6 +129,7 @@
 							</tr>
 						</table>
 						<hr>
+						<form action = "<%=request.getContextPath()%>/updatecompany.me" method = "post" enctype="multipart/form-data" id = "updateCompany">
 						<table class = "comTable">
 							<tr>
 								<td colspan = "2">
@@ -147,6 +143,8 @@
 										<input type="text" class="fileName" id = "reg_num" name = "reg_num" readonly="readonly" value = "<%=attachment.getOriginname()%>">
 										<label for="uploadBtn" class="btn_file">찾아보기</label> <input
 											type="file" name = "uploadFile" id="uploadBtn" class="uploadBtn">
+										<input type="hidden" id = "aid" name = "aid" readonly="readonly" value = "<%=attachment.getAid()%>">
+										<input type="hidden" id = "Achangename" name = "Achangename" readonly="readonly" value = "<%=attachment.getChangename()%>">
 									</div>
 								</td>
 							</tr>
@@ -276,7 +274,7 @@
 									<button type="button" class="check" id="emailckbtn">인증하기</button>
 									<span id="Semailck"></span> <input type="hidden"
 									id="email_check" name="email_check" value="인증안됨">
-									<input type = "hidden" readonly = "readonly" name = "code_check" id = "code_check" value = "<%=getRandom()%>"></td>
+									<input type = "hidden" readonly = "readonly" name = "code_check" id = "code_check"></td>
 							</tr>
 							
 							<tr>
@@ -286,38 +284,43 @@
 							</tr>
 							<tr>
 								<th>영업시간</th>
-								<td><input type="time" name="strartime" id="strartime" value = "<%=company.getOpenTime()%>">
-									~ <input type="time" name="endtime" id="endtime" value = "<%=company.getEndTime()%>"></td>
+								<td><input type="time" name="strartime" id="strartime" value = "<%=company.getOpenTime()%>" readonly>
+									~ <input type="time" name="endtime" id="endtime" value = "<%=company.getEndTime()%>" readonly></td>
 							</tr>
 							<tr>
 								<th>휴무일</th>
 								<td>
-									<input type = "checkbox" value = "월" id = "Monday" name = "weekend">
+									<input type = "checkbox" value = "월" id = "Monday" name = "weekend" disabled>
 									<label for = "Monday">월</label>
-									<input type = "checkbox" value = "화" id = "Tuesday" name = "weekend">
+									<input type = "checkbox" value = "화" id = "Tuesday" name = "weekend" disabled>
 									<label for = "Tuesday">화</label>
-									<input type = "checkbox" value = "수" id = "Wednesday" name = "weekend">
+									<input type = "checkbox" value = "수" id = "Wednesday" name = "weekend" disabled>
 									<label for = "Wednesday">수</label>
-									<input type = "checkbox" value = "목" id = "Thusday" name = "weekend">
+									<input type = "checkbox" value = "목" id = "Thusday" name = "weekend" disabled>
 									<label for = "Thusday">목</label>
-									<input type = "checkbox" value = "금" id = "Friday" name = "weekend">
+									<input type = "checkbox" value = "금" id = "Friday" name = "weekend" disabled>
 									<label for = "Friday">금</label>
-									<input type = "checkbox" value = "토" id = "Saturday" name = "weekend">
+									<input type = "checkbox" value = "토" id = "Saturday" name = "weekend" disabled>
 									<label for = "Saturday">토</label>
-									<input type = "checkbox" value = "일" id = "Sunday" name = "weekend">
+									<input type = "checkbox" value = "일" id = "Sunday" name = "weekend"disabled>
 									<label for = "Sunday">일</label>
 								</td>
 							</tr>
 							<tr>
-								<td>
+								
+								<td colspan = "2">
 									<div class="form-group">
+										
+										<label style = "color:red">영업시간과 휴무일을 변경할수 없습니다.</label>
+										<button type = "button" id = "delete">탈퇴하기</button>
 										<button type = "button" id = "combtn">변경하기</button>
 									</div>
 								</td>
 							</tr>
 						</table>
+						</form>
 					</div>
-
+					
 
 				</div>
 				
@@ -325,7 +328,7 @@
 
 			<div class="col-sm-2 sidenav2"></div>
 		</div>
-
+	</div>
 	</div>
 	
 		
@@ -394,26 +397,30 @@
 		
 		//비밀번호 변경 클릭
 		function PasswordChange(){
-			var pwd =  $("#currentPassword").val();
-			var changepwd = $("#passwordchange").val();
-			var changepwd2 = $("#passwordchange2").val();
+			var currentPwd =  $("#currentPwd").val();
+			var changePwd = $("#changePwd").val();
+			var changepwd2 = $("#passwordChange2").val();
 			var memberId = $("#memberId").val();
 			
-			if (pwd == ""){
-				alert("비밀번호 입력해주세요");
-			}else if (changepwd == ""){
-				alert("변경할 비밀번호 다시 확인해주세요");
+			if (currentPwd == ""){
+				alert("비밀번호 입력해주세요" + pwd);
+			}else if (changePwd == ""){
+				alert("변경할 비밀번호 다시 확인해주세요" + changepwd);
 			}else if (changepwd2 == ""){
-				alert("변경할 비밀번호 다시 확인해주세요");
-			}else if (changepwd == changepwd2){
-				alert("변경할 비밀번호 다시 확인해주세요");
+				alert("변경할 비밀번호 다시 확인해주세요" + changepwd2);
+			}else if (changePwd != changepwd2){
+				alert("변경할 비밀번호 다시 확인해주세요" + changepwd + changepwd2);
 			}else {
 				$.ajax({
           			url : "/redding/changePassword.me",
           			type : "post",
-          			data : {pwd : pwd , changepwd : changepwd, memberId : memberId},
+          			data : {currentPwd : currentPwd , changePwd : changePwd , memberId : memberId},
           			success : function(data){
-          				
+          				if (data == "success"){
+          					alert("성공! 비밀번호 변경되었습니다.");
+          				}else {
+          					alert("비밀번호 변경이 실패했습니다. 다시 한번 입력해주세요");
+          				}
           			}, 
           			error : function(){
           				console.log("실패!");
@@ -424,7 +431,6 @@
 		
 		
 		function popupOpen(){
-			
 			var url= "<%=request.getContextPath()%>/views/common/checkcode.jsp";    //팝업창에 출력될 페이지 URL
 			var winWidth = 200;
 		    var winHeight = 200;
@@ -441,6 +447,8 @@
 			}, true);
 			
 			var accountCode = <%= company.getAccountCode() %>;
+			
+			
 					
 			//은행 select 선택 - 조회시 기본으로 보여주는
 			$("#accountcode option").each(function(){
@@ -456,6 +464,7 @@
 				}
 			});
 			
+			//휴일 받아오기
 			$("input[name = weekend]").each(function(){
 				var weekends = '<%=company.getHoliday()%>'.split(",");
 							
@@ -467,11 +476,19 @@
 				
 			});
 			
+			//업체 정보 수정하기
 			$("#combtn").click(function(){
-				$("#myModal").modal();
+				if ($("#emailckbtn").text() != "인증됨"){
+					alert("인증하지 않으면 비밀번호 찾지 못할수 있습니다. 인증해주세요");	
+				}else if ($("#memberPwd").val() == ""){
+					alert("비밀번호 입력해주세요");
+				}else {
+					$("#updateCompany").submit();
+				}
 			});
 			
 			
+			//파일 
 			var uploadFile = $('.fileBox .uploadBtn');
 		 	uploadFile.on('change', function(){
 		 		if(window.FileReader){
@@ -482,7 +499,91 @@
 		 		$(this).siblings('.fileName').val(filename);
 		 	});
 		 	
+		 	//이메일 기본값
+		 	var result = "<%=member.getEmailCheck() %>";
+			
+			if (result == "N"){
+				$("#emailckbtn").css("background","white");
+				$("#emailckbtn").css("color","red");
+				$("#emailckbtn").css("border","1px solid red");
+				$("#emailckbtn").text("인증안됨");
+				$("#email_check").val("인증안됨");
+			}else {
+				$("#emailckbtn").css("background","white");
+				$("#emailckbtn").css("color","blue");
+				$("#emailckbtn").css("border","1px solid blue");
+				$("#emailckbtn").text("인증됨");
+				$("#email_check").val("인증됨");
+			}
+		 	
+			//이메일 바꿀경우 
+			$("input[name=email1]").change(function(){
+				$("#emailckbtn").css("background","#FB6E5F");
+				$("#emailckbtn").css("color","white");
+				$("#emailckbtn").css("border","1px solid #FB6E5F");
+				$("#emailckbtn").text("인증하기");
+				$("#email_check").val("인증안됨");
+			});
+			
+			$("#email2").change(function(){
+				$("#emailckbtn").css("background","#FB6E5F");
+				$("#emailckbtn").css("color","white");
+				$("#emailckbtn").css("border","1px solid #FB6E5F");
+				$("#emailckbtn").text("인증하기");
+				$("#email_check").val("인증안됨");
+			});
+			
+			//select에서 바꿀때
+			$("#email3").change(function(){
+				$("#email3").children().eq(0).attr("disabled","true");
+				
+				var value = $(this).val();
+				
+				$("#email2").val(value);
+				
+				$("#emailckbtn").css("background","#FB6E5F");
+				$("#emailckbtn").css("color","white");
+				$("#emailckbtn").css("border","1px solid #FB6E5F");
+				$("#emailckbtn").text("인증하기");
+				$("#email_check").val("인증안됨");
+			});
+		 	
+		 	
+		 	
+		 	//이메일 인증
+			$("#emailckbtn").click(function(){	
+				var email1 = $("input[name=email1]").val();		//이메일1
+				var email2 = $("#email2").val();
+				
+				var email = email1 + "@" + email2;
+				
+				if (email1 == ""){
+					alert("이메일을 작성해주세요");
+				}else if (email2 == ""){
+					alert("이메일을 작성해주세요");
+				}else {
+					$.ajax({
+	          			url : "/redding/send",
+	          			type : "post",
+	          			data : {email : email},
+	          			success : function(data){
+	          				$("#code_check").val(data);
+	          	   			
+	          	          	popupOpen();
+	          	                    
+	          			}, 
+	          			error : function(){
+	          				console.log("실패!");
+	          			}
+	          		});
+				}
+				
+				
+			});
+		 	
 		});
+		
+		
 		
 		
 		

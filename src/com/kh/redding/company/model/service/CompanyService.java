@@ -80,10 +80,83 @@ public class CompanyService {
 	public int UpdateMemberPasword(String password, String changepassword, String memberId) {
 		Connection con = getConnection();
 		
-		//int result = new CompanyDao().UpdateMemberPassword
+		int result = new CompanyDao().UpdateMemberPassword(con, password, changepassword , memberId);
+		
+		if (result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
 		
 		
-		return 0;
+		return result;
+	}
+
+	public int UpdateCompany(Member joinMember, Company joinCompany, Attachment joinAttach) {
+		Connection con = getConnection();
+		
+		int totalresult = 0;
+		
+		int result = new CompanyDao().UpdateMember(con,joinMember);
+		
+		if (result > 0) {
+			int mno = new CompanyDao().selectCNO(con, joinMember.getMemberId() , joinMember.getMemberPwd());
+			
+			joinCompany.setCNO(mno);
+			
+			joinAttach.setMno(mno);
+			
+			int result2 = new CompanyDao().updateAttachment(con, joinAttach);
+			
+			if (result2 > 0) {
+				
+				totalresult = new CompanyDao().UpdateCompany(con, joinCompany);
+			}
+			
+		}
+
+		
+		if (totalresult > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		
+		
+		return totalresult;
+	}
+
+	
+
+	public int UpdateCompany(Member joinMember, Company joinCompany, int aid) {
+		Connection con = getConnection();
+		
+		int totalresult = 0;
+		
+		int result = new CompanyDao().UpdateMember(con,joinMember);
+		
+		if (result > 0) {
+			int mno = new CompanyDao().selectCNO(con, joinMember.getMemberId() , joinMember.getMemberPwd());
+			
+			joinCompany.setCNO(mno);
+			
+			joinCompany.setCom_Rep_Num(aid);
+			
+			totalresult = new CompanyDao().UpdateCompany(con, joinCompany);
+		
+		}
+
+		
+		if (totalresult > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		
+		
+		return totalresult;
 	}
 	
 }
