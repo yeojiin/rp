@@ -41,7 +41,7 @@ public class AdminDao {
 		HashMap<String,Object> hlist = null;
 		String num = "";
 		Member member = null;
-		
+		 
 		String query = prop.getProperty("selectMemberListAfterPaging");
 		
 		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;

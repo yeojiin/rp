@@ -141,7 +141,7 @@
 								<td><input type="radio">활성</td>
 								<td><input type="radio">비활성</td>
 								<td colspan="7"></td>
-							</tr>
+							</tr> 
 						</table>
 						<div class="btns">
 							<button class="ui pink button" style="background:salmon;">검색</button>
@@ -233,5 +233,9 @@
 		<div class="footerArea">
 			<jsp:include page="/views/common/footer.jsp"></jsp:include>
 		</div>
+		
+		<script>
+			
+		</script>
 </body>
 </html>

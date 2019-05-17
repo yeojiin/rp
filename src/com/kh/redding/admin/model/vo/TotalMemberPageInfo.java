@@ -1,5 +1,5 @@
 package com.kh.redding.admin.model.vo;
-
+ 
 public class TotalMemberPageInfo implements java.io.Serializable {
 	private int currentPage;
 	private int limit;

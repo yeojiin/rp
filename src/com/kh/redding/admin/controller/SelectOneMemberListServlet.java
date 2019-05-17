@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.kh.redding.admin.model.sevice.AdminService;
 import com.kh.redding.member.model.vo.Member;
-
+ 
 @WebServlet("/selectOneMember.ad")
 public class SelectOneMemberListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

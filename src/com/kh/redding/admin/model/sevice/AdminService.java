@@ -56,7 +56,7 @@ public class AdminService {
 		close(con);
 		return onemember;
 	}
-	
+	 
 	// 전체 업체 목록 조회용 메소드 (페이징 처리)
 	public ArrayList<HashMap<String, Object>> selectCompanyList(TotalMemberPageInfo pi) {
 		Connection con = getConnection();
