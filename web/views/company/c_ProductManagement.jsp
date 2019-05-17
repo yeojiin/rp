@@ -177,9 +177,8 @@
                
                <div id="productSearchResultList">
                		
-					<!-- 이부분만 수정하는 건 ajax를 사용한다. -->
-				  
-                  <table align="center" id="productSearchResulTB">
+				
+			  	<table align="center" id="productSearchResulTB">
                      <tr>
                      	<th width="3%"></th>
                         <th width="5%">No.</th>
@@ -205,7 +204,9 @@
                            		
                            <%} %>
                            <td><%=pro.getProStatus() %></td>
-                           <td><div id="productDetailBtn" class="productDetail">상세보기</div></td>
+                           <td>
+                           		<div id="productDetailBtn" class="productDetail">상세보기</div>
+                           </td>
                         </tr>
                      <% } %>
                      <tr>
@@ -217,7 +218,7 @@
                      </tr>
                   </table>
                   <div class="paginArea" align = "center">
-					<button onclick="location.href='<%=request.getContextPath()%>/selectProList.pr?currentPage=1'>>"> << </button>
+					<button onclick="location.href='<%=request.getContextPath()%>/selectProList.pr?currentPage=1'"> << </button>
 					<%if(currentPage<=1){ %>			
 						<button disabled> < </button>
 					<%} else{%>
@@ -270,7 +271,13 @@
          $(".productDetail").click(function(){
             //결과 조회 목록에서 버튼 클릭시 페이지 이동
             //상세보기 페이지 갓다가 -> 수정페이지 혹은 삭제페이지로 이동하자
-            location.href="<%=request.getContextPath()%>/views/company/c_productUpdate.jsp";
+            var pNo = $(this).parent().parent().children().eq(1).text();
+            console.log("pno: " + pNo);
+            /* pNo = Number(pNo);
+            console.log("typeof(pno) : " + typeof(pNo)); */
+            
+            
+            location.href="<%=request.getContextPath()%>/proDetail.pr?pno="+pNo;
          });
          $("#productDeleteBtn").click(function(){
         	 var result = window.confirm("정말 삭제 하시겠습니까?");

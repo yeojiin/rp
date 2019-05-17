@@ -105,7 +105,7 @@ public class ProductInsertServlet extends HttpServlet {
          }
          for(int i=0 ; i<dayOfWeek.length ; i++) {
             
-            System.out.println("int dayOfWeek["+i+"] = " + dayOfWeek[i]);
+            //System.out.println("int dayOfWeek["+i+"] = " + dayOfWeek[i]);
          }
          
          
@@ -270,7 +270,7 @@ public class ProductInsertServlet extends HttpServlet {
         		 UseProduct upro = new UseProduct();
         		 upro.setUseDate(Date.valueOf(useDate.get(i)));;
         		 upro.setuNum(uNum);
-        		 System.out.println("j : " + j);
+        		 //System.out.println("j : " + j);
         		 k = j+1;
         		 if(j<10) {
         			 start = "0" + j + ":00";

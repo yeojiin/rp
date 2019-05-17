@@ -46,7 +46,7 @@ public class ProductService {
 
 	
 	public int insertUseProduct(Product pro, ArrayList<UseProduct> uProList, ArrayList<String> useDate) {
-		Connection con = getConnection();
+	   Connection con = getConnection();
 	   int result = 0 ;
 	   
 	   //상품등록
@@ -66,11 +66,11 @@ public class ProductService {
 	   int result2 = new ProductDao().insertUseProduct(con, uProList, useDate);
 	   
 	   if(result2 == uProList.size()) {
-		   System.out.println("service result2 : " + result2);
+		   //System.out.println("service result2 : " + result2);
 		   result = 1;
 		   commit(con);
 	   }else {
-		   System.out.println("service result2 : " + result2);
+		   //System.out.println("service result2 : " + result2);
 			   result = 0;
 			   rollback(con);
 		   }
@@ -87,5 +87,19 @@ public class ProductService {
 		Product pro = new ProductDao().selectProductList(con, cno);
 		close(con);
 		return pro;
+	}
+	//상품 1개 들고 오기
+	public Product selectProductOne(int pno) {
+		Connection con = getConnection();
+		Product product = new ProductDao().selectProductOne(con, pno);
+		close(con);
+		return product;
+	}
+	//제품 전체 리스트 들고오기
+	public ArrayList<UseProduct> selectUseProductList(int pno) {
+		Connection con = getConnection();
+		ArrayList<UseProduct> useProList = new ProductDao().selectUseProductList(con, pno);
+		close(con);
+		return useProList;
 	}
 }

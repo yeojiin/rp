@@ -24,7 +24,17 @@
 #productDeleteBtn{
 	float: left;
 }
-
+#productListContentsArea button{
+	background-color: salmon;
+	color: white;
+	border: 1px solid salmon;
+	cursor: pointer;
+	border-radius: 5px;
+}
+#productListContentsArea button:hover, #productDetailBtn:hover, #productDeleteBtn:hover, #searchBtn:hover, #productUploadBtn:hover{
+	background: white;
+	color: salmon;
+}
 #productUploadBtn{
     width: 140px;
     height: 35px;
