@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.kh.redding.member.model.vo.*, com.kh.redding.admin.model.vo.*, java.util.*"%>
 <%
-	ArrayList<Member> list = (ArrayList<Member>) request.getAttribute("list");
+	ArrayList<HashMap<String,Object>> list = (ArrayList<HashMap<String,Object>>) request.getAttribute("list");
 	TotalMemberPageInfo pi = (TotalMemberPageInfo) request.getAttribute("pi");
 	int currentPage = pi.getCurrentPage();
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
+	Member onemember = (Member) request.getAttribute("onemember");
 %>
 <!DOCTYPE html>
 <html>
@@ -54,7 +55,7 @@
 				<div class="sidenavArea">
 					<ul class="navList">
 						<li onclick="location.href='a_TotalMember.jsp'" style="color:lightgray; padding-left:25px">전체 회원</li>
-						<li onclick="location.href='a_MemberOrder.jsp'">주문내역</li>
+						<li onclick="location.href='<%=request.getContextPath()%>/views/admin/a_MemberOrder.jsp'">주문내역</li>
 						<li onclick="location.href='a_MemberInquiry.jsp'">문의</li>
 					</ul>
 				</div>
@@ -66,7 +67,7 @@
 						<div class="sidenavArea2">
 						<ul class="navList2">
 						<li onclick="location.href='a_TotalMember.jsp'" style="color:lightgray; padding-left:25px">전체 회원</li>
-						<li onclick="location.href='a_MemberOrder.jsp'">주문내역</li>
+						<li onclick="location.href='<%=request.getContextPath()%>/views/admin/a_MemberOrder.jsp'">주문내역</li>
 						<li onclick="location.href='a_MemberInquiry.jsp'">문의</li>
 						</ul>
 					</div>
@@ -98,10 +99,10 @@
 					<h4 id="text1">회원 조회</h4>
 					<br> <br> <br>
 					<div class="memberList">
-						<table id="memberListt">
-							<tr style="background: lightgray;">
-								<td><input type="checkbox"></td>
-								<td>회원 아이디</td>
+						<table class="memberListTable">
+							<tr>
+								<td>선택</td>
+								<td>번호</td>
 								<td>닉네임</td>
 								<td>회원 이름</td>
 								<td>성별</td>
@@ -110,10 +111,15 @@
 								<td>결혼예정일</td>
 								<td>신고횟수</td>
 							</tr>
-							<% for(Member member : list) { %>
+							<% for(int i = 0 ; i < list.size() ; i++) { 
+								HashMap<String, Object> hmap = list.get(i);
+								
+								//System.out.println(hmap.get("num"));
+							%>
 							<tr>
 								<td><input type="checkbox"></td>
-								<td><%= member.getMemberId()%></td>
+								<td><%= hmap.get("num") %></td>
+								<% Member member = (Member)hmap.get("member"); %>
 								<td><%= member.getNickName() %></td>
 								<td><%= member.getMemberName() %></td>
 								<td><%= member.getGender() %></td>
@@ -168,37 +174,43 @@
 								<br> <br>
 								<table id="detailt">
 									<tr>
-										<td style="background: lightgray;">회원아이디</td>
-										<td>user01</td>
-										<td style="background: lightgray;">신고횟수</td>
-										<td>10</td>
+										<td style="background: lightgray;">아이디</td>
+										<td class="memberId"></td>
+										<td style="background: lightgray;">이름</td>
+										<td class="memberName"></td>
 									</tr>
 									<tr>
 										<td style="background: lightgray;">닉네임</td>
-										<td>user</td>
-										<td style="background: lightgray;">이용여부</td>
-										<td>Y</td>
-									</tr>
-									<tr>
-										<td style="background: lightgray;">생년월일</td>
-										<td>1994-06-04</td>
-										<td style="background: lightgray;">결혼예정일</td>
-										<td>2019-05-30</td>
-									</tr>
-									<tr>
-										<td style="background: lightgray;">이메일</td>
-										<td>only1year@naver.com</td>
-										<td style="background: lightgray;">이벤트 수신여부</td>
-										<td>N</td>
+										<td class="memberNickName"></td>
+										<td style="background: lightgray;">성별</td>
+										<td class="memberGender"></td>
 									</tr>
 									<tr>
 										<td style="background: lightgray;">전화번호</td>
-										<td>010-5123-7872</td>
-										<td style="background: lightgray;">휴대전화</td>
-										<td>010-5123-7872</td>
+										<td class="memberPhone"></td>
+										<td style="background: lightgray;">비상연락처</td>
+										<td class="memberEmergenCon"></td>
+									</tr>
+									<tr>
+										<td style="background: lightgray;">이메일</td>
+										<td class="memberEmail"></td>
+										<td style="background: lightgray;">신고횟수</td>
+										<td class="memberMnotiType"></td>
+									</tr>
+									<tr>
+										<td style="background: lightgray;">가입일</td>
+										<td class="memberEnrollDate"></td>
+										<td style="background: lightgray;">결혼예정일</td>
+										<td class="memberWeddingDate"></td>
+									</tr>
+									<tr>
+										<td style="background: lightgray;">활동상태</td>
+										<td class="memberStatus"></td>
+										<td style="background: lightgray;">탈퇴일</td>
+										<td class="memberOutDate"></td>
 									</tr>
 								</table>
-								<br><
+								<br>
 									<div class="btns">
 								<button class="ui pink button" style="background:salmon;">블랙리스트 추가</button>
 								<button class="ui pink button" style="background:salmon;">탈퇴</button>
@@ -277,6 +289,39 @@
 					sub.slideDown();
 				}
 			}
+			
+			$(function() {
+				$(".memberListTable td").mouseenter(function() {
+					$(this).parent().css({"background":"mistyrose", "cursor":"pointer"});
+				}).mouseout(function() {
+					$(this).parent().css({"background":"white"});
+				}).click(function() {
+					var num = $(this).parent().children().eq(1).text();
+					console.log(num);
+					$.ajax({
+						url:"selectOneMember.ad",
+						data:{num:num},
+						type:"get",
+						success:function(data) {
+							console.log(data);
+							$(".memberId").text(data.memberId);	
+							$(".memberName").text(data.memberName);	
+							$(".memberNickName").text(data.nickName);	
+							$(".memberGender").text(data.gender);	
+							$(".memberPhone").text(data.phone);	
+							$(".memberEmergenCon").text(data.emergenCon);	
+							$(".memberEmail").text(data.email);	
+							$(".memberMnotiType").text(data.mnotiType);	
+							$(".memberEnrollDate").text(data.enrollDate);	
+							$(".memberWeddingDate").text(data.weddingDate);	
+							$(".memberStatus").text(data.status);	
+							$(".memberOutDate").text(data.outDate);
+						}
+					});
+					
+				});
+			});
+			
 		</script>
 		
 </body>
