@@ -32,6 +32,7 @@ public class MemberReservationSelectServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int pno = Integer.parseInt(request.getParameter("pno"));
+		System.out.println("pno : " + pno);
 		String date = request.getParameter("useDate");
 		ArrayList<Reservation> reslist = null;
 		
