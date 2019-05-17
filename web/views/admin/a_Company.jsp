@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.redding.member.model.vo.*, com.kh.redding.admin.model.vo.*, java.util.*"%>
+<%
+	ArrayList<HashMap<String,Object>> list = (ArrayList<HashMap<String,Object>>) request.getAttribute("list");
+	TotalMemberPageInfo pi = (TotalMemberPageInfo) request.getAttribute("pi");
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,14 +75,12 @@
 						<br>
 						<table id="companyNumt">
 							<tr>
-								<td style="background: lightgray;" width="100">전체</td>
-								<td style="color: salmon">350</td>
-								<td style="background: lightgray;" width="100">활성 업체</td>
-								<td style="color: salmon">15</td>
-								<td style="background: lightgray;" width="100">비활성 업체</td>
-								<td style="color: salmon">11</td>
-								<td style="background: lightgray;" width="100">탈퇴 요청</td>
-								<td style="color: salmon">11</td>
+								<td>전체업체</td>
+								<td><%=request.getAttribute("allCompanyListCount")%>개</td>
+								<td>신규업체</td>
+								<td><%=request.getAttribute("newCompanyListCount")%>개</td>
+								<td>탈퇴업체</td>
+								<td><%=request.getAttribute("withdrawalCompanyListCount")%>개</td>
 							</tr>
 						</table>
 					</div>
@@ -135,7 +141,7 @@
 								<td><input type="radio">활성</td>
 								<td><input type="radio">비활성</td>
 								<td colspan="7"></td>
-							</tr>
+							</tr> 
 						</table>
 						<div class="btns">
 							<button class="ui pink button" style="background:salmon;">검색</button>
@@ -151,47 +157,60 @@
 								<br> <br>
 								<table id="detailt">
 									<tr style="background: lightgray;">
-										<td></td>
-										<td>No.</td>
+										<td>선택</td>
+										<td>번호</td>
 										<td>업체구분</td>
 										<td>업체명</td>
 										<td>가입일</td>
-										<td>상태</td>
+										<td>활동상태</td>
 									</tr>
+									<% for(int i = 0 ; i < list.size() ; i++) { 
+										HashMap<String, Object> hmap = list.get(i);
+									%>
 									<tr>
-										<td><input type="radio"></td>
-										<td>1</td>
-										<td>스튜디오</td>
-										<td>KH스튜디오</td>
-										<td>2019-03-05</td>
-										<td style="color:red;">Y</td>
+										<td><input type="checkbox"></td>
+										<td><%= hmap.get("num") %></td>
+										<% Member company = (Member)hmap.get("member"); %>
+										<td><%= company.getMemberName()%></td>
+										<td><%= company.getMemberName()%></td>
+										<td><%= company.getEnrollDate() %></td>
+										<td><%= company.getStatus() %></td>
 									</tr>
-									<tr>
-										<td><input type="radio"></td>
-										<td>2</td>
-										<td>메이크업</td>
-										<td>KH메이크업</td>
-										<td>2019-02-05</td>
-										<td style="color:blue;">N</td>
-									</tr>
-									<tr>
-										<td><input type="radio"></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td><input type="radio"></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
+									<% } %> 
 								</table>
-								<h4> < 1, 2, 3> </h4>
+								<br>
+								<!-- 페이지 버튼 처리 -->
+								<div class="pagingArea" align="center">
+								<button onclick="location.href='<%= request.getContextPath() %>/selectList.me?currentPage=1'"><<</button>
+								<% if(currentPage <= 1) { %>
+								<button disabled><</button>
+								<% } else { %>
+								<button onclick="location.href='<%= request.getContextPath() %>/selectList.me?currentPage=<%= currentPage - 1 %>'"><</button>
+								<% } %>
+								
+								<% for(int p = startPage; p <= endPage; p++) { 
+										if(p == currentPage) { %>
+											<button disabled><%= p %></button>
+								<% 		}else {%>
+											<button onclick="location.href='<%= request.getContextPath() %>/selectList.me?currentPage=<%= p %>'"><%= p %></button>
+								<%		} %>
+									
+								<% } %>
+								
+								<% if(currentPage >= maxPage) { %>
+								<button disabled>></button>
+								<% } else { %>
+								<button onclick="location.href='<%= request.getContextPath() %>/selectList.me?currentPage=<%= currentPage + 1 %>'">></button>
+								<% } %>
+								<button onclick="location.href='<%= request.getContextPath() %>/selectList.me?currentPage=<%= maxPage %>'">>></button>
+								<br>
+								<div class="btns">
+									<button class="ui pink button" style="background:salmon;">블랙리스트 추가</button>
+									<button class="ui pink button" style="background:salmon;">탈퇴</button>
+								</div>
+								<br>
+								<br>
+								<br>
 								<div class="btns">
 									<button class="ui pink button" style="background: salmon;" onclick=>상세정보 조회</button>
 								</div>
@@ -214,5 +233,9 @@
 		<div class="footerArea">
 			<jsp:include page="/views/common/footer.jsp"></jsp:include>
 		</div>
+		
+		<script>
+			
+		</script>
 </body>
 </html>

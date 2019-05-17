@@ -1,4 +1,4 @@
-package com.kh.redding.reservation.controller;
+package com.kh.redding.board.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class ReservationInsertServlet
+ * Servlet implementation class InsertBoardServlet
  */
-@WebServlet("/insert.re")
-public class ReservationInsertServlet extends HttpServlet {
+@WebServlet("/insert.bo")
+public class InsertBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReservationInsertServlet() {
+    public InsertBoardServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +26,9 @@ public class ReservationInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println(request.getParameter("upno"));
+		String content = request.getParameter(request.getParameter("content"));
+		
+		System.out.println("content : " + content);
 	}
 
 	/**

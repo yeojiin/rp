@@ -6,34 +6,34 @@
    margin-left: auto;
 }
 #productListContentsArea h2{
-	color: salmon;
+   color: salmon;
 }
 
 #productListAll, #PMBtns{
-	width: 100%;
+   width: 100%;
 }
 #productCountAllTb{
-	width: 80%;
+   width: 80%;
 }
 #searchBtn, #PMBtns{
-	margin-left: 90%;
+   margin-left: 90%;
 }
 #productDeleteBtn{
-	margin-left: 3px;
+   margin-left: 3px;
 }
 #productDeleteBtn{
-	float: left;
+   float: left;
 }
 #productListContentsArea button{
-	background-color: salmon;
-	color: white;
-	border: 1px solid salmon;
-	cursor: pointer;
-	border-radius: 5px;
+   background-color: white;
+   color: salmon;
+   border: 1px solid salmon;
+   cursor: pointer;
+   border-radius: 5px;
 }
-#productListContentsArea button:hover, #productDetailBtn:hover, #productDeleteBtn:hover, #searchBtn:hover, #productUploadBtn:hover{
-	background: white;
-	color: salmon;
+ #productDetailBtn:hover, #productDeleteBtn:hover, #searchBtn:hover, #productUploadBtn:hover{
+   background: white;
+   color: salmon;
 }
 #productUploadBtn{
     width: 140px;
@@ -60,10 +60,10 @@
     margin-bottom: 3px;
 }
 #productSearchTB th:first-Child{
-	width: 10%;
+   width: 10%;
 }
 #productSearchTB th:last-Child{
-	width: 90%;
+   width: 90%;
 }
 #productSearchResulTB, #productSearchTB{
    width: 100%;
@@ -72,16 +72,16 @@
    margin-left: auto;
 }
 #productSearchTB *, #productSearchResulTB *{
-	text-align: center;	
+   text-align: center;   
 }
 #productSearchTB tr:first-Child, #productSearchResulTB tr:first-Child{
    background: lightGray;
 }
 #productSearchTB tr, #productSearchResulTB tr{
-	border-top: 1px solid lightgray;	
+   border-top: 1px solid lightgray;   
 }
 #productSearchResultList{
-	margin-top: 10px;
+   margin-top: 10px;
     width: 100%;
     height: 500px;
 }

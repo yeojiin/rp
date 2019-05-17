@@ -1,7 +1,10 @@
 package com.kh.redding.member.model.service;
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.redding.member.model.dao.MemberDao;
+import com.kh.redding.member.model.vo.M_comListPageInfo;
 import com.kh.redding.member.model.vo.Member;
 
 import static com.kh.redding.common.JDBCTemplate.*;
@@ -68,5 +71,29 @@ public class MemberService {
 		
 		return result;
 	}
+
+	//업체 페이지 목록
+	public int getListCount() {
+		Connection con = getConnection();
+		int listCount = new MemberDao().getListCount(con);
+		close(con);
+		
+		return listCount;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectComList(M_comListPageInfo clpi) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new MemberDao().selectComList(con, clpi);
+		for(int i = 0; i < list.size(); i++) {
+			
+		}
+		
+		close(con);
+		
+		return list;
+	}
+	
+	
 
 }

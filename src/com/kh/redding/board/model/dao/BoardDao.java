@@ -61,8 +61,6 @@ public class BoardDao {
 				hmap.put("bdate", rset.getDate("BDATE"));
 				hmap.put("bcount", rset.getInt("BCOUNT"));
 				hmap.put("blike", rset.getInt("BLIKE"));
-				System.out.println(rset.getString("BTITLE"));
-				System.out.println(rset.getInt("BCOUNT"));
 				
 				list.add(hmap);
 			}

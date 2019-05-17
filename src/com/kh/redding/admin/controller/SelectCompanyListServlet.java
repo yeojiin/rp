@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.redding.admin.model.sevice.AdminService;
 import com.kh.redding.admin.model.vo.TotalMemberPageInfo;
 
-@WebServlet("/selectList.me")
-public class SelectMemberListServlet extends HttpServlet {
+@WebServlet("/selectList.co")
+public class SelectCompanyListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public SelectMemberListServlet() {
+    public SelectCompanyListServlet() {
         super();
     }
 
@@ -38,17 +38,15 @@ public class SelectMemberListServlet extends HttpServlet {
 		
 		limit = 10;
 		
-		int allMemberlistCount = new AdminService().getAllListCount();
-		int newMemberlistCount = new AdminService().getNewListCount();
-		int withdrawalMemberlistCount = new AdminService().getWithdrawalListCount();
-		
-		maxPage = (int)((double) allMemberlistCount / limit + 0.9);
+		int allCompanyListCount = new AdminService().getAllCompanyListCount();
+		int newCompanyListCount = new AdminService().getNewCompanyCount();
+		int withdrawalCompanyListCount = new AdminService().getWithdrawalCompanyListCount();
+		System.out.println("allCompanyListCount : " + allCompanyListCount);
+		maxPage = (int)((double) allCompanyListCount / limit + 0.9);
 		
 		startPage = (((int)((double) currentPage / limit + 0.9)) - 1) * 10 + 1;
 		
 		endPage = startPage + 10 - 1;
-		
-		
 		
 		if(maxPage < endPage) {
 			endPage = maxPage;
@@ -56,20 +54,20 @@ public class SelectMemberListServlet extends HttpServlet {
 		
 		TotalMemberPageInfo pi = new TotalMemberPageInfo(currentPage, limit, maxPage, startPage, endPage);
 		
-		ArrayList<HashMap<String,Object>> list = new AdminService().selectMemberList(pi);
-				
+		ArrayList<HashMap<String,Object>> list = new AdminService().selectCompanyList(pi);
+		
 		String page = "";
 		if(list != null) {
-			page = "views/admin/a_TotalMember.jsp";
+			page = "views/admin/a_Company.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
-			request.setAttribute("allMemberlistCount", allMemberlistCount);
-			request.setAttribute("newMemberlistCount", newMemberlistCount);
-			request.setAttribute("withdrawalMemberlistCount", withdrawalMemberlistCount);
+			request.setAttribute("allCompanyListCount", allCompanyListCount);
+			request.setAttribute("newCompanyListCount", newCompanyListCount);
+			request.setAttribute("withdrawalCompanyListCount", withdrawalCompanyListCount);
 			
 		} else {
 			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "전체 회원 조회 실패!");
+			request.setAttribute("msg", "전체 업체 조회 실패!");
 		}
 		
 		request.getRequestDispatcher(page).forward(request, response);

@@ -34,16 +34,16 @@ public class AdminDao {
 		
 	}
 
-	// 전체 회원 목록 조회 (페이징 처리)
-	public ArrayList<HashMap<String, Object>> selectList(Connection con, TotalMemberPageInfo pi) {
+	// 전체 회원 목록 조회용 메소드 (페이징 처리)
+	public ArrayList<HashMap<String, Object>> selectMemberList(Connection con, TotalMemberPageInfo pi) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<HashMap<String, Object>> list = null;
 		HashMap<String,Object> hlist = null;
 		String num = "";
 		Member member = null;
-		
-		String query = prop.getProperty("selectListAfterPaging");
+		 
+		String query = prop.getProperty("selectMemberListAfterPaging");
 		
 		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
 		int endRow = startRow + pi.getLimit() - 1;
@@ -80,17 +80,12 @@ public class AdminDao {
 				member.setStatus(rset.getString("STATUS"));
 				member.setMemberType(rset.getInt("MTYPE"));
 				member.setWeddingDate(rset.getDate("WEDDING_DATE"));
-				
-				//System.out.println(num);
-				
+
 				
 				hlist.put("num", num);
 				hlist.put("member", member);
 				list.add(hlist);
 			}
-			
-			
-			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -230,32 +225,150 @@ public class AdminDao {
 		
 	}
 	
+	// 전체 업체 목록 조회용 메소드 (페이징 처리)
+	public ArrayList<HashMap<String, Object>> selectCompanyList(Connection con, TotalMemberPageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String,Object> hlist = null;
+		String num = "";
+		Member member = null;
+		
+		String query = prop.getProperty("selectCompanyListAfterPaging");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+						
+			rset = pstmt.executeQuery();
+						
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hlist = new HashMap<String,Object>();
+				member = new Member();
+				
+				num = rset.getInt("RNUM")+ "";
+				member.setMno(rset.getInt("MNO"));
+				member.setMemberId(rset.getString("MID"));
+				member.setMemberPwd(rset.getString("MPWD"));
+				member.setMemberName(rset.getString("MNAME"));
+				member.setNickName(rset.getString("NICK_NAME"));
+				member.setPhone(rset.getString("PHONE"));
+				member.setEmergenCon(rset.getString("EMERGEN_CON"));
+				member.setEmail(rset.getString("EMAIL"));
+				member.setEmailCheck(rset.getString("EMAIL_CHECK"));
+				member.setGender(rset.getString("GENDER"));
+				member.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				member.setModifyDate(rset.getDate("MODIFY_DATE"));
+				member.setStatus(rset.getString("STATUS"));
+				member.setMemberType(rset.getInt("MTYPE"));
+				member.setWeddingDate(rset.getDate("WEDDING_DATE"));
+				
+				// System.out.println(num);
+				
+				hlist.put("num", num);
+				hlist.put("member", member);
+				list.add(hlist);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
+	}
+
+	// 전체 업체 수 조회용 메소드
+	public int getAllCompanyListCount(Connection con) {
+		Statement stmt = null;
+		int allCompanylistCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("allCompanylistCount");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				allCompanylistCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return allCompanylistCount;
+	}
+
+	// 신규 업체 수 조회용 메소드
+	public int getNewCompanyCount(Connection con) {
+		Statement stmt = null;
+		int newCompanylistCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("newCompanylistCount");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				newCompanylistCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return newCompanylistCount;
+	}
+
+	// 탈퇴 업체 수 조회용 메소드
+	public int getWithdrawalCompanyListCount(Connection con) {
+		Statement stmt = null;
+		int withdrawalCompanylistCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("withdrawalCompanylistCount");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				withdrawalCompanylistCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return withdrawalCompanylistCount;
+	}
+
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 	
 
 }

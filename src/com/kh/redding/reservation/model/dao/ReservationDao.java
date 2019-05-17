@@ -109,7 +109,8 @@ public class ReservationDao {
 				Reservation reservation = new Reservation();
 
 				reservation.setUseDate(rset.getString(1));
-
+				reservation.setuNum(rset.getInt(2));
+				
 				reslist.add(reservation);
 			}
 
@@ -143,8 +144,8 @@ public class ReservationDao {
 			while(rset.next()) {
 				Reservation reservation = new Reservation();
 
-				reservation.setStartDate(rset.getString("USE_START_DATE"));
-				reservation.setEndDate(rset.getString("USE_END_DATE"));
+				reservation.setStartDate(rset.getString("USE_START_TIME"));
+				reservation.setEndDate(rset.getString("USE_END_TIME"));
 				reservation.setuNum(rset.getInt("UNUM"));
 				reservation.setuPno(rset.getInt("UPNO"));
 				reslist.add(reservation);
@@ -246,7 +247,7 @@ public class ReservationDao {
 	            product.setPrice(rset.getInt("PRICE"));*/
 				hmap = new HashMap<String, Object>();
 				hmap.put("mno", rset.getInt("MNO"));
-				hmap.put("upno", rset.getInt("UPNO"));
+				hmap.put("upno", rset.getInt("PNO"));
 				hmap.put("mname", rset.getString("MNAME"));
 				hmap.put("pname", rset.getString("PNAME"));
 				hmap.put("price", rset.getInt("PRICE"));

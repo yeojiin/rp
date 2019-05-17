@@ -19,7 +19,7 @@
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
-					<li><button class="navBtn" onclick="location.href='<%=request.getContextPath() %>/views/member/m_studioList.jsp'">&nbsp;&nbsp;&nbsp;STUDIO&nbsp;&nbsp;&nbsp;</button></li>
+					<li><button class="navBtn" onclick="location.href='<%=request.getContextPath() %>/listcomtype.mb'">&nbsp;&nbsp;&nbsp;STUDIO&nbsp;&nbsp;&nbsp;</button></li>
 					<li><button class="navBtn" onclick="location.href='<%=request.getContextPath() %>/views/member/m_dressList.jsp'">&nbsp;&nbsp;&nbsp;DRESS&nbsp;&nbsp;&nbsp;</button></li>
 					<li><button class="navBtn" onclick="location.href='<%=request.getContextPath() %>/views/member/m_mhList.jsp'">&nbsp;&nbsp;&nbsp;MAKEUP&HAIR&nbsp;&nbsp;&nbsp;</button></li>
 					<li><button class="navBtn" onclick="location.href='<%=request.getContextPath() %>/selectBoardList.bo'">&nbsp;&nbsp;&nbsp;COMMUNITY&nbsp;&nbsp;&nbsp;</button></li>
