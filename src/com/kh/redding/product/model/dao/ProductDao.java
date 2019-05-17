@@ -152,7 +152,7 @@ public class ProductDao {
          result = pstmt.executeUpdate();
          
          
-         System.out.println("result : " + result);
+         //System.out.println("result : " + result);
       } catch (SQLException e) {
          e.printStackTrace();
       } finally {
@@ -246,6 +246,49 @@ public class ProductDao {
 			e.printStackTrace();
 		}		
 		return listCount;
+	}
+	//상품 1개 들고오기
+	public Product selectProductOne(Connection con, int pno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Product product = null;
+		
+		String query = prop.getProperty("selectProductOne");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pno);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				product = new Product();
+				product.setpNo(rset.getInt("PNO"));
+				product.setpName(rset.getString("PNAME"));
+				product.setpContent(rset.getString("PCONTENT"));
+				product.setPrice(rset.getInt("PRICE"));
+				product.setpEnrollDate(rset.getDate("PENROLL_DATE"));
+				product.setcNo(rset.getInt("CNO"));
+				product.setpModifyDate(rset.getDate("PMODIFY_DATE"));
+				product.setProStatus(rset.getString("PRO_STATUS"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return product;
+	}
+
+	public ArrayList<UseProduct> selectUseProductList(Connection con, int pno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<UseProduct> useProList = null;
+		UseProduct usePro = null;
+		
+		
+		return useProList;
 	}
 
 }

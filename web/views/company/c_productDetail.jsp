@@ -2,7 +2,6 @@
     pageEncoding="UTF-8" import="com.kh.redding.member.model.vo.Member"%>
 <%
    Member loginUser = (Member) session.getAttribute("loginUser");
-
 %>
 <!DOCTYPE html>
 <html>
@@ -68,10 +67,10 @@
          <%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
          
             <div class="contentsArea" id="productInsertArea">
-               <form action="<%=request.getContextPath() %>/insert.pr" method="post" id = "insertPro">
+               <form action="<%=request.getContextPath() %>/updateProduct.pr" method="post" id = "insertPro">
                      
                   <div id="PIHeader">
-                     <h3>상품등록 페이지</h3>
+                     <h3>상품상세 페이지</h3>
                   </div>
                   <div id="PISection">
                        <table id="PITable">
@@ -106,6 +105,7 @@
                                    <option value="리허설+본식">리허설 + 본식</option>
                                    <option value="본식">본식</option>
                                 </select>
+                                
                              </td>
                              <td id="space">
                                 <label>-</label>
@@ -208,7 +208,7 @@
                                 <label>상품 설명</label>
                              </td>
                              <td colspan="6">
-                                <textarea cols="70" rows="23" name="info" id="info" placeholder="상품설명을 입력하세요"></textarea>
+                                <textarea cols="70" rows="23" name="info" id="info">상품설명</textarea>
                              </td>
                           </tr>
                           
