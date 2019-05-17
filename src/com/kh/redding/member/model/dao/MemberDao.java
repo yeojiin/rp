@@ -1,6 +1,7 @@
 package com.kh.redding.member.model.dao;
 
 import static com.kh.redding.common.JDBCTemplate.close;
+import static com.kh.redding.common.JDBCTemplate.getConnection;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -9,8 +10,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
+import com.kh.redding.board.model.dao.BoardDao;
+import com.kh.redding.member.model.vo.M_comListPageInfo;
 import com.kh.redding.member.model.vo.Member;
 
 public class MemberDao {
@@ -177,5 +183,71 @@ public class MemberDao {
 		return result;
 	}
 
+	public int getListCount(Connection con) {
+		Statement stmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("listComCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		return listCount;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectComList(Connection con, M_comListPageInfo clpi) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectComList");
+		
+		int startRow = (clpi.getCurrentPage() - 1) * clpi.getLimit() + 1;
+		int endRow = startRow + clpi.getLimit() - 1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				
+				/*hmap.put("filepath", rset.getString("FILE_PATH"));*/
+				hmap.put("changename", rset.getString("CHANGE_NAME"));
+				hmap.put("membername", rset.getString("MNAME"));
+				hmap.put("price", rset.getInt("PRICE"));
+				hmap.put("ComLike", rset.getInt("COM_LIKE"));
+				
+				list.add(hmap);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
+	}
+	
+	
 }
 

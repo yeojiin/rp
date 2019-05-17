@@ -86,18 +86,12 @@
 					</div>
 					<div style="width:50%; height:auto; float:right;">
 					<br><br><br><br><br>
-						<p style="font-size:20px;">예약날짜 : <select>
-							<option>2019-04-17</option>
-						</select></p><br><br>
-						<p style="font-size:20px;">예약시간 : <select>
-							<option>15:00</option>
-						</select></p><br><br>
-						<p style="font-size:20px;">옵션 : <select>
-							<option>옵션선택</option>
+						<p style="font-size:20px;">상품이름 : <select>
+							<option>선택</option>
 						</select></p>
 						<br><br>
-						<a class="btn btn-default" style="float:left; border-color:salmon; background:salmon; color:white; width:45%; height:auto; font-size:20px;">예약하기</a>
-						<a class="btn btn-default" style="float:left; margin-left:5%; border-color:salmon; float:right; background:salmon; color:white; width:45%; height:auto; font-size:20px;">위시리스트에 담기</a>
+						<a class="btn btn-default" style="border-color:salmon; background:salmon; color:white; width:50%; height:auto; font-size:20px;">예약하기</a><br><br><br>
+						<a class="btn btn-default" style="border-color:salmon; background:salmon; color:white; width:50%; height:auto; font-size:20px;">위시리스트에 담기</a>
 					</div><br><br>
 					<hr style="border-color: black; width:100%;">
 				</div>
