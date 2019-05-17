@@ -67,8 +67,10 @@ public class SendEmailServlet extends HttpServlet {
 			msg.setSubject("REDDING 이메일 인증코드","UTF-8");
 			
 			//이메일 내용
-			code = request.getParameter("code_check");
+			int random = (int)Math.floor((Math.random()*(99999-10000+1)))+10000;
 			
+			code = random + "";
+
 			System.out.println("code_check : " + code);
 			
 			msg.setText(code, "UTF-8");

@@ -37,6 +37,7 @@ public class CompanyDao {
 		
 	}
 	
+	//id중복체크
 	public int registerCheck(Connection con, String userId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -127,6 +128,7 @@ public class CompanyDao {
 		return mno;
 	}
 
+	//업체 등록
 	public int insertCompany(Connection con, Company joinCompany) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -161,6 +163,7 @@ public class CompanyDao {
 		return result;
 	}
 
+	//업체 사업자등록 파일 등록
 	public int insertRegNum(Connection con, Attachment joinAttach) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -187,6 +190,7 @@ public class CompanyDao {
 		return result;
 	}
 
+	//업체 사업자등록 번호 조회
 	public int selectRegNum(Connection con) {
 		Statement pstmt = null;
 		ResultSet rset = null;
@@ -216,6 +220,7 @@ public class CompanyDao {
 		return reg_num;
 	}
 
+	//업체 정보 불러오기
 	public HashMap<String, Object> selectCompanyInf(Connection con, Member loginUser) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -275,10 +280,170 @@ public class CompanyDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
 		}
 		
 		
 		return loginCompany;
+	}
+
+	//업체 비밀번호 변경
+	public int UpdateMemberPassword(Connection con, String password, String changepassword, String memberId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("UpdatePassword");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, changepassword);
+			pstmt.setString(2, memberId);
+			pstmt.setString(3, password);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		
+		return result;
+	}
+
+	//업체 개인정보 수정
+	public int UpdateCompany(Connection con, Company joinCompany) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("UpdateCompany");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+		
+		
+			pstmt.setString(1, joinCompany.getRepName());
+			pstmt.setString(2, joinCompany.getComAddress());
+			pstmt.setString(3, joinCompany.getComUrl());
+			pstmt.setInt(4, joinCompany.getAccountCode());
+			pstmt.setString(5, joinCompany.getAccountNum());
+			pstmt.setString(6, joinCompany.getAccountName());
+			pstmt.setString(7, joinCompany.getComType());
+			pstmt.setInt(8, joinCompany.getCNO());
+			pstmt.setInt(9, joinCompany.getCom_Rep_Num());
+			
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		
+		
+		return result;
+	}
+
+	public int UpdateMember(Connection con, Member joinMember) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("UpdateMember");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+		
+			pstmt.setString(1, joinMember.getMemberName());
+			pstmt.setString(2, joinMember.getEmail());
+			pstmt.setString(3, joinMember.getEmailCheck());
+			pstmt.setString(4, joinMember.getPhone());
+			pstmt.setString(5, joinMember.getMemberId());
+			pstmt.setString(6, joinMember.getMemberPwd());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		
+		
+		return result;
+	}
+
+	public int updateAttachment(Connection con, Attachment joinAttach) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("UpdateAttachment");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+		
+			
+			pstmt.setString(1, joinAttach.getOriginname());
+			pstmt.setString(2, joinAttach.getChangename());
+			pstmt.setInt(3, joinAttach.getAid());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		
+		
+		return result;
+	}
+
+	public int selectCNO(Connection con, String memberId, String memberPwd) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int cno = 0;
+		
+		String query = prop.getProperty("selectCNO");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, memberId);
+			pstmt.setString(2, memberPwd);
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				cno = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		
+		return cno;
 	}
 
 

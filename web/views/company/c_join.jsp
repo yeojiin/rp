@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%! public int getRandom(){
-	int random = 0;
-	random = (int)Math.floor((Math.random()*(99999-10000+1)))+10000;
-	return random;
 
-}	%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -194,7 +189,7 @@
 									<button type="button" class="check" id="emailckbtn">인증하기</button>
 									<span id="Semailck"></span> <input type="hidden"
 									id="email_check" name="email_check" value="인증안됨">
-									<input type = "hidden" readonly = "readonly" name = "code_check" id = "code_check" value = "<%=getRandom()%>"></td>
+									<input type = "hidden" readonly = "readonly" name = "code_check" id = "code_check" ></td>
 							</tr>
 							<tr>
 								<td colspan="3" id="com_label">추가 정보</td>
@@ -780,9 +775,9 @@ Redding
 						$.ajax({
 		          			url : "/redding/send",
 		          			type : "post",
-		          			data : {email : email , code_check : $("#code_check").val()},
+		          			data : {email : email},
 		          			success : function(data){
-		          				
+		          				 $("#code_check").val(data);
 		          	   
 		          	          	popupOpen();
 		          	                    

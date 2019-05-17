@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import = "java.util.*" %>
-<%! public int getRandom(){
-	int random = 0;
-	random = (int)Math.floor((Math.random()*(99999-10000+1)))+10000;
-	return random;
 
-}	%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -146,7 +141,7 @@
 								<button type= "button" id = "emailckbtn" class="check">인증하기</button>
 								<span id="Semailck"></span>
 								<input type = "hidden" id = "email_check" name = "email_check" value = "인증안됨">
-								<input type = "hidden" readonly = "readonly" name = "code_check" id = "code_check" value = "<%=getRandom()%>"></td>
+								<input type = "hidden" readonly = "readonly" name = "code_check" id = "code_check"></td>
 								
 							</tr>
 							<tr>
@@ -569,8 +564,11 @@
 					$.ajax({
 	          			url : "/redding/send",
 	          			type : "post",
-	          			data : {email : email , code_check : $("#code_check").val()},
+	          			data : {email : email},
 	          			success : function(data){
+	          				$("#code_check").val(data);
+	          				
+	          				
 	          	            popupOpen();
 	          			}, 
 	          			error : function(){
