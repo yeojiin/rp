@@ -48,6 +48,8 @@ public class SelectMemberListServlet extends HttpServlet {
 		
 		endPage = startPage + 10 - 1;
 		
+		
+		
 		if(maxPage < endPage) {
 			endPage = maxPage;
 		}
