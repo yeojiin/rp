@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
+import com.kh.redding.board.model.vo.Board;
 import com.kh.redding.board.model.vo.BoardPageInfo;
 
 public class BoardDao {
@@ -36,7 +37,7 @@ public class BoardDao {
 		ResultSet rset = null;
 		
 		String query = prop.getProperty("selectBoardList");
-		System.out.println(query);
+//		System.out.println(query);
 		
 		//조회 시작할 행 번호와 마지막 행 번호 계산
 		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
@@ -60,6 +61,8 @@ public class BoardDao {
 				hmap.put("bdate", rset.getDate("BDATE"));
 				hmap.put("bcount", rset.getInt("BCOUNT"));
 				hmap.put("blike", rset.getInt("BLIKE"));
+				System.out.println(rset.getString("BTITLE"));
+				System.out.println(rset.getInt("BCOUNT"));
 				
 				list.add(hmap);
 			}
@@ -98,5 +101,64 @@ public class BoardDao {
 		
 		return listCount;
 	}
+
+	public Board selectOne(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Board b = null;
+		
+		String query = prop.getProperty("selectOne");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				b = new Board();
+				
+				b.setBid(rset.getInt("BID"));
+				b.setBtitle(rset.getString("BTITLE"));
+				b.setBwriter((rset.getInt("NICK_NAME")));
+				b.setBdate(rset.getDate("BDATE"));
+				b.setBcount(rset.getInt("BCOUNT"));
+				b.setBlike(rset.getInt("BLIKE"));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return b;
+	}
+
+	public int updateCount(Connection con, int bid) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, bid);
+			pstmt.setInt(2, bid);
+			
+			result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
 
 }

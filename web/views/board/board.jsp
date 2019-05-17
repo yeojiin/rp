@@ -114,7 +114,7 @@
 										hmap = list.get(i);
 								%>
 								<tr
-									onclick="location.href='<%=request.getContextPath()%>/views/board/boardLook.jsp'">
+									>
 									<td><%=hmap.get("bid")%></td>
 									<td><%=hmap.get("btitle")%></td>
 									<td><%=hmap.get("bwriter")%></td>
@@ -173,5 +173,21 @@
 	<div class="footerArea">
 		<jsp:include page="/views/common/footer.jsp"></jsp:include>
 	</div>
+	<script>
+		$(function(){
+			$(".table-striped td").mouseenter(function(){
+				$(this).parent().css({"background":"salmon", 
+									"cursor":"pointer"});
+			}).mouseout(function(){
+				$(this).parent().css({"background":"none"});
+			}).click(function(){
+				var num = $(this).parent().children().eq(0).text();
+				
+				console.log(num);
+				
+				location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num;
+			});
+		})
+	</script>
 </body>
 </html>
