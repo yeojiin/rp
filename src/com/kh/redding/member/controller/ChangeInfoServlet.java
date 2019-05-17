@@ -1,5 +1,5 @@
 package com.kh.redding.member.controller;
-
+ 
 import java.io.IOException;
 import java.sql.Date;
 
@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.redding.common.MyFileRenamePolicy;
 import com.kh.redding.member.model.service.MemberService;
 import com.kh.redding.member.model.vo.Member;
+import com.oreilly.servlet.MultipartRequest;
 
 @WebServlet("/changeInfo.me")
 public class ChangeInfoServlet extends HttpServlet {
@@ -69,6 +71,8 @@ public class ChangeInfoServlet extends HttpServlet {
 			request.setAttribute("msg", "개인정보 수정 실패!");
 			request.getRequestDispatcher(page).forward(request, response);
 		}
+		
+		
 		
 		
 	}

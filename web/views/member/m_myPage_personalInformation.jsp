@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8" import="com.kh.redding.member.model.vo.Member"%>
 <%
 	Member loginUser = (Member) session.getAttribute("loginUser");
-%>
+%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -195,7 +195,7 @@
 									</select>&nbsp;&nbsp;&nbsp;&nbsp;
 									<button type= "button" class="check" id = "emailckbtn">인증하기</button>
 									<span id="Semailck"></span>
-									<input type = "hidden" id = "email_check" name = "email_check" value = "인증안됨">
+									<input type = "hidden" readonly = "readonly" name = "code_check" id = "code_check">
 								</td>
 							</tr>
 							<tr>
@@ -437,12 +437,6 @@
 				}
 			});
 			
-			//이메일 인증
-			$("#emailckbtn").click(function(){
-				$("#Semailck").text("인증안됨");
-				$("#Semailck").css("color","red");
-			});
-			
 			//성별 체크
 			$("input[name=gender]").each(function() {
 				var memberGender = "<%=loginUser.getGender()%>";
@@ -451,6 +445,99 @@
 				}
 				
 			});
+			
+			function popupOpen(){
+				var url= "<%=request.getContextPath()%>/views/common/checkcode.jsp";    //팝업창에 출력될 페이지 URL
+				var winWidth = 200;
+			    var winHeight = 200;
+			    var popupOption= "width="+winWidth+", height="+winHeight;    //팝업창 옵션(optoin)
+			    var myWindow = window.open(url,"TestName",popupOption);
+			  //  myWindow.document.write("<h1>"+myWindow.name+"</h1>");
+			}
+			
+			//이메일 기본값
+		 	var result = "<%=loginUser.getEmailCheck() %>";
+			
+			if (result == "N"){
+				$("#emailckbtn").css("background","white");
+				$("#emailckbtn").css("color","red");
+				$("#emailckbtn").css("border","1px solid red");
+				$("#emailckbtn").text("인증안됨");
+				$("#email_check").val("인증안됨");
+			}else {
+				$("#emailckbtn").css("background","white");
+				$("#emailckbtn").css("color","blue");
+				$("#emailckbtn").css("border","1px solid blue");
+				$("#emailckbtn").text("인증됨");
+				$("#email_check").val("인증됨");
+			}
+		 	
+			//이메일 바꿀경우 
+			$("input[name=email1]").change(function(){
+				$("#emailckbtn").css("background","#FB6E5F");
+				$("#emailckbtn").css("color","white");
+				$("#emailckbtn").css("border","1px solid #FB6E5F");
+				$("#emailckbtn").text("인증하기");
+				$("#email_check").val("인증안됨");
+			});
+			
+			$("#email2").change(function(){
+				$("#emailckbtn").css("background","#FB6E5F");
+				$("#emailckbtn").css("color","white");
+				$("#emailckbtn").css("border","1px solid #FB6E5F");
+				$("#emailckbtn").text("인증하기");
+				$("#email_check").val("인증안됨");
+			});
+			
+			//select에서 바꿀때
+			$("#email3").change(function(){
+				$("#email3").children().eq(0).attr("disabled","true");
+				
+				var value = $(this).val();
+				
+				$("#email2").val(value);
+				
+				$("#emailckbtn").css("background","#FB6E5F");
+				$("#emailckbtn").css("color","white");
+				$("#emailckbtn").css("border","1px solid #FB6E5F");
+				$("#emailckbtn").text("인증하기");
+				$("#email_check").val("인증안됨");
+			});
+		 	
+		 	
+		 	
+		 	//이메일 인증
+			$("#emailckbtn").click(function(){	
+				var email1 = $("input[name=email1]").val();		//이메일1
+				var email2 = $("#email2").val();
+				
+				var email = email1 + "@" + email2;
+				
+				if (email1 == ""){
+					alert("이메일을 작성해주세요");
+				}else if (email2 == ""){
+					alert("이메일을 작성해주세요");
+				}else {
+					$.ajax({
+	          			url : "/redding/send",
+	          			type : "post",
+	          			data : {email : email},
+	          			success : function(data){
+	          				$("#code_check").val(data);
+	          	   			
+	          	          	popupOpen();
+	          	                    
+	          			}, 
+	          			error : function(){
+	          				console.log("실패!");
+	          			}
+	          		});
+				}
+				
+				
+			});
+			
+			
 			
 		});
 		

@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" import = "com.kh.redding.member.model.vo.*"%>
 <%
 	Member loginUser = (Member) session.getAttribute("loginUser");
-%>
+%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +27,7 @@
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="a_Sstats.jsp">통계관리</a></li>
 					<li><a href="a_calculate.jsp">정산관리</a></li>
-					<li><a href="a_Company.jsp">업체관리</a></li>
+					<li><a onclick="goTotalCompany()">업체관리</a></li>
 					<li><a onclick="goTotalMember()">회원관리</a></li>
 					<li><a href="a_BlackList.jsp">블랙리스트 관리</a></li>
 					<li><a href="a_event.jsp">쿠폰 관리</a></li>
@@ -48,8 +48,8 @@
 	function goTotalMember() {
 		location.href="<%=request.getContextPath()%>/selectList.me";
 	}
-	function goTotalMember() {
-		location.href="<%=request.getContextPath()%>/selectList.me";
+	function goTotalCompany() {
+		location.href="<%=request.getContextPath()%>/selectList.co";
 	}
 	function goTotalMember() {
 		location.href="<%=request.getContextPath()%>/selectList.me";
