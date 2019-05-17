@@ -62,7 +62,7 @@
 								<th></th>
 							</tr>
 							<%
-								/* 해쉬맵으로 받은 객체  꺼내주기*/ 
+								/* 해쉬맵으로 받은 객체 꺼내주기*/ 
 								for (int i = 0; i < list.size(); i++) {
 									HashMap<String, Object> hmap = list.get(i);
 							%>
@@ -73,8 +73,9 @@
 								</td>
 								<td class="pName"><%=hmap.get("pname")%></td>
 								<td class="price"><%=hmap.get("price")%></td>
-								<td><input name="check" type="checkbox"
-									value=<%=hmap.get("upno")%>></td>
+								<td><input name="check" type="checkbox" id="checkbox" class="checkbox"></td>
+								<td class="uPno"><%=hmap.get("upno")%></td>
+								<td class="cType"><%=hmap.get("ctype")%></td>
 							</tr>
 							<%
 								}
@@ -97,17 +98,20 @@
 					<h2>패키지 구성</h2>
 					<div id="packageArea">
 						<div class="packageStudio">
-							<img src="<%=request.getContextPath()%>/images/logo.png">
+							<input class="Studio">
+							<%-- <img src="<%=request.getContextPath()%>/images/logo.png"> --%>
 							<img src="<%=request.getContextPath()%>/images/plus.png">
 						</div>
 
 						<div class="packageDress">
-							<img src="<%=request.getContextPath()%>/images/logo.png">
+							<input class="Dress">
+							<%-- <img src="<%=request.getContextPath()%>/images/logo.png"> --%>
 							<img src="<%=request.getContextPath()%>/images/plus.png">
 						</div>
 
 						<div class="packageMakeup">
-							<img src="<%=request.getContextPath()%>/images/logo.png">
+							<input class="Makeup">
+							<%-- <img src="<%=request.getContextPath()%>/images/logo.png"> --%>
 							<img src="<%=request.getContextPath()%>/images/equal.png">
 						</div>
 						<div class="packagePrice">
@@ -119,17 +123,6 @@
 						<button class="ui pink button" style="background: salmon;" onclick="location.href='views/member/m_pay.jsp'">결제하기</button>
 					</div>
 
-					<%-- <table id="pResult" style="backgound:lightgray;">
-						<tr>
-						<td id="package1"><img id="image" src="<%= request.getContextPath() %>/images/logo.png"></td>
-						<td><img src="<%= request.getContextPath() %>/images/plus.png"></td>
-						<td id="package2"><img id="image" src="<%= request.getContextPath() %>/images/logo.png"></td>
-						<td><img src="<%= request.getContextPath() %>/images/plus.png"></td>
-						<td id="package3"><img id="image" src="<%= request.getContextPath() %>/images/logo.png"></td>
-						<td><img src="<%= request.getContextPath() %>/images/equal.png"></td>
-						<td></td>
-						</tr>
-					</table> --%>
 				</div>
 
 
@@ -140,19 +133,17 @@
 			<div class="col-sm-2 sidenav"></div>
 
 			<script>
-			
-			
 				$('#delete').click(function() {
 					var deleteList = "";
 
 					$("input[name=check]:checked").each(function() {
-						if (deleteList == "") {
-							deleteList = $(this).val();
+						if(deleteList == "") {
+							deleteList = $(this).closest('td').siblings('.uPno').text();
 						} else {
-							deleteList = deleteList + "," + $(this).val();
+							deleteList = deleteList + "," + $(this).closest('td').siblings('.uPno').text();
 						}
 					});
-					//console.log(deleteList);
+					console.log(deleteList);
 					$("#deleteList").val(deleteList);
 					
 					$("#deleteWishForm").submit();
@@ -166,18 +157,12 @@
 					
 					$("input[name=check]:checked").each(function(){
 						if(reserveList == ""){
-							reserveList = $(this).val();
+							reserveList = $(this).closest('td').siblings('.uPno').text();
 						}else{
-							reserveList = reserveList + "," + $(this).val();
+							reserveList = reserveList + "," + $(this).closest('td').siblings('.uPno').text();
 						}
 					});
 					
-				/* 	if(reserveList != "") {
-					location.href="views/member/m_reservation.jsp?reserveList="+reserveList; 
-					}else {
-						alert("선택하신 상품이 없습니다.");
-					} */
-
 					if(reserveList != "") {
 						location.href="<%=request.getContextPath()%>/wishList.re?reserveList="+reserveList; 
 						}else {
@@ -185,10 +170,37 @@
 						}
 					
 				});
-	
+				
+		
+				//패키지 구성에 담기
+				$(".checkbox").change(function() {
+					var cType = $(this).closest("td").siblings('.cType').text();
+					var uPno = $(this).closest("td").siblings('.uPno').text();
+					var ctn = 0;
+					
+					if($(this).prop("checked") == true){
+						if(cType == "스튜디오"){
+							$(".Studio").val(uPno);
+						}else if(cType == "드레스"){
+							$(".Dress").val(uPno);
+						}else if(cType == "메이크업"){
+							$(".Makeup").val(uPno);
+						}
+						
+					}else{
+						if(cType == "스튜디오"){
+							$(".Studio").val("");
+						}else if(cType == "드레스"){
+							$(".Dress").val("");
+						}else if(cType == "메이크업"){
+							$(".Makeup").val("");
+						}
+					}
+				});
+				
+				
 				
 			</script>
-
 		</div>
 
 	</div>

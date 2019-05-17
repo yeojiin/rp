@@ -1,5 +1,7 @@
 package com.kh.redding.admin.model.dao;
 
+import static com.kh.redding.common.JDBCTemplate.close;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,7 +16,6 @@ import java.util.Properties;
 
 import com.kh.redding.admin.model.vo.TotalMemberPageInfo;
 import com.kh.redding.member.model.vo.Member;
-import static com.kh.redding.common.JDBCTemplate.*;
 
 public class AdminDao {
 	
@@ -51,6 +52,9 @@ public class AdminDao {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
+			
+			System.out.println(startRow);
+			System.out.println(endRow);
 						
 			rset = pstmt.executeQuery();
 						
@@ -77,7 +81,7 @@ public class AdminDao {
 				member.setMemberType(rset.getInt("MTYPE"));
 				member.setWeddingDate(rset.getDate("WEDDING_DATE"));
 				
-				System.out.println(num);
+				//System.out.println(num);
 				
 				
 				hlist.put("num", num);

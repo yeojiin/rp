@@ -52,6 +52,7 @@ public class WishListDao {
 				hmap.put("pcontent", rset.getString("PCONTENT"));
 				hmap.put("price", rset.getInt("PRICE"));
 				hmap.put("mname", rset.getString("MNAME"));
+				hmap.put("ctype", rset.getString("COM_TYPE"));
 				
 				list.add(hmap);
 				
