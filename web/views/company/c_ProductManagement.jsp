@@ -1,13 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*, com.kh.redding.product.model.vo.*"%>
 <%   
-	ArrayList<Product> proList = (ArrayList<Product>) request.getAttribute("proList"); 
-	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	
-	int currentPage = pi.getCurrentPage();
-	int maxPage = pi.getMaxPage();
-	int startPage = pi.getStartPage();
-	int endPage = pi.getEndPage();		
+   ArrayList<Product> proList = (ArrayList<Product>) request.getAttribute("proList"); 
+   PageInfo pi = (PageInfo)request.getAttribute("pi");
+   
+   int currentPage = pi.getCurrentPage();
+   int maxPage = pi.getMaxPage();
+   int startPage = pi.getStartPage();
+   int endPage = pi.getEndPage();
+   int startRow = pi.getStartRow();
+   int endRow = pi.getEndRow();
+   
          //vo.상품에서 가져올 값  : 즉, 테이블에도 존재해야 함 아니면 count(*) 함수 사용하든가
 
          int productTotalCount = 400 ;
@@ -70,7 +73,7 @@
       <div class="row content">
       
          <div class="col-sm-2 sidenav1 visible-md visible-lg visible-sm">
-         	<div id="productUploadBtn">상품 등록</div>
+            <div id="productUploadBtn">상품 등록</div>
          </div>
          
          
@@ -79,42 +82,42 @@
             <div class="contentsArea" id="productListContentsArea">
                <!-- 상품목록 밑의 전체~ 상품등록하기 버튼까지 -->
                <div id="PMTotalArea">
-	               <div id="productListTitle">
-	               		<h2>상품목록</h2>
-		               <div id="productListAll">
-		               	   <div id="productCountAllTb">
-			                  <table id="productCountAll">
-			                     <tr>
-			                        <td>
-			                           <label>전체 : </label>
-			                           <input type="text" name="productTotalCount" value="<%=productTotalCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
-			                           <label>|</label>&nbsp;&nbsp;&nbsp;
-			                        </td>
-			                        <td>
-			                           <label>판매함 : </label>
-			                           <input type="text" name="SaleProductCount" value="<%=SaleProductCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
-			                           <label>|</label>&nbsp;&nbsp;&nbsp;
-			                        </td>
-			                        <td>
-			                           <label>판매 안함 : </label>
-			                           <input type="text" name="NoSaleProductCount" value="<%=NoSaleProductCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
-			                           <label>|</label>&nbsp;&nbsp;&nbsp;
-			                        </td><%-- 
-			                        <td>
-			                           <label>공개함 : </label>
-			                           <input type="text" name="OpenProductCount" value="<%=OpenProductCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
-			                           <label>|</label>&nbsp;&nbsp;&nbsp;
-			                        </td>
-			                        <td>
-			                           <label>공개 안함 : </label>
-			                           <input type="text" name="CloseProductCount" value="<%=CloseProductCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
-			                           &nbsp;&nbsp;&nbsp;
-			                        </td> --%>
-			                     </tr>
-			                  </table>
-		                  </div>
-		               </div>
-	               </div>
+                  <div id="productListTitle">
+                        <h2>상품목록</h2>
+                     <div id="productListAll">
+                           <div id="productCountAllTb">
+                           <table id="productCountAll">
+                              <tr>
+                                 <td>
+                                    <label>전체 : </label>
+                                    <input type="text" name="productTotalCount" value="<%=productTotalCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
+                                    <label>|</label>&nbsp;&nbsp;&nbsp;
+                                 </td>
+                                 <td>
+                                    <label>판매함 : </label>
+                                    <input type="text" name="SaleProductCount" value="<%=SaleProductCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
+                                    <label>|</label>&nbsp;&nbsp;&nbsp;
+                                 </td>
+                                 <td>
+                                    <label>판매 안함 : </label>
+                                    <input type="text" name="NoSaleProductCount" value="<%=NoSaleProductCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
+                                    <label>|</label>&nbsp;&nbsp;&nbsp;
+                                 </td><%-- 
+                                 <td>
+                                    <label>공개함 : </label>
+                                    <input type="text" name="OpenProductCount" value="<%=OpenProductCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
+                                    <label>|</label>&nbsp;&nbsp;&nbsp;
+                                 </td>
+                                 <td>
+                                    <label>공개 안함 : </label>
+                                    <input type="text" name="CloseProductCount" value="<%=CloseProductCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
+                                    &nbsp;&nbsp;&nbsp;
+                                 </td> --%>
+                              </tr>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
                
                <!-- 검색분류테이블 -->
                <div id="productSearchTBArea">
@@ -165,9 +168,9 @@
                         </td>
                      </tr>
                      <tr>
-                     	<td colspan="2">
-                     		<div id="searchBtn">검색하기</div>
-                     	</td>
+                        <td colspan="2">
+                           <div id="searchBtn">검색하기</div>
+                        </td>
                      </tr>
                   </table>
                </div>
@@ -176,76 +179,82 @@
                <!-- 페이징 처리 해야 함 -->
                
                <div id="productSearchResultList">
-               		
-				
-			  	<table align="center" id="productSearchResulTB">
+                     
+            
+              <table align="center" id="productSearchResulTB">
                      <tr>
-                     	<th width="3%"></th>
+                        <th width="3%"></th>
                         <th width="5%">No.</th>
                         <th width="15%">상품명</th>
-                        <th width="10%">가격</th>
+                        <th width="10%">가격(원)</th>
                         <th width="15%">상품등록일</th>
                         <th width="15%">상품수정일</th>
                         <th width="10%">판매 여부</th>
                         <th width="10%"></th>
                      </tr>
+                     
                      <% for(Product pro : proList){ %>
                         <tr>
                         <!-- ajax로 행 처리하기 처리할때 아래와 같이 체크박스와 버튼 도 같이 나와야 한다. -->
-                           <td><input type="checkbox" name="" id=""></td>
-                           <td><%=pro.getpNo() %></td>
+                           <td><input type="checkbox" name="proCheck" id="proCheck"></td>
+                           <td><%=startRow %>
+                              <input type="hidden" name="proNum" id="proNum" value="<%=pro.getpNo() %>">
+                           </td>
                            <td><%=pro.getpName() %></td>
                            <td><%=pro.getPrice() %></td>
                            <td><%=pro.getpEnrollDate() %></td>
                            <%if(pro.getpModifyDate() == null){ %>
-                           		<td>-</td>
+                                 <td>-</td>
                            <%}else{ %>
-	                           <td><%=pro.getpModifyDate() %></td>
-                           		
+                              <td><%=pro.getpModifyDate() %></td>
+                                 
                            <%} %>
                            <td><%=pro.getProStatus() %></td>
                            <td>
-                           		<div id="productDetailBtn" class="productDetail">상세보기</div>
+                                 <div id="productDetailBtn" class="productDetail">상세보기</div>
                            </td>
                         </tr>
+                        <%                        
+                           startRow = startRow+1;
+                           %>
                      <% } %>
                      <tr>
-                     	<td colspan="8">
-                     		<div id="PMBtns">
-                     			<span id="productDeleteBtn">삭제하기</span>
-                     		</div>
-                     	</td>
+                        <td colspan="8">
+                           <div id="PMBtns">
+                              <span id="productDeleteBtn">삭제하기</span>
+                           </div>
+                        </td>
                      </tr>
                   </table>
                   <div class="paginArea" align = "center">
-					<button onclick="location.href='<%=request.getContextPath()%>/selectProList.pr?currentPage=1'"> << </button>
-					<%if(currentPage<=1){ %>			
-						<button disabled> < </button>
-					<%} else{%>
-						<button onclick="location.href='<%=request.getContextPath() %>/selectProList.pr?currentPage=<%=currentPage - 1 %>'"> < </button>
-					<%} %>
-					
-					
-					<%for(int p=startPage ; p<=endPage ; p++){ 
-						if(p == currentPage){%>
-							<button disabled> <%=p %> </button>
-						<%}else{ %>
-							<button onclick="location.href='<%=request.getContextPath()%>/selectProList.pr?currentPage=<%=p%>'"> <%=p %> </button>
-						<%} %>
-					
-					<%} %>
-					
-					
-					<%if(currentPage >= maxPage){ %>
-						<button disabled> > </button>
-					<%}else{ %>
-						<button onclick="location.href='<%=request.getContextPath()%>/selectProList.pr?currentPage=<%=currentPage + 1%>'"> > </button>
-					<%} %>			
-					
-					<button onclick="location.href='<%=request.getContextPath()%>/selectProList.pr?currentPage=<%=maxPage%>'"> >> </button>
-			
-			
-				</div>
+               <button onclick="location.href='<%=request.getContextPath()%>/selectProList.pr?currentPage=1'"> << </button>
+               <%if(currentPage<=1){ %>         
+                  <button disabled> < </button>
+               <%} else{%>
+                  <button onclick="location.href='<%=request.getContextPath() %>/selectProList.pr?currentPage=<%=currentPage - 1 %>'"> < </button>
+               <%} %>
+               
+               
+               <%for(int p=startPage ; p<=endPage ; p++){ 
+                  if(p == currentPage){%>
+                     <button disabled> <%=p %> </button>
+                  <%}else{ %>
+                     <button onclick="location.href='<%=request.getContextPath()%>/selectProList.pr?currentPage=<%=p%>'"> <%=p %> </button>
+                  <%} %>
+               
+               <%} %>
+               
+               
+               <%if(currentPage >= maxPage){ %>
+                  <button disabled> > </button>
+               <%}else{ %>
+                  <button onclick="location.href='<%=request.getContextPath()%>/selectProList.pr?currentPage=<%=currentPage + 1%>'"> > </button>
+               <%} %>         
+               
+               <button onclick="location.href='<%=request.getContextPath()%>/selectProList.pr?currentPage=<%=maxPage%>'"> >> </button>
+         
+         
+            </div>
                </div>
                </div>
             </div>
@@ -271,7 +280,7 @@
          $(".productDetail").click(function(){
             //결과 조회 목록에서 버튼 클릭시 페이지 이동
             //상세보기 페이지 갓다가 -> 수정페이지 혹은 삭제페이지로 이동하자
-            var pNo = $(this).parent().parent().children().eq(1).text();
+            var pNo = $(this).parent().parent().children().eq(1).children().eq(0).val();
             console.log("pno: " + pNo);
             /* pNo = Number(pNo);
             console.log("typeof(pno) : " + typeof(pNo)); */
@@ -280,20 +289,20 @@
             location.href="<%=request.getContextPath()%>/proDetail.pr?pno="+pNo;
          });
          $("#productDeleteBtn").click(function(){
-        	 var result = window.confirm("정말 삭제 하시겠습니까?");
-        	 if(result == true){
-        		 alert("해당 상품이 삭제 되었습니다");
-        	 }else{
-        		 alert("삭제를 취소하셨습니다.");
-        	 }
+            var result = window.confirm("정말 삭제 하시겠습니까?");
+            if(result == true){
+               alert("해당 상품이 삭제 되었습니다");
+            }else{
+               alert("삭제를 취소하셨습니다.");
+            }
          });
          $("#searchBtn").click(function(){
-        	 /* 검색값들을 서블릿으로 넘겨주어야 함 */
-        	 var startDate = $("#startDate").text();
-        	 var endDate = $("#endDate").text();
-        	 
-        	 console.log(typeof(startDate));
-        	 console.log(endDate);
+            /* 검색값들을 서블릿으로 넘겨주어야 함 */
+            var startDate = $("#startDate").text();
+            var endDate = $("#endDate").text();
+            
+            console.log(typeof(startDate));
+            console.log(endDate);
          });
       });
    </script>

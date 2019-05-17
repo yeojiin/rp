@@ -200,7 +200,7 @@ public class ProductInsertServlet extends HttpServlet {
          int[] checkList = new int[days.size()];
          for(int i=0 ; i<days.size() ; i++) {
             for(int j=0 ; j<dayOfWeek.length ; j++) {
-            	//System.out.println("j : " + j);
+               //System.out.println("j : " + j);
                if(Integer.parseInt(days.get(i)) == dayOfWeek[j]) {
 //                  System.out.println("Integer.parseInt(days.get("+j+")) : " + Integer.parseInt(days.get(j)));
 //                  System.out.println("인서트 ㄴㄴ");
@@ -220,8 +220,8 @@ public class ProductInsertServlet extends HttpServlet {
          for(int i=0 ; i<checkList.length; i++) {
             if(checkList[i]==1) {
                //System.out.println("짜증나 ㅅㅂ");
-            	useDate.add(useDates.get(i));
-            	//System.out.println("useDates.get(i) : " + useDates.get(i));
+               useDate.add(useDates.get(i));
+               //System.out.println("useDates.get(i) : " + useDates.get(i));
             }else {
                //System.out.println("i : " + i);
             }
@@ -261,43 +261,43 @@ public class ProductInsertServlet extends HttpServlet {
          
          int ctn = 0;
          /*for(int i=openTime ; i<closeTime ; i++) {
-        	 System.out.println("start : " + i);
-        	 System.out.println("end : " + (i+1));
+            System.out.println("start : " + i);
+            System.out.println("end : " + (i+1));
          }*/
          int k = 0;
          for(int i=0 ; i<useDate.size() ; i++) {
-        	 for(int j=openTime ; j<closeTime ; j++) {
-        		 UseProduct upro = new UseProduct();
-        		 upro.setUseDate(Date.valueOf(useDate.get(i)));;
-        		 upro.setuNum(uNum);
-        		 //System.out.println("j : " + j);
-        		 k = j+1;
-        		 if(j<10) {
-        			 start = "0" + j + ":00";
-        			 if(k<10) {
-        				 end = "0"+ k + ":00";
-        			 }
-            		 end = k + ":00";
-        		 }else {
-        			 
-        			 start = j +":00";
-        			 end = k + ":00";
-        			 
-        		 }
-        		 //System.out.println("start for : " + start);
-        		 //System.out.println("end for : " + end);
-        		 upro.setUseStartTime(start);
-        		 upro.setUseEndTime(end);
-        		 //System.out.println("upr : " + upro);
-        		 //System.out.println("upro.getUseStartTime() : " + upro.getUseStartTime());
-        		 //System.out.println("upro.getUseEndTime() : " + upro.getUseEndTime() );
-        		 uProList.add(upro);
-        		 //System.out.println("uProList.get("+ctn+") : " + uProList.get(ctn));
-        		 ctn++;
-        	 }
+            for(int j=openTime ; j<closeTime ; j++) {
+               UseProduct upro = new UseProduct();
+               upro.setUseDate(Date.valueOf(useDate.get(i)));;
+               upro.setuNum(uNum);
+               //System.out.println("j : " + j);
+               k = j+1;
+               if(j<10) {
+                  start = "0" + j + ":00";
+                  if(k<10) {
+                     end = "0"+ k + ":00";
+                  }
+                   end = k + ":00";
+               }else {
+                  
+                  start = j +":00";
+                  end = k + ":00";
+                  
+               }
+               //System.out.println("start for : " + start);
+               //System.out.println("end for : " + end);
+               upro.setUseStartTime(start);
+               upro.setUseEndTime(end);
+               //System.out.println("upr : " + upro);
+               //System.out.println("upro.getUseStartTime() : " + upro.getUseStartTime());
+               //System.out.println("upro.getUseEndTime() : " + upro.getUseEndTime() );
+               uProList.add(upro);
+               //System.out.println("uProList.get("+ctn+") : " + uProList.get(ctn));
+               ctn++;
+            }
          }
          /*for(UseProduct list:uProList) {
-        	 System.out.println("list  : "+list);
+            System.out.println("list  : "+list);
          }*/
          
          //휴무일까지 받아옴
@@ -314,7 +314,8 @@ public class ProductInsertServlet extends HttpServlet {
             response.sendRedirect(page);
          }else {
             //에러
-            page = "";
+            page = "views/common/errorPage.jsp";
+            request.setAttribute("msg", "상품등록에 실패하셨습니다.");
             request.getRequestDispatcher(page).forward(request, response);
          }
        
