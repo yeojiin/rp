@@ -4,10 +4,11 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
+import com.kh.redding.attachment.model.vo.Attachment;
 import com.kh.redding.board.model.dao.BoardDao;
 import com.kh.redding.board.model.vo.Board;
 import com.kh.redding.board.model.vo.BoardPageInfo;
+import com.kh.redding.member.model.vo.Member;
 
 import static com.kh.redding.common.JDBCTemplate.*;
 

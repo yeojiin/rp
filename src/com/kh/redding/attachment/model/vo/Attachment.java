@@ -95,6 +95,7 @@ public class Attachment implements java.io.Serializable{
 				+ filepath + ", adivision=" + adivision + ", bid=" + bid + ", mno=" + mno + ", acontent=" + acontent
 				+ "]";
 	}
-	
+
+
 	
 }

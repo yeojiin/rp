@@ -11,6 +11,7 @@ public class MyFileRenamePolicy implements FileRenamePolicy{
 	//FileRnamePolicy 를 상속받아서
 	@Override
 	public File rename(File oldFile) {
+		System.out.println(oldFile);
 		//파일이 넘어올때마다 현재 시간을 넘겨주고 
 		long currentTime = System.currentTimeMillis();
 		
