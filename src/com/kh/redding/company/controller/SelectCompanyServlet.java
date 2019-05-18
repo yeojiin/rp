@@ -44,6 +44,7 @@ public class SelectCompanyServlet extends HttpServlet {
 			request.setAttribute("msg", "조회를 실패했습니다.");
 		}
 		
+		
 		request.getRequestDispatcher(page).forward(request, response);
 		
 	}

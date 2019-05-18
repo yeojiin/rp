@@ -82,6 +82,7 @@ public class insertCompanyPhotoServlet extends HttpServlet {
 					
 				}
 			}
+			
 
 			int result = new CompanyService().insertAttachment(loginUser,fileList);
 

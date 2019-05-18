@@ -25,6 +25,7 @@ public class CompanyService {
 		close(con);
 		
 		return result;
+		
 	}
 
 	//업체 insert -> 회원가입

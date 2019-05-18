@@ -279,6 +279,8 @@
 				}
 			});
 			
+
+			
 			$("#photoUpdate").click(function(){
 				var check = confirm("변경하시면 기존의 이미지를 모두 삭제합니다.\n 그래도 계속 진행하시겠습니까?");
 			

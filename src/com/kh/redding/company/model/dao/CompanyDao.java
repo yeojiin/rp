@@ -23,6 +23,7 @@ public class CompanyDao {
 	Properties prop = new Properties();
 	
 	public CompanyDao() {
+		
 		String fileName = CompanyDao.class.getResource("/sql/company/company-query.properties").getPath();
 		
 		try {

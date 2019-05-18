@@ -34,6 +34,7 @@ public class UpdateCompanyPhotoServlet extends HttpServlet {
 
 			int maxSize = 1024 * 1024 * 10;
 
+			
 			String root = request.getSession().getServletContext().getRealPath("/");
 
 			//System.out.println("root : "+root);
