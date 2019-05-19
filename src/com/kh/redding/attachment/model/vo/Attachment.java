@@ -9,11 +9,12 @@ public class Attachment implements java.io.Serializable{
 	private int bid;
 	private int mno;
 	private String acontent;
+	private int couponCode;
 	
 	public Attachment () {}
 
 	public Attachment(int aid, String originname, String changename, String filepath, int adivision, int bid, int mno,
-			String acontent) {
+			String acontent, int couponCode) {
 		super();
 		this.aid = aid;
 		this.originname = originname;
@@ -23,77 +24,86 @@ public class Attachment implements java.io.Serializable{
 		this.bid = bid;
 		this.mno = mno;
 		this.acontent = acontent;
+		this.couponCode = couponCode;
 	}
 
 	public int getAid() {
 		return aid;
 	}
 
-	public void setAid(int aid) {
-		this.aid = aid;
-	}
-
 	public String getOriginname() {
 		return originname;
-	}
-
-	public void setOriginname(String originname) {
-		this.originname = originname;
 	}
 
 	public String getChangename() {
 		return changename;
 	}
 
-	public void setChangename(String changename) {
-		this.changename = changename;
-	}
-
 	public String getFilepath() {
 		return filepath;
-	}
-
-	public void setFilepath(String filepath) {
-		this.filepath = filepath;
 	}
 
 	public int getAdivision() {
 		return adivision;
 	}
 
-	public void setAdivision(int adivision) {
-		this.adivision = adivision;
-	}
-
 	public int getBid() {
 		return bid;
-	}
-
-	public void setBid(int bid) {
-		this.bid = bid;
 	}
 
 	public int getMno() {
 		return mno;
 	}
 
-	public void setMno(int mno) {
-		this.mno = mno;
-	}
-
 	public String getAcontent() {
 		return acontent;
+	}
+
+	public int getCouponCode() {
+		return couponCode;
+	}
+
+	public void setAid(int aid) {
+		this.aid = aid;
+	}
+
+	public void setOriginname(String originname) {
+		this.originname = originname;
+	}
+
+	public void setChangename(String changename) {
+		this.changename = changename;
+	}
+
+	public void setFilepath(String filepath) {
+		this.filepath = filepath;
+	}
+
+	public void setAdivision(int adivision) {
+		this.adivision = adivision;
+	}
+
+	public void setBid(int bid) {
+		this.bid = bid;
+	}
+
+	public void setMno(int mno) {
+		this.mno = mno;
 	}
 
 	public void setAcontent(String acontent) {
 		this.acontent = acontent;
 	}
 
+	public void setCouponCode(int couponCode) {
+		this.couponCode = couponCode;
+	}
+
 	@Override
 	public String toString() {
 		return "Attachment [aid=" + aid + ", originname=" + originname + ", changename=" + changename + ", filepath="
 				+ filepath + ", adivision=" + adivision + ", bid=" + bid + ", mno=" + mno + ", acontent=" + acontent
-				+ "]";
+				+ ", couponCode=" + couponCode + "]";
 	}
 
 

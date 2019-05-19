@@ -30,7 +30,7 @@
 					<li><a onclick="goTotalCompany()">업체관리</a></li>
 					<li><a onclick="goTotalMember()">회원관리</a></li>
 					<li><a href="a_BlackList.jsp">블랙리스트 관리</a></li>
-					<li><a href="a_event.jsp">쿠폰 관리</a></li>
+					<li><a onclick="goCoupon()">쿠폰 관리</a></li>
 					<li><a href="a_Survey.jsp">설문조사 관리</a></li>
 					
 				</ul>
@@ -57,8 +57,8 @@
 	function goTotalMember() {
 		location.href="<%=request.getContextPath()%>/selectList.me";
 	}
-	function goTotalMember() {
-		location.href="<%=request.getContextPath()%>/selectList.me";
+	function goCoupon() {
+		location.href="<%=request.getContextPath()%>/selectCouponList.ad";
 	}
 	function goTotalMember() {
 		location.href="<%=request.getContextPath()%>/selectList.me";
