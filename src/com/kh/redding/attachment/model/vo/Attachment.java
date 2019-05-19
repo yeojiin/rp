@@ -106,7 +106,6 @@ public class Attachment implements java.io.Serializable{
 				+ ", couponCode=" + couponCode + "]";
 	}
 
-	
-	
+
 	
 }

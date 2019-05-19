@@ -25,7 +25,6 @@ public class MemberDao {
 	public MemberDao() {
 		
 		String fileName = MemberDao.class.getResource("/sql/member/member-query.properties").getPath();
-		System.out.println(fileName);
 		try {
 			prop.load(new FileReader(fileName));
 		} catch (FileNotFoundException e) {
