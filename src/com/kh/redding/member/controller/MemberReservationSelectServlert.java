@@ -88,23 +88,21 @@ public class MemberReservationSelectServlert extends HttpServlet {
 		
 		ArrayList<HashMap<String,Object>> list = null;
 		
-		new MakeQuery().makeQuery(value);
+		new MakeQuery().makeQuery(value,mno);
+		
 		HashMap<String,Object> totalMap = new HashMap<String,Object>();
 		totalMap.put("pi", pi);
-		if(value == 10) {			
-			list = new MemberService().resWaitSelect(value,mno, pi);
-			totalMap.put("list", list);
-		}else if(value == 20) {
-			
-		}else if(value == 30) {
-			
-		}
 		
-		if(list != null) {
+		if(value ==10 || value== 20) {			
+			list = new MemberService().resWaitSelect(value,mno,pi);
+			totalMap.put("list", list);			
+		}else {
+			list = new MemberService().resWaitSelect(value,mno,pi);
+			totalMap.put("list", list);		
+		}
+
 			response.setContentType("application/json");
 			new Gson().toJson(totalMap, response.getWriter());
-		}
-			
 		
 		
 		
