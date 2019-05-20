@@ -23,7 +23,7 @@
 					<li><button class="navBtn" onclick="location.href='<%=request.getContextPath() %>/views/member/m_dressList.jsp'">&nbsp;&nbsp;&nbsp;DRESS&nbsp;&nbsp;&nbsp;</button></li>
 					<li><button class="navBtn" onclick="location.href='<%=request.getContextPath() %>/views/member/m_mhList.jsp'">&nbsp;&nbsp;&nbsp;MAKEUP&HAIR&nbsp;&nbsp;&nbsp;</button></li>
 					<li><button class="navBtn" onclick="location.href='<%=request.getContextPath() %>/selectBoardList.bo'">&nbsp;&nbsp;&nbsp;COMMUNITY&nbsp;&nbsp;&nbsp;</button></li>
-					<li><button class = "navBtn" id = "noticebtn">&nbsp;&nbsp;&nbsp;고객센터</button>
+					<li><button class = "navBtn" id = "noticebtn">&nbsp;&nbsp;&nbsp;고객센터&nbsp;&nbsp;&nbsp;</button>
 						<ul class="nav navbar-nav" id = "noticemenu">
 							<li><button class = "navBtn" onclick= "location.href='<%=request.getContextPath() %>/views/notice/notice_main.jsp'" >&nbsp;&nbsp;&nbsp;공지사항&nbsp;&nbsp;&nbsp;</button></li>
 							<li><button class = "navBtn" onclick= "location.href='<%=request.getContextPath() %>/views/notice/FAQ_main.jsp'">&nbsp;&nbsp;&nbsp;FAQ&nbsp;&nbsp;&nbsp;</button></li>

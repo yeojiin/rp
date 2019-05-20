@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.redding.admin.model.vo.TotalMemberPageInfo;
+import com.kh.redding.company.model.vo.Company;
 import com.kh.redding.member.model.vo.Member;
 
 public class AdminDao {
@@ -365,6 +366,69 @@ public class AdminDao {
 		}
 		
 		return withdrawalCompanylistCount;
+	}
+
+	// 업세 상세 정보 조회용 메소드
+	public ArrayList<HashMap<String, Object>> selectOneCompany2(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> oneCompany = null;
+		HashMap<String,Object> hlist = null;
+		Member member = null;
+		Company company = null;
+		
+		String query = prop.getProperty("selectOneCompany");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			
+			rset = pstmt.executeQuery();
+			
+			oneCompany = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hlist = new HashMap<String,Object>();
+				
+				member = new Member();
+				member.setMemberId(rset.getString("MID"));
+				member.setMemberPwd(rset.getString("MPWD"));
+				member.setMemberName(rset.getString("MNAME"));
+				member.setPhone(rset.getString("PHONE"));
+				member.setEmail(rset.getString("EMAIL"));
+				member.setEmailCheck(rset.getString("EMAIL_CHECK"));
+				member.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				member.setMnotiType(rset.getInt("MNOTI_TYPE"));
+				member.setStatus(rset.getString("STATUS"));
+				member.setOutDate(rset.getDate("OUT_DATE"));
+				
+				company = new Company();
+				company.setCNO(rset.getInt("CNO"));
+				company.setCom_Rep_Num(rset.getInt("COM_REP_NUM"));
+				company.setRepName(rset.getString("REP_NAME"));
+				company.setComAddress(rset.getString("COM_ADDRESS"));
+				company.setComUrl(rset.getString("COM_URL"));
+				company.setOpenTime(rset.getString("OPEN_TIMES"));
+				company.setEndTime(rset.getString("CLOSE_TIMES"));
+				company.setAccountCode(rset.getInt("ACCOUNT_CODE"));
+				company.setAccountNum(rset.getString("ACCOUNT_NUM"));
+				company.setAccountName(rset.getString("ACCOUNT_NAME"));
+				company.setComType(rset.getString("COM_TYPE"));
+				company.setComLike(rset.getInt("COM_LIKE"));
+				company.setHoliday(rset.getString("HOLIDAY"));
+				
+				hlist.put("member", member);
+				hlist.put("company", company);
+				oneCompany.add(hlist);
+				
+				//System.out.println(oneCompany);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return oneCompany;
 	}
 
 	

@@ -10,26 +10,22 @@
 	font-family:'Noto Sans KR', sans-serif;
 }
 .board tr {
-	height:40px;
+	height:30px;
 }
 .board thead {
-	background:gray;
+	background:salmon;
 	color:white;
-	border-bottom:2px solid gray;
 }
 .board tbody tr {
-	border-bottom:2px solid gray;
+	border-bottom:1px solid gray;
 }
-.board tfoot {
-	background:whitesmoke;
-}
+
 .edit, .delete, .chooseAll {
-	border-style:none;
-	background:#ff7566;
-	color:white;
+	border:1px solid salmon;
+	background:white;
+	color:salmon;
 }
 .paging {
 	border-style:none;
-	background:whitesmoke;
-	color:gray;
+	background:white;
 }

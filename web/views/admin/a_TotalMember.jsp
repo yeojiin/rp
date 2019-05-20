@@ -165,7 +165,7 @@
 						<br>
 
 						<div class="memberDetail">
-							<h3 id="text2">회원 상세 조회</h3>
+							<h3 id="text2">회원 상세정보 조회</h3>
 							<br> <br> <br>
 
 
@@ -297,13 +297,11 @@
 					$(this).parent().css({"background":"white"});
 				}).click(function() {
 					var num = $(this).parent().children().eq(1).text();
-					console.log(num);
 					$.ajax({
 						url:"selectOneMember.ad",
 						data:{num:num},
 						type:"get",
 						success:function(data) {
-							console.log(data);
 							$(".memberId").text(data.memberId);	
 							$(".memberName").text(data.memberName);	
 							$(".memberNickName").text(data.nickName);	

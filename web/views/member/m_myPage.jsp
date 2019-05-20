@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>REDDING-MyPage</title>
+<title>임시마이페이지</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -23,8 +23,6 @@
 	href="${pageContext.request.contextPath}/css/common/footer.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/member/m_myPage.css">
-	<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/member/m_myPage_checkList.css">
 <style>
 
 .container {
@@ -51,19 +49,6 @@
 		height: auto;
 	}
 }
-.div1Table2Btn1 {
-	width:100%;
-	height:100%;
-	text-align:center;
-	font-family:'Noto Sans KR', sans-serif;
-	font-size:17px;
-	background:white;
-	color:salmon;
-	border-bottom:1px solid white;
-	border-top:1px solid salmon;
-	border-left:1px solid salmon;
-	border-right:1px solid salmon;
-}
 </style>
 </head>
 <body>
@@ -87,7 +72,7 @@
 		<table class="div1Table2">
 			<tr>
 				<td><button class="div1Table2Btn">HOME</button></td>
-				<td><button class="div1Table2Btn1" onclick="location.href='<%=request.getContextPath() %>/views/member/m_myPage_checkList.jsp'">CHECK LIST</button></td>
+				<td><button class="div1Table2Btn" onclick="location.href='<%=request.getContextPath() %>/views/member/m_myPage_checkList.jsp'">CHECK LIST</button></td>
 				<td><button class="div1Table2Btn" onclick="location.href='<%=request.getContextPath() %>/views/member/m_myPage_payment.jsp'">결제 내역</button></td>
 				<td><button class="div1Table2Btn" onclick="location.href='<%=request.getContextPath() %>/views/member/m_myPage_coupon.jsp'">쿠폰함</button></td>
 				<td><button class="div1Table2Btn" onclick="location.href='<%=request.getContextPath() %>/views/member/m_myPage_myWriting.jsp'">내 글 관리</button></td>
@@ -102,63 +87,11 @@
 			
 			<!-- 왼쪽 빈공간 -->
 			<div class="col-sm-2 sidenav" id="leftNav">
-			
 			</div>
 
 			<div class="col-sm-10 text-left">
 			<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 				
-				<div class="contents">
-				
-					<div class="subTitle">
-						[ <%=loginUser.getMemberName()%>님의 CHECK LIST ]
-					</div>
-					
-					<br><br><br>
-					
-					<div class="line"></div>
-				
-					<table class="checkListForm">
-						<tr>
-							<td rowspan="2" width="150px"><input type="checkbox" class="checkListCheckBox"></td>
-							<td><label class="dday">D-180</label></td>
-						</tr>
-						<tr>
-							<td width="300px"><label class="listName">상견례</label></td>
-							<td><button class="checkStatus">진행완료</button></td>
-						</tr>
-					</table>
-					<br>
-					<br>
-					<br>
-					<table class="checkListForm">
-						<tr>
-							<td rowspan="2" width="150px"><input type="checkbox" class="checkListCheckBox"></td>
-							<td><label class="dday">D-170</label></td>
-						</tr>
-						<tr>
-							<td width="300px"><label class="listName">예식장 조사하기</label></td>
-							<td><button class="checkStatus">진행중</button></td>
-						</tr>
-					</table>
-					<br>
-					<br>
-					<br>
-					<table class="checkListForm">
-						<tr>
-							<td rowspan="2" width="150px"><input type="checkbox" class="checkListCheckBox"></td>
-							<td><label class="dday">D-160</label></td>
-						</tr>
-						<tr>
-							<td width="300px"><label class="listName">스드메 조사하기</label></td>
-							<td><button class="checkStatus">진행중</button></td>
-						</tr>
-					</table>
-					<br>
-					<br>
-					<br>
-					
-				</div>
 
 
 			</div>

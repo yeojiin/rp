@@ -51,6 +51,19 @@
 		height: auto;
 	}
 }
+.div1Table2Btn1 {
+	width:100%;
+	height:100%;
+	text-align:center;
+	font-family:'Noto Sans KR', sans-serif;
+	font-size:17px;
+	background:white;
+	color:salmon;
+	border-bottom:1px solid white;
+	border-top:1px solid salmon;
+	border-left:1px solid salmon;
+	border-right:1px solid salmon;
+}
 </style>
 </head>
 <body>
@@ -60,7 +73,28 @@
 		<jsp:include page="/views/member/m_header.jsp"></jsp:include>
 	</div><br>
 	
-	<div class="pageTitle">MY PAGE</div>
+	<div class="div1">
+		<table class="div1Table">
+			<tr>
+				<td style="background:salmon"><img src="<%=request.getContextPath()%>/images/mplogo.png" height="70px"></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+		<table class="div1Table2">
+			<tr>
+				<td><button class="div1Table2Btn">HOME</button></td>
+				<td><button class="div1Table2Btn" onclick="location.href='<%=request.getContextPath() %>/views/member/m_myPage_checkList.jsp'">CHECK LIST</button></td>
+				<td><button class="div1Table2Btn1" onclick="location.href='<%=request.getContextPath() %>/views/member/m_myPage_payment.jsp'">결제 내역</button></td>
+				<td><button class="div1Table2Btn" onclick="location.href='<%=request.getContextPath() %>/views/member/m_myPage_coupon.jsp'">쿠폰함</button></td>
+				<td><button class="div1Table2Btn" onclick="location.href='<%=request.getContextPath() %>/views/member/m_myPage_myWriting.jsp'">내 글 관리</button></td>
+				<td><button class="div1Table2Btn" onclick="location.href='<%=request.getContextPath() %>/views/member/m_myPage_personalInformation.jsp'">개인정보 수정</button></td>
+			</tr>
+		</table>
+	</div>
 
 	<!-- 섹션 -->
 	<div class="container-fluid text-center">
@@ -69,75 +103,38 @@
 			<!-- 왼쪽 빈공간 -->
 			<div class="col-sm-2 sidenav" id="leftNav">
 			
-				<!-- <ul>
-					<li><div class="leftMenu">CHECK LIST</div></li>
-					<li><div class="leftMenu">결제 내역</div></li>
-					<li><div class="leftMenu">쿠폰함</div></li>
-					<li><div class="leftMenu">내 글 관리</div></li>
-					<li><div class="leftMenu">개인정보 수정</div></li>
-				</ul> -->
-			
 			</div>
 
-			<div class="col-sm-8 text-left">
+			<div class="col-sm-10 text-left">
 			<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
-				<nav class="navbar navbar-inverse">
-					<div class="container-fluid">
-						<div class="navbar-header">
-							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-								<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-							</button>
-						</div>
-						<div class="collapse navbar-collapse" id="myNavbar">
-							<ul class="nav navbar-nav">
-								<li><button class="navBtn" id="navBtn" onclick="location.href='<%=request.getContextPath() %>/views/member/m_myPage_checkList.jsp'">&nbsp;&nbsp;&nbsp;CHECK LIST&nbsp;&nbsp;&nbsp;</button></li><br>
-								<li><button class="navBtn" id="navBtn" onclick="location.href='<%=request.getContextPath() %>/views/member/m_myPage_payment.jsp'">&nbsp;&nbsp;&nbsp;결제내역&nbsp;&nbsp;&nbsp;</button></li><br>
-								<li><button class="navBtn" id="navBtn" onclick="location.href='<%=request.getContextPath() %>/views/member/m_myPage_coupon.jsp'">&nbsp;&nbsp;&nbsp;쿠폰함&nbsp;&nbsp;&nbsp;</button></li><br>
-								<li><button class="navBtn" id="navBtn" onclick="location.href='<%=request.getContextPath() %>/views/member/m_myPage_myWriting.jsp'">&nbsp;&nbsp;&nbsp;내 글 관리&nbsp;&nbsp;&nbsp;</button></li><br>
-								<li><button class="navBtn" onclick="location.href='<%=request.getContextPath() %>/views/member/m_myPage_personalInformation.jsp'">&nbsp;&nbsp;&nbsp;개인정보 수정&nbsp;&nbsp;&nbsp;</button></li><br>
-							</ul>
-						</div>
-					</div>
-				</nav> 
-				<div class="cont-box"></div>
 				
 				<div class="contents">
 				
 					<div class="subTitle">
-						[ <%=loginUser.getMemberName()%>님의 결제 내역 ]
+						<%=loginUser.getNickName()%>님의 결제 내역
 					</div>
-					<br><br><br>
+					<br><br>
 					
-					<div class="paymentCompleted" style="background:white">
-						<div class="paymentLabel1">결제완료</div><br><br><br>
+					<div class="paymentCompleted">
+						<div class="paymentLabel1">결제완료</div><br><br>
 						<label class="paymentLabel2">1</label>
 						<label class="paymentLabel3">개</label>
 					</div>
 					&nbsp;&nbsp;&nbsp;
 					<div class="bookingCompleted">
-						<div class="paymentLabel1">예약완료</div><br><br><br>
+						<div class="paymentLabel1">예약완료</div><br><br>
 						<label class="paymentLabel2">1</label>
 						<label class="paymentLabel3">개</label>
 					</div>
 					&nbsp;&nbsp;&nbsp;
 					<div class="ongoing">
-						<div class="paymentLabel1">진행중</div><br><br><br>
+						<div class="paymentLabel1">진행중</div><br><br>
 						<label class="paymentLabel2">1</label>
 						<label class="paymentLabel3">개</label>
 					</div>
-					<br><br><br>
+					<br><br><br><br> 
 					
 					<table class="search">
-						<tr>
-							<td><button class="searchBtn">1개월</button></td>
-							<td><button class="searchBtn">3개월</button></td>
-							<td><button class="searchBtn">6개월</button></td>
-							<td><button class="searchBtn">조건검색</button></td>
-							<td><input type="text" value="2019.05.09"></td>
-							<td> - </td>
-							<td><input type="text" value="2019.05.09"></td>
-							<td><button class="searchBtn">조회</button></td>
-						</tr>
 					</table>
 										
 					<br>					
@@ -199,7 +196,7 @@
 							</tr>
 						</tfoot>
 					</table>
-				
+					<br><br>
 					
 				</div>
 
@@ -207,7 +204,7 @@
 			</div>
 			
 			<!-- 오른쪽 빈공간 -->
-			<div class="col-sm-2 sidenav"></div>
+			<!-- <div class="col-sm-2 sidenav"></div> -->
 			
 		</div>
 

@@ -14,7 +14,7 @@
 	font-size:12px;
 }
 .joinBtn {
-	width:400px;
+	width:45%;
 	height:100%;
 	background:white;
 	font-family: 'Noto Sans KR', sans-serif;
@@ -23,7 +23,7 @@
 	font-size:16px;
 }
 .joinBtn:hover {
-	width:400px;
+	width:45%;
 	height:100%;
 	background:MistyRose;
 	color:white;

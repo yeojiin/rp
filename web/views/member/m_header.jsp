@@ -17,9 +17,9 @@
 			<%if(loginUser == null) {%>
 				<br>
 				<ul>
-					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/common/login.jsp'">LOGIN</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
-					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/common/join.jsp'">JOIN</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
-					<li><button class="miniMenuBtn" onclick="nullMyPage()">MY PAGE</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
+					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/common/login.jsp'">LOGIN</button></li>&nbsp;&nbsp;&nbsp;&nbsp;
+					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/common/join.jsp'">JOIN</button></li>&nbsp;&nbsp;&nbsp;&nbsp;
+					<li><button class="miniMenuBtn" onclick="nullMyPage()">MY PAGE</button></li>&nbsp;&nbsp;&nbsp;&nbsp;
 					<li><button class="miniMenuBtn" onclick="nullWishList()">WISHLIST</button></li>
 					<li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
 				</ul>
@@ -27,8 +27,8 @@
 			<% } else if(loginUser != null && loginUser.getMemberId().equals("admin")) { %>
 				<br>
 				<ul>
-					<li><button class="miniMenuBtn"><%=loginUser.getNickName() %>님의 방문을 환영합니다!</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
-					<li><button class="miniMenuBtn" onclick="logout()">LOGOUT</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
+					<li><button class="miniMenuBtn">관리자님</button></li>&nbsp;&nbsp;&nbsp;&nbsp;
+					<li><button class="miniMenuBtn" onclick="logout()">LOGOUT</button></li>&nbsp;&nbsp;&nbsp;&nbsp;
 					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/admin/a_main.jsp'">MY PAGE</button></li>
 					<li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
 				</ul>
@@ -36,9 +36,10 @@
 			<% } else { %>
 				<br>
 				<ul>
-					<li><button class="miniMenuBtn"><%=loginUser.getNickName() %>님의 방문을 환영합니다!</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
-					<li><button class="miniMenuBtn" onclick="logout()">LOGOUT</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
-					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/member/m_myPage_checkList.jsp'">MY PAGE</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
+					<li><button class="miniMenuBtn" style="color:salmon"><%=loginUser.getNickName() %>님♥</button></li>&nbsp;&nbsp;&nbsp;&nbsp;
+					<li><button class="miniMenuBtn" onclick="logout()">LOGOUT</button></li>&nbsp;&nbsp;&nbsp;&nbsp;
+					<%-- <li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/member/m_myPage_checkList.jsp'">MY PAGE</button></li>&nbsp;&nbsp;&nbsp;&nbsp; --%>
+					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/member/m_myPage.jsp'">MY PAGE</button></li>&nbsp;&nbsp;&nbsp;&nbsp;
 					<li><form action="<%=request.getContextPath()%>/showList.wi" method="post" id = "WishForm">
 					<button class="miniMenuBtn" type="submit">WISHLIST</button>
 					<input type="hidden" name="num" value=<%=loginUser.getMno()%>></form></li>
