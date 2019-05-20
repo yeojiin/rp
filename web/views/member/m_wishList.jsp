@@ -76,6 +76,7 @@
 								<td><input name="check" type="checkbox" id="checkbox" class="checkbox"></td>
 								<td class="pno"><%=hmap.get("pno")%></td>
 								<td class="cType"><%=hmap.get("ctype")%></td>
+								<td class="wishCode"><%=hmap.get("wishcode")%></td>
 							</tr>
 							<%
 								}
@@ -84,6 +85,7 @@
 					</div>
 					<br>
 					<div class="button">
+						<button class="ui gray button" id="package">패키지에 담기</button>
 						<button class="ui gray button" id="delete">삭제</button>
 						<form action="<%=request.getContextPath()%>/delete.wi" method="post" id="deleteWishForm">
 						<input type="hidden" name="deleteList" id="deleteList">
@@ -119,6 +121,7 @@
 						</div>
 					</div>
 					<div class="button">
+						
 						<button class="ui pink button" style="background: salmon;" id="reserve">예약하기</button>
 						<button class="ui pink button" style="background: salmon;" onclick="location.href='views/member/m_pay.jsp'">결제하기</button>
 					</div>
@@ -173,15 +176,56 @@
 				
 		
 				
-				//패키지 구성에 감기
-				var sctn=0;
+				//패키지 구성에 담기
+				 $("#package").click(function(){
+					 var packList = [];
+					 var ctn=0;
+					 
+					$("input[name=check]:checked").each(function(){
+					var pno = $(this).closest("td").siblings('.wishCode').text();
+					
+						if($(this).prop("checked") == true){
+							packList[ctn] = pno;
+							ctn++;
+						}
+					});
+						console.log("packlist : " + packList);
+					 
+					if(packList != ""){
+						$.ajax({
+		          			url : "/redding/insertPack.wi",
+		          			type : "post",
+		          			data : {packList:packList},
+		          			success : function(data){
+		          				console.log(data);
+		          				if(data>0){
+								alert("패키지 담기에 성공했습니다!");
+		          				}else{
+		          				alert("패키지 담기에 실패했습니다!");	
+		          				}        
+		          			}, 
+		          			error : function(){
+		          				console.log("실패!!");
+		          			}
+		          		});
+					}else{
+						alert("선택한 상품이 없습니다!");
+					}
+				}); 
+				
+				
+				/*
+				 var sctn=0;
 				var dctn=0;
 				var mctn=0;
 				$(".checkbox").change(function() {
 					var cType = $(this).closest("td").siblings('.cType').text();
 					var pno = $(this).closest("td").siblings('.pno').text();
 					var ctn = 0;
-
+					console.log($(this).prop("checked"));
+					
+					
+					
 					if($(this).prop("checked") == true){
 						if(cType == "스튜디오" && sctn==0){
 							$(".Studio").val(pno);
@@ -202,7 +246,7 @@
 							//$(this).prop('checked', false);
 							comfirmPack(cType,pno); 
 						}
-					}else{
+					}/* else{
 						if(cType == "스튜디오"){
 							$(".Studio").val("");
 							sctn--;
@@ -213,7 +257,7 @@
 							$(".Makeup").val("");
 							mctn--;
 						}
-					}
+					} 
 					
 				});
 				
@@ -234,11 +278,18 @@
 				function addPack(cType, pno){
 					//console.log("제품번호는: " +pno);
 					if(confirm(cType+"가/이 이미 있습니다. 추가하시겠습니까?")){
-						$( "<input>",{type:'text'}).appendTo(".packageArea").val(pno);
+						
+						if(cType == "스튜디오"){
+							$(".packageStudio").empty();
+							$(".packageStudio").append($( "<input>",{type:'text'}));
+							
+						}
+						//$("."+pno).empty();
+						//$( "<input>",{type:'text'}).appendTo(".packageArea").val(pno);
 					}else{
 						return false;
 					}
-				}
+				} */
 				
 				
 			</script>
