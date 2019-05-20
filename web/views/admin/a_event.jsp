@@ -91,7 +91,11 @@
 								<td><%=hmap.get("couponCategory")%></td>
 								<td><%=hmap.get("couponName")%></td>
 								<td><%=hmap.get("discountType")%></td>
-								<td><%=hmap.get("discountRate")%></td>
+								<% if((hmap.get("discountType")).equals("퍼센트 할인")) { %>
+									<td><%=hmap.get("discountRate")%>%</td>
+								<% }else { %>
+									<td><%=hmap.get("discountAmount")%>원</td>
+								<% } %>
 								<td><%=hmap.get("couponStartDate")%></td>
 								<td><%=hmap.get("couponEndDate")%></td>
 							</tr>

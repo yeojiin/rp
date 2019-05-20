@@ -41,7 +41,7 @@ public class SelectCompanyListServlet extends HttpServlet {
 		int allCompanyListCount = new AdminService().getAllCompanyListCount();
 		int newCompanyListCount = new AdminService().getNewCompanyCount();
 		int withdrawalCompanyListCount = new AdminService().getWithdrawalCompanyListCount();
-		System.out.println("allCompanyListCount : " + allCompanyListCount);
+		//System.out.println("allCompanyListCount : " + allCompanyListCount);
 		maxPage = (int)((double) allCompanyListCount / limit + 0.9);
 		
 		startPage = (((int)((double) currentPage / limit + 0.9)) - 1) * 10 + 1;

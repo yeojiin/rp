@@ -1,17 +1,17 @@
 @charset "UTF-8";
 
 .paymentCompleted, .bookingCompleted, .ongoing {
-	width:228px;
-	height:170px;
-	border:1px solid #ff7566;
+	width:32%;
+	height:auto;
+	border:1px solid salmon;
 	background:white;
+	text-align:right;
 	display:inline-block;
 	padding:20px;
-	text-align:right;
 }
 .paymentLabel1 {
 	color:#ff4733;
-	font-size:18px;
+	font-size:20px;
 	text-align:left;
 }
 .paymentLabel2 {
@@ -26,11 +26,6 @@
 	width:100%;
 	text-align:center;
 }
-.searchBtn {
-	border-style:none;
-	background:#ff7566;
-	color:white;
-}
 .paymentList {
 	width:100%;
 	background:white;
@@ -38,27 +33,21 @@
 	font-family:'Noto Sans KR', sans-serif;
 }
 .paymentList tr {
-	height:40px;
+	height:30px;
 }
 .paymentList thead {
-	background:gray;
+	background:salmon;
 	color:white;
-	border-bottom:2px solid gray;
 }
 .paymentList tbody tr {
-	border-bottom:2px solid gray;
-}
-.paymentList tfoot {
-	background:whitesmoke;
+	border-bottom:1px solid gray;
 }
 .pay, .cancellation, .review {
-	border-style:none;
-	background:#ff7566;
-	color:white;
+	border:1px solid salmon;
+	background:white;
+	color:salmon;
 }
 .paging {
 	border-style:none;
-	background:whitesmoke;
-	color:gray;
+	background:white;
 }
-

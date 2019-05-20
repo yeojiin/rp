@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 import com.kh.redding.admin.model.dao.AdminDao;
 import com.kh.redding.admin.model.vo.TotalMemberPageInfo;
+import com.kh.redding.company.model.vo.Company;
 import com.kh.redding.member.model.vo.Member;
 
 public class AdminService {
@@ -89,6 +90,20 @@ public class AdminService {
 		return withdrawalCompanyListCount;
 	}
 
+	// 업체 상세 정보 조회용 메소드
+	public ArrayList<HashMap<String, Object>> selectOneCompany2(int num) {
+		Connection con = getConnection();
+		ArrayList<HashMap<String, Object>> oneCompany = new AdminDao().selectOneCompany2(con, num);
+		if(oneCompany != null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		return oneCompany;
+	}
+
+	
 
 
 	//정산관리 갯수 리턴용 메소드

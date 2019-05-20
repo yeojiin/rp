@@ -21,70 +21,63 @@
 	margin-top:40px;
 } */
 
-.pageTitle {
+
+.div1 {
+	width:100%;
+	height:auto;
+	background:smokewhite;
+}
+.div1Table {
 	width:100%;
 	height:100px;
-	background:#ffd1cc;
-	color:white;
 	text-align:center;
 	font-family:'Noto Sans KR', sans-serif;
-	font-size:30px;
-	padding-top:28px;
 }
-.navbar-inverse {
-	width:200px;
-	background:#ff7566;
-	border:1px solid black;
-	border-radius:0px;
-	margin-top:-15px;
+.div1Table td {
+	width:16%;
+	text-align:center;
+	background:whitesmoke;
 }
-.navBtn {
-	width:140px;
-	height:70px;
-	color:white;
-	border-style:none;
-	background:#ff7566;
+.div1Table2 {
+	width:100%;
+	height:50px;
+	text-align:center;
 	font-family:'Noto Sans KR', sans-serif;
-	font-size:15px;
 }
-#navBtn {
-	border-bottom:1px solid white;
+.div1Table2 td {
+	width:16%;
 }
-.navBtn:hover {
-	width:140px;
-	height:70px;
+.div1Table2Btn {
+	width:100%;
+	height:100%;
+	text-align:center;
+	font-family:'Noto Sans KR', sans-serif;
+	background:white;
 	border-style:none;
-	color:white;
+	border-bottom:1px solid salmon;
+}
+.div1Table2Btn:hover {
+	width:100%;
+	height:100%;
+	text-align:center;
 	font-family:'Noto Sans KR', sans-serif;
 	font-size:17px;
-	cursor:pointer;
-} 
-#navBtn:hover {
+	background:white;
+	color:salmon;
 	border-bottom:1px solid white;
-}
-.cont-box{
-	width:15px;
-	height:15px;
-	border-right:15px solid transparent; 
-	border-bottom:15px solid black;
-	margin-left:200px;
-	margin-top:-372px;
+	border-top:1px solid salmon;
+	border-left:1px solid salmon;
+	border-right:1px solid salmon;
 }
 .contents {
-	width:77%;
+	width:100%;
 	height:100%;
-	margin-top:20px;
-	margin-left:220px;
-	margin-right:20px;
-	background:WhiteSmoke;
-	padding:20px;
 	font-family:'Noto Sans KR', sans-serif;
+	padding-top:40px;
 }
 .subTitle {
 	width:100%;
 	height:100%;
-	background:#ffa399;
-	color:white;
-	font-size:18px;
-	padding:10px;
+	font-size:25px;
+	font-weight:bold;
 }
