@@ -11,14 +11,14 @@ public class Board implements java.io.Serializable{
 	private String bcontent;		//게시글내용
 	private int bcategory;			//카테고리
 	private int blike;				//추천수
-	private int bdivision;			//게시판구분
+	private String bdivision;			//게시판구분
 	private Date bmodify_date;		//게시글수정일자
 	private int ref_cnum;			//업체회원번호
 	
 	public Board () {}
 
 	public Board(int bid, String btitle, int bwriter, Date bdate, int bcount, String bcontent, int bcategory, int blike,
-			int bdivision, Date bmodify_date, int ref_cnum) {
+			String bdivision, Date bmodify_date, int ref_cnum) {
 		super();
 		this.bid = bid;
 		this.btitle = btitle;
@@ -97,11 +97,11 @@ public class Board implements java.io.Serializable{
 		this.blike = blike;
 	}
 
-	public int getBdivision() {
+	public String getBdivision() {
 		return bdivision;
 	}
 
-	public void setBdivision(int bdivision) {
+	public void setBdivision(String bdivision) {
 		this.bdivision = bdivision;
 	}
 

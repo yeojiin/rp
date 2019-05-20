@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import = "java.util.*, java.text.* ,com.kh.redding.board.model.vo.*"%>
+<% Board selectnotice = (Board)request.getAttribute("selectnotice"); %>
+<%
+ java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MM-dd");
+ String bdate = formatter.format(selectnotice.getBdate());
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,7 +63,8 @@
 
 	<!-- 멤버 헤더 (미니메뉴, 로고) -->
 	<div class="headerArea">
-		<jsp:include page="/views/member/m_header.jsp"></jsp:include>
+		<%-- <jsp:include page="/views/member/m_header.jsp"></jsp:include> --%>
+		<%@ include file="/views/member/m_header.jsp"%>
 	</div><br>
 
 	<!-- 멤버 나브 -->
@@ -66,6 +72,11 @@
 		<jsp:include page="/views/member/m_nav.jsp"></jsp:include>
 	</div>
 
+	<% if (loginUser == null || loginUser.getMemberType() != 90) {
+		request.setAttribute("msg","잘못된 경로 접근하셨습니다");
+		request.getRequestDispatcher("/views/common/errorPage.jsp").forward(request, response);
+	}else {%>
+	
 	<!-- 섹션 -->
 	<div class="container-fluid text-center">
 		<div class="row content">
@@ -77,36 +88,45 @@
 			<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 
 			<div class="container">
+				<h2>공지사항</h2>
+				<hr>
 				<div class = "wrap">
+					<form action = "<%=request.getContextPath() %>/updateNotice.no" method = "post" id = "noticeSubmit">
+					<input type = "hidden" name = "bid" id = "bid" value = "<%=selectnotice.getBid() %>" >
 					<table class = "noticetable">
 						<tr>
-							<td>제목 </td>
-							<td>공지사항입니다.</td> 
-							<td colspan = "8"></td>
+							<th>제목 </th>
+							<td colspan = "4"><input type = "text" name = "noticeTitle" id = "noticeTitle" placeholder ="제목을 입력해주세요" value = "<%=selectnotice.getBtitle() %>" style = "width : 100%;"></td> 
+							<td colspan = "4"></td>
 						</tr>
 						<tr>
-							<td>작성자 </td>
-							<td>관리자</td> 
-							<td>등록날짜</td>
-							<td>2019-05-09</td>
-							<td colspan = "6"></td>
+							<th>작성자 </th>
+							<td><span>관리자</span>
+							<input type = "hidden" name = "writer" value = "<%=loginUser.getMno() %>" >
+							</td> 
+							<th>등록날짜</th>
+							<td><span><%=bdate %></span></td>
+							<th>조회수</th>
+							<td><span><%=selectnotice.getBcount() %></span></td>
+							<td colspan = "4"></td>
 						</tr>
 						<tr>
-							<td>내용 </td>
+							<th>내용 </th>
 						</tr>
 						<tr>
 							<td colspan = "10">
-								<textarea rows="10" cols="80" style="resize: none;" name = "noticeContent" id = "noticeContent" readonly>청춘의 끓는 피다 청춘의 피가 뜨거운지라 인간의 동산에는 사랑의 풀이 돋고 이상의 꽃이 피고 희망의 놀이 뜨고 열락의 새가 운다사랑의 풀이 없으면 인간은 사막이다 오아이스도 없는 사막이다 보이는 끝까지 찾아다녀도 목숨이 있는 때까지 방황하여도 보이는 것은 거친 모래뿐일 것이다 이상의 꽃이 없으면 쓸쓸한 인간에 남는 것은 영락과 부패 뿐이다 낙원을 장식하는 천자만홍이 어디 있으며 인생을 풍부하게 하는 온갖 과실이 어디 있으랴? 이상! 우리의 청춘이 가장 많이 품고 있는 이상! 이것이야말로 무한한 가치를 가진 것이다 사람은 크고 작고 간에 이상이 있음으로써 용감하고 굳세게 살 수 있는 것이다 석가는 무엇을
-								</textarea>
+								<textarea rows="10" cols="80" style="resize: none; text-align : left;" name = "noticeContent" id = "noticeContent" placeholder = "내용을 입력해주세요"><%=selectnotice.getBcontent() %></textarea>
 							</td>
 						</tr>
 						
 					</table>
 					<div class = "notice_footer">
 						<div class = "notice_writer">
-							<button id = "writerbtn">글쓰기</button>
+							<button type = "button" id = "modifybtn">수정하기</button>
+							<button type = "button" id = "deletebtn">삭제하기</button>
 						</div>
 					</div>
+					</form>
 				</div>
 			</div>
 			<!-- 오른쪽 빈공간 -->
@@ -123,9 +143,24 @@
 	</div>
 	
 	<script>
-		
+		$(function(){
+			$("#modifybtn").click(function(){
+				$("#noticeSubmit").submit();
+			});
+			
+			$("#deletebtn").click(function(){
+				var bid = $("#bid").val();
+				
+				var check = confirm("해당 게시글을 삭제 하시겠습니까?");
+				
+				if (check == true){
+					location.href = '<%=request.getContextPath()%>/deleteNotice.no?num=' + bid;
+				}
+			})
+		});
 	
 	</script>
-
+	
+	<%} %>
 </body>
 </html>

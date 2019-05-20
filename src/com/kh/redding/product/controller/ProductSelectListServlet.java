@@ -13,6 +13,7 @@ import com.kh.redding.member.model.vo.Member;
 import com.kh.redding.product.model.service.ProductService;
 import com.kh.redding.product.model.vo.PageInfo;
 import com.kh.redding.product.model.vo.Product;
+import com.kh.redding.product.model.vo.ProductCounts;
 
 @WebServlet("/selectProList.pr")
 public class ProductSelectListServlet extends HttpServlet {
@@ -79,13 +80,21 @@ public class ProductSelectListServlet extends HttpServlet {
 //      System.out.println("proList : " + proList);
       //System.out.println("proList.get(i).getpno : " + proList.get(0).getpNo());
       
+      int productTotalCount = new ProductService().productTotalCount(cno);
+      int saleProductCount = new ProductService().saleProductCount(cno, "판매");
+      int noSaleProductCount = new ProductService().saleProductCount(cno, "판매안함");
       
+      ProductCounts pcount = new ProductCounts();
+      pcount.setProductTotalCount(productTotalCount);
+      pcount.setSaleProductCount(saleProductCount);
+      pcount.setNoSaleProductCount(noSaleProductCount);
       
       String page = "";
       if(proList != null) {
          page = "views/company/c_ProductManagement.jsp";
          request.setAttribute("proList", proList);
          request.setAttribute("pi", pi);
+         request.setAttribute("pcount", pcount);
       }else {
          page = "views/common/errorPage.jsp";
          request.setAttribute("msg", "상품목록 조회에 실패하셨습니다.");

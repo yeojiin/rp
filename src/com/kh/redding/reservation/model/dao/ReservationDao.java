@@ -233,6 +233,7 @@ public class ReservationDao {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, userNum);
 			for(int i=0; i<resList.length; i++) {
+				System.out.println("resList :" + resList[i]);
 				pstmt.setInt(i+2, resList[i]);
 			}
 
@@ -244,13 +245,16 @@ public class ReservationDao {
 				
 				hmap = new HashMap<String, Object>();
 				hmap.put("mno", rset.getInt("MNO"));
+
+				hmap.put("wPno", rset.getInt("PNO"));
 				hmap.put("pno", rset.getInt("PNO"));
-				hmap.put("mname", rset.getString("MNAME"));
+				hmap.put("cName", rset.getString("MNAME"));
 				hmap.put("pname", rset.getString("PNAME"));
 				hmap.put("price", rset.getInt("PRICE"));
-				hmap.put("pcontent", rset.getString("PCONTENT"));
-
+				hmap.put("pContent", rset.getString("PCONTENT"));
+				
 				list.add(hmap);
+				
 			}
 
 		} catch (SQLException e) {
@@ -261,6 +265,144 @@ public class ReservationDao {
 			close(rset);
 		}
 
+		return list;
+	}
+
+	public int reservationUpdate(Connection con, int[] upnoArr) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("reservationUpdate");
+		
+		try {
+			for(int i=0; i<upnoArr.length; i++) {
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, upnoArr[i]);
+				pstmt.setInt(2, upnoArr[i]);
+				
+				result += pstmt.executeUpdate();
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int reservationInsert(Connection con, int[] upnoArr, int mno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("reservationInsert");
+		
+		try {
+			for(int i=0; i< upnoArr.length; i++) {
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, upnoArr[i]);
+				pstmt.setInt(2, mno);
+				
+				result += pstmt.executeUpdate();
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		
+		return result;
+	}
+
+	public int wishListDelete(Connection con, int[] pnoArr, int mno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("wishListDelete");
+		System.out.println("query : " + query);
+		try {
+			
+			for(int i=0; i<pnoArr.length; i++) {
+				System.out.println(pnoArr[i]);
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, mno);
+				pstmt.setInt(2, pnoArr[i]);
+				
+				result += pstmt.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public ArrayList<HashMap<String, Object>> reservationResultSelect(Connection con, int mno, int[] pnoArr) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		 ArrayList<HashMap<String, Object>> list = null;
+		 HashMap<String, Object> hmap = new HashMap<String, Object>();
+		 String query = prop.getProperty("reservationResultSelect");
+		 
+		 	for(int i=0; i<pnoArr.length; i++) {
+		 		
+		 		if(i == pnoArr.length -1) {
+					query += "?))";
+				}else {
+					query += "?,";
+				}	
+		 		
+			}
+		 System.out.println("query : " + query);
+		 
+		 try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			for(int i=0; i<pnoArr.length; i++) {
+				pstmt.setInt(i+2, pnoArr[i]);
+			}
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			while(rset.next()) {
+				hmap.put("resNo",rset.getInt("RESNO"));
+				hmap.put("mName",rset.getString("MNAME"));
+				hmap.put("cName",rset.getString("CNAME"));
+				hmap.put("pName",rset.getString("PNAME"));
+				hmap.put("cPhone",rset.getString("CPHONE"));
+				hmap.put("cAddress",rset.getString("CADDRESS"));
+				hmap.put("useDate",rset.getString("SUSE_DATE"));
+				hmap.put("useStart",rset.getString("USE_START_TIME"));
+				hmap.put("userEnd",rset.getString("USE_END_TIME"));
+				hmap.put("status",rset.getString("RSTATUS"));
+				
+				list.add(hmap);
+			}
+
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		 
+		
+		
 		return list;
 	}
 

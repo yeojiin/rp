@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.redding.board.model.dao.BoardDao;
+import com.kh.redding.board.model.vo.BoardPageInfo;
 import com.kh.redding.member.model.vo.M_comListPageInfo;
 import com.kh.redding.member.model.vo.Member;
 
@@ -243,6 +244,99 @@ public class MemberDao {
 			close(pstmt);
 			close(rset);
 		}
+		
+		return list;
+	}
+
+	public HashMap<String, Object> selectCount(Connection con, int mno) {
+		Properties prop = new Properties();
+		String fileName = MemberDao.class.getResource("/sql/member/member-query.properties").getPath();
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectCount");
+		HashMap<String, Object> hmap = null;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			pstmt.setInt(2, mno);
+			pstmt.setInt(3, mno);
+			pstmt.setString(4, "결제");
+			
+			rset = pstmt.executeQuery();
+			
+			hmap = new HashMap<String, Object>();
+			while(rset.next()) {
+				hmap.put("resWait", rset.getInt("RESWAIT"));
+				hmap.put("payWait", rset.getInt("PAYWAIT"));
+				hmap.put("payFinal", rset.getInt("FINAL"));				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
+		return hmap;
+	}
+
+	public ArrayList<HashMap<String, Object>> resWaitSelect(Connection con,int value, int mno, BoardPageInfo pi) {
+		Properties prop = new Properties();
+		String fileName = MemberDao.class.getResource("/sql/member/member-query.properties").getPath();
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		String query = prop.getProperty("dynamicQuery");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+			
+		try {
+			
+			if(value == 10) {
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, mno);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+				
+				rset = pstmt.executeQuery();
+				list = new ArrayList<HashMap<String, Object>>();
+				
+				while(rset.next()) {
+					HashMap<String, Object> hmap = new HashMap<String, Object>();
+					
+					hmap.put("rnum", rset.getInt("RNUM"));
+					hmap.put("pName", rset.getString("PNAME"));
+					hmap.put("cName", rset.getString("CNAME"));
+					hmap.put("rapply", rset.getString("RAPPLY_DATE"));
+					hmap.put("price", rset.getInt("PRICE"));
+					hmap.put("status", rset.getString("RSTATUS"));
+					
+					list.add(hmap);
+
+				}
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		return list;
 	}

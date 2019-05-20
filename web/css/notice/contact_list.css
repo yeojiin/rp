@@ -8,9 +8,16 @@
 .writerbtn, .listbtn {
 	float : left ; 
 	border : 1px solid #FB6E5F;
-	width : 400px;
+	width : 250px;
 	height : 100px;
-	margin-left : 5%;
+}
+
+.writerbtn{
+	margin-left : 7%;
+}
+
+.listbtn{
+	margin-left : 3%;
 }
 
 .writerbtn>img , .listbtn>img{
@@ -19,22 +26,22 @@
 } 
 
 .labeldiv{
-	width : 210px;
+	width : 120px;
 	height : 100px;
 	float : right;
 }
 
 .labeldiv label{
 	margin-top : 15%;
-	font-size : 30px;
+	font-size : 25px;
 	color : gray;
 }
 
 .material-icons.md-36{
 	color : gray;
-	font-size: 80px; 
+	font-size: 60px; 
 	margin-left : 20%;
-	margin-top : 2%;
+	margin-top : 6%;
 }
 
 .conMenu{

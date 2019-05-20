@@ -3,6 +3,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.kh.redding.board.model.vo.BoardPageInfo;
 import com.kh.redding.member.model.dao.MemberDao;
 import com.kh.redding.member.model.vo.M_comListPageInfo;
 import com.kh.redding.member.model.vo.Member;
@@ -88,6 +89,27 @@ public class MemberService {
 		for(int i = 0; i < list.size(); i++) {
 			
 		}
+		
+		close(con);
+		
+		return list;
+	}
+
+	public HashMap<String, Object> selectCount(int mno) {
+		Connection con = getConnection();
+		
+		HashMap<String, Object> hmap = new MemberDao().selectCount(con,mno);
+		
+		close(con);
+		
+		return hmap;
+	}
+
+	public ArrayList<HashMap<String, Object>> resWaitSelect(int value,int mno, BoardPageInfo pi) {
+		Connection con = getConnection();
+		
+				
+		ArrayList<HashMap<String,Object>> list = new MemberDao().resWaitSelect(con, value, mno, pi);
 		
 		close(con);
 		

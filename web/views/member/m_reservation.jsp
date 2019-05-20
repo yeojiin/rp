@@ -101,14 +101,14 @@
 							<td class="imagetd" width="40%" height="470px"><img id="image" src="<%=request.getContextPath()%>/images/dressTest.jpg">
 								<br>
 							<br> <input class="form-control" id="productDetail"
-								type="text" readonly value=<%=hmap.get("pcontent")%>></td>
+								type="text" readonly value=<%=hmap.get("pContent")%>></td>
 
 							<td class="visible-md visible-lg visible-sm visible-xs" width="30%"
 								style="padding: 5%"><br>
 								<table style="width: 100%">
 									<tr>
 										<td><label>업체명</label><input class="form-control"
-											id="CompanyName" type="text" value='<%=hmap.get("mname")%>'
+											id="CompanyName" type="text" value='<%=hmap.get("cName")%>'
 											style="width: 100%; height: 30px" readonly><br>
 										</td>
 									</tr>
@@ -194,7 +194,7 @@
 			    
 			    
 			    for(var i = 0; i<$("select.reserveDate").length; i++){
-			    	
+
 			    	var pnoId = $("select.reserveDate")[i].id;
 			    	
 			    	var pno = pnoId.replace(/[^0-9]/g,"");
@@ -219,7 +219,6 @@
 
 			    		var $selectUseDate = $("#"+pnoId);
 			    		
-			    		console.log($selectUseDate);
 			    		$selectUseDate.empty();
 			    		
 			    		for(var key in data){
@@ -262,8 +261,6 @@
 			    		data:{pno:pno, useDate:useDate.join('')},
 			    		type:"post",
 			    		success:function(data){
-							console.log(data);
-			    			console.log($("#reserveTime" + pno));
 			    			var $reserveTime = $("#reserveTime" + pno);
 			    			$reserveTime.empty();
 			    			
@@ -289,14 +286,38 @@
 			    });
 				
 			$("#reserve").click(function(){
-				var upno = new Array();
-				for(var i=0; i<$("select.reserveTime").length; i++){
-					upno[i] =  $("select.reserveTime")[i].value; 
-					console.log(upno.join(","));
-					
-					location.href="<%=request.getContextPath() %>/insert.re?upno=" + upno.join(",");
-					
+				var $selects = $("select.reserveTime");
+
+				var pno = new Array();
+				var num = 0;
+				for(var i=0; i<$selects.length; i++){
+					if($selects[i].children.length > 1){
+					pno[i] = $selects[i].value;
+					}else{
+						num++;
+					}					
 				}
+				console.log(pno);
+				if(num > 0){
+					window.alert("모든 예약을 선택하세요");
+					num = 0;
+				}else{
+					
+					var upno = new Array();
+					<% for(int i=0; i<list.size(); i++){  %>
+						
+						upno[<%=i%>] = <%=list.get(i).get("pno") %>
+				
+					
+				<%	} %>
+										
+				    location.href="<%=request.getContextPath() %>/insert.re?pno=" + pno.join(",") + "&mno=" + <%= loginUser.getMno() %> + "&upno="  + upno.join(",");
+				}
+				
+				
+				
+				
+				
 					
 			});
 			
