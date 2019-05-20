@@ -230,7 +230,7 @@ public class MemberDao {
 			while(rset.next()) {
 				hmap = new HashMap<String, Object>();
 				
-				/*hmap.put("filepath", rset.getString("FILE_PATH"));*/
+				hmap.put("filepath", rset.getString("FILE_PATH"));
 				hmap.put("changename", rset.getString("CHANGE_NAME"));
 				hmap.put("membername", rset.getString("MNAME"));
 				hmap.put("price", rset.getInt("PRICE"));
