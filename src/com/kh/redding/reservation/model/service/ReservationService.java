@@ -14,6 +14,7 @@ import com.kh.redding.reservation.model.vo.Reservation;
 
 public class ReservationService {
 
+	//업체 예약 조회
 	public ArrayList<Reservation> selectReservation() {
 		Connection con = getConnection();
 		
@@ -24,7 +25,8 @@ public class ReservationService {
 		
 		return list;
 	}
-
+	
+	//업체 예약수정
 	public int updateReservation(int resNo) {
 		Connection con = getConnection();
 		
@@ -40,7 +42,8 @@ public class ReservationService {
 		return result;
 	}
 
-
+	
+	//사용 가능한 제품의 날짜를 리턴
 	public ArrayList<Reservation> memberSelectReservation(int pno) {
 		Connection con = getConnection();
 		
@@ -50,7 +53,8 @@ public class ReservationService {
 			
 		return reslist;
 	}
-
+	
+	//사용가능한 제품의 시간을 리턴
 	public ArrayList<Reservation> memberSelectReservation(int pno, String date) {
 		Connection con = getConnection();
 		
@@ -68,6 +72,48 @@ public class ReservationService {
 		Connection con = getConnection();
 		
 		ArrayList<HashMap<String, Object>> list = new ReservationDao().reserveWishList(userNum, resList, con);
+		
+		close(con);
+		
+		return list;
+	}
+	
+	//예약 테이블에 예약 추가
+	public int reservationInsert(int[] pnoArr, int[] upnoArr, int mno) {
+		Connection con = getConnection();
+		
+		int updateResult = new ReservationDao().reservationUpdate(con,pnoArr);
+		int insertResult = 0;
+		int wUpdateResult = 0;
+		int totalResult = 0;
+		
+		if(updateResult == pnoArr.length) {
+			insertResult = new ReservationDao().reservationInsert(con,pnoArr,mno);
+		}
+		
+		if(insertResult == upnoArr.length) {
+			wUpdateResult = new ReservationDao().wishListDelete(con,upnoArr,mno);
+		}
+		
+		if(wUpdateResult == upnoArr.length) {
+			commit(con);
+			totalResult = 1;
+		}else {
+			rollback(con);
+			totalResult = 0;
+		}
+		
+		close(con);
+		
+		
+		return totalResult;
+	}
+	
+	//예약시 예약된 리스트 출력
+	public ArrayList<HashMap<String, Object>> reservationResultSelect(int mno, int[] pnoArr) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new ReservationDao().reservationResultSelect(con, mno, pnoArr);
 		
 		close(con);
 		
