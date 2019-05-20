@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import = "java.util.*, java.text.* ,com.kh.redding.board.model.vo.*"%>
-<% Board selectnotice = (Board)request.getAttribute("selectnotice"); %>
+	pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, java.text.* , com.kh.redding.member.model.vo.*"  %>
 <%
  java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MM-dd");
- String bdate = formatter.format(selectnotice.getBdate());
+ String today = formatter.format(new java.util.Date());
 %>
 <!DOCTYPE html>
 <html>
@@ -63,7 +63,6 @@
 
 	<!-- 멤버 헤더 (미니메뉴, 로고) -->
 	<div class="headerArea">
-		<%-- <jsp:include page="/views/member/m_header.jsp"></jsp:include> --%>
 		<%@ include file="/views/member/m_header.jsp"%>
 	</div><br>
 
@@ -88,15 +87,14 @@
 			<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 
 			<div class="container">
-				<h2>공지사항</h2>
+				<h2>FAQ</h2>
 				<hr>
 				<div class = "wrap">
-					<form action = "<%=request.getContextPath() %>/updateNotice.no" method = "post" id = "noticeSubmit">
-					<input type = "hidden" name = "bid" id = "bid" value = "<%=selectnotice.getBid() %>" >
+					<form action = "<%=request.getContextPath() %>/insertFAQ.no" method = "post" id = "noticeSubmit">
 					<table class = "noticetable">
 						<tr>
-							<th>제목 </th>
-							<td colspan = "4"><input type = "text" name = "noticeTitle" id = "noticeTitle" placeholder ="제목을 입력해주세요" value = "<%=selectnotice.getBtitle() %>" style = "width : 100%;"></td> 
+							<th>자주하는 질문</th>
+							<td colspan = "4"><input type = "text" name = "noticeTitle" id = "noticeTitle" placeholder ="제목을 입력해주세요" style = "width : 100%;"></td> 
 							<td colspan = "4"></td>
 						</tr>
 						<tr>
@@ -105,25 +103,22 @@
 							<input type = "hidden" name = "writer" value = "<%=loginUser.getMno() %>" >
 							</td> 
 							<th>등록날짜</th>
-							<td><span><%=bdate %></span></td>
-							<th>조회수</th>
-							<td><span><%=selectnotice.getBcount() %></span></td>
-							<td colspan = "4"></td>
+							<td><span><%=today %></span></td>
+							<td colspan = "6"></td>
 						</tr>
 						<tr>
-							<th>내용 </th>
+							<th>답변내용</th>
 						</tr>
 						<tr>
 							<td colspan = "10">
-								<textarea rows="10" cols="80" style="resize: none; text-align : left;" name = "noticeContent" id = "noticeContent" placeholder = "내용을 입력해주세요"><%=selectnotice.getBcontent() %></textarea>
+								<textarea rows="10" cols="80" style="resize: none; text-align : left;" name = "noticeContent" id = "noticeContent" placeholder = "내용을 입력해주세요"></textarea>
 							</td>
 						</tr>
 						
 					</table>
 					<div class = "notice_footer">
 						<div class = "notice_writer">
-							<button type = "button" id = "modifybtn">수정하기</button>
-							<button type = "button" id = "deletebtn">삭제하기</button>
+							<button type = "button" id = "writerbtn">글쓰기</button>
 						</div>
 					</div>
 					</form>
@@ -144,23 +139,14 @@
 	
 	<script>
 		$(function(){
-			$("#modifybtn").click(function(){
+			$("#writerbtn").click(function(){
 				$("#noticeSubmit").submit();
 			});
-			
-			$("#deletebtn").click(function(){
-				var bid = $("#bid").val();
-				
-				var check = confirm("해당 게시글을 삭제 하시겠습니까?");
-				
-				if (check == true){
-					location.href = '<%=request.getContextPath()%>/deleteNotice.no?num=' + bid;
-				}
-			})
 		});
 	
 	</script>
 	
 	<%} %>
+
 </body>
 </html>

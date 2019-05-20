@@ -24,8 +24,8 @@
 	href="${pageContext.request.contextPath}/css/common/footer.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/admin/a_nav.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/admin/a_main.css">
+<%-- <link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/admin/a_main.css"> --%>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/common/layout.css">
 <link rel="stylesheet" type="text/css"

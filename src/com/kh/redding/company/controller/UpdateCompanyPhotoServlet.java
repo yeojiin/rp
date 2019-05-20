@@ -70,7 +70,6 @@ public class UpdateCompanyPhotoServlet extends HttpServlet {
 					
 					Attachment at = new Attachment();
 					
-					
 					at.setFilepath(filePath);
 					at.setOriginname(originFiles.get(i));
 					

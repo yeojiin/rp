@@ -60,7 +60,7 @@ public class SelectMemberListServlet extends HttpServlet {
 				
 		String page = "";
 		if(list != null) {
-			page = "views/admin/a_TotalMember.jsp";
+			page = "/views/admin/a_TotalMember.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 			request.setAttribute("allMemberlistCount", allMemberlistCount);
