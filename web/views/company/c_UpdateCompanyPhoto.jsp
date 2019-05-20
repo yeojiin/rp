@@ -297,7 +297,6 @@
 					case 0 :%>		
 						<% System.out.println(i+":"+list.get(i)); %>
 						$("#titleimg").attr("src", "<%=request.getContextPath()%>/company_upload/<%=list.get(0).getChangename()%>" )
-						
 					<% break;
 					case 1 :%>	
 						<% System.out.println(i+":"+list.get(i)); %>
@@ -312,8 +311,6 @@
 					<% break;
 					case 4 :%>	
 						$("#subimg4").attr("src", "<%=request.getContextPath()%>/company_upload/<%=list.get(i).getChangename()%>"   )
-						$("#subAid4").val("<%=list.get(i).getAid()%>");
-						$("#subChangeName4").val("<%=list.get(i).getChangename()%>");
 					<% break;
 					case 5 :%>	
 						$("#subimg5").attr("src", "<%=request.getContextPath()%>/company_upload/<%=list.get(i).getChangename()%>"  )
