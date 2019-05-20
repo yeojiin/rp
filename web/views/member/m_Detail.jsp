@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.redding.member.model.vo.*, com.kh.redding.attachment.model.vo.*, java.util.*"%>
+<%
+	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
+	M_comListPageInfo clpi = (M_comListPageInfo) request.getAttribute("clpi");
+	int currentPage = clpi.getCurrentPage();
+	int maxPage = clpi.getMaxPage();
+	int startPage = clpi.getStartPage();
+	int endPage = clpi.getEndPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -78,8 +86,14 @@
 
 			<div class="col-sm-8 text-left">
 				<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
+				<form action="<%=request.getContextPath()%>/selectDetailCom.dc">
 				<br>
-				<p style="font-size:40px; text-align:center">KH스튜디오</p>
+				<%
+            		HashMap<String, Object> hmap = null;
+            		for (int i = 0; i < list.size(); i++) {
+            			hmap = list.get(i);
+            	%>
+				<p style="font-size:40px; text-align:center"><%=hmap.get("membername") %></p>
 				<div id="titleimg" style="width:100%; height:auto;">
 					<div style="width:50%; height:auto; float:left;">
 						<img src="../../images/logo.png" id="timg" style="max-width:100%;">
@@ -251,17 +265,36 @@
 						<!-- <hr style="align:center; border-color:black; width:100%;" > -->
 						<a class="btn btn-default" style="border-color:salmon; background:salmon; color:white; float:right;">글쓰기</a>
 						<br>
-						<div class="text-center" style="width:100%;">
+						<div class="text-center">
 							<ul class="pagination">
-								<li><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
+								<button onclick="location.href='<%=request.getContextPath() %>/m_DetailSelect.ds?currentPage=1'"><<</button>
+								<% if(currentPage <= 1){ %>
+								<button disabled><</button>
+								<% }else{ %>
+								<button onclick="location.href='<%=request.getContextPath() %>/m_DetailSelect.ds?currentPage=<%=currentPage - 1%>'"><</button>
+								<% } %>
+								
+								<% for(int p = startPage; p <= endPage; p++){
+									if(p == currentPage){%>
+										<button disabled><%= p %></button>
+								<% }else{ %>
+									<button onclick="location.href='<%=request.getContextPath() %>/m_DetailSelect.ds?currentPage=<%= p %>'"><%= p %></button>
+								<% } %>
+								<% } %>
+								
+								<% if(currentPage >= maxPage){ %>
+								<button disabled>></button>
+								<% }else{ %>
+								<button onclick="location.href='<%=request.getContextPath() %>/m_DetailSelect.ds?currentPage=<%=currentPage + 1 %>'">></button>
+								<% } %>
+								<button onclick="location.href='<%=request.getContextPath() %>/m_DetailSelect.ds?currentPage=<%=maxPage %>'">>></button>
 							</ul>
 						</div>
 					</div>
+					<% } %>
+					</form>
 				</div>
+				
 
 				<!-- 오른쪽 빈공간 -->
 				<div class="col-sm-2 sidenav"></div>
@@ -328,7 +361,7 @@
                   var geocoder = new daum.maps.services.Geocoder();
                   
                   // 주소로 좌표를 검색합니다
-                  geocoder.addressSearch('서울특별시 강남구 테헤란로 14길 6', function(result, status) {
+                  geocoder.addressSearch(<%-- <%=hmap.get("ComAddress") %> --%>, function(result, status) {
                   
                       // 정상적으로 검색이 완료됐으면 
                        if (status === daum.maps.services.Status.OK) {
