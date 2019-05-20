@@ -26,7 +26,7 @@
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="a_Sstats.jsp">통계관리</a></li>
-					<li><a href="a_calculate.jsp">정산관리</a></li>
+					<li><a onclick="showCalc()">정산관리</a></li>
 					<li><a onclick="goTotalCompany()">업체관리</a></li>
 					<li><a onclick="goTotalMember()">회원관리</a></li>
 					<li><a href="a_BlackList.jsp">블랙리스트 관리</a></li>
@@ -62,6 +62,9 @@
 	}
 	function goTotalMember() {
 		location.href="<%=request.getContextPath()%>/selectList.me";
+	}
+	function showCalc() {
+		location.href="<%=request.getContextPath()%>/showCalc.ad";
 	}
 </script>
 

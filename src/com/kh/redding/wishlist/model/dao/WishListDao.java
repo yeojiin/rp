@@ -47,7 +47,7 @@ public class WishListDao {
 				hmap =new HashMap<String, Object>();
 				
 				hmap.put("mno", rset.getInt("MNO"));
-				hmap.put("upno", rset.getInt("UPNO"));
+				hmap.put("pno", rset.getInt("PNO"));
 				hmap.put("pname", rset.getString("PNAME"));
 				hmap.put("pcontent", rset.getString("PCONTENT"));
 				hmap.put("price", rset.getInt("PRICE"));

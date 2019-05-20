@@ -137,7 +137,7 @@
 									</tr>
 									<tr>
 										<td><label>예약날짜</label> <br> <select
-											id="reserveDate<%= hmap.get("upno")%>" class="ui search dropdown reserveDate" style="width: 100%; height:auto">
+											id="reserveDate<%= hmap.get("pno")%>" class="ui search dropdown reserveDate" style="width: 100%; height:auto">
 												<option>-- 날짜 선택 --</option>
 											</select><br>
 										<br>
@@ -145,7 +145,7 @@
 									</tr>
 									<tr>
 										<td><label>예약시간</label> <br> <select
-											id="reserveTime<%= hmap.get("upno")%>" class="ui search dropdown reserveTime" style="width: 100%; height:auto">
+											id="reserveTime<%= hmap.get("pno")%>" class="ui search dropdown reserveTime" style="width: 100%; height:auto">
 											<option>-- 시간 선택 --</option>
 											</select><br>
 										<br>
