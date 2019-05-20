@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.redding.admin.model.vo.*, java.util.*" %>
+<%
+	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
+	TotalMemberPageInfo pi = (TotalMemberPageInfo) request.getAttribute("pi");
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,7 +67,7 @@
 				<div class="pselectArea">
 				<h2>정산 대기 리스트</h2>
 				<br>
-					<table>
+					<table class="calcTable">
 						<tr>
 							<th>No.</th>
 							<th>업체</th>
@@ -70,69 +78,52 @@
 							<th>지급보류</th>
 							<th>지급하기</th>
 						</tr>
-					<tbody>
+					<%
+						for (int i = 0; i < list.size(); i++) {
+						HashMap<String, Object> hmap = list.get(i);
+					%>
 						<tr>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td><button class="ui button">보류하기</button></td>
-							<td><button class="ui button">지급하기</button></td>
+							<td class=rnum><%=hmap.get("rnum")%></td>
+							<td class=cname><%=hmap.get("cname") %></td>
+							<td class=pname><%=hmap.get("pname") %></td>
+							<td class=price><%=hmap.get("price") %></td>
+							<td class=price><%=hmap.get("price") %></td>
+							<td></td>
+							<td><button class="ui button" class="hold">보류하기</button></td>
+							<td><button class="ui button" class="pay">지급하기</button></td>
 						</tr>
-						<tr>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td><button class="ui button">보류하기</button></td>
-							<td><button class="ui button">지급하기</button></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td><button class="ui button">보류하기</button></td>
-							<td><button class="ui button">지급하기</button></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td><button class="ui button">보류하기</button></td>
-							<td><button class="ui button">지급하기</button></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td><button class="ui button">보류하기</button></td>
-							<td><button class="ui button">지급하기</button></td>
-						</tr>
-					</tbody>		
+					<%
+						}
+					%>	
 					</table>
+					<br>
+					<div class="pagingArea" align="center">
+						<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showCalc.ad?currentPage=1'"><<</button>
+						<% if(currentPage <= 1) { %>
+						<button disabled class="ui button"><</button>
+						<% } else { %>
+						<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showCalc.ad?currentPage=<%= currentPage - 1 %>'"><</button>
+						<% } %>
+						
+						<% for(int p = startPage; p <= endPage; p++) { 
+								if(p == currentPage) { %>
+									<button class="ui button" disabled><%= p %></button>
+						<% 		}else {%>
+									<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showCalc.ad?currentPage=<%= p %>'"><%= p %></button>
+						<%		} %>
+							
+						<% } %>
+						
+						<% if(currentPage >= maxPage) { %>
+						<button class="ui button" disabled>></button>
+						<% } else { %>
+						<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showCalc.ad?currentPage=<%= currentPage + 1 %>'">></button>
+						<% } %>
+						<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showCalc.ad?currentPage=<%= maxPage %>'">>></button>
+						<br>
+						</div>
 				</div>
 				<br><br>
-				<div class="pselectBtnArea" align="center">
-					<label><</label> &nbsp;
-					<label>1</label> &nbsp;
-					<label>2</label> &nbsp;
-					<label>3</label> &nbsp;
-					<label>4</label> &nbsp;
-					<label>></label>
-				</div>
 				
 				<div class="pselectArea">
 				<h2>정산 완료 리스트</h2>
@@ -209,6 +200,19 @@
 	<div class="footerArea">
 		<jsp:include page="/views/common/footer.jsp"></jsp:include>
 	</div>
+	
+	<script>	
+	
+	//배경 바꾸기
+	$(function() {
+		$(".calcTable td").mouseenter(function() {
+			$(this).parent().css({"background":"mistyrose", "cursor":"pointer"});
+		}).mouseout(function() {
+			$(this).parent().css({"background":"white"});
+		}); 
+	});
+		
+	</script>
 
 
 </body>

@@ -242,12 +242,10 @@ public class ReservationDao {
 			list = new ArrayList<HashMap<String,Object>>();
 
 			while(rset.next()) {
-				/*product = new Product();
-	            product.setpName(rset.getString("PNAME"));
-	            product.setpContent(rset.getString("PCONTENT"));
-	            product.setPrice(rset.getInt("PRICE"));*/
+				
 				hmap = new HashMap<String, Object>();
 				hmap.put("mno", rset.getInt("MNO"));
+
 				hmap.put("wPno", rset.getInt("PNO"));
 				hmap.put("pno", rset.getInt("PNO"));
 				hmap.put("cName", rset.getString("MNAME"));
