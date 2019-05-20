@@ -11,7 +11,7 @@
 #PITable td, #PITable th, #selectTable td, #selectTable th{
    text-align: center;
 }
-textarea{
+#productInsertArea textarea{
 	resize: none;
 	width: 100%;
 	height: 100px;
@@ -20,8 +20,10 @@ input[name = proName], input[name = proEnrollDate]{
 	background: lightgray;
 	border: 2px solid white;
 }
-input[name=proPrice], input[name=proContent]{
+
+input[name=proPrice], input[name=proContent], #productInsertArea label, #productInsertArea textarea, input[name=proStatus]{
 	border: none;
+	cursor: pointer;
 }
 input[name = proName], input[name = proEnrollDate], input[name=proPrice], input[name=proContent]{
    width: 100%;
@@ -35,11 +37,11 @@ input[name = proName], input[name = proEnrollDate], input[name=proPrice], input[
    background: lightgray;
 }
 
-#productDetailBtn:hover, #productDeleteBtn:hover, #PIResetBtn:hover, #PIInsertBtn:hover{
+#productDetailBtn:hover, #productSellYesBtn:hover, #searchBtn:hover, #productSellNoBtn:hover, #PIResetBtn:hover, #PIInsertBtn:hover{
    background: white;
    color: salmon;
 }
-#PIBtns{
+#PIBtns, #sellStatusBtns, #searchBtn{
    margin-right: auto;
    margin-left: auto;
    width: 220px;
@@ -48,10 +50,7 @@ input[name = proName], input[name = proEnrollDate], input[name=proPrice], input[
 	margin-right: auto;
 	margin-left: auto;
 }
-#productDeleteBtn{
-	margin-left: 90%;
-}
-#PIInsertBtn, #PIResetBtn, #productDetailBtn, #productDeleteBtn{
+#PIInsertBtn, #PIResetBtn, #searchBtn, #productDetailBtn, #productDeleteBtn, #productSellYesBtn, #productSellNoBtn{
    width: 100px;
     height: 26px;
     background: salmon;
@@ -62,7 +61,33 @@ input[name = proName], input[name = proEnrollDate], input[name=proPrice], input[
     cursor:pointer;
     margin-bottom: 3px;
 }
-#PIResetBtn{
+#PIResetBtn, #productSellNoBtn{
    float: right;
    margin-top: -29px;
+}
+#productSearchTB th:first-Child{
+   width: 10%;
+}
+#productSearchTB th:last-Child{
+   width: 90%;
+}
+#productSearchResulTB, #productSearchTB{
+   width: 100%;
+   text-align: center;
+   margin-right: auto;
+   margin-left: auto;
+}
+#productSearchTB *, #productSearchResulTB *{
+   text-align: center;   
+}
+#productSearchTB tr:first-Child, #productSearchResulTB tr:first-Child{
+   background: lightGray;
+}
+#productSearchTB tr, #productSearchResulTB tr{
+   border-top: 1px solid lightgray;   
+}
+#productSearchResultList{
+   margin-top: 10px;
+    width: 100%;
+    height: 500px;
 }
