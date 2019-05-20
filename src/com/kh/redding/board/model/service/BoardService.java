@@ -210,6 +210,23 @@ public class BoardService {
 		return FAQList;
 	}
 
+	//문의글 작성
+	public int insertQnA(int mno, String conTitle, String contact, String category) {
+		Connection con = getConnection();
+		
+		int result = new BoardDao().insertQnA(con, mno , conTitle , contact , category);
+		
+		if (result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
 
 
 	

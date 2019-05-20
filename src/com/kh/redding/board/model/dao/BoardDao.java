@@ -552,5 +552,38 @@ public class BoardDao {
 		return FAQList;
 	}
 
+	public int insertQnA(Connection con, int mno, String conTitle, String contact, String category) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertQnA");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, conTitle);
+			pstmt.setInt(2, mno);
+			pstmt.setString(3, contact);
+			pstmt.setString(4, category);
+			pstmt.setString(5, "QnA");
+			
+			result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		
+		}
+		
+		
+		
+		
+		
+		
+		return result;
+	}
+
 
 }

@@ -60,7 +60,7 @@
 
 	<!-- 멤버 헤더 (미니메뉴, 로고) -->
 	<div class="headerArea">
-		<jsp:include page="/views/member/m_header.jsp"></jsp:include>
+			<%@ include file="/views/member/m_header.jsp"%>
 	</div><br>
 
 	<!-- 멤버 나브 -->
@@ -79,6 +79,8 @@
 			<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 
 			<div class="container">
+			
+				
 				<h2>1대 1 문의</h2>
 				<hr>
 				<div class = "wrap">
@@ -97,12 +99,15 @@
 					</div>
 				</div>
 					<div class = "contactwrite">
-					
+						<form action = "<%=request.getContextPath() %>/QnAinsert.no" method = "post" id = "QnAForm">
+						<% if (loginUser != null){ %>
+						<input type = "hidden" value = "<%=loginUser.getMno()%>" name = "mno" id = "mno">
+						<% } %>
 						<table id = "writerTable">
 							<tr>
 								<th colspan = "2">카테고리</th>
 								<td>
-								<select>
+								<select name = "category">
 									<option>선택해주세요 </option>
 									<option value = "사이트문의">사이트문의</option>
 									<option value = "업체문의">업체문의 </option>
@@ -118,11 +123,12 @@
 							<tr>
 								<th rowspan = "5" colspan = "2">내용</th>
 								<td>
-									<textArea cols = "40" rows = "5"></textArea>
+									<textArea cols = "40" rows = "5" id = "contact" name = "contact"></textArea>
 								</td>
 							</tr>
 						</table>
-						<button id = "consubmit">보내기</button>
+							<button type = "button" id = "consubmit">보내기</button>
+						</form>
 					</div>
 				</div>
 				
@@ -151,6 +157,17 @@
 			$(".writerbtn").click(function(){
 				location.href = "<%=request.getContextPath()%>/views/notice/contact_main.jsp";
 			});
+			
+			$("#consubmit").click(function(){
+				<% if(loginUser != null) { %>
+					$("#QnAForm").submit();
+				<% }else { %>				
+					alert("로그인 후 이용가능");
+				<%} %>
+			
+ 			});
+			
+			
 		})
 		
 	</script>

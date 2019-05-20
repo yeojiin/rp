@@ -8,6 +8,10 @@
 #productListContentsArea h2{
    color: salmon;
 }
+#startRows{
+	border: none;
+	width: 40px;
+}
 input[name=productSearchForName]{
 	width: 80%;
 }
