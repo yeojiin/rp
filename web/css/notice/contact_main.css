@@ -100,6 +100,13 @@
 	margin-left : 80%;
 }
 
+
+#consubmit:hover{
+	background : white;
+	color : #FB6E5F;
+	
+}
+
  #writerTable textArea{
  	resize : none;
  }

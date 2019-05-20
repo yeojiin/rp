@@ -45,7 +45,7 @@
 					</div>
 					<br><br>
 
-          <button class="goHome" onclick="location.href='<%=request.getContextPath() %>/index.jsp'">홈으로 돌아가기</button>
+          <button class="goHome" <%-- onclick="location.href='<%=request.getContextPath() %>/index.jsp'" --%>>이전으로 돌아가기</button>
 					
           <br><br><br>
 				</div>
@@ -54,5 +54,12 @@
 
 		</div>
 	</div>
+	<script>
+		$(function(){
+			$(".goHome").click(function(){
+				history.back();
+			});
+		});
+	</script>
 </body>
 </html>
