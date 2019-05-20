@@ -259,7 +259,6 @@ public class ProductInsertServlet extends HttpServlet {
          ArrayList<UseProduct> uProList = new ArrayList<UseProduct>();
          
          
-         int ctn = 0;
          /*for(int i=openTime ; i<closeTime ; i++) {
             System.out.println("start : " + i);
             System.out.println("end : " + (i+1));
@@ -293,7 +292,6 @@ public class ProductInsertServlet extends HttpServlet {
                //System.out.println("upro.getUseEndTime() : " + upro.getUseEndTime() );
                uProList.add(upro);
                //System.out.println("uProList.get("+ctn+") : " + uProList.get(ctn));
-               ctn++;
             }
          }
          /*for(UseProduct list:uProList) {

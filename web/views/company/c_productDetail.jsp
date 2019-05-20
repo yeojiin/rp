@@ -90,17 +90,18 @@
                              <th width="15%">등록일</th>
                              <th width="15%">가격(원)</th>
                              <th width="20%">판매여부</th>
-                                <%-- <input type="hidden" value="<%=loginUser.getMno()%>" id="cNo" name="cNo"> --%>
                           </tr>
                           <tr>
                           	<td>
                           		<input type="text" name="proName" id="proName" value="<%=pro.getpName()%>" readonly>
+	                             <input type="hidden" value="<%=loginUser.getMno()%>" id="cNo" name="cNo">
+	                             <input type="hidden" value="<%=pro.getpNo()%>" id="pNo" name="pNo">
                           	</td>
                           	<td>
                           		<input type="text" name="proEnrollDate" id="proEnrollDate" value="<%=pro.getpEnrollDate()%>" readonly>
                           	</td>
                           	<td>
-                          		<input type="number" name="proPrice" id="proPrice" value="<%=pro.getPrice()%>">
+                          		<input type="number" name="proPrice" id="proPrice" value="<%=pro.getPrice()%>" step="5000" min="0">
                           	</td>
                           	<td>
                           		<%-- <input type="text" name="" id="" value="<%=pro.getProStatus()%>"> --%>
@@ -112,9 +113,7 @@
                        	</tr>
                        	<tr>
                           	<td colspan="5">
-                          		<textarea name="proContent" id="proContent">
-                          			 <%=pro.getpContent()%>
-                          		</textarea>
+                          		<textarea name="proContent" id="proContent"><%=pro.getpContent()%></textarea>
                           	</td>                          	
                           </tr>
                           
@@ -124,12 +123,48 @@
                      <div id="PIfooter">
                         <div id="PIBtns">
                            <div id="PIInsertBtn">수정하기</div>
-                           <div id="PIResetBtn">취소하기</div>
+                           <div id="PIResetBtn">이전으로</div>
                         </div>
                      </div>
                </form>
                <div id="selectArea">
-               
+               <div id="productSearchTBArea">
+                  <table id="productSearchTB">
+                     <tr>
+                        <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>                        
+                        <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                     </tr>
+                     <tr>
+                        <td>
+                           <label>상품 구분</label>
+                        </td>
+                        <td>
+                           <input type="radio" name="productSearchAbountSale" id="productSearchAllAboutSale" value="sale1">
+                           <label for="productSearchAllAboutSale">전체 상품</label>
+                           <input type="radio" name="productSearchAbountSale" id="productSearchSale" value="sale2">
+                           <label for="productSearchSale">판매 상품</label>
+                           <input type="radio" name="productSearchAbountSale" id="productSearchNoSale" value="sale3">
+                           <label for="productSearchNoSale">판매하지 않는 상품</label>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>
+                           <label>예약가능일</label>
+                        </td>
+                        <td>
+                           <input type="date" name="startDate" value="">
+                           <label> ~ </label>
+                           <input type="date" name="endDate" value="">
+                        </td>
+                     </tr>
+                     <tr>
+                        <td colspan="2">
+                           <div id="searchBtn">검색하기</div>
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+               <br><br>
                </div>
                <table id="selectTable">
                		<tr>
@@ -164,7 +199,10 @@
                      <% } %>
                      <tr>
                      	<td colspan="8">
-                     		<div id="productDeleteBtn">삭제하기</div>
+                     		<div id="sellStatusBtns">
+	                     		<div id="productSellYesBtn">판매하기</div>
+	                     		<div id="productSellNoBtn">판매취소</div>
+                     		</div>
                      	</td>
                      </tr>
                </table>
@@ -222,59 +260,74 @@
     			  $(this).attr("checked",true);
     		  }
     	  });
-         <%-- /* select 태그에서 기타를 선택시 input태그 생성 */
-         $("#PIManagerSelect").change(function() {
-            var $td = $("#manager");
-            var $input = $("<input type='text' name='etc' id='etc'>");
-            
-            $("#PIManagerSelect option:selected").each(function() {
-               var selectedManager = $("#PIManagerSelect option:selected").val();
-               console.log(selectedManager);
-               if(selectedManager=="기타"){
-                  $td.append($input);
-               }
-            });
-         });
-         $("#productAmount").change(function(){
-            var $td = $("#amount");
-            var $input = $("<input type='number' name='proAmount' id='proAmount'>");
-            $("#productAmount").each(function(){
-               var result = $("#productAmount").val();
-               if(result=="기타"){
-                  $td.append($input);
-               }
-                  console.log(typeof(result));
-            });
-            
-         });
-         
-         
+   		  
+   		  $(".productDetail").click(function(){
+   			  var upno = $(this).parent().parent().children().eq(1).children().eq(0).val();
+   			  /* console.log(upno); */
+   			  location.href="<%=request.getContextPath()%>/uproDetail.pr?upno="+upno;
+   		  });
+   		  
+   		  $("#PIInsertBtn").click(function(){
+				$("#updatePro").submit();
+   		  });
+   		  
+   		  $("#PIResetBtn").click(function(){
+   			  location.href="<%=request.getContextPath()%>/selectProList.pr";
+    	  });
+   			  
+   		  $("#productSellYesBtn").click(function(){
+   			var upnoArr = [];
+   			var answer = "Y";
+			  $("input[name=proCheck]").each(function(){
+				  var upno = $(this).parent().parent().children().eq(1).children().eq(0).val();
+				  if($(this).is(":checked")){
+					  console.log("upno : " + upno);
+					  upnoArr += upno +", ";
+				  }
+			  });
+			  console.log(upnoArr);
+			  
+			  $.ajax({
+				  url:"uproListUstatusY.pr",
+				  type:"post",
+				  data:{upnoArr:upnoArr,answer:answer},
+				  success:function(data){
+					  //alert("성공");
+					  location.href="proDetail.pr?pno=<%=pro.getpNo()%>";
+				  },
+				  error:function(){
+					  //alert("실패");
+				  }
+			  });
+   		  });
+   		  
+   		$("#productSellNoBtn").click(function(){
+ 			  var upnoArr = [];
+ 			  var answer = "N";
+ 			  $("input[name=proCheck]").each(function(){
+ 				  var upno = $(this).parent().parent().children().eq(1).children().eq(0).val();
+ 				  if($(this).is(":checked")){
+ 					  console.log("upno : " + upno);
+ 					  upnoArr += upno +", ";
+ 				  }
+ 			  });
+			  console.log(upnoArr);
+			  
+			  $.ajax({
+				  url:"uproListUstatusY.pr",
+				  type:"post",
+				  data:{upnoArr:upnoArr,answer:answer},
+				  success:function(data){
+					  //alert("성공");
+					  location.href="proDetail.pr?pno=<%=pro.getpNo()%>";
+				  },
+				  error:function(){
+					  //alert("실패");
+				  }
+			  });
+ 		  });
+  		 		  
         
-         $("#PIInsertBtn").click(function(){
-            var a = $("#PICategorySelect").val();
-            var b = $("#PIManagerSelect").val();
-            console.log(a);
-            console.log(b);
-            
-            $("#insertPro").submit();
-            alert("상품을 등록하셨습니다.");
-            
-           
-            /* 서블릿을 통해 전체상품의 수량을 증가 시켜준다. */
-            /* 
-            var startTime = document.getElementById("startTime").value;
-               console.log(startTime);
-               console.log("startTime : " + typeof(startTime));
-            var endTime = document.getElementById("endTime").value;
-               console.log(startTime);
-               console.log("startTime : " + typeof(startTime)); */
-              /* submit, reset */
-         });
-         $("#PIResetBtn").click(function(){
-            alert("상품등록을 취소하셨습니다.");
-            location.href="<%=request.getContextPath()%>/views/company/c_ProductManagement.jsp";
-         });
- --%>
       });
    </script>
 </body>
