@@ -53,6 +53,7 @@ public class WishListDao {
 				hmap.put("price", rset.getInt("PRICE"));
 				hmap.put("mname", rset.getString("MNAME"));
 				hmap.put("ctype", rset.getString("COM_TYPE"));
+				hmap.put("wishcode", rset.getInt("WISH_CODE"));
 				
 				list.add(hmap);
 				
@@ -96,6 +97,13 @@ public class WishListDao {
 		}
 			
 		return result;
+	}
+
+	
+	//위시리스트 담기용 메소드
+	public int insertPackage(Connection con, int[] packList) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
