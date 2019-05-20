@@ -197,13 +197,14 @@ public class ProductDao {
       String query = prop.getProperty("insertDateTime");
       
       try {
+    	 pstmt =con.prepareStatement(query);
+    	  
          for(int i=0 ; i<uProList.size() ; i++) {
             
-            pstmt =con.prepareStatement(query);
             
-            pstmt.setDate(1, uProList.get(i).getUseDate());
+               pstmt.setDate(1, uProList.get(i).getUseDate());
             
-            pstmt.setString(2, uProList.get(i).getUseStartTime());
+               pstmt.setString(2, uProList.get(i).getUseStartTime());
                pstmt.setString(3, uProList.get(i).getUseEndTime());
                pstmt.setInt(4, uProList.get(i).getpNo());
                pstmt.setInt(5, uProList.get(i).getuNum());
@@ -530,5 +531,70 @@ public class ProductDao {
 		}
 		return result;
 	}
+
+	public int updateProductStatus(Connection con, String status, int pno) {
+		PreparedStatement pstmt = null;
+		int result = 0 ;
+		String query = prop.getProperty("updateProductStatus");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, status);
+			pstmt.setInt(2, pno);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateTotalUseProductStatus(Connection con, String ustatus, int pno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateTotalUseProductStatus");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, ustatus);
+			pstmt.setInt(2, pno);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	/*public void searchProduct(int value) {
+		String query = "";
+		
+		if(value==10) {
+			
+		}else if(value==20){
+			
+		}else if(value==30){
+			
+		}else if(value==40){
+			
+		}else if(value==50){
+			
+		}else if(value==60){
+			
+		}else if(value==70){
+			
+		}else if(value==80){
+			
+		}
+	}*/
 
 }

@@ -6,19 +6,19 @@
    
    ProductCounts pcount = (ProductCounts) request.getAttribute("pcount");
    
-	   int currentPage = pi.getCurrentPage();
-	   int maxPage = pi.getMaxPage();
-	   int startPage = pi.getStartPage();
-	   int endPage = pi.getEndPage();
-	   int startRow = pi.getStartRow();
-	   int endRow = pi.getEndRow();
-	   
-	         //vo.상품에서 가져올 값  : 즉, 테이블에도 존재해야 함 아니면 count(*) 함수 사용하든가
-	
-	         int productTotalCount = pcount.getProductTotalCount();
-	         int SaleProductCount = pcount.getSaleProductCount();
-	         int NoSaleProductCount = pcount.getNoSaleProductCount();
-	   
+      int currentPage = pi.getCurrentPage();
+      int maxPage = pi.getMaxPage();
+      int startPage = pi.getStartPage();
+      int endPage = pi.getEndPage();
+      int startRow = pi.getStartRow();
+      int endRow = pi.getEndRow();
+      
+            //vo.상품에서 가져올 값  : 즉, 테이블에도 존재해야 함 아니면 count(*) 함수 사용하든가
+   
+            int productTotalCount = pcount.getProductTotalCount();
+            int SaleProductCount = pcount.getSaleProductCount();
+            int NoSaleProductCount = pcount.getNoSaleProductCount();
+      
          
 %>
 <!DOCTYPE html>
@@ -122,64 +122,66 @@
                
                <!-- 검색분류테이블 -->
                <div id="productSearchTBArea">
-	               	<form id="productSearch" method="post" action="searchPro.pr">
-		                 <table id="productSearchTB">
-		                    <tr>
-		                       <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>                        
-		                       <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-		                    </tr>
-		                    <tr>
-		                       <td>
-		                          <label>상품명 검색</label>
-		                       </td>
-		                       <td><!-- 
-		                       	<label></label>
-		                       </td>
-		                       <td>
-		                          <select>                              
-		                             <option>상품명</option>
-		                             <option>기간</option>
-		                          </select> -->
-		                          <input type="search" name="productSearchForName" id="productSearchForName" placeholder="상품명을 입력해주세요 ex>리허설-본식">
-		                       </td>
-		                    </tr>
-		                    <tr>
-		                       <td>
-		                          <label>상품 구분</label>
-		                       </td>
-		                       <td>
-		                          <input type="radio" name="productSearchAbountSale" id="productSearchAllAboutSale" value="sale">
-		                          <label for="productSearchAllAboutSale">전체 상품</label>
-		                          <input type="radio" name="productSearchAbountSale" id="productSearchSale" value="판매">
-		                          <label for="productSearchSale">판매 상품</label>
-		                          <input type="radio" name="productSearchAbountSale" id="productSearchNoSale" value="판매안함">
-		                          <label for="productSearchNoSale">판매하지 않는 상품</label>
-		                       </td>
-		                    </tr>
-		                    <tr>
-		                       <td>
-		                          <label>상품 등록일</label>
-		                       </td>
-		                       <td>
-		                          <input type="radio" name="productSearchAboutTerm" id="productSearchToday" value="today">
-		                          <label for="productSearchToday">오늘</label>
-		                          <input type="radio" name="productSearchAboutTerm" id="productSearchOneWeek" value="week">
-		                          <label for="productSearchOneWeek">일주일이내</label>
-		                          <input type="radio" name="productSearchAboutTerm" id="productSearchOneMonth" value="month">
-		                          <label for="productSearchOneMonth">1개월이내</label>
-		                          <br>
-		                          <input type="date" name="startDate">
-		                          <label> ~ </label>
-		                          <input type="date" name="endDate">
-		                       </td>
-		                    </tr>
-		                    <tr>
-		                       <td colspan="2">
-		                          <div id="searchBtn">검색하기</div>
-		                       </td>
-		                    </tr>
-		                 </table>
-	               	</form>
+                     <form id="productSearch" method="post" action="searchPro.pr">
+                       <table id="productSearchTB">
+                          <tr>
+                             <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>                        
+                             <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                          </tr>
+                          <tr>
+                             <td>
+                                <label>상품명 검색</label>
+                             </td>
+                             <td><!-- 
+                                <label></label>
+                             </td>
+                             <td>
+                                <select>                              
+                                   <option>상품명</option>
+                                   <option>기간</option>
+                                </select> -->
+                                <input type="search" name="productSearchForName" id="productSearchForName" placeholder="상품명을 입력해주세요 ex>리허설-본식">
+                             </td>
+                          </tr>
+                          <tr>
+                             <td>
+                                <label>상품 구분</label>
+                             </td>
+                             <td>
+                                <input type="radio" name="productSearchAbountSale" id="productSearchAllAboutSale" value="sale">
+                                <label for="productSearchAllAboutSale">전체 상품</label>
+                                <input type="radio" name="productSearchAbountSale" id="productSearchSale" value="판매">
+                                <label for="productSearchSale">판매 상품</label>
+                                <input type="radio" name="productSearchAbountSale" id="productSearchNoSale" value="판매안함">
+                                <label for="productSearchNoSale">판매하지 않는 상품</label>
+                             </td>
+                          </tr><!-- 
+                          <tr>
+                             <td>
+                                <label>상품 등록일</label>
+                             </td>
+                             <td>
+                                <input type="radio" name="productSearchAboutTerm" id="productSearchToday" value="today">
+                                <label for="productSearchToday">오늘</label>
+                                <input type="radio" name="productSearchAboutTerm" id="productSearchOneWeek" value="week">
+                                <label for="productSearchOneWeek">일주일이내</label>
+                                <input type="radio" name="productSearchAboutTerm" id="productSearchOneMonth" value="month">
+                                <label for="productSearchOneMonth">1개월이내</label>
+                                <input type="radio" name="productSearchAboutTerm" id="productSearchDays" value="days">
+                                <label for="productSearchDays">기간선택</label>
+                                <br>
+                                <input type="date" name="startDate" class="Day">
+                                <label> ~ </label>
+                                <input type="date" name="endDate"class="Day">
+                             </td>
+                          </tr> -->
+                          <tr>
+                             <td colspan="2">
+                                <div id="searchBtn">검색하기</div>
+                             </td>
+                          </tr>
+                       </table>
+                     </form>
                </div>
                <br><br>
                <!-- 조회결과물 보여주는 목록 -->
@@ -204,7 +206,8 @@
                         <tr>
                         <!-- ajax로 행 처리하기 처리할때 아래와 같이 체크박스와 버튼 도 같이 나와야 한다. -->
                            <td><input type="checkbox" name="proCheck" id="proCheck"></td>
-                           <td><%=startRow %>
+                           <td><%-- <%=startRow %> --%>
+                           	  <input type="number" name="startRows" id="startRows" value="<%=startRow %>" readonly>
                               <input type="hidden" name="proNum" id="proNum" value="<%=pro.getpNo() %>">
                            </td>
                            <td><%=pro.getpName() %></td>
@@ -228,9 +231,9 @@
                      <tr>
                         <td colspan="8">
                            <div id="sellStatusBtns">
-	                     		<div id="productSellYesBtn">판매하기</div>
-	                     		<div id="productSellNoBtn">판매취소</div>
-                     		</div>
+                              <div id="productSellYesBtn">판매하기</div>
+                              <div id="productSellNoBtn">판매취소</div>
+                           </div>
                         </td>
                      </tr>
                   </table>
@@ -280,6 +283,14 @@
    </div>
    <script>
       $(function(){
+         $("input[name=productSearchAboutTerm]").click(function(){
+            $(".Day").attr("type","hidden");
+            //console.log($(this).val());
+         });
+         $("#productSearchDays").click(function(){
+            console.log($(this).val());
+            $(".Day").attr("type","date");
+         });
          $("#productUploadBtn").click(function(){
             //상품등록하기 버튼을 눌렀을 때 작동할 함수
             //c_ProductUpload.jsp로 페이지 이동해주기
@@ -289,7 +300,7 @@
             //결과 조회 목록에서 버튼 클릭시 페이지 이동
             //상세보기 페이지 갓다가 -> 수정페이지 혹은 삭제페이지로 이동하자
             var pNo = $(this).parent().parent().children().eq(1).children().eq(0).val();
-            console.log("pno: " + pNo);
+            //console.log("pno: " + pNo);
             /* pNo = Number(pNo);
             console.log("typeof(pno) : " + typeof(pNo)); */
             
@@ -312,9 +323,92 @@
             /* console.log(startDate); */
             
             /* console.log(typeof($("input[name=productSearchForName]").val())); */
-            $("#productSearch").submit();
+            /* $("#productSearch").submit(); */
+            
+            <%-- var proName = $("input[name=productSearchForName]").val();
+            console.log(proName);
+            var prostatus = $("input[name=productSearchAbountSale]:checked").val();
+            console.log(prostatus);
+            
+            $.ajax({
+            	url:"searchPro.pr",
+            	data:{proName:proName, prostatus:prostatus},
+            	type:"post",
+            	success:function(data){
+            		alert("성공");
+            		alert(data);
+            		$tableBody = $("#productSearchResulTB tbody");
+            		$tableBody.html('');
+            		$.each(data,function(index, value){
+            			
+						var $tr = $("<tr>");
+						
+						var $ckTd = $("<td>");
+						var $ckIn = $("<input type='checkbox' name='proCheck' id='proCheck'>");
+						
+						var $startTd = $("<td>");
+						var $startIn = $("<input type='number' name='startRows' id='startRows' readonly>");
+						 value='<%=startRow %>' 
+						
+						var $noTd = $("<td>");
+						var $noIn = $("<input type='hidden' name='proNum' id='proNum'>");
+						val(value.);
+						
+						var $nameTd = $("<td>");
+						/* var $noTd = $("<td>");
+						var $noIn = $("<input type='hidden' name='proNum' id='proNum'>");
+						
+						var $noTd = $("<td>");
+						var $noIn = $("<input type='hidden' name='proNum' id='proNum'>");
+						
+						
+												
+						var $noTd = $("<td>").text(value.userNo);
+						
+						var $nameTd = $('<td>').text(decodeURIComponent(value.userName));
+						
+						var $nationTd = $('<td>').text(decodeURIComponent(value.userNation));
+						
+						$tr.append($noTd);
+						$tr.append($nameTd);
+						$tr.append($nationTd);
+						$tableBody.append($tr); */
+            		});
+            	},
+            	error:function(data){
+            		alert("실패");
+            	}
+            	
+            }); --%>
             
          });
+         
+         $("#productSellYesBtn").click(function(){
+             var pnoString = [];
+             var status = "판매";
+             $("input[name=proCheck]").each(function(){
+                var pno = $(this).parent().parent().children().eq(1).children().eq(0).val();
+                if($(this).is(":checked")){
+                   pnoString += pno +",";
+                   //console.log(pnoString);
+                   location.href="<%=request.getContextPath()%>/proListStatus.pr?pnoString="+pnoString+"&status="+status;
+                
+                }    
+             });
+          });
+         $("#productSellNoBtn").click(function(){
+             var pnoString = [];
+             var status = "판매안함";
+             $("input[name=proCheck]").each(function(){
+                var pno = $(this).parent().parent().children().eq(1).children().eq(0).val();
+                if($(this).is(":checked")){
+                   pnoString += pno +",";
+                   //console.log(pnoString);
+                   location.href="<%=request.getContextPath()%>/proListStatus.pr?pnoString="+pnoString+"&status="+status;
+                
+                }    
+             });
+          });
       });
    </script>
 </body>
