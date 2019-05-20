@@ -160,7 +160,6 @@ public class ProductService {
 		
 		
 		
-		
 	public int updateUseProductStatus(int upno, String status) {
 		Connection con = getConnection();
 		int result = new ProductDao().updateUseProductStatus(con, status, upno);
@@ -170,6 +169,8 @@ public class ProductService {
 		}else {
 			rollback(con);
 		}
+		
+		System.out.println("uproresult : " + result);
 		return result;
 	}
 	public int productTotalCount(int cno) {
@@ -183,5 +184,29 @@ public class ProductService {
 		int saleProductCount = new ProductDao().saleProductCount(con, cno, status);
 		close(con);
 		return saleProductCount;
+	}
+	public int updateProductStatus(int pno, String status, int cno) {
+		Connection con = getConnection();
+		int result = new ProductDao().updateProductStatus(con, status, pno);
+		
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		return result;
+	}
+	public int updateTotalUseProductStatus(int pno, String ustatus) {
+		Connection con = getConnection();
+		int result = new ProductDao().updateTotalUseProductStatus(con, ustatus, pno);
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		//System.out.println("uproresult : " + result);
+		return result;
 	}
 }
