@@ -100,7 +100,7 @@
 					
 						<table id = "writerTable">
 							<tr>
-								<th>카테고리</th>
+								<th colspan = "2">카테고리</th>
 								<td>
 								<select>
 									<option>선택해주세요 </option>
@@ -110,13 +110,13 @@
 								</td>
 							</tr>
 							<tr>
-								<th>제목</th>
+								<th colspan = "2">제목</th>
 								<td>
 									<input type = "text" name = "conTilte" id = "conTilte">
 								</td>
 							</tr>
 							<tr>
-								<th rowspan = "5">내용</th>
+								<th rowspan = "5" colspan = "2">내용</th>
 								<td>
 									<textArea cols = "40" rows = "5"></textArea>
 								</td>

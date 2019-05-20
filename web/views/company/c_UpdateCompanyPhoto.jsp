@@ -281,7 +281,7 @@
 			
 
 			
-			$("#photoUpdate").click(function(){
+			/* $("#photoUpdate").click(function(){
 				var check = confirm("변경하시면 기존의 이미지를 모두 삭제합니다.\n 그래도 계속 진행하시겠습니까?");
 			
 				if (check == true ){
@@ -289,65 +289,49 @@
 				}else {
 					alert("사진 변경을 취소합니다.");
 				}
-			});
+			}); */
 						
 			<%if (list != null){ %>
 				<%for (int i = 0 ; i < list.size() ; i++){ %>
 					<%switch(i){
 					case 0 :%>		
-						$("#titleimg").attr("src", "<%=request.getContextPath()%>/company_upload/<%=list.get(i).getChangename()%>" )
-						$("#Atitleid").value("<%=list.get(i).getAid()%>");
-						$("#Atitlechangename").value("<%=list.get(i).getChangename()%>");
+						<% System.out.println(i+":"+list.get(i)); %>
+						$("#titleimg").attr("src", "<%=request.getContextPath()%>/company_upload/<%=list.get(0).getChangename()%>" )
+						
 					<% break;
 					case 1 :%>	
-						$("#subimg1").attr("src", "<%=request.getContextPath()%>/company_upload/<%=list.get(i).getChangename()%>" )
-						$("#subAid1").value("<%=list.get(i).getAid()%>");
-						$("#subChangeName1").value("<%=list.get(i).getChangename()%>");
+						<% System.out.println(i+":"+list.get(i)); %>
+						$("#subimg1").attr("src", "<%=request.getContextPath()%>/company_upload/<%=list.get(1).getChangename()%>" )
 					<% break;
 					case 2 :%>
-						$("#subimg2").attr("src", "<%=request.getContextPath()%>/company_upload/<%=list.get(i).getChangename()%>" )
-						$("#subAid2").value("<%=list.get(i).getAid()%>");
-						$("#subChangeName2").value("<%=list.get(i).getChangename()%>");
+						<% System.out.println(i+":"+list.get(i)); %>
+						$("#subimg2").attr("src", "<%=request.getContextPath()%>/company_upload/<%=list.get(2).getChangename()%>" )
 					<% break;
 					case 3 :%>	
 						$("#subimg3").attr("src", "<%=request.getContextPath()%>/company_upload/<%=list.get(i).getChangename()%>"  )
-						$("#subAid3").value("<%=list.get(i).getAid()%>");
-						$("#subChangeName3").value("<%=list.get(i).getChangename()%>");
 					<% break;
 					case 4 :%>	
 						$("#subimg4").attr("src", "<%=request.getContextPath()%>/company_upload/<%=list.get(i).getChangename()%>"   )
-						$("#subAid4").value("<%=list.get(i).getAid()%>");
-						$("#subChangeName4").value("<%=list.get(i).getChangename()%>");
+						$("#subAid4").val("<%=list.get(i).getAid()%>");
+						$("#subChangeName4").val("<%=list.get(i).getChangename()%>");
 					<% break;
 					case 5 :%>	
 						$("#subimg5").attr("src", "<%=request.getContextPath()%>/company_upload/<%=list.get(i).getChangename()%>"  )
-						$("#subAid5").value("<%=list.get(i).getAid()%>");
-						$("#subChangeName5").value("<%=list.get(i).getChangename()%>");
 					<% break;
 					case 6 :%>	
 						$("#subimg6").attr("src", "<%=request.getContextPath()%>/company_upload/<%=list.get(i).getChangename()%>"  )
-						$("#subAid6").value("<%=list.get(i).getAid()%>");
-						$("#subChangeName6").value("<%=list.get(i).getChangename()%>");
 					<% break;
 					case 7 :%>	
 						$("#subimg7").attr("src", "<%=request.getContextPath()%>/company_upload/<%=list.get(i).getChangename()%>"  )
-						$("#subAid7").value("<%=list.get(i).getAid()%>");
-						$("#subChangeName7").value("<%=list.get(i).getChangename()%>");
 					<% break;
 					case 8 :%>	
 						$("#subimg8").attr("src", "<%=request.getContextPath()%>/company_upload/<%=list.get(i).getChangename()%>"  )
-						$("#subAid8").value("<%=list.get(i).getAid()%>");
-						$("#subChangeName8").value("<%=list.get(i).getChangename()%>");
 					<% break;
 					case 9 :%>
 						$("#subimg9").attr("src", "<%=request.getContextPath()%>/company_upload/<%=list.get(i).getChangename()%>"  )
-						$("#subAid9").value("<%=list.get(i).getAid()%>");
-						$("#subChangeName9").value("<%=list.get(i).getChangename()%>");
 					<% break;
 					case 10 :%>	
 						$("#subimg10").attr("src", "<%=request.getContextPath()%>/company_upload/<%=list.get(i).getChangename()%>"  )
-						$("#subAid10").value("<%=list.get(i).getAid()%>");
-						$("#subChangeName10").value("<%=list.get(i).getChangename()%>");
 					<%break;
 					}%>
 				<%} %>

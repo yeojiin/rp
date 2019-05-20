@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import = "java.util.*, java.text.* ,com.kh.redding.board.model.vo.*"%>
-<% Board selectnotice = (Board)request.getAttribute("selectnotice"); %>
+<% Board selectFAQ = (Board)request.getAttribute("selectFAQ"); %>
 <%
  java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MM-dd");
- String bdate = formatter.format(selectnotice.getBdate());
+ String bdate = formatter.format(selectFAQ.getBdate());
 %>
 <!DOCTYPE html>
 <html>
@@ -91,12 +91,12 @@
 				<h2>공지사항</h2>
 				<hr>
 				<div class = "wrap">
-					<form action = "<%=request.getContextPath() %>/updateNotice.no" method = "post" id = "noticeSubmit">
-					<input type = "hidden" name = "bid" id = "bid" value = "<%=selectnotice.getBid() %>" >
+					<form action = "<%=request.getContextPath() %>/updateFAQ.no" method = "post" id = "noticeSubmit">
+					<input type = "hidden" name = "bid" id = "bid" value = "<%=selectFAQ.getBid() %>" >
 					<table class = "noticetable">
 						<tr>
 							<th>제목 </th>
-							<td colspan = "4"><input type = "text" name = "noticeTitle" id = "noticeTitle" placeholder ="제목을 입력해주세요" value = "<%=selectnotice.getBtitle() %>" style = "width : 100%;"></td> 
+							<td colspan = "4"><input type = "text" name = "noticeTitle" id = "noticeTitle" placeholder ="제목을 입력해주세요" value = "<%=selectFAQ.getBtitle() %>" style = "width : 100%;"></td> 
 							<td colspan = "4"></td>
 						</tr>
 						<tr>
@@ -106,16 +106,14 @@
 							</td> 
 							<th>등록날짜</th>
 							<td><span><%=bdate %></span></td>
-							<th>조회수</th>
-							<td><span><%=selectnotice.getBcount() %></span></td>
-							<td colspan = "4"></td>
+							<td colspan = "8"></td>
 						</tr>
 						<tr>
 							<th>내용 </th>
 						</tr>
 						<tr>
 							<td colspan = "10">
-								<textarea rows="10" cols="80" style="resize: none; text-align : left;" name = "noticeContent" id = "noticeContent" placeholder = "내용을 입력해주세요"><%=selectnotice.getBcontent() %></textarea>
+								<textarea rows="10" cols="80" style="resize: none; text-align : left;" name = "noticeContent" id = "noticeContent" placeholder = "내용을 입력해주세요"><%=selectFAQ.getBcontent() %></textarea>
 							</td>
 						</tr>
 						
@@ -154,7 +152,7 @@
 				var check = confirm("해당 게시글을 삭제 하시겠습니까?");
 				
 				if (check == true){
-					location.href = '<%=request.getContextPath()%>/deleteNotice.no?num=' + bid;
+					location.href = '<%=request.getContextPath()%>/deleteFAQ.no?num=' + bid;
 				}
 			})
 		});

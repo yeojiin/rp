@@ -71,7 +71,6 @@ public class insertCompanyPhotoServlet extends HttpServlet {
 
 			for (int i = originFiles.size() -1 ; i >= 0 ; i--) {
 				if (originFiles.get(i) != null || saveFiles.get(i) != null) {
-					
 					Attachment at = new Attachment();
 					
 					at.setFilepath(filePath);

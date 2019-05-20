@@ -27,7 +27,7 @@
 			<% } else if(loginUser != null && loginUser.getMemberId().equals("admin")) { %>
 				<br>
 				<ul>
-					<li><button class="miniMenuBtn"><%=loginUser.getNickName() %>님의 방문을 환영합니다!</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
+					<li><button class="miniMenuBtn"><%=loginUser.getMemberName() %>님의 방문을 환영합니다!</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
 					<li><button class="miniMenuBtn" onclick="logout()">LOGOUT</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
 					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/admin/a_main.jsp'">MY PAGE</button></li>
 					<li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
@@ -36,7 +36,7 @@
 			<% } else { %>
 				<br>
 				<ul>
-					<li><button class="miniMenuBtn"><%=loginUser.getNickName() %>님의 방문을 환영합니다!</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
+					<li><button class="miniMenuBtn"><%=loginUser.getMemberName() %>님의 방문을 환영합니다!</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
 					<li><button class="miniMenuBtn" onclick="logout()">LOGOUT</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
 					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/member/m_myPage_checkList.jsp'">MY PAGE</button></li>&nbsp;&nbsp;|&nbsp;&nbsp;
 					<li><form action="<%=request.getContextPath()%>/showList.wi" method="post" id = "WishForm">
