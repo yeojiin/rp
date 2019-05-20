@@ -57,7 +57,7 @@ public class AdminService {
 		close(con);
 		return onemember;
 	}
-	 
+
 	// 전체 업체 목록 조회용 메소드 (페이징 처리)
 	public ArrayList<HashMap<String, Object>> selectCompanyList(TotalMemberPageInfo pi) {
 		Connection con = getConnection();
@@ -73,7 +73,7 @@ public class AdminService {
 		close(con);
 		return allCompanyListCount;
 	}
-	
+
 	// 신규 업체 수 조회용 메소드
 	public int getNewCompanyCount() {
 		Connection con = getConnection();
@@ -104,5 +104,32 @@ public class AdminService {
 	}
 
 	
+
+
+	//정산관리 갯수 리턴용 메소드
+	public int getCalcCount() {
+		Connection con = getConnection();
+		int calcCount = new AdminDao().getCalcCount(con);
+
+		close(con);
+
+		return calcCount;
+	}
+
+
+	//정산관리 조회용 메소드
+	public ArrayList<HashMap<String, Object>> showCalc(TotalMemberPageInfo pi) {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String, Object>> list = new AdminDao().showCalc(con, pi);
+
+		close(con);
+
+		return list;
+	}
+
+
+
+
 
 }

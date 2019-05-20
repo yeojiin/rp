@@ -29,6 +29,7 @@
 				<ul>
 					<li><button class="miniMenuBtn">관리자님</button></li>&nbsp;&nbsp;&nbsp;&nbsp;
 					<li><button class="miniMenuBtn" onclick="logout()">LOGOUT</button></li>&nbsp;&nbsp;&nbsp;&nbsp;
+
 					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/admin/a_main.jsp'">MY PAGE</button></li>
 					<li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
 				</ul>

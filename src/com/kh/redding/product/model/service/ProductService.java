@@ -104,4 +104,84 @@ public class ProductService {
 		close(con);
 		return listCount;
 	}
+	public UseProduct selectUseProductOne(int upNo) {
+		Connection con = getConnection();
+		UseProduct upro = new ProductDao().selectUseProductOne(con, upNo);
+		close(con);
+		
+		return upro;
+	}
+	public int updateUseProduct(UseProduct upro) {
+		Connection con = getConnection();
+		
+		int result = new ProductDao().updateUseProduct(con, upro);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		return result;
+	}
+	public Product updateProduct(Product product) {
+		Connection con = getConnection();
+		Product pro = null;
+		int result = new ProductDao().updateProduct(con, product);
+		
+		if(result > 0) {
+			//System.out.println("상품수정 성고");
+			pro = new ProductDao().selectProductOne(con, product.getpNo());
+			
+			if(pro != null) {
+				//System.out.println("pro : " + pro);
+				commit(con);
+			}else {
+				rollback(con);
+			}
+		}else {
+			rollback(con);
+		}
+		return pro;
+	}
+	public int updateUseProductList(int pno, String ustatus, int cno) {
+		Connection con = getConnection();
+		
+		int result = new ProductDao().updateUseProductLists(con, pno, ustatus);
+		
+		int uproLength = new ProductDao().getUseProductListCount(con, pno, cno);
+		
+		if(result == uproLength) {
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		return result;
+	}
+		
+		
+		
+		
+	public int updateUseProductStatus(int upno, String status) {
+		Connection con = getConnection();
+		int result = new ProductDao().updateUseProductStatus(con, status, upno);
+		if(result>0) {
+			//System.out.println("제품리스트 성공");
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		return result;
+	}
+	public int productTotalCount(int cno) {
+		Connection con = getConnection();
+		int productTotalCount = new ProductDao().productTotalCount(con, cno);
+		close(con);
+		return productTotalCount;
+	}
+	public int saleProductCount(int cno, String status) {
+		Connection con = getConnection();
+		int saleProductCount = new ProductDao().saleProductCount(con, cno, status);
+		close(con);
+		return saleProductCount;
+	}
 }

@@ -27,3 +27,26 @@
 	display:none;
 } 
 
+#myNavbar li ul {
+background: MistyRose;
+display:none;  /* 평상시에는 서브메뉴가 안보이게 하기 */
+height:auto;
+padding:0px;
+margin:0px;
+border:0px;
+position:absolute;
+width:150px;
+z-index:200;
+}
+
+#myNavbar li:hover ul {
+display:block;   /* 마우스 커서 올리면 서브메뉴 보이게 하기 */
+
+}
+
+button[name=noticebtn]:hover{
+	background:MistyRose;
+	color:white;
+}
+
+

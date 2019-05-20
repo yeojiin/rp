@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.redding.member.model.vo.Member"%>
-<%
-	Member loginUser = (Member) session.getAttribute("loginUser");
-%>
+	pageEncoding="UTF-8" import="com.kh.redding.member.model.vo.Member, com.kh.redding.board.model.vo.*"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,7 +68,7 @@
 
 	<!-- 멤버 헤더 (미니메뉴, 로고) -->
 	<div class="headerArea">
-		<jsp:include page="/views/member/m_header.jsp"></jsp:include>
+		<%@include file="/views/member/m_header.jsp"%>
 	</div><br>
 	
 	<div class="div1">
@@ -115,26 +113,40 @@
 					</div>
 					<br><br>
 					
-					<div class="paymentCompleted">
-						<div class="paymentLabel1">결제완료</div><br><br>
-						<label class="paymentLabel2">1</label>
+
+					<div class="paymentCompleted" style="background:white">
+						<div class="paymentLabel1">예약대기</div><br><br><br>
+						<label id ="resWait" class="paymentLabel2">0</label>
 						<label class="paymentLabel3">개</label>
 					</div>
 					&nbsp;&nbsp;&nbsp;
 					<div class="bookingCompleted">
-						<div class="paymentLabel1">예약완료</div><br><br>
-						<label class="paymentLabel2">1</label>
-						<label class="paymentLabel3">개</label>
+
+						<div class="paymentLabel1">결제대기</div><br><br><br>
+						<label id ="payWait" class="paymentLabel2">0</label>
+						<label class="
+                          3">개</label>
 					</div>
 					&nbsp;&nbsp;&nbsp;
 					<div class="ongoing">
-						<div class="paymentLabel1">진행중</div><br><br>
-						<label class="paymentLabel2">1</label>
+
+						<div class="paymentLabel1">결제완료</div><br><br><br>
+						<label id ="payFinal" class="paymentLabel2">0</label>
 						<label class="paymentLabel3">개</label>
 					</div>
 					<br><br><br><br> 
 					
 					<table class="search">
+						<tr>
+							<td><button class="searchBtn">1개월</button></td>
+							<td><button class="searchBtn">3개월</button></td>
+							<td><button class="searchBtn">6개월</button></td>
+							<td><button class="searchBtn">조건검색</button></td>
+							<td><input class= type="text" value="2019.05.09"></td>
+							<td> - </td>
+							<td><input type="text" value="2019.05.09"></td>
+							<td><button class="searchBtn">조회</button></td>
+						</tr>
 					</table>
 										
 					<br>					
@@ -151,7 +163,7 @@
 								<td></td>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody class="infoTable">
 							<tr>
 								<td>3</td>
 								<td>업체3</td>
@@ -182,16 +194,12 @@
 						</tbody>
 						<tfoot>
 							<tr>
-								<td colspan="7"><br>
+								<td colspan="7" class="pageBtnArea"><br>
 									<button class="paging"><<</button>
 									<button class="paging"><</button>
 									<button class="paging">1</button>
-									<button class="paging">2</button>
-									<button class="paging">3</button>
-									<button class="paging">4</button>
-									<button class="paging">5</button>
 									<button class="paging">></button>
-									<button class="paging">>></button>
+									<button class="paging">>></button>							
 								</td>
 							</tr>
 						</tfoot>
@@ -215,6 +223,150 @@
 	<div class="footerArea">
 		<jsp:include page="/views/common/footer.jsp"></jsp:include>
 	</div>
+	
+	<script>
+		$(function(){
+			
+			
+			$.ajax({
+				url:"<%=request.getContextPath() %>/selectCount.me",
+				type:"post",
+				data:{mno:<%= loginUser.getMno() %>},
+				success:function(data){
+					$("#resWait").text(data.resWait);
+					$("#payWait").text(data.payWait);
+					$("#payFinal").text(data.payFinal);
+				
+				},
+				error:function(data){
+					console.log(data);
+				}
+				
+				
+			});
+				
+			$("#resWait").click(function(){
+				currentView(1);				
+			});
+			
+			$("#payWait").click(function(){
+				currentView(1,20);
+			});
+			
+			$("#payFinal").click(function(){
+				currentView(1);
+			});
+			
+			
+			
+			
+			function currentView(currentPage){
+				
+				$.ajax({
+					url:"<%=request.getContextPath() %>/revSelect.me",
+					type:"post",
+					data:{mno:<%= loginUser.getMno() %>, value:10, currentPage:currentPage},
+					success:function(data){
+						$(".infoTable").empty();
+						console.log(data);
+						
+						for(var i=0; i<data.list.length; i++){
+							var list = data.list[i];
+							$infoTr = $("<tr>");
+							$noTd = $("<td>").text(list.rnum);
+							$pNameTd = $("<td>").text(list.pName);
+							$cNameTd = $("<td>").text(list.cName);
+							$priceTd = $("<td>").text(list.price);
+							$rapplyTd = $("<td>").text(list.rapply.split(" ")[0]);
+							
+							if(list.status == 10) {
+								$status = $("<td>").text("예약대기");
+								$button = $("<button>").text("예약취소").attr("class","cancellation").css("margin-top","8px");
+							}
+							
+							$infoTr.append($noTd);
+							$infoTr.append($cNameTd);
+							$infoTr.append($pNameTd);
+							$infoTr.append($rapplyTd);
+							$infoTr.append($priceTd);
+							$infoTr.append($status);
+							$infoTr.append($button);
+							
+							
+							$(".infoTable").append($infoTr);
+						}
+						
+						
+						
+						pageBtn(data);
+						
+					},
+					error:function(data){
+						console.log("error");
+					}
+					
+				});
+			}
+			
+		   function pageBtn(data){
+			   var $pageBtnArea = $(".pageBtnArea");
+			   			   
+				//BoardPageInfo pi = (BoardPageInfo) session.getAttribute("pi");
+				var currentPage = data.pi.currentPage;//pi.getCurrentPage();
+				var limit = data.pi.limit;
+				var maxPage = data.pi.maxPage;
+				var startPage = data.pi.startPage;
+				var endPage = data.pi.endPage;
+				
+							
+			   $pageBtnArea.empty();
+			   
+			   $pageBtnArea.append($("<br>"));		   
+			   
+			   $pageBtnArea.append($("<button>").attr("class","paging").text("<<").css("cursor","pointer").click(function(){
+				   currentView(1);
+			   }));
+			   			   
+				if(currentPage <= 1) { 
+					$pageBtnArea.append($("<button>").attr("class","paging").text("<").attr("disabled",true).css("cursor","pointer"));
+				}else{ 
+					$pageBtnArea.append($("<button>").attr("class","paging").text("<").css("cursor","pointer").click(function(){
+						   currentView(currentPage - 1);
+					   }));
+
+				 } 
+				 for(var p= startPage; p <= endPage; p++){
+					if(p == currentPage){
+					$pageBtnArea.append($("<button>").attr("class","paging").text(p).attr("disabled",true).css("cursor","pointer"));
+				 }else{ 
+					$pageBtnArea.append($("<button>").attr("class","paging").css("cursor","pointer").text(p).click(function(){
+						   currentView($(this).text());
+					   }));
+				 }
+					
+				 } 
+				 if(currentPage >= maxPage){ 
+					 $pageBtnArea.append($("<button>").attr("class","paging").text(">").attr("disabled",true).css("cursor","pointer"));					
+				 }else {
+					 $pageBtnArea.append($("<button>").attr("class","paging").text(">").css("cursor","pointer").click(function(){
+						   currentView(currentPage + 1);
+					   }));
+				 } 
+				 	$pageBtnArea.append($("<button>").attr("class","paging").text(">>").click(function(){
+						   currentView(maxPage);
+					   }));
+			   
+			   
+				 	
+				 	
+				 	
+		   }
+			
+			
+		});
+		
+		
+	</script>
 
 </body>
 </html>

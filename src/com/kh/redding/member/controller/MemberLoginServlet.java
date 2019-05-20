@@ -26,8 +26,6 @@ public class MemberLoginServlet extends HttpServlet {
 		String memberId = request.getParameter("memberId");
 		String memberPwd = request.getParameter("memberPwd");
 		
-		System.out.println("memberId : " + memberId);
-		System.out.println("memberPwd : " + memberPwd);
 		
 		Member loginUser = new MemberService().loginCheck(memberId, memberPwd);
 	

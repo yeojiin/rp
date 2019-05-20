@@ -6,6 +6,7 @@ import static com.kh.redding.common.JDBCTemplate.getConnection;
 import static com.kh.redding.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.redding.attachment.model.vo.Attachment;
@@ -24,6 +25,7 @@ public class CompanyService {
 		close(con);
 		
 		return result;
+		
 	}
 
 	//업체 insert -> 회원가입
@@ -157,6 +159,34 @@ public class CompanyService {
 		
 		
 		return totalresult;
+	}
+
+	public int insertAttachment(Member loginUser, ArrayList<Attachment> fileList) {
+		Connection con = getConnection();
+		
+		int result = new CompanyDao().inserAttachment(con, loginUser.getMno() , fileList);
+		
+		if (result == fileList.size()) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		
+		return result;
+	}
+
+
+	public ArrayList<Attachment> selectCompanyPhoto(int mno) {
+		Connection con = getConnection();
+		
+		ArrayList<Attachment> list = new CompanyDao().selectCompanyPhoto(con,mno);
+		
+		close(con);
+		
+		return list;
 	}
 	
 }

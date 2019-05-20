@@ -28,11 +28,9 @@ public class IdCheckServlet extends HttpServlet {
 	
 		String userId = request.getParameter("userId");
 		
-		System.out.println(userId + "넘어옴");
 		
 		int result = new CompanyService().registerCheck(userId);
 		//int result = 1;
-		System.out.println(result);
 		PrintWriter out = response.getWriter();
 		
 		if (result > 0) {

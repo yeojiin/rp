@@ -74,7 +74,7 @@
 								<td class="pName"><%=hmap.get("pname")%></td>
 								<td class="price"><%=hmap.get("price")%></td>
 								<td><input name="check" type="checkbox" id="checkbox" class="checkbox"></td>
-								<td class="uPno"><%=hmap.get("upno")%></td>
+								<td class="pno"><%=hmap.get("pno")%></td>
 								<td class="cType"><%=hmap.get("ctype")%></td>
 							</tr>
 							<%
@@ -96,7 +96,7 @@
 				<br>
 				<div class="pResult">
 					<h2>패키지 구성</h2>
-					<div id="packageArea">
+					<div class="packageArea">
 						<div class="packageStudio">
 							<input class="Studio">
 							<%-- <img src="<%=request.getContextPath()%>/images/logo.png"> --%>
@@ -138,9 +138,9 @@
 
 					$("input[name=check]:checked").each(function() {
 						if(deleteList == "") {
-							deleteList = $(this).closest('td').siblings('.uPno').text();
+							deleteList = $(this).closest('td').siblings('.pno').text();
 						} else {
-							deleteList = deleteList + "," + $(this).closest('td').siblings('.uPno').text();
+							deleteList = deleteList + "," + $(this).closest('td').siblings('.pno').text();
 						}
 					});
 					console.log(deleteList);
@@ -157,9 +157,9 @@
 					
 					$("input[name=check]:checked").each(function(){
 						if(reserveList == ""){
-							reserveList = $(this).closest('td').siblings('.uPno').text();
+							reserveList = $(this).closest('td').siblings('.pno').text();
 						}else{
-							reserveList = reserveList + "," + $(this).closest('td').siblings('.uPno').text();
+							reserveList = reserveList + "," + $(this).closest('td').siblings('.pno').text();
 						}
 					});
 					
@@ -172,32 +172,73 @@
 				});
 				
 		
-				//패키지 구성에 담기
+				
+				//패키지 구성에 감기
+				var sctn=0;
+				var dctn=0;
+				var mctn=0;
 				$(".checkbox").change(function() {
 					var cType = $(this).closest("td").siblings('.cType').text();
-					var uPno = $(this).closest("td").siblings('.uPno').text();
+					var pno = $(this).closest("td").siblings('.pno').text();
 					var ctn = 0;
-					
+
 					if($(this).prop("checked") == true){
-						if(cType == "스튜디오"){
-							$(".Studio").val(uPno);
+						if(cType == "스튜디오" && sctn==0){
+							$(".Studio").val(pno);
+							sctn++;
+						}else if(cType == "드레스" && dctn==0){
+							$(".Dress").val(pno);
+							dctn++;
+						}else if(cType == "메이크업" && mctn==0){
+							$(".Makeup").val(pno);
+							mctn++;
+						 }else if(cType == "스튜디오"){
+							//$(this).prop('checked', false);
+							confirmPack(cType,pno);
 						}else if(cType == "드레스"){
-							$(".Dress").val(uPno);
+							//$(this).prop('checked', false);
+							confirmPack(cType,pno);
 						}else if(cType == "메이크업"){
-							$(".Makeup").val(uPno);
+							//$(this).prop('checked', false);
+							comfirmPack(cType,pno); 
 						}
-						
 					}else{
 						if(cType == "스튜디오"){
 							$(".Studio").val("");
+							sctn--;
 						}else if(cType == "드레스"){
 							$(".Dress").val("");
+							dctn--;
 						}else if(cType == "메이크업"){
 							$(".Makeup").val("");
+							mctn--;
 						}
 					}
+					
 				});
 				
+				
+				//추가 할 것 인가요?
+				function confirmPack(cType, pno){
+					if(cType == "스튜디오"){
+						addPack(cType, pno);
+					}else if(cType == "드레스"){
+						addPack(cType, pno);
+					}else if(cType == "메이크업"){
+						addPack(cType, pno);
+					}
+				}
+				
+				
+				//추가 메소드
+				function addPack(cType, pno){
+					//console.log("제품번호는: " +pno);
+					if(confirm(cType+"가/이 이미 있습니다. 추가하시겠습니까?")){
+						$( "<input>",{type:'text'}).appendTo(".packageArea").val(pno);
+					}else{
+						return false;
+					}
+				}
 				
 				
 			</script>

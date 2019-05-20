@@ -142,7 +142,7 @@
                               <label>가격</label>
                              </td>
                              <td colspan="6">
-                                <input type="number" name="piPrice" id="piPrice">
+                                <input type="number" name="piPrice" id="piPrice" step="5000" min="0">
                              </td>
                           </tr>
                           <!-- <tr>

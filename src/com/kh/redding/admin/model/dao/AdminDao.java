@@ -432,6 +432,84 @@ public class AdminDao {
 	}
 
 	
+	
+	//정산 갯수 리턴용 메소드
+		public int getCalcCount(Connection con) {
+			Statement stmt = null;
+			int calcCount = 0;
+			ResultSet rset = null;
+
+			String query = prop.getProperty("allCalcCount");
+
+			try {
+				stmt = con.createStatement();
+				rset = stmt.executeQuery(query);
+
+				if(rset.next()) {
+					calcCount = rset.getInt(1);
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(stmt);
+				close(rset);
+			}
+
+			return calcCount;
+		}
+
+		
+		//정산관리 조회용 메소드
+		public ArrayList<HashMap<String, Object>> showCalc(Connection con, TotalMemberPageInfo pi) {
+			PreparedStatement pstmt = null;
+			ArrayList<HashMap<String,Object>> list = null;
+			HashMap<String, Object> hmap = null;
+			ResultSet rset = null;
+
+			String query = prop.getProperty("showCalc");
+			int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+			int endRow = startRow + pi.getLimit() - 1;
+			
+			try {
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, startRow);
+				pstmt.setInt(2, endRow);
+
+				
+				rset= pstmt.executeQuery();
+
+				list = new ArrayList<HashMap<String,Object>>();
+
+				while(rset.next()) {
+					hmap = new HashMap<String, Object>();
+					hmap.put("rnum", rset.getInt("RNUM"));
+					hmap.put("mname", rset.getString("MNAME"));
+					hmap.put("price", rset.getInt("PRICE"));
+					hmap.put("pselect", rset.getString("PSELECT"));
+					hmap.put("pstatus", rset.getString("PSTATUS"));
+					hmap.put("payno", rset.getInt("PAYNO"));
+					hmap.put("mno", rset.getInt("MNO"));
+					hmap.put("upno", rset.getInt("UPNO"));
+					hmap.put("payDiv", rset.getString("PAYDIV"));
+					hmap.put("cno", rset.getInt("CNO"));
+					hmap.put("cname", rset.getString("CNAME"));
+					hmap.put("pname", rset.getString("PNAME"));
+
+					list.add(hmap);
+				}
+
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+				close(rset);
+			}
+
+			return list;
+		}
+	
 
 	
 		

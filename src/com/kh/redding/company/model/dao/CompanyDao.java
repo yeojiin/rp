@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
@@ -22,6 +23,7 @@ public class CompanyDao {
 	Properties prop = new Properties();
 	
 	public CompanyDao() {
+		
 		String fileName = CompanyDao.class.getResource("/sql/company/company-query.properties").getPath();
 		
 		try {
@@ -444,6 +446,78 @@ public class CompanyDao {
 		
 		
 		return cno;
+	}
+
+	public int inserAttachment(Connection con, int mno, ArrayList<Attachment> fileList) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query  = prop.getProperty("insertAttachment");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			for (int i = 0 ; i < fileList.size() ; i++) {
+				pstmt.setString(1, fileList.get(i).getOriginname());
+				pstmt.setString(2, fileList.get(i).getChangename());
+				pstmt.setString(3, fileList.get(i).getFilepath());
+				pstmt.setInt(4, mno);
+				
+				result += pstmt.executeUpdate();
+			}
+		
+			System.out.println("완료" + result);
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		
+		return result;
+	}
+
+	public ArrayList<Attachment> selectCompanyPhoto(Connection con, int mno) {
+		PreparedStatement pstmt = null;
+		ArrayList<Attachment> list = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectAttachment");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, mno);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Attachment>();
+			
+			while(rset.next()) {
+				Attachment at = new Attachment();
+	         
+	            at.setAid(rset.getInt("AID"));
+	            at.setOriginname(rset.getString("ORIGIN_NAME"));
+	            at.setChangename(rset.getString("CHANGE_NAME"));
+	            at.setFilepath(rset.getString("file_path"));
+	            at.setMno(rset.getInt("mno"));
+				
+				list.add(at);	
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
 	}
 
 
