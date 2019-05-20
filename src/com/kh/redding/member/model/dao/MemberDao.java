@@ -297,28 +297,32 @@ public class MemberDao {
 			e1.printStackTrace();
 		}
 		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		
 		PreparedStatement pstmt = null;
+		Statement stmt = null;
 		ResultSet rset = null;
 		ArrayList<HashMap<String, Object>> list = null;
 		String query = prop.getProperty("dynamicQuery");
 		
-		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
-		int endRow = startRow + pi.getLimit() - 1;
-			
+					
 		try {
 			
-			if(value == 10) {
+			if(value == 10 || value==20) {
 				pstmt = con.prepareStatement(query);
-				pstmt.setInt(1, mno);
+				pstmt.setInt(1, value);
 				pstmt.setInt(2, startRow);
 				pstmt.setInt(3, endRow);
-				
 				rset = pstmt.executeQuery();
+				
 				list = new ArrayList<HashMap<String, Object>>();
 				
 				while(rset.next()) {
 					HashMap<String, Object> hmap = new HashMap<String, Object>();
 					
+					hmap.put("resNo", rset.getInt("RESNO"));
+					hmap.put("upno", rset.getInt("UPNO"));
 					hmap.put("rnum", rset.getInt("RNUM"));
 					hmap.put("pName", rset.getString("PNAME"));
 					hmap.put("cName", rset.getString("CNAME"));
@@ -329,6 +333,32 @@ public class MemberDao {
 					list.add(hmap);
 
 				}
+			}else if(value == 30){
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, "결제");
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+				
+				rset = pstmt.executeQuery();
+				
+				list = new ArrayList<HashMap<String, Object>>();
+				
+				while(rset.next()) {
+					HashMap<String, Object> hmap = new HashMap<String, Object>();
+					
+					hmap.put("payNo", rset.getInt("PAYNO"));
+					hmap.put("upno", rset.getInt("UPNO"));
+					hmap.put("rnum", rset.getInt("RNUM"));
+					hmap.put("pName", rset.getString("PNAME"));
+					hmap.put("cName", rset.getString("CNAME"));
+					hmap.put("rapply", rset.getString("RAPPLY"));
+					hmap.put("price", rset.getInt("PRICE"));
+					hmap.put("payDiv", rset.getString("PAYDIV"));
+					hmap.put("approval", rset.getString("APPROVAL"));
+					
+					list.add(hmap);
+
+				}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
 			}
 			
 			

@@ -135,20 +135,35 @@
 						<label class="paymentLabel3">개</label>
 					</div>
 					<br><br><br><br> 
-					
+					<form>
+					<fieldset style="border:1px solid lightgray !important; height:74px; margin-top:auto; margin-bottom:auto; padding:24px">
 					<table class="search">
+						
 						<tr>
-							<td><button class="searchBtn">1개월</button></td>
+							<td>
+								<select style="width:100%">
+										<option>안녕</option>
+										<option>안녕</option>
+										<option>안녕</option>
+										<option>안녕</option>
+								</select>	
+							</td>
+							<td colspan="1">
+								<span>
+									<button>오늘</button>
+									<button>1주일</button>
+									<button>1개월</button>
+									<button>3개월</button>
+									<button>6개월</button>
+								</span>
+							</td>
 							<td><button class="searchBtn">3개월</button></td>
-							<td><button class="searchBtn">6개월</button></td>
-							<td><button class="searchBtn">조건검색</button></td>
-							<td><input class= type="text" value="2019.05.09"></td>
-							<td> - </td>
-							<td><input type="text" value="2019.05.09"></td>
+
 							<td><button class="searchBtn">조회</button></td>
-						</tr>
+						</tr>						
 					</table>
-										
+					</fieldset>
+					</form>					
 					<br>					
 				
 					<table class="paymentList">
@@ -157,40 +172,14 @@
 								<td>No</td>
 								<td>업체명</td>
 								<td>상품명</td>
-								<td>결제일</td>
+								<td class="statusPayTd">결제일</td>
 								<td>결제금액</td>
 								<td>상태</td>
 								<td></td>
 							</tr>
 						</thead>
 						<tbody class="infoTable">
-							<tr>
-								<td>3</td>
-								<td>업체3</td>
-								<td>상품3</td>
-								<td>19/05/09</td>
-								<td>350,000</td>
-								<td>예약완료</td>
-								<td><button class="pay">결제하기</button></td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>업체2</td>
-								<td>상품2</td>
-								<td>19/05/08</td>
-								<td>690,000</td>
-								<td>진행중</td>
-								<td><button class="cancellation">예약취소</button></td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>업체1</td>
-								<td>상품1</td>
-								<td>19/05/07</td>
-								<td>280,000</td>
-								<td>결제완료</td>
-								<td><button class="review">후기작성</button></td>
-							</tr>
+							
 						</tbody>
 						<tfoot>
 							<tr>
@@ -246,7 +235,7 @@
 			});
 				
 			$("#resWait").click(function(){
-				currentView(1);				
+				currentView(1,10);				
 			});
 			
 			$("#payWait").click(function(){
@@ -254,34 +243,49 @@
 			});
 			
 			$("#payFinal").click(function(){
-				currentView(1);
+				currentView(1,30);
 			});
 			
 			
 			
 			
-			function currentView(currentPage){
+			function currentView(currentPage,value){
 				
 				$.ajax({
 					url:"<%=request.getContextPath() %>/revSelect.me",
-					type:"post",
-					data:{mno:<%= loginUser.getMno() %>, value:10, currentPage:currentPage},
+					type:"get",
+					data:{mno:<%= loginUser.getMno() %>, value:value, currentPage:currentPage},
 					success:function(data){
 						$(".infoTable").empty();
+						
+						if(value==10 || value==20){
+							$(".statusPayTd").text("예약일");
+							$(".delTd").remove();
+						}else{
+							$(".delTd").remove();
+							$(".statusPayTd").text("예약일");
+							$(".statusPayTd").after("<td class='delTd'>결제일</td>");
+						}
+						
 						console.log(data);
 						
 						for(var i=0; i<data.list.length; i++){
 							var list = data.list[i];
-							$infoTr = $("<tr>");
-							$noTd = $("<td>").text(list.rnum);
-							$pNameTd = $("<td>").text(list.pName);
-							$cNameTd = $("<td>").text(list.cName);
-							$priceTd = $("<td>").text(list.price);
-							$rapplyTd = $("<td>").text(list.rapply.split(" ")[0]);
+							
+							if(value == 10 || value == 20){
+							var $infoTr = $("<tr>");
+							var $noTd = $("<td>").text(list.rnum);
+							var $pNameTd = $("<td>").text(list.pName);
+							var $cNameTd = $("<td>").text(list.cName);
+							var $priceTd = $("<td>").text(list.price);
+							var $rapplyTd = $("<td>").text(list.rapply.split(" ")[0]);
 							
 							if(list.status == 10) {
 								$status = $("<td>").text("예약대기");
-								$button = $("<button>").text("예약취소").attr("class","cancellation").css("margin-top","8px");
+								$button = $("<button>").text("예약취소").attr("class","cancellation").css("margin-top","3px");
+							}else if(list.status == 20){
+								$status = $("<td>").text("예약승인").css("color","green");
+								$button = $("<button>").text("예약취소요청").attr("class","cancellation").css("margin-top","3px");
 							}
 							
 							$infoTr.append($noTd);
@@ -294,11 +298,44 @@
 							
 							
 							$(".infoTable").append($infoTr);
+							
+							}else if(value == 30){
+								var $infoTr = $("<tr>");
+								var $noTd = $("<td>").text(list.rnum);
+								var $pNameTd = $("<td>").text(list.pName);
+								var $cNameTd = $("<td>").text(list.cName);
+								var $priceTd = $("<td>").text(list.price);
+								var $rapplyTd = $("<td>").text(list.rapply.split(" ")[0]);
+								var $approvalTd = $("<td>").text(list.approval.split(" ")[0]);
+								
+								
+								var $status = $("<td>").text("결제완료").css("color","salmon");
+								
+								
+								var $div = $("<div>");
+								$div.empty();
+								var $button = $("<button>").text("후기작성").attr("class","cancellation").css("margin-top","3px");								
+								var $cancleBtn = $("<button>").text("결제취소요청").attr("class","cancellation").css("margin-top","3px");
+								
+								$div.append($button);
+								$div.append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+								$div.append($cancleBtn);
+								
+								$infoTr.append($noTd);
+								$infoTr.append($cNameTd);
+								$infoTr.append($pNameTd);
+								$infoTr.append($rapplyTd);
+								$infoTr.append($approvalTd);
+								$infoTr.append($priceTd);
+								$infoTr.append($status);
+								$infoTr.append($div);
+								
+								$(".infoTable").append($infoTr);
+							}
+								
 						}
-						
-						
-						
-						pageBtn(data);
+												
+						pageBtn(data,value);
 						
 					},
 					error:function(data){
@@ -308,7 +345,7 @@
 				});
 			}
 			
-		   function pageBtn(data){
+		   function pageBtn(data,value){
 			   var $pageBtnArea = $(".pageBtnArea");
 			   			   
 				//BoardPageInfo pi = (BoardPageInfo) session.getAttribute("pi");
@@ -324,23 +361,23 @@
 			   $pageBtnArea.append($("<br>"));		   
 			   
 			   $pageBtnArea.append($("<button>").attr("class","paging").text("<<").css("cursor","pointer").click(function(){
-				   currentView(1);
+				   currentView(1,value);
 			   }));
-			   			   
+			   	   
 				if(currentPage <= 1) { 
 					$pageBtnArea.append($("<button>").attr("class","paging").text("<").attr("disabled",true).css("cursor","pointer"));
 				}else{ 
 					$pageBtnArea.append($("<button>").attr("class","paging").text("<").css("cursor","pointer").click(function(){
-						   currentView(currentPage - 1);
+						   currentView(currentPage - 1,value);
 					   }));
 
 				 } 
 				 for(var p= startPage; p <= endPage; p++){
 					if(p == currentPage){
-					$pageBtnArea.append($("<button>").attr("class","paging").text(p).attr("disabled",true).css("cursor","pointer"));
+					$pageBtnArea.append($("<button>").attr("class","paging").text(p).attr("disabled",true).css({"cursor":"pointer","color":"white","background":"salmon"}));
 				 }else{ 
 					$pageBtnArea.append($("<button>").attr("class","paging").css("cursor","pointer").text(p).click(function(){
-						   currentView($(this).text());
+						   currentView($(this).text(),value);
 					   }));
 				 }
 					
@@ -349,11 +386,11 @@
 					 $pageBtnArea.append($("<button>").attr("class","paging").text(">").attr("disabled",true).css("cursor","pointer"));					
 				 }else {
 					 $pageBtnArea.append($("<button>").attr("class","paging").text(">").css("cursor","pointer").click(function(){
-						   currentView(currentPage + 1);
+						   currentView(currentPage + 1,value);
 					   }));
 				 } 
 				 	$pageBtnArea.append($("<button>").attr("class","paging").text(">>").click(function(){
-						   currentView(maxPage);
+						   currentView(maxPage,value);
 					   }));
 			   
 			   
