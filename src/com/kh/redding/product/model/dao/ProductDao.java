@@ -550,7 +550,7 @@ public class ProductDao {
 		} finally {
 			close(pstmt);
 		}
-		
+		//System.out.println("상품업뎃 : " + result);
 		return result;
 	}
 
@@ -572,29 +572,241 @@ public class ProductDao {
 		} finally {
 			close(pstmt);
 		}
+		//System.out.println("제품 리스트 업뎃 : " + result);
 		return result;
 	}
-	
-	/*public void searchProduct(int value) {
-		String query = "";
+
+	public ArrayList<Product> searchProduct(Connection con, int value, int cno, String searchProName, String searchStatus, PageInfo pi) {
+		Properties prop = new Properties();
+		
+		String fileName = ProductDao.class.getResource("/sql/product/product-query.properties").getPath();
+		
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Product> proList = null;
+		Product pro = null;
+		
+		String query = prop.getProperty("searchProduct");
 		
 		if(value==10) {
+			try {
+				pstmt = con.prepareStatement(query);
+				
+				pstmt.setInt(1, cno);
+				/*pstmt.setInt(2, pi.getStartRow());
+				pstmt.setInt(3, pi.getEndRow());*/
+				
+				rset = pstmt.executeQuery();
+				
+				proList = new ArrayList<Product>();
+				
+				while(rset.next()) {
+					
+					pro = new Product();
+					pro.setpNo(rset.getInt("PNO"));
+					pro.setpName(rset.getString("PNAME"));
+					pro.setpContent(rset.getString("PCONTENT"));
+					pro.setPrice(rset.getInt("PRICE"));
+					pro.setpEnrollDate(rset.getDate("PENROLL_DATE"));
+					pro.setcNo(rset.getInt("CNO"));
+					pro.setpModifyDate(rset.getDate("PMODIFY_DATE"));
+					pro.setProStatus(rset.getString("PRO_STATUS"));
+					
+					proList.add(pro);
+					
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+				close(rset);
+			}
 			
-		}else if(value==20){
+		}else if(value==20) {
+			try {
+				pstmt = con.prepareStatement(query);
+				
+				pstmt.setInt(1, cno);
+				pstmt.setString(2, searchStatus);
+				/*pstmt.setInt(3, pi.getStartRow());
+				pstmt.setInt(4, pi.getEndRow());*/
+				
+				rset = pstmt.executeQuery();
+				proList = new ArrayList<Product>();
+				
+				while(rset.next()) {					
+					pro = new Product();
+					pro.setpNo(rset.getInt("PNO"));
+					pro.setpName(rset.getString("PNAME"));
+					pro.setpContent(rset.getString("PCONTENT"));
+					pro.setPrice(rset.getInt("PRICE"));
+					pro.setpEnrollDate(rset.getDate("PENROLL_DATE"));
+					pro.setcNo(rset.getInt("CNO"));
+					pro.setpModifyDate(rset.getDate("PMODIFY_DATE"));
+					pro.setProStatus(rset.getString("PRO_STATUS"));
+					
+					proList.add(pro);
+					
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+				close(rset);
+			}
 			
-		}else if(value==30){
-			
-		}else if(value==40){
-			
-		}else if(value==50){
-			
-		}else if(value==60){
-			
-		}else if(value==70){
-			
-		}else if(value==80){
-			
+		}else if(value==30) {
+			try {
+				pstmt = con.prepareStatement(query);
+				
+				pstmt.setInt(1, cno);
+				pstmt.setString(2, searchProName);
+				/*pstmt.setInt(3, pi.getStartRow());
+				pstmt.setInt(4, pi.getEndRow());*/
+				
+				rset = pstmt.executeQuery();
+				proList = new ArrayList<Product>();
+				
+				while(rset.next()) {					
+					pro = new Product();
+					pro.setpNo(rset.getInt("PNO"));
+					pro.setpName(rset.getString("PNAME"));
+					pro.setpContent(rset.getString("PCONTENT"));
+					pro.setPrice(rset.getInt("PRICE"));
+					pro.setpEnrollDate(rset.getDate("PENROLL_DATE"));
+					pro.setcNo(rset.getInt("CNO"));
+					pro.setpModifyDate(rset.getDate("PMODIFY_DATE"));
+					pro.setProStatus(rset.getString("PRO_STATUS"));
+					
+					proList.add(pro);
+					
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+				close(rset);
+			}
+		}else if(value==40) {
+			try {
+				pstmt = con.prepareStatement(query);
+				
+				pstmt.setInt(1, cno);
+				pstmt.setString(2, searchProName);
+				pstmt.setString(3, searchStatus);
+				/*pstmt.setInt(4, pi.getStartRow());
+				pstmt.setInt(5, pi.getEndRow());*/
+				
+				rset = pstmt.executeQuery();
+				proList = new ArrayList<Product>();
+				
+				while(rset.next()) {					
+					pro = new Product();
+					pro.setpNo(rset.getInt("PNO"));
+					pro.setpName(rset.getString("PNAME"));
+					pro.setpContent(rset.getString("PCONTENT"));
+					pro.setPrice(rset.getInt("PRICE"));
+					pro.setpEnrollDate(rset.getDate("PENROLL_DATE"));
+					pro.setcNo(rset.getInt("CNO"));
+					pro.setpModifyDate(rset.getDate("PMODIFY_DATE"));
+					pro.setProStatus(rset.getString("PRO_STATUS"));
+					
+					proList.add(pro);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+				close(rset);
+			}
 		}
-	}*/
+		return proList;
+	}
+
+	public int getListCountJustStatus(Connection con, int cno, String searchStatus) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		
+		String query = prop.getProperty("getListCountJustStatus");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, cno);
+			pstmt.setString(2, searchStatus);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(con);
+		}
+		return listCount;
+	}
+
+	public int getListCountNameStatus(Connection con, int cno, String searchProName, String searchStatus) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		
+		String query = prop.getProperty("getListCountNameStatus");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, cno);
+			pstmt.setString(2, searchStatus);
+			pstmt.setString(3, searchProName);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(con);
+		}
+		return listCount;
+	}
+
+	public int getListJustName(Connection con, int cno, String searchProName) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		
+		String query = prop.getProperty("getListJustName");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, cno);
+			pstmt.setString(2, searchProName);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(con);
+		}
+		return listCount;
+	}
 
 }

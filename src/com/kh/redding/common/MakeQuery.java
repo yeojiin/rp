@@ -78,6 +78,32 @@ public class MakeQuery {
 				
 	}
 
+	public void searchProduct(int value, int cno) {
+		Properties prop = new Properties();
+		String fileName = MakeQuery.class.getResource("/sql/product/product-query.properties").getPath();
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		
+		String query = "";
+		
+		if(value == 10) {
+			query = "SELECT RNUM, PNO, PNAME, PCONTENT, PRICE, PENROLL_DATE, CNO, PMODIFY_DATE, PRO_STATUS FROM( SELECT ROWNUM RNUM, PNO, PNAME, PCONTENT, PRICE, PENROLL_DATE, CNO, PMODIFY_DATE, PRO_STATUS FROM( SELECT P.PNO, P.PNAME, P.PCONTENT, P.PRICE, P.PENROLL_DATE, P.CNO, P.PMODIFY_DATE, P.PRO_STATUS FROM PRODUCT P JOIN COMPANY C ON(P.CNO = C.CNO) JOIN MEMBER M ON (M.MNO = C.CNO) WHERE P.CNO = ? ORDER BY P.PNO DESC ) )";// WHERE RNUM BETWEEN ? AND ?
+		}else if(value == 20) {
+			query = "SELECT RNUM, PNO, PNAME, PCONTENT, PRICE, PENROLL_DATE, CNO, PMODIFY_DATE, PRO_STATUS FROM( SELECT ROWNUM RNUM, PNO, PNAME, PCONTENT, PRICE, PENROLL_DATE, CNO, PMODIFY_DATE, PRO_STATUS FROM( SELECT P.PNO, P.PNAME, P.PCONTENT, P.PRICE, P.PENROLL_DATE, P.CNO, P.PMODIFY_DATE, P.PRO_STATUS FROM PRODUCT P JOIN COMPANY C ON(P.CNO = C.CNO) JOIN MEMBER M ON (M.MNO = C.CNO) WHERE P.CNO = ? AND PRO_STATUS =? ORDER BY P.PNO DESC ) ) ";//WHERE RNUM BETWEEN ? AND ?
+		}else if(value == 30) {
+			query = "SELECT RNUM, PNO, PNAME, PCONTENT, PRICE, PENROLL_DATE, CNO, PMODIFY_DATE, PRO_STATUS FROM( SELECT ROWNUM RNUM, PNO, PNAME, PCONTENT, PRICE, PENROLL_DATE, CNO, PMODIFY_DATE, PRO_STATUS FROM( SELECT P.PNO, P.PNAME, P.PCONTENT, P.PRICE, P.PENROLL_DATE, P.CNO, P.PMODIFY_DATE, P.PRO_STATUS FROM PRODUCT P JOIN COMPANY C ON(P.CNO = C.CNO) JOIN MEMBER M ON (M.MNO = C.CNO) WHERE P.CNO = ? AND PNAME LIKE '%'||?||'%' ORDER BY P.PNO DESC ) ) ";//WHERE RNUM BETWEEN ? AND ?
+		}else if(value == 40) {
+			query = "SELECT RNUM, PNO, PNAME, PCONTENT, PRICE, PENROLL_DATE, CNO, PMODIFY_DATE, PRO_STATUS FROM( SELECT ROWNUM RNUM, PNO, PNAME, PCONTENT, PRICE, PENROLL_DATE, CNO, PMODIFY_DATE, PRO_STATUS FROM( SELECT P.PNO, P.PNAME, P.PCONTENT, P.PRICE, P.PENROLL_DATE, P.CNO, P.PMODIFY_DATE, P.PRO_STATUS FROM PRODUCT P JOIN COMPANY C ON(P.CNO = C.CNO) JOIN MEMBER M ON (M.MNO = C.CNO) WHERE P.CNO = ? AND PNAME LIKE '%'||?||'%' AND PRO_STATUS=? ORDER BY P.PNO DESC ) ) ";//WHERE RNUM BETWEEN ? AND ?
+		}
+		
+		
+		prop.setProperty(prop.getProperty("","searchProduct"),query);
+		
+				
 	public void makeQueryCount(String firstDate, String lastDate, int value, int mno) {
 		Properties prop = new Properties();
 		String fileName = MakeQuery.class.getResource("/sql/member/member-query.properties").getPath();
@@ -110,20 +136,17 @@ public class MakeQuery {
 			
 			prop.store(osw, "");
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			try {
 				fos.close();
 				osw.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
 			}
 			

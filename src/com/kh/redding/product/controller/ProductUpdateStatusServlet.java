@@ -45,6 +45,7 @@ public class ProductUpdateStatusServlet extends HttpServlet {
 			pno[i] = Integer.parseInt(pnoArr[i]);
 			//System.out.println("pno["+i+"] : " + pno[i]);
 			proResult = new ProductService().updateProductStatus(pno[i], status, cno);
+			
 			if(proResult>0) {
 				if(status.equals("판매")) {
 					ustatus = "Y";
@@ -54,7 +55,7 @@ public class ProductUpdateStatusServlet extends HttpServlet {
 				uproResult = new ProductService().updateTotalUseProductStatus(pno[i], ustatus);
 				
 				count = new ProductService().getUseProductListCount(pno[i], cno);
-				
+				//System.out.println("count : " + count);
 				if(uproResult==count) {
 					ctn = ctn +1;
 				}
@@ -63,7 +64,7 @@ public class ProductUpdateStatusServlet extends HttpServlet {
 		
 		//System.out.println("ctn : " + ctn);
 		
-		//System.out.println("proResult : " + proResult);
+		//System.out.println("pno.length : " + pno.length);
 		
 		String page = "";
 		
