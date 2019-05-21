@@ -128,6 +128,13 @@ public class AdminService {
 		return searchCompanyList;
 	}
 
+	public ArrayList<HashMap<String, Object>> searchCompanyList2(ArrayList searchConditionList) {
+		Connection con = getConnection();
+		ArrayList<HashMap<String, Object>> searchCompanyList = new AdminDao().searchCompanyList2(con, searchConditionList);
+		close(con);
+		return searchCompanyList;
+	}
+
 
 
 

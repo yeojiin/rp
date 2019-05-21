@@ -30,15 +30,21 @@ public class SelectSearchCompanyServlet extends HttpServlet {
 		String companyCategory = searchCondition[1];
 		String companyEnrollDate = searchCondition[2];
 		String companyStatus = searchCondition[3];
-		
+				
 		ArrayList searchConditionList = new ArrayList();
 		searchConditionList.add(companyName);
 		searchConditionList.add(companyCategory);
 		searchConditionList.add(companyEnrollDate);
 		searchConditionList.add(companyStatus);
-		System.out.println("searchConditionList서블릿 : " + searchConditionList);
+						
+		new MakeQuery().makeSearchCompanyListQuery(searchConditionList); 
 		
-		// 페이징 추가
+		ArrayList<HashMap<String,Object>> searchCompanyList = new AdminService().searchCompanyList2(searchConditionList);
+		
+		response.setContentType("application/json");
+		new Gson().toJson(searchCompanyList, response.getWriter());
+		
+		/*// 페이징 추가
 		int currentPage;
 		int limit;
 		int maxPage = 0;
@@ -51,7 +57,7 @@ public class SelectSearchCompanyServlet extends HttpServlet {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		/*limit = 10;
+		limit = 10;
 		
 		//ArrayList<HashMap<String, Object>> list = new AdminService().searchCompanyCount();
 		ArrayList<HashMap<String,Object>> searchCompanyList = new AdminService().searchCompanyList(pi, searchConditionList);
