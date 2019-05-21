@@ -296,10 +296,7 @@ public class MemberDao {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
-		int endRow = startRow + pi.getLimit() - 1;
-		
+			
 		PreparedStatement pstmt = null;
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -309,35 +306,15 @@ public class MemberDao {
 					
 		try {
 			
-			if(value == 10 || value==20) {
-				pstmt = con.prepareStatement(query);
-				pstmt.setInt(1, value);
-				pstmt.setInt(2, startRow);
-				pstmt.setInt(3, endRow);
-				rset = pstmt.executeQuery();
-				
-				list = new ArrayList<HashMap<String, Object>>();
-				
-				while(rset.next()) {
-					HashMap<String, Object> hmap = new HashMap<String, Object>();
-					
-					hmap.put("resNo", rset.getInt("RESNO"));
-					hmap.put("upno", rset.getInt("UPNO"));
-					hmap.put("rnum", rset.getInt("RNUM"));
-					hmap.put("pName", rset.getString("PNAME"));
-					hmap.put("cName", rset.getString("CNAME"));
-					hmap.put("rapply", rset.getString("RAPPLY_DATE"));
-					hmap.put("price", rset.getInt("PRICE"));
-					hmap.put("status", rset.getString("RSTATUS"));
-					
-					list.add(hmap);
 
-				}
-			}else if(value == 30){
+			if(value == 30 || value == 60 || value == 70){
 				pstmt = con.prepareStatement(query);
-				pstmt.setString(1, "결제");
-				pstmt.setInt(2, startRow);
-				pstmt.setInt(3, endRow);
+				if(value == 70) {
+					pstmt.setString(1, "환불");
+				}else {
+					pstmt.setString(1, "결제");
+				}
+				
 				
 				rset = pstmt.executeQuery();
 				
@@ -358,13 +335,43 @@ public class MemberDao {
 					
 					list.add(hmap);
 
-				}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+				}
+				
+			}else if(value ==10 || value == 20 || value == 40 || value == 50) {   
+				stmt = con.createStatement();
+				System.out.println("query" + query);
+				rset = stmt.executeQuery(query);
+				
+				list = new ArrayList<HashMap<String, Object>>();
+				
+				while(rset.next()) {
+					
+					if(value ==10 || value == 20 ||value == 40 || value == 50) {
+						
+						HashMap<String, Object> hmap = new HashMap<String, Object>();
+						
+						hmap.put("resNo", rset.getInt("RESNO"));
+						hmap.put("upno", rset.getInt("UPNO"));
+						hmap.put("rnum", rset.getInt("RNUM"));
+						hmap.put("pName", rset.getString("PNAME"));
+						hmap.put("cName", rset.getString("CNAME"));
+						hmap.put("rapply", rset.getString("RAPPLY_DATE"));
+						hmap.put("price", rset.getInt("PRICE"));
+						hmap.put("status", rset.getString("RSTATUS"));
+						
+						list.add(hmap);
+					}
+									
+				}
 			}
 			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
 		}
 		
 		
@@ -422,6 +429,52 @@ public class MemberDao {
 		return list;
 	}
 	
+	public int getCountList(Connection con, int value) {
+		Properties prop = new Properties();
+		String fileName = MemberDao.class.getResource("/sql/member/member-query.properties").getPath();
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		Statement stmt = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		String query = prop.getProperty("countDynamicQuery");
+		try {
+			if(value == 60) {
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, "결제");
+				
+				rset = pstmt.executeQuery();
+				
+				
+				
+			}else {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			}
+			
+			if(rset.next()) {
+				count = rset.getInt(1);				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		return count;
+	}	
 	
 }
 

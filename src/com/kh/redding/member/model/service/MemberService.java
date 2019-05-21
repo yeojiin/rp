@@ -131,5 +131,14 @@ public class MemberService {
 	}
 	
 	
+	public int getCountList(int value) {
+		Connection con = getConnection();
+		
+		int count = new MemberDao().getCountList(con, value);
+		
+		close(con);
+		
+		return count;
+	}
 
 }

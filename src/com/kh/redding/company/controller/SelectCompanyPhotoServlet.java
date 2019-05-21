@@ -34,7 +34,7 @@ public class SelectCompanyPhotoServlet extends HttpServlet {
 		
 		String page = "";
 		if (list != null) {
-			page =  "/views/company/c_UpdateCompanyPhoto.jsp";
+			page =  "/views/company/c_companyPhotoList.jsp";
 			request.setAttribute("list", list);
 		}else {
 			page = "/views/common/errorPage.jsp";

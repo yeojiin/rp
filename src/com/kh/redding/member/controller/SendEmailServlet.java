@@ -69,7 +69,9 @@ public class SendEmailServlet extends HttpServlet {
 			//이메일 내용
 			int random = (int)Math.floor((Math.random()*(99999-10000+1)))+10000;
 			
-			code = random + "";
+			code = "안녕하세요 Redding입니다.\n 이메일 인증 코드는 ";
+			
+			code += random + "입니다.";
 
 			System.out.println("code_check : " + code);
 			

@@ -31,7 +31,7 @@ public class InsertPackagePro extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int result = 0;
-		String[] list = request.getParameter("packList").split(",");
+		String[] list = request.getParameterValues("packList");
 		
 		int[] packList = new int[list.length];
 		
@@ -41,7 +41,6 @@ public class InsertPackagePro extends HttpServlet {
 		
 		result = new WishListService().insertPackage(packList);
 	
-		String page = "";
 		if(result>0) {
 			response.getWriter().print(result);
 		}

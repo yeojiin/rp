@@ -77,7 +77,7 @@
 			<div class="col-sm-2 sidenav1">
 				<ul>
 					<li><a
-						href="<%=request.getContextPath()%>/selectPhoto.co">업체
+						href="<%=request.getContextPath()%>/photo.co">업체
 							사진 올리기</a></li>
 					<li><a
 						href="<%=request.getContextPath()%>/selectcom.me">업체

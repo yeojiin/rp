@@ -60,7 +60,8 @@
 
 	<!-- 멤버 헤더 (미니메뉴, 로고) -->
 	<div class="headerArea">
-		<jsp:include page="/views/member/m_header.jsp"></jsp:include>
+		<%-- <jsp:include page="/views/member/m_header.jsp"></jsp:include> --%>
+		<%@ include file="/views/member/m_header.jsp"%>s
 	</div><br>
 
 	<!-- 멤버 나브 -->
@@ -109,11 +110,16 @@
 									</tr>
 								</thead>
 								<tbody>
+								<% if (loginUser == null){ %>
 									<tr id="contactTitle" onclick="NoticeClick(this);">
 										<td></td>
 										<td colspan = "2">등록된 게시글이 없습니다</td>
 										<td></td>
 									</tr>
+								<% }else { %>
+									
+								
+								<% }%>
 								</tbody>
 							</table>
 						</div>
