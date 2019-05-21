@@ -101,7 +101,7 @@
 					<div style="width:50%; height:auto; float:right;">
 					<br><br><br><br><br>
 						<p style="font-size:20px;">상품이름 : <select>
-							<option>선택</option>
+							<option><%=hmap.get("pName") %></option>
 						</select></p>
 						<br><br>
 						<a class="btn btn-default" style="border-color:salmon; background:salmon; color:white; width:50%; height:auto; font-size:20px;">예약하기</a><br><br><br>
@@ -121,10 +121,10 @@
 										
 					<div style="width:100%; height:auto;">
 						<div id="div1" style=" width:50%; height:auto; float:left">
-						<p style="font-size:30px;">업체명</p>
-						<p style="font-size:30px;">서울시 강남구 역삼동</p>
-						<p style="font-size:30px;">영업시간 : PM 13:00 ~ PM 18:30</p>
-						<p style="font-size:30px;">홈페이지 : www.kh.or.kr</p>
+						<p style="font-size:30px;"><%=hmap.get("membername") %></p>
+						<p style="font-size:30px;"><%=hmap.get("comAddress") %></p>
+						<p style="font-size:30px;">영업시간 : AM <%=hmap.get("OpenTime") %> ~ PM <%=hmap.get("EndTime") %></p>
+						<p style="font-size:30px;">홈페이지 : <%=hmap.get("ComUrl") %></p>
 						<p style="font-size:30px;">인사말</p>
 						
 						<p style="font-size:15px;">못할 있는 바이며, 무엇을 희망의 청춘은 것이다. 앞이
@@ -354,14 +354,14 @@
                           level: 1 // 지도의 확대 레벨
                       };  
                   
-                  // 지도를 생성합니다    
+                  // 지도를 생성합니다
                   var map = new daum.maps.Map(mapContainer, mapOption); 
                   
                   // 주소-좌표 변환 객체를 생성합니다
                   var geocoder = new daum.maps.services.Geocoder();
                   
                   // 주소로 좌표를 검색합니다
-                  geocoder.addressSearch(<%-- <%=hmap.get("ComAddress") %> --%>, function(result, status) {
+                  geocoder.addressSearch(<%=hmap.get("ComAddress") %>, function(result, status) {
                   
                       // 정상적으로 검색이 완료됐으면 
                        if (status === daum.maps.services.Status.OK) {
