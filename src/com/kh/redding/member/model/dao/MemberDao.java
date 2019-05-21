@@ -286,8 +286,8 @@ public class MemberDao {
 				
 		return hmap;
 	}
-
-	public ArrayList<HashMap<String, Object>> resWaitSelect(Connection con,int value, int mno, BoardPageInfo pi) {
+	
+	public ArrayList<HashMap<String, Object>> resWaitSelect(Connection con,int value, int mno) {
 		Properties prop = new Properties();
 		String fileName = MemberDao.class.getResource("/sql/member/member-query.properties").getPath();
 		try {
@@ -329,7 +329,7 @@ public class MemberDao {
 					hmap.put("pName", rset.getString("PNAME"));
 					hmap.put("cName", rset.getString("CNAME"));
 					hmap.put("rapply", rset.getString("RAPPLY"));
-					hmap.put("price", rset.getInt("PRICE"));
+					hmap.put("price", rset.getInt("FINAL_PRICE"));
 					hmap.put("payDiv", rset.getString("PAYDIV"));
 					hmap.put("approval", rset.getString("APPROVAL"));
 					
@@ -358,7 +358,7 @@ public class MemberDao {
 						hmap.put("rapply", rset.getString("RAPPLY_DATE"));
 						hmap.put("price", rset.getInt("PRICE"));
 						hmap.put("status", rset.getString("RSTATUS"));
-						
+						hmap.put("subno", rset.getInt("SUBNO"));
 						list.add(hmap);
 					}
 									
@@ -474,6 +474,45 @@ public class MemberDao {
 		
 		
 		return count;
+	}
+
+	public ArrayList<HashMap<String, Object>> getPackage(Connection con, int subno, int mno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		String query = prop.getProperty("getPackage");
+		
+		System.out.println("query :::" + query);
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, subno);
+			pstmt.setInt(2, mno);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			while(rset.next()) {
+				
+				hmap = new HashMap<String, Object>();
+				hmap.put("upno", rset.getInt("UPNO"));
+				hmap.put("status", rset.getString("RSTATUS"));
+				hmap.put("rapply", rset.getString("RAPPLY_DATE"));
+				hmap.put("pName", rset.getString("PNAME"));
+				hmap.put("cName", rset.getString("MNAME"));
+				
+				list.add(hmap);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+			
+		return list;
 	}	
 	
 }
