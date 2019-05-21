@@ -77,6 +77,12 @@ public class insertCompanyPhotoServlet extends HttpServlet {
 					at.setOriginname(originFiles.get(i));
 					at.setChangename(saveFiles.get(i));
 					
+					if (i == originFiles.size() -1) {
+						at.setCno_div("대표");
+					}else {
+						at.setCno_div("서브");
+					}
+					
 					fileList.add(at);
 					
 				}
@@ -87,7 +93,7 @@ public class insertCompanyPhotoServlet extends HttpServlet {
 
 			if(result > 0) {
 
-				response.sendRedirect(request.getContextPath()+"/selectPhoto.co");
+				response.sendRedirect(request.getContextPath()+"/photo.co");
 
 			}else {
 				for (int i = 0 ; i< saveFiles.size() ; i++) {

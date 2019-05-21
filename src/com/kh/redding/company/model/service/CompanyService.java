@@ -188,5 +188,57 @@ public class CompanyService {
 		
 		return list;
 	}
+
+	//사업자등록증을 뺀 업체 사진이 있는지 확인용
+	public int PhotoCount(int cno) {
+		Connection con = getConnection();
+		
+		int count = new CompanyDao().CompanyphotoCount(con, cno);
+		
+		close(con);
+		
+		return count;
+	}
+
+	//업체 수정
+	public int updateAttachment(Attachment changeAttach) {
+		Connection con = getConnection();
+		
+		int result = new CompanyDao().updateAttachment(con , changeAttach);
+		
+		if (result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+	public HashMap<String, Object> DeletePhoto(int aid) {
+		Connection con = getConnection();
+		
+		HashMap<String,Object> resultHmap = new HashMap<String, Object>();
+		
+		Attachment attachment = new CompanyDao().selectAttachmemt(con,aid);
+		
+		resultHmap.put("attachment", attachment);
+		
+		int result = new CompanyDao().delteAttachment(con,attachment.getAid());
+		
+		resultHmap.put("result", result);
+		
+		if (result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return resultHmap;
+	}
 	
 }
