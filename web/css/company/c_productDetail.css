@@ -16,6 +16,11 @@
 	width: 100%;
 	height: 100px;
 }
+
+#startRows{
+	border: none;
+	width: 40px;
+}
 input[name = proName], input[name = proEnrollDate]{
 	background: lightgray;
 	border: 2px solid white;

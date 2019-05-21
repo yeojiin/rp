@@ -106,11 +106,11 @@ public class MemberService {
 		return hmap;
 	}
 
-	public ArrayList<HashMap<String, Object>> resWaitSelect(int value,int mno, BoardPageInfo pi) {
+	public ArrayList<HashMap<String, Object>> resWaitSelect(int value,int mno) {
 		Connection con = getConnection();
 		
 				
-		ArrayList<HashMap<String,Object>> list = new MemberDao().resWaitSelect(con, value, mno, pi);
+		ArrayList<HashMap<String,Object>> list = new MemberDao().resWaitSelect(con, value, mno);
 		
 		close(con);
 		
@@ -155,6 +155,16 @@ public class MemberService {
 		close(con);
 		
 		return count;
+	}
+
+	public ArrayList<HashMap<String, Object>> getPackage(int subno, int mno) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> hmap = new MemberDao().getPackage(con, subno, mno);
+		
+		close(con);
+		
+		return hmap;
 	}
 
 }

@@ -18,7 +18,6 @@ import com.kh.redding.product.model.service.ProductService;
 import com.kh.redding.product.model.vo.Product;
 import com.kh.redding.product.model.vo.UseProduct;
 
-import oracle.jrockit.jfr.events.DynamicValueDescriptor;
 
 
 @WebServlet("/insert.pr")
