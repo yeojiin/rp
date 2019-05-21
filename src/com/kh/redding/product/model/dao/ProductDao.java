@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -146,8 +147,9 @@ public class ProductDao {
          pstmt.setString(1, pro.getpName());
          pstmt.setString(2, pro.getpContent());
          pstmt.setInt(3, pro.getPrice());
-         pstmt.setInt(4, pro.getcNo());
-         pstmt.setString(5, pro.getProStatus());
+         pstmt.setDate(4, pro.getpEnrollDate());
+         pstmt.setInt(5, pro.getcNo());
+         pstmt.setString(6, pro.getProStatus());
          
          result = pstmt.executeUpdate();
          
@@ -807,6 +809,141 @@ public class ProductDao {
 			close(con);
 		}
 		return listCount;
+	}
+
+	public int getUseProductSearchListCount(Connection con, int pNo, String ustatus, Date startDate,
+			Date endDate) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		
+		String query = prop.getProperty("getUseProductSearchListCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pNo);
+			pstmt.setString(2, ustatus);
+			pstmt.setDate(3, startDate);
+			pstmt.setDate(4, endDate);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listCount;
+	}
+
+	public ArrayList<UseProduct> searchUseProduct(Connection con, int pNo, String ustatus, Date startDate, Date endDate,
+			PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<UseProduct> useProList = null;
+		UseProduct upro = null;
+		
+		String query = prop.getProperty("searchUseProduct");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, pNo);
+			pstmt.setString(2, ustatus);
+			pstmt.setDate(3, startDate);
+			pstmt.setDate(4, endDate);
+			
+			rset = pstmt.executeQuery();
+			
+			useProList = new ArrayList<UseProduct>();
+			
+			while(rset.next()) {
+				upro = new UseProduct();
+				
+				upro.setUpNo(rset.getInt("UPNO"));
+				upro.setUseDate(rset.getDate("USE_DATE"));
+				upro.setUseStartTime(rset.getString("USE_START_TIME"));
+				upro.setUseEndTime(rset.getString("USE_END_TIME"));
+				upro.setpNo(rset.getInt("PNO"));
+				upro.setuNum(rset.getInt("UNUM"));
+				upro.setUstatus(rset.getString("USTATUS"));
+				
+				useProList.add(upro);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return useProList;
+	}
+
+	public int getUseProductSearchTotalListCount(Connection con, int pNo, Date startDate,
+			Date endDate) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		
+		String query = prop.getProperty("searchUseProductTotalListCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pNo);
+			pstmt.setDate(2, startDate);
+			pstmt.setDate(3, endDate);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listCount;
+	}
+
+	public ArrayList<UseProduct> searchUseProductTotal(Connection con, int pNo, Date startDate, Date endDate,
+			PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<UseProduct> useProList = null;
+		UseProduct upro = null;
+		
+		String query = prop.getProperty("searchUseProductTotal");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, pNo);
+			pstmt.setDate(2, startDate);
+			pstmt.setDate(3, endDate);
+			
+			rset = pstmt.executeQuery();
+			
+			useProList = new ArrayList<UseProduct>();
+			
+			while(rset.next()) {
+				upro = new UseProduct();
+				
+				upro.setUpNo(rset.getInt("UPNO"));
+				upro.setUseDate(rset.getDate("USE_DATE"));
+				upro.setUseStartTime(rset.getString("USE_START_TIME"));
+				upro.setUseEndTime(rset.getString("USE_END_TIME"));
+				upro.setpNo(rset.getInt("PNO"));
+				upro.setuNum(rset.getInt("UNUM"));
+				upro.setUstatus(rset.getString("USTATUS"));
+				
+				useProList.add(upro);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return useProList;
 	}
 
 }
