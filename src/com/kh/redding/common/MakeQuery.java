@@ -152,6 +152,27 @@ public class MakeQuery {
 			
 		}
 	}
+    
+    public void makeSearchCompanyListQuery(ArrayList searchConditionList) {
+	Properties prop = new Properties();
+	String fileName = MemberDao.class.getResource("/sql/admin/admin-query.properties").getPath();
+	try {
+		prop.load(new FileReader(fileName));
+	} catch (IOException e1) {
+		e1.printStackTrace();
+	}
+	
+	searchConditionList.get(0);
+	
+	String query = "";
+	System.out.println("searchConditionList" + searchConditionList);
+	
+	if(searchConditionList.get(0) != null) {
+		query = "SELECT RNUM, MNO, MID, MPWD, MNAME, NICK_NAME, EMAIL, EMAIL_CHECK, PHONE, EMERGEN_CON, GENDER, ENROLL_DATE, STATUS, MODIFY_DATE, MNOTI_TYPE, OUT_DATE, WEDDING_DATE, MTYPE, COM_TYPE FROM(SELECT ROWNUM RNUM, MNO, MID, MPWD, MNAME, NICK_NAME, EMAIL, EMAIL_CHECK, PHONE, EMERGEN_CON, GENDER, ENROLL_DATE, STATUS, MODIFY_DATE, MNOTI_TYPE, OUT_DATE, WEDDING_DATE, MTYPE, COM_TYPE FROM (SELECT M.MNO, M.MID, M.MPWD, M.MNAME, M.NICK_NAME, M.EMAIL, M.EMAIL_CHECK, M.PHONE, M.EMERGEN_CON, M.GENDER, M.ENROLL_DATE, M.STATUS, M.MODIFY_DATE, M.MNOTI_TYPE, M.OUT_DATE, M.WEDDING_DATE, M.MTYPE, C.COM_TYPE FROM MEMBER M JOIN COMPANY C ON(M.MNO = C.CNO) WHERE M.MTYPE=20 AND MNAME LIKE '%'||?||'%' ORDER BY M.MNO DESC) ORDER BY RNUM ASC) WHERE RNUM BETWEEN ? AND ?";
+	}
+	
+	
+}
 
 	
 }

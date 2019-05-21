@@ -95,6 +95,7 @@ public class MemberReservationSelectServlert extends HttpServlet {
 		
 		ArrayList<HashMap<String,Object>> list = null;
 		
+
 		new MakeQuery().makeQuery(value,mno,firstDate,lastDate,pi);
 		
 		HashMap<String,Object> totalMap = new HashMap<String,Object>();

@@ -103,29 +103,29 @@ public class AdminService {
 		return oneCompany;
 	}
 
-	
-
-
-	//정산관리 갯수 리턴용 메소드
+	// 정산관리 갯수 리턴용 메소드
 	public int getCalcCount() {
 		Connection con = getConnection();
 		int calcCount = new AdminDao().getCalcCount(con);
-
 		close(con);
-
 		return calcCount;
 	}
 
-
-	//정산관리 조회용 메소드
+	// 정산관리 조회용 메소드
 	public ArrayList<HashMap<String, Object>> showCalc(TotalMemberPageInfo pi) {
 		Connection con = getConnection();
-
 		ArrayList<HashMap<String, Object>> list = new AdminDao().showCalc(con, pi);
-
 		close(con);
-
 		return list;
+	}
+
+	// 검색한 업체 목록 조회용 메소드
+	public ArrayList<HashMap<String, Object>> searchCompanyList(TotalMemberPageInfo pi, ArrayList searchConditionList) {
+		System.out.println("searchConditionList서비스 : " + searchConditionList);
+		Connection con = getConnection();
+		ArrayList<HashMap<String, Object>> searchCompanyList = new AdminDao().searchCompanyList(con, pi, searchConditionList);
+		close(con);
+		return searchCompanyList;
 	}
 
 
