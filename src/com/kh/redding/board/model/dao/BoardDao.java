@@ -2,7 +2,6 @@ package com.kh.redding.board.model.dao;
 
 import static com.kh.redding.common.JDBCTemplate.close;
 
-
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -16,6 +15,7 @@ import java.util.Properties;
 
 import com.kh.redding.board.model.vo.Board;
 import com.kh.redding.board.model.vo.BoardPageInfo;
+import com.kh.redding.board.model.vo.Reply;
 
 public class BoardDao {
 	private Properties prop = new Properties();
@@ -583,6 +583,83 @@ public class BoardDao {
 		
 		
 		return result;
+	}
+
+	
+	//QnA 값 불러오기 
+	public ArrayList<HashMap<String, Object>> selectQnAList(Connection con, int mno, BoardPageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset  = null;
+		
+		ArrayList<HashMap<String , Object>> QnAList = null;
+		HashMap<String , Object>  Qhmap = null;
+		Board qna = null;
+		Reply reply  = null;
+		
+		String query = prop.getProperty("selectQnAList");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, mno);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			QnAList = new ArrayList<HashMap<String , Object>>();
+			
+			while(rset.next()) {
+				Qhmap = new HashMap<String , Object>();
+				qna = new Board();
+				reply = new Reply();
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+		return null;
+	}
+
+	//QnA갯수 
+	public int selectQnaCount(Connection con, int mno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int QnAcount = 0;
+		
+		String query = prop.getProperty("selectQnACount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, mno);
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				QnAcount = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return QnAcount;
 	}
 
 

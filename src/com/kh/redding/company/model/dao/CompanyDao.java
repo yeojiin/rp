@@ -462,6 +462,7 @@ public class CompanyDao {
 				pstmt.setString(2, fileList.get(i).getChangename());
 				pstmt.setString(3, fileList.get(i).getFilepath());
 				pstmt.setInt(4, mno);
+				pstmt.setString(5, fileList.get(i).getCno_div());
 				
 				result += pstmt.executeUpdate();
 			}
@@ -504,6 +505,7 @@ public class CompanyDao {
 	            at.setChangename(rset.getString("CHANGE_NAME"));
 	            at.setFilepath(rset.getString("file_path"));
 	            at.setMno(rset.getInt("mno"));
+	            at.setCno_div(rset.getString("cno_div"));
 				
 				list.add(at);	
 				
@@ -519,6 +521,94 @@ public class CompanyDao {
 		
 		return list;
 	}
+
+	//업체 사진 숫자
+	public int CompanyphotoCount(Connection con, int cno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		
+		String query = prop.getProperty("selectPhotoCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, cno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return count;
+	}
+
+	public Attachment selectAttachmemt(Connection con, int aid) {
+		PreparedStatement pstmt = null;
+		Attachment attach = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectOneAttachment");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, aid);
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				attach = new Attachment();
+				
+				attach.setChangename(rset.getString("CHANGE_NAME"));
+				attach.setFilepath(rset.getString("FILE_PATH"));
+				attach.setAid(rset.getInt("AID"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return attach;
+	}
+
+	public int delteAttachment(Connection con, int aid) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteAttachment");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, aid);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	
 
 
 }
