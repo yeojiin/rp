@@ -102,7 +102,7 @@ public class MemberReservationSelectServlert extends HttpServlet {
 		totalMap.put("pi", pi);
 		
 	
-			list = new MemberService().resWaitSelect(value,mno,pi);
+			list = new MemberService().resWaitSelect(value,mno);
 			totalMap.put("list", list);			
 
 

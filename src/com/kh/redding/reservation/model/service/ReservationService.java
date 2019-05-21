@@ -87,8 +87,10 @@ public class ReservationService {
 		int wUpdateResult = 0;
 		int totalResult = 0;
 		
+		
 		if(updateResult == pnoArr.length) {
-			insertResult = new ReservationDao().reservationInsert(con,pnoArr,mno);
+			int count = new ReservationDao().getCount(con);
+			insertResult = new ReservationDao().reservationInsert(con,pnoArr,mno, count);
 		}
 		
 		if(insertResult == upnoArr.length) {
