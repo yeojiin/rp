@@ -3,10 +3,13 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.kh.redding.attachment.model.vo.Attachment;
 import com.kh.redding.board.model.vo.BoardPageInfo;
+import com.kh.redding.company.model.vo.Company;
 import com.kh.redding.member.model.dao.MemberDao;
 import com.kh.redding.member.model.vo.M_comListPageInfo;
 import com.kh.redding.member.model.vo.Member;
+import com.kh.redding.product.model.vo.Product;
 
 import static com.kh.redding.common.JDBCTemplate.*;
 
@@ -86,9 +89,7 @@ public class MemberService {
 		Connection con = getConnection();
 		
 		ArrayList<HashMap<String, Object>> list = new MemberDao().selectComList(con, clpi);
-		for(int i = 0; i < list.size(); i++) {
-			
-		}
+	
 		
 		close(con);
 		
@@ -116,13 +117,28 @@ public class MemberService {
 		return list;
 	}
 
-	public ArrayList<HashMap<String, Object>> selectDetailCom(M_comListPageInfo clpi, String mname) {
+	public HashMap<String, Object> selectDetailCom(int mno) {
 		Connection con = getConnection();
 		
-		ArrayList<HashMap<String, Object>> list = new MemberDao().selectDetailCom(con, clpi, mname);
-		for(int i = 0; i < list.size(); i++) {
-			
-		}
+		//ArrayList<HashMap<String, Object>> list = new MemberDao().selectDetailCom(con, clpi, mname);
+		HashMap<String, Object> list = new HashMap<String, Object>();
+		
+		Company com = new MemberDao().selectDetailCom(con, mno);
+		
+		list.put("Company", com);
+		
+		Member mem = new MemberDao().selectDetailMem(con, mno);
+		
+		list.put("Member", mem);
+		
+		ArrayList<Attachment> at = new MemberDao().selectDetailAt(con, mno);
+		
+		list.put("Attachment", at);
+		
+		ArrayList<Product> pd = new MemberDao().selectDetailPd(con, mno);
+		
+		list.put("Product", pd);
+		
 		System.out.println("list service : " + list);
 		
 		close(con);

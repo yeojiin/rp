@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.redding.member.model.vo.*, com.kh.redding.attachment.model.vo.*, java.util.*"%>
+	pageEncoding="UTF-8" import="com.kh.redding.member.model.vo.*, com.kh.redding.company.model.vo.*, com.kh.redding.attachment.model.vo.*, com.kh.redding.product.model.vo.*, java.util.*"%>
 <%
-	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
-	M_comListPageInfo clpi = (M_comListPageInfo) request.getAttribute("clpi");
-	int currentPage = clpi.getCurrentPage();
-	int maxPage = clpi.getMaxPage();
-	int startPage = clpi.getStartPage();
-	int endPage = clpi.getEndPage();
+	HashMap<String, Object> list = (HashMap<String, Object>)request.getAttribute("list");
+	ArrayList<Product> prolist = (ArrayList<Product>)list.get("Product");
+	ArrayList<Attachment> attachlist = (ArrayList<Attachment>)list.get("Attachment");
+	Company com = (Company)list.get("Company");
+	Member mem = (Member)list.get("Member");
+	String companyAddress = "";
 %>
 <!DOCTYPE html>
 <html>
@@ -88,25 +88,34 @@
 				<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 				<form action="<%=request.getContextPath()%>/selectDetailCom.dc">
 				<br>
-				<%
-            		HashMap<String, Object> hmap = null;
-            		for (int i = 0; i < list.size(); i++) {
-            			hmap = list.get(i);
-            	%>
-				<p style="font-size:40px; text-align:center"><%=hmap.get("membername") %></p>
+				
+				<p style="font-size:40px; text-align:center"><%=mem.getMemberName() %></p>
 				<div id="titleimg" style="width:100%; height:auto;">
 					<div style="width:50%; height:auto; float:left;">
-						<img src="../../images/logo.png" id="timg" style="max-width:100%;">
+						<% for (int i = 0; i < attachlist.size(); i++) {
+	            			Attachment att = attachlist.get(i); 
+	            			System.out.println("타입 :" + att.getCno_div());
+	            			String cnodiv = (String)att.getCno_div();
+	            			if(cnodiv != null && cnodiv.equals("대표")){%>
+								<img src="/redding/company_upload/<%=att.getChangename() %>" id="timg" style="max-width:100%;">
+							<%} %>
+						<%} %>
 					</div>
 					<div style="width:50%; height:auto; float:right;">
-					<br><br><br><br><br>
+					<br><br><br>
+						
 						<p style="font-size:20px;">상품이름 : <select>
-							<option><%=hmap.get("pName") %></option>
+						<%
+						if (prolist != null && prolist.size() > 0){
+						for (int i = 0; i < prolist.size(); i++) {
+	            			Product pro = prolist.get(i); %>
+							<option><%=pro.getpName() %></option>
+						<%} } %>
 						</select></p>
-						<br><br>
-						<a class="btn btn-default" style="border-color:salmon; background:salmon; color:white; width:50%; height:auto; font-size:20px;">예약하기</a><br><br><br>
+						<a class="btn btn-default" style="border-color:salmon; background:salmon; color:white; width:50%; height:auto; font-size:20px;">예약하기</a><br><br>
 						<a class="btn btn-default" style="border-color:salmon; background:salmon; color:white; width:50%; height:auto; font-size:20px;">위시리스트에 담기</a>
-					</div><br><br>
+					</div>
+					<br><br><br><br><br><br><br><br><br><br>
 					<hr style="border-color: black; width:100%;">
 				</div>
 				
@@ -118,22 +127,21 @@
 							<td align="center" style="width:25%; font-size:20px;" onclick="fnMove('4')">문의</td>				
 						</tr>
 					</table>
-										
 					<div style="width:100%; height:auto;">
 						<div id="div1" style=" width:50%; height:auto; float:left">
-						<p style="font-size:30px;"><%=hmap.get("membername") %></p>
-						<p style="font-size:30px;"><%=hmap.get("comAddress") %></p>
-						<p style="font-size:30px;">영업시간 : AM <%=hmap.get("OpenTime") %> ~ PM <%=hmap.get("EndTime") %></p>
-						<p style="font-size:30px;">홈페이지 : <%=hmap.get("ComUrl") %></p>
-						<p style="font-size:30px;">인사말</p>
-						
-						<p style="font-size:15px;">못할 있는 바이며, 무엇을 희망의 청춘은 것이다. 앞이
-							청춘 꾸며 뛰노는 동산에는 내려온 인간의 있으랴? 긴지라 방황하였으며, 타오르고 가는 길지 할지니, 현저하게 힘차게
-							풀이 봄바람이다. 없으면, 인도하겠다는 별과 같으며, 인생의 사라지지 교향악이다. 얼음 인생을 산야에 사는가 스며들어
-							그리하였는가? 무엇이 발휘하기 가지에 그들은 있는 되려니와, 것이다. 인생에 얼음이 같이 그러므로 크고 꽃이 것이다.
-							위하여서 돋고, 얼마나 찾아 피는 부패뿐이다. 주며, 안고, 꾸며 위하여서 사막이다. 청춘에서만 피가 하여도
-							유소년에게서 천지는 하는 이는 뜨고, 부패뿐이다.
-						</p>
+						<p style="font-size:30px;"><%=mem.getMemberName() %></p>
+						<%-- <% 
+						String address = com.getComAddress();
+						String[] addressArr = address.split("\\|");
+						if (addressArr.length > 2){
+							companyAddress = addressArr[1] + addressArr[2];
+						}else {
+							companyAddress = addressArr[1];
+						}
+						%> --%>
+						<p style="font-size:25px;"><%=companyAddress %></p>
+						<p style="font-size:30px;">영업시간 : AM <%=com.getOpenTime() %> ~ PM <%=com.getEndTime() %></p>
+						<p style="font-size:30px;">홈페이지 : <a href="<%=com.getComUrl() %>">바로가기</a></p>
 						</div>
 							<div id="map" style="width:50%; height:500px; float:right">
 							</div>	
@@ -266,32 +274,8 @@
 						<a class="btn btn-default" style="border-color:salmon; background:salmon; color:white; float:right;">글쓰기</a>
 						<br>
 						<div class="text-center">
-							<ul class="pagination">
-								<button onclick="location.href='<%=request.getContextPath() %>/m_DetailSelect.ds?currentPage=1'"><<</button>
-								<% if(currentPage <= 1){ %>
-								<button disabled><</button>
-								<% }else{ %>
-								<button onclick="location.href='<%=request.getContextPath() %>/m_DetailSelect.ds?currentPage=<%=currentPage - 1%>'"><</button>
-								<% } %>
-								
-								<% for(int p = startPage; p <= endPage; p++){
-									if(p == currentPage){%>
-										<button disabled><%= p %></button>
-								<% }else{ %>
-									<button onclick="location.href='<%=request.getContextPath() %>/m_DetailSelect.ds?currentPage=<%= p %>'"><%= p %></button>
-								<% } %>
-								<% } %>
-								
-								<% if(currentPage >= maxPage){ %>
-								<button disabled>></button>
-								<% }else{ %>
-								<button onclick="location.href='<%=request.getContextPath() %>/m_DetailSelect.ds?currentPage=<%=currentPage + 1 %>'">></button>
-								<% } %>
-								<button onclick="location.href='<%=request.getContextPath() %>/m_DetailSelect.ds?currentPage=<%=maxPage %>'">>></button>
-							</ul>
 						</div>
 					</div>
-					<% } %>
 					</form>
 				</div>
 				
@@ -360,8 +344,15 @@
                   // 주소-좌표 변환 객체를 생성합니다
                   var geocoder = new daum.maps.services.Geocoder();
                   
+                 <%--  <% 
+					/* String address = (String)company.get("comAddress");
+					String[] addressArr = address.split("\\|"); */
+					companyAddress = addressArr[1];
+					%>
+                  
+					var address = "<%=companyAddress%>" --%>
                   // 주소로 좌표를 검색합니다
-                  geocoder.addressSearch(<%=hmap.get("ComAddress") %>, function(result, status) {
+                  geocoder.addressSearch(address, function(result, status) {
                   
                       // 정상적으로 검색이 완료됐으면 
                        if (status === daum.maps.services.Status.OK) {
@@ -376,7 +367,7 @@
                   
                           // 인포윈도우로 장소에 대한 설명을 표시합니다
                           var infowindow = new daum.maps.InfoWindow({
-                              content: '<div style="width:150px;text-align:center;padding:6px 0;">KH정보교육원</div>'
+                              content: '<div style="width:150px;text-align:center;padding:6px 0;"><%=com.getComAddress() %></div>'
                           });
                           infowindow.open(map, marker);
                   

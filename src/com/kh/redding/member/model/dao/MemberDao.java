@@ -15,10 +15,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
+import com.kh.redding.attachment.model.vo.Attachment;
 import com.kh.redding.board.model.dao.BoardDao;
 import com.kh.redding.board.model.vo.BoardPageInfo;
+import com.kh.redding.company.model.vo.Company;
 import com.kh.redding.member.model.vo.M_comListPageInfo;
 import com.kh.redding.member.model.vo.Member;
+import com.kh.redding.product.model.vo.Product;
 
 public class MemberDao {
 	private Properties prop = new Properties();
@@ -230,7 +233,9 @@ public class MemberDao {
 			while(rset.next()) {
 				hmap = new HashMap<String, Object>();
 				
+				hmap.put("mno", rset.getInt("MNO"));
 				hmap.put("filepath", rset.getString("FILE_PATH"));
+				hmap.put("cno_div", rset.getString("CNO_DIV"));
 				hmap.put("changename", rset.getString("CHANGE_NAME"));
 				hmap.put("membername", rset.getString("MNAME"));
 				hmap.put("price", rset.getInt("PRICE"));
@@ -378,56 +383,6 @@ public class MemberDao {
 		return list;
 	}
 
-	public ArrayList<HashMap<String, Object>> selectDetailCom(Connection con, M_comListPageInfo clpi, String mname) {
-		PreparedStatement pstmt = null;
-		ArrayList<HashMap<String, Object>> list = null;
-		HashMap<String, Object> hmap = null;
-		ResultSet rset = null;
-		
-		System.out.println("con : " + con);
-		System.out.println("mname : " + mname);
-		
-		String query = prop.getProperty("selectDetailCom");
-		
-		int startRow = (clpi.getCurrentPage() - 1) * clpi.getLimit() + 1;
-		int endRow = startRow + clpi.getLimit() - 1;
-		
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, mname);
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
-			
-			rset = pstmt.executeQuery();
-			
-			list = new ArrayList<HashMap<String, Object>>();
-			
-			while(rset.next()) {
-				hmap = new HashMap<String, Object>();
-				
-				System.out.println("rset.getString(1) : "+rset.getString("FILE_PATH"));
-				
-				hmap.put("filepath", rset.getString("FILE_PATH"));
-				hmap.put("changename", rset.getString("CHANGE_NAME"));
-				hmap.put("comAddress", rset.getString("COM_ADDRESS"));
-				hmap.put("ComUrl", rset.getString("COM_URL"));
-				hmap.put("OpenTime", rset.getString("OPEN_TIMES"));
-				hmap.put("EndTime", rset.getString("CLOSE_TIMES"));
-				hmap.put("membername", rset.getString("MNAME"));
-				hmap.put("pName", rset.getString("PNAME"));
-				
-				list.add(hmap);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-			close(rset);
-		}
-		System.out.println("hmap : " + hmap);
-		System.out.println("listDao : " + list);
-		return list;
-	}
 	
 	public int getCountList(Connection con, int value) {
 		Properties prop = new Properties();
@@ -474,6 +429,168 @@ public class MemberDao {
 		
 		
 		return count;
+	}
+	
+	//업체조회(광섭)
+	public Company selectDetailCom(Connection con, int mno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Company c = null;
+		
+		String query = prop.getProperty("selectCompany");
+		
+		try {
+			c = new Company();
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+			c.setCNO(rset.getInt("CNO"));
+			c.setCom_Rep_Num(rset.getInt("COM_REP_NUM"));
+			c.setRepName(rset.getString("REP_NAME"));
+			c.setComAddress(rset.getString("COM_ADDRESS"));
+			c.setComUrl(rset.getString("COM_URL"));
+			c.setOpenTime(rset.getString("OPEN_TIMES"));
+			c.setEndTime(rset.getString("CLOSE_TIMES"));
+			c.setAccountCode(rset.getInt("ACCOUNT_CODE"));
+			c.setAccountNum(rset.getString("ACCOUNT_NUM"));
+			c.setAccountName(rset.getString("ACCOUNT_NAME"));
+			c.setComType(rset.getString("COM_TYPE"));
+			c.setComLike(rset.getInt("COM_LIKE"));
+			c.setHoliday(rset.getString("HOLIDAY"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return c;
+	}
+
+	//어테치먼트 조회(광섭)
+	public ArrayList<Attachment> selectDetailAt(Connection con, int mno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Attachment> attachlist = null;
+		
+		String query = prop.getProperty("selectAttachment");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			
+			rset = pstmt.executeQuery();
+			
+			attachlist = new ArrayList<Attachment>();
+			while(rset.next()) {
+				Attachment at = new Attachment();
+				
+				at.setAid(rset.getInt("AID"));
+				at.setOriginname(rset.getString("ORIGIN_NAME"));
+				at.setChangename(rset.getString("CHANGE_NAME"));
+				at.setFilepath(rset.getString("FILE_PATH"));
+				at.setAdivision(rset.getInt("ADIVISION"));
+				at.setBid(rset.getInt("BID"));
+				at.setCouponCode(rset.getInt("COUPON_CODE"));
+				at.setCno_div(rset.getString("CNO_DIV"));
+				
+				attachlist.add(at);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return attachlist;
+	}
+
+	//프로덕트조회(광섭)
+	public ArrayList<Product> selectDetailPd(Connection con, int mno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Product> prolist = null;
+		
+		String query = prop.getProperty("selectProduct");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			
+			rset = pstmt.executeQuery();
+			
+			prolist = new ArrayList<Product>();
+			
+			while(rset.next()) {
+				Product pd = new Product();
+				
+				pd.setpNo(rset.getInt("PNO"));
+				pd.setpName(rset.getString("PNAME"));
+				pd.setpContent(rset.getString("PCONTENT"));
+				pd.setPrice(rset.getInt("PRICE"));
+				pd.setpEnrollDate(rset.getDate("PENROLL_DATE"));
+				pd.setcNo(rset.getInt("CNO"));
+				pd.setpModifyDate(rset.getDate("PMODIFY_DATE"));
+				pd.setProStatus(rset.getString("PRO_STATUS"));
+				
+				prolist.add(pd);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return prolist;
+	}
+
+	//멤버 조회(광섭)
+	public Member selectDetailMem(Connection con, int mno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member m = null;
+		
+		String query = prop.getProperty("selectMember");
+		
+		try {
+			m = new Member();
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				m.setMemberId(rset.getString("MID"));
+				m.setMemberPwd(rset.getString("MPWD"));
+				m.setMemberName(rset.getString("MNAME"));
+				m.setNickName(rset.getString("NICK_NAME"));
+				m.setEmail(rset.getString("EMAIL"));
+				m.setEmailCheck(rset.getString("EMAIL_CHECK"));
+				m.setPhone(rset.getString("PHONE"));
+				m.setEmergenCon(rset.getString("EMERGEN_CON"));
+				m.setGender(rset.getString("GENDER"));
+				m.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				m.setStatus(rset.getString("STATUS"));
+				m.setMemberType(rset.getInt("MTYPE"));
+				m.setModifyDate(rset.getDate("MODIFY_DATE"));
+				m.setMnotiType(rset.getInt("MNOTI_TYPE"));
+				m.setOutDate(rset.getDate("OUT_DATE"));
+				m.setWeddingDate(rset.getDate("WEDDING_DATE"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return m;
 	}	
 	
 }

@@ -118,7 +118,7 @@ td {
             	%>
             		<div style="width:25%; height:auto; float:left;">
             			<div>
-		                  	<img src="/redding/company_upload/<%=hmap.get("changename") %>" style="max-width:100%"; onclick="location.href='<%=request.getContextPath() %>/selectDetailCom.dc?mname=<%=hmap.get("membername") %>'"><br>
+		                  	<img src="/redding/company_upload/<%=hmap.get("changename") %>" style="max-width:100%"; onclick="location.href='<%=request.getContextPath() %>/selectDetailCom.dc?mno=<%=hmap.get("mno") %>'"><br>
             				<p style="font-size:25px; color:black;"><%=hmap.get("membername") %></p>
             				<p style="font-size:25px; font-weight:bold; color:salmon;"><%=hmap.get("price") %>~</p>
             				<p style="font-size:25px; font-weight:bold; color:gold;">★: <%=hmap.get("ComLike") %></p>

@@ -34,46 +34,14 @@ public class MemberSelectDetailComServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String mname = request.getParameter("mname");
+		int mno = Integer.parseInt(request.getParameter("mno"));
 		
-		System.out.println("mname servlet : " + mname);
-		int currentPage;
-		int limit;
-		int maxPage;
-		int startPage;
-		int endPage;
-		
-		currentPage = 1;
-		
-		if(request.getParameter("currentPage") != null) {
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		}
-		
-		limit = 10;
-		
-		int listCount = new MemberService().getListCount();
-		
-		System.out.println("listCount : " + listCount);
-		
-		maxPage = (int)((double) currentPage / limit + 0.9);
-		
-		startPage = (((int)((double) currentPage / limit + 0.9)) - 1) * 10 + 1;
-		
-		endPage = startPage + 10 - 1;
-		
-		if(maxPage < endPage) {
-			endPage = maxPage;
-		}
-		
-		M_comListPageInfo clpi = new M_comListPageInfo(currentPage, limit, maxPage, startPage, endPage);
-		
-		ArrayList<HashMap<String, Object>> list = new MemberService().selectDetailCom(clpi, mname);
-		System.out.println("list : " + list);
+		HashMap<String, Object> list = new MemberService().selectDetailCom(mno);
+		//System.out.println("list : " + list);
 		String page = "";
 		if(list != null) {
 			page = "views/member/m_Detail.jsp";
 			request.setAttribute("list", list);
-			request.setAttribute("clpi", clpi);
 			System.out.println("전달");
 		}else {
 			page = "views/common/errorPage.jsp";
