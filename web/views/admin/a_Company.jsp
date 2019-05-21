@@ -48,9 +48,7 @@
 				<div class="col-sm-2 sidenav1">
 					<div class="sidenavArea">
 						<ul class="navList">
-							<li onclick="location.href='a_Company.jsp'"
-								style="color: lightgray; padding-left: 25px">업체 목록</li>
-							<li onclick="location.href='a_CompanyDetail.jsp'">업체 정보 조회</li>
+							<li onclick="location.href='a_Company.jsp'">업체 목록</li>
 							<li onclick="location.href='a_Message.jsp'">업체 쪽지 관리</li>
 						</ul>
 					</div>
@@ -61,10 +59,7 @@
 				<div class="col-sm-2 sidenav1">
 					<div class="sidenavArea2">
 						<ul class="navList2">
-							<li onclick="location.href='a_Company.jsp'"
-								style="color: lightgray; padding-left: 25px">업체 목록</li>
-							<li onclick="location.href='/views/admin/a_CompanyDetail.jsp'">업체
-								정보 조회</li>
+							<li onclick="location.href='a_Company.jsp'">업체 목록</li>
 							<li onclick="location.href='a_Message.jsp'">업체 쪽지 관리</li>
 						</ul>
 					</div>
@@ -77,88 +72,69 @@
 				<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 				<div class="companyArea">
 					<div class="companyNum">
-						<br>
-						<table id="companyNumt">
+						<br> <br> <br>
+						<table class="companyNumtable">
 							<tr>
-								<td>전체업체</td>
+								<td class="companyNumTableTd1">전체업체</td>
 								<td><%=request.getAttribute("allCompanyListCount")%>개</td>
-								<td>신규업체</td>
+								<td class="companyNumTableTd1">신규업체</td>
 								<td><%=request.getAttribute("newCompanyListCount")%>개</td>
-								<td>탈퇴업체</td>
+								<td class="companyNumTableTd1">탈퇴업체</td>
 								<td><%=request.getAttribute("withdrawalCompanyListCount")%>개</td>
 							</tr>
 						</table>
 					</div>
-					<br>
-
-					<!-- <h4 id="text1">업체 검색</h4>
 					<br> <br> <br>
 
 					<div class="companyList">
-						<table id="companyListt">
-							<tr>
-								<td colspan="3" style="border: 1px solid gray;"></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td colspan="3" style="border: 1px solid gray;">검색 분류</td>
-								<td colspan="2">
-									<div class="ui right action left icon input">
-										<input type="text" value="KH스튜디오">
-										<div class="ui basic floating dropdown button">
-											<i class="dropdown icon"></i>
-										</div>
-									</div>
-								</td>
-								<td colspan="2"><input type="text" class="form-control"
-									placeholder="내용을 입력해주세요"></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td colspan="3" style="border: 1px solid gray;">업체구분</td>
-								<td><input type="radio">스튜디오</td>
-								<td><input type="radio">드레스</td>
-								<td><input type="radio">메이크업</td>
-								<td colspan="7"></td>
-							</tr>
-							<tr>
-								<td colspan="3" style="border: 1px solid gray;">업체 가입일</td>
-								<td><input type="radio">일주일 이내</td>
-								<td><input type="radio">1개월 이내</td>
-								<td><input type="radio">3개월 이내</td>
-								<td><input type="date"> <span> ~ </span> <input
-									type="date"></td>
-								<td colspan="7"></td>
-							</tr>
-							<tr>
-								<td colspan="3" style="border: 1px solid gray;">상태</td>
-								<td><input type="radio">활성</td>
-								<td><input type="radio">비활성</td>
-								<td colspan="7"></td>
-							</tr>
-						</table>
-						<div class="btns">
-							<button class="ui pink button" style="background: salmon;">검색</button>
-						</div>
-						<br> <br> <br> <br> -->
-
-
-						<div class="companyList">
-							<h3 id="text2">업체 목록</h3>
+						<label class="subtitle">업체 목록</label>
+						<br> <br> <br>
+						<form method="post"> 
+							<table class="searchCompanyList">
+								<tr>
+									<td class="searchCompanyListTd1">업체명</td>
+									<td class="searchCompanyListTd2"><input type="text" style="border:1px solid darkgray; height:25px;" class="companyName" name="companyName"></td>
+								</tr>
+								<tr>
+									<td class="searchCompanyListTd1">업체구분</td>
+									<td class="searchCompanyListTd2"><input type="radio" value="전체" name="companyCategory">&nbsp;&nbsp;전체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="radio" value="스튜디오" name="companyCategory">&nbsp;&nbsp;스튜디오&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="radio" value="드레스" name="companyCategory">&nbsp;&nbsp;드레스&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="radio" value="메이크업" name="companyCategory">&nbsp;&nbsp;메이크업&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									</td>
+								</tr>
+								<tr>
+									<td rowspan="2" class="searchCompanyListTd1">가입일</td>
+									<td class="searchCompanyListTd2"><input type="radio" value="전체" name="companyEnrollDate">&nbsp;&nbsp;전체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="radio" value="일주일 이내" name="companyEnrollDate">&nbsp;&nbsp;일주일 이내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+										<input type="radio" value="1개월 이내" name="companyEnrollDate">&nbsp;&nbsp;1개월 이내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+										<input type="radio" value="3개월 이내" name="companyEnrollDate">&nbsp;&nbsp;3개월 이내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									</td>
+								</tr>
+								<tr>
+									<td class="searchCompanyListTd2"><input type="radio" value="검색" name="companyEnrollDate">&nbsp;&nbsp;검색&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="date" name="startEnrollDate">&nbsp;&nbsp;-&nbsp;&nbsp; 
+										<input type="date" name="endEnrollDate">
+									</td>
+								</tr>
+								<tr>
+									<td class="searchCompanyListTd1">활동 상태</td>
+									<td class="searchCompanyListTd2"><input type="radio" value="전체" name="companyStatus">&nbsp;&nbsp;전체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="radio" value="활동업체" name="companyStatus">&nbsp;&nbsp;활동업체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="radio" value="탈퇴업체" name="companyStatus">&nbsp;&nbsp;탈퇴업체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									</td>
+								</tr>
+							</table>
 							<br>
-
-							<div class="companyBaseInfo">
-								<br> <br>
-								<table class="companyListTable" id="detail">
-									<tr>
+							<div class="searchCompanyListBtnArea">
+								<button class="searchCompanyListBtn" onclick="searchCompanyList()">검색</button>
+							</div>
+						</form>
+						<br> <br>
+						<div class="companyBaseInfo">
+							<table class="companyListTable" id="detail">
+								<thead>
+									<tr style="background:mistyrose;">
 										<td>선택</td>
 										<td>번호</td>
 										<td>업체구분</td>
@@ -166,144 +142,144 @@
 										<td>가입일</td>
 										<td>활동상태</td>
 									</tr>
-									<%
-										for (int i = 0; i < list.size(); i++) {
+								</thead>
+								<%
+									for (int i = 0; i < list.size(); i++) {
 											HashMap<String, Object> hmap = list.get(i);
-									%>
+								%>
+								<tbody>
 									<tr>
 										<td><input type="checkbox"></td>
 										<td><%=hmap.get("num")%></td>
 										<%
 											Member company = (Member) hmap.get("member");
 										%>
-										<td><%=company.getMemberName()%></td>
+										<td><%=hmap.get("comType")%></td>
 										<td><%=company.getMemberName()%></td>
 										<td><%=company.getEnrollDate()%></td>
 										<td><%=company.getStatus()%></td>
 									</tr>
-									<%
-										}
-									%>
-								</table>
-								<br>
-								<!-- 페이지 버튼 처리 -->
-								<div class="pagingArea" align="center">
-									<button
-										onclick="location.href='<%=request.getContextPath()%>/selectList.me?currentPage=1'"><<</button>
-									<%
-										if (currentPage <= 1) {
-									%>
-									<button disabled><</button>
-									<%
-										} else {
-									%>
-									<button
-										onclick="location.href='<%=request.getContextPath()%>/selectList.me?currentPage=<%=currentPage - 1%>'"><</button>
-									<%
-										}
-									%>
-
-									<%
-										for (int p = startPage; p <= endPage; p++) {
-											if (p == currentPage) {
-									%>
-									<button disabled><%=p%></button>
-									<%
-										} else {
-									%>
-									<button
-										onclick="location.href='<%=request.getContextPath()%>/selectList.me?currentPage=<%=p%>'"><%=p%></button>
-									<%
-										}
-									%>
-
-									<%
-										}
-									%>
-
-									<%
-										if (currentPage >= maxPage) {
-									%>
-									<button disabled>></button>
-									<%
-										} else {
-									%>
-									<button
-										onclick="location.href='<%=request.getContextPath()%>/selectList.me?currentPage=<%=currentPage + 1%>'">></button>
-									<%
-										}
-									%>
-									<button
-										onclick="location.href='<%=request.getContextPath()%>/selectList.me?currentPage=<%=maxPage%>'">>></button>
-									<br>
-									<!-- <div class="btns">
-										<button class="ui pink button" style="background: salmon;">블랙리스트
-											추가</button>
-										<button class="ui pink button" style="background: salmon;">탈퇴</button>
-									</div> -->
-									
-								</div>
-
-							</div>
-							<br><br><br>
-							<h3 id="text2">업체 상세정보 조회</h3>
+								</tbody>
+								<%
+									}
+								%>
+							</table>
 							<br>
+							<!-- 페이지 버튼 처리 -->
+							<div class="pagingArea" align="center">
+								<button
+									onclick="location.href='<%=request.getContextPath()%>/selectList.me?currentPage=1'"><<</button>
+								<%
+									if (currentPage <= 1) {
+								%>
+								<button disabled><</button>
+								<%
+									} else {
+								%>
+								<button
+									onclick="location.href='<%=request.getContextPath()%>/selectList.me?currentPage=<%=currentPage - 1%>'"><</button>
+								<%
+									}
+								%>
 
-							<div class="companyBaseInfo">
-								<br> <br>
-								<table>
-									<tr>
-										<td style="background: lightgray;">아이디</td>
-										<td class="memberId"></td>
-										<td style="background: lightgray;">대표자명</td>
-										<td class="repName"></td>
-									</tr>
-									<tr>
-										<td style="background: lightgray;">업체구분</td>
-										<td class="comType"></td>
-										<td style="background: lightgray;">업체명</td>
-										<td class="memberName"></td>
-									</tr>
-									<tr>
-										<td style="background: lightgray;">이메일</td>
-										<td class="memberEmail"></td>
-										<td style="background: lightgray;">전화번호</td>
-										<td class="memberPhone"></td>
-									</tr>
-									<tr>
-										<td style="background: lightgray;">주소</td>
-										<td class="companyAddress"></td>
-										<td style="background: lightgray;">URL</td>
-										<td class="companyUrl"></td>
-									</tr>
-									<tr>
-										<td style="background: lightgray;">OPEN TIME</td>
-										<td class="companyOpenTime"></td>
-										<td style="background: lightgray;">CLOSE TIME</td>
-										<td class="companyCloseTime"></td>
-									</tr>
-									<tr>
-										<td style="background: lightgray;">은행</td>
-										<td class="companyBank"></td>
-										<td style="background: lightgray;">계좌번호</td>
-										<td class="companyBankNum"></td>
-									</tr>
-									<tr>
-										<td style="background: lightgray;">휴일</td>
-										<td class="companyHoliday"></td>
-										<td style="background: lightgray;">가입일</td>
-										<td class="memberEnrollDate"></td>
-									</tr>
-									<tr>
-										<td style="background: lightgray;">활동상태</td>
-										<td class="memberStatus"></td>
-										<td style="background: lightgray;">탈퇴일</td>
-										<td class="memberEndDate"></td>
-									</tr>
-								
-								</table>
-							
-							
+								<%
+									for (int p = startPage; p <= endPage; p++) {
+										if (p == currentPage) {
+								%>
+								<button disabled><%=p%></button>
+								<% 
+									} else {
+								%>
+								<button onclick="location.href='<%=request.getContextPath()%>/selectList.me?currentPage=<%=p%>'"><%=p%></button>
+								<%
+									}
+								%>
+
+								<%
+									}
+								%>
+
+								<%
+									if (currentPage >= maxPage) {
+								%>
+								<button disabled>></button>
+								<%
+									} else {
+								%>
+								<button onclick="location.href='<%=request.getContextPath()%>/selectList.me?currentPage=<%=currentPage + 1%>'">></button>
+								<%
+									}
+								%>
+								<button onclick="location.href='<%=request.getContextPath()%>/selectList.me?currentPage=<%=maxPage%>'">>></button>
+								<br>
+								<!-- <div class="btns">
+									<button class="ui pink button" style="background: salmon;">블랙리스트
+										추가</button>
+									<button class="ui pink button" style="background: salmon;">탈퇴</button>
+								</div> -->
+							</div>
+
+						</div>
+						<br> <br> <br>
+						<label class="subtitle">업체 상세정보 조회</label>
+						<br>
+
+						<div>
+							<br> <br>
+							<table class="companyDetailnfo">
+								<tr>
+									<td class="companyDetailInfoTd1">아이디</td>
+									<td class="memberId"></td>
+									<td class="companyDetailInfoTd1">대표자명</td>
+									<td class="repName"></td>
+								</tr>
+								<tr>
+									<td class="companyDetailInfoTd1">업체구분</td>
+									<td class="comType"></td>
+									<td class="companyDetailInfoTd1">업체명</td>
+									<td class="memberName"></td>
+								</tr>
+								<tr>
+									<td class="companyDetailInfoTd1">이메일</td>
+									<td class="memberEmail"></td>
+									<td class="companyDetailInfoTd1">전화번호</td>
+									<td class="memberPhone"></td>
+								</tr>
+								<tr>
+									<td class="companyDetailInfoTd1">주소</td>
+									<td class="companyAddress"></td>
+									<td class="companyDetailInfoTd1">URL</td>
+									<td class="companyUrl"></td>
+								</tr>
+								<tr>
+									<td class="companyDetailInfoTd1">OPEN TIME</td>
+									<td class="companyOpenTime"></td>
+									<td class="companyDetailInfoTd1">CLOSE TIME</td>
+									<td class="companyCloseTime"></td>
+								</tr>
+								<tr>
+									<td class="companyDetailInfoTd1">은행</td>
+									<td class="companyBank"></td>
+									<td class="companyDetailInfoTd1">계좌번호</td>
+									<td class="companyBankNum"></td>
+								</tr>
+								<tr>
+									<td class="companyDetailInfoTd1">휴일</td>
+									<td class="companyHoliday"></td>
+									<td class="companyDetailInfoTd1">가입일</td>
+									<td class="memberEnrollDate"></td>
+								</tr>
+								<tr>
+									<td class="companyDetailInfoTd11">활동상태</td>
+									<td class="memberStatus"></td>
+									<td class="companyDetailInfoTd11">탈퇴일</td>
+									<td class="memberEndDate"></td>
+								</tr>
+
+							</table>
+							<br> <br> <br>
+
+
 
 						</div>
 
@@ -322,8 +298,96 @@
 		</div>
 
 		<script>
+		
 			$(function() {
-				$(".companyList td").mouseenter(function() {
+				
+				$(".searchCompanyListBtn").click(function() {
+					var searchCondition = [$(".companyName").val(), $("input:radio[name=companyCategory]:checked").val(), $("input:radio[name=companyEnrollDate ]:checked").val(), $("input:radio[name=companyStatus]:checked").val()];
+					$.ajaxSettings.traditional = true;
+					$.ajax({
+						url:"searchCompany.ad",
+						traditional:true,
+						data:{searchCondition:searchCondition},
+						type:"get",
+						success:function(data) {
+							console.log(data);
+							
+							$(".companyListTable").empty;
+							
+							for(var i = 0; i < data.list.length; i++) {
+								var list = data.list[i];
+								$infoTr = $("<tr>");
+								$checkBoxTd = $("<td>").text();
+								$rNumTd = $("<td>").text(list.rNum);
+								$comTypeTd = $("<td>").text(list.comType);
+								$memberNameTd = $("<td>").text(list.memberName);
+								$enrollDateTd = $("<td>").text(list.enrollDate);
+								$statusTd = $("<td>").text(list.status);
+								
+								$infoTr.append($checkBoxTd);
+								$infoTr.append($rNumTd);
+								$infoTr.append($comTypeTd);
+								$infoTr.append($memberNameTd);
+								$infoTr.append($enrollDateTd);
+								$infoTr.append($statusTd);
+								
+								$(".companyListTable").append($infoTr);
+							}
+							pageBtn(data);
+						}
+					});
+				
+					function pageBtn(data){
+				   		var $pageBtnArea = $(".pageBtnArea");
+				   			   
+						//BoardPageInfo pi = (BoardPageInfo) session.getAttribute("pi");
+						var currentPage = data.pi.currentPage;//pi.getCurrentPage();
+						var limit = data.pi.limit;
+						var maxPage = data.pi.maxPage;
+						var startPage = data.pi.startPage;
+						var endPage = data.pi.endPage;
+					
+								
+				   		$pageBtnArea.empty();
+				   
+				   		$pageBtnArea.append($("<br>"));		   
+				   
+				  		$pageBtnArea.append($("<button>").attr("class","paging").text("<<").css("cursor","pointer").click(function(){
+							currentView(1);
+				   		}));
+				   			   
+						if(currentPage <= 1) { 
+							$pageBtnArea.append($("<button>").attr("class","paging").text("<").attr("disabled",true).css("cursor","pointer"));
+						}else{ 
+							$pageBtnArea.append($("<button>").attr("class","paging").text("<").css("cursor","pointer").click(function(){
+								currentView(currentPage - 1);
+						 	}));
+					 	} 
+						for(var p= startPage; p <= endPage; p++){
+							if(p == currentPage){
+								$pageBtnArea.append($("<button>").attr("class","paging").text(p).attr("disabled",true).css("cursor","pointer"));
+					 		}else{ 
+								$pageBtnArea.append($("<button>").attr("class","paging").css("cursor","pointer").text(p).click(function(){
+							   		currentView($(this).text());
+						   		}));
+					 		}
+					 	} 
+						
+					 	if(currentPage >= maxPage){ 
+							$pageBtnArea.append($("<button>").attr("class","paging").text(">").attr("disabled",true).css("cursor","pointer"));					
+					 	}else {
+						 	$pageBtnArea.append($("<button>").attr("class","paging").text(">").css("cursor","pointer").click(function(){
+								currentView(currentPage + 1);
+						   	}));
+					 	} 
+					 	$pageBtnArea.append($("<button>").attr("class","paging").text(">>").click(function(){
+							currentView(maxPage);
+						}));
+						 	
+					}
+				});
+				
+				$(".companyListTable tbody td").mouseenter(function() {
 					$(this).parent().css({"background":"mistyrose", "cursor":"pointer"});
 				}).mouseout(function(){
 					$(this).parent().css({"background":"white"});
@@ -354,15 +418,10 @@
 						}
 					});
 				});
+				
 			});
 			
-			
-			
-			
-			
-			
-			
-			
+	
 		</script>
 </body>
 </html>

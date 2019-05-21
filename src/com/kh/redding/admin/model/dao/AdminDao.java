@@ -16,6 +16,7 @@ import java.util.Properties;
 
 import com.kh.redding.admin.model.vo.TotalMemberPageInfo;
 import com.kh.redding.company.model.vo.Company;
+import com.kh.redding.member.model.dao.MemberDao;
 import com.kh.redding.member.model.vo.Member;
 
 public class AdminDao {
@@ -233,6 +234,7 @@ public class AdminDao {
 		ArrayList<HashMap<String, Object>> list = null;
 		HashMap<String,Object> hlist = null;
 		String num = "";
+		String comType = "";
 		Member member = null;
 		
 		String query = prop.getProperty("selectCompanyListAfterPaging");
@@ -254,6 +256,7 @@ public class AdminDao {
 				member = new Member();
 				
 				num = rset.getInt("RNUM")+ "";
+				comType = rset.getString("COM_TYPE");
 				member.setMno(rset.getInt("MNO"));
 				member.setMemberId(rset.getString("MID"));
 				member.setMemberPwd(rset.getString("MPWD"));
@@ -273,6 +276,7 @@ public class AdminDao {
 				// System.out.println(num);
 				
 				hlist.put("num", num);
+				hlist.put("comType", comType);
 				hlist.put("member", member);
 				list.add(hlist);
 			}
@@ -508,6 +512,81 @@ public class AdminDao {
 			}
 
 			return list;
+		}
+
+		public ArrayList<HashMap<String, Object>> searchCompanyList(Connection con, TotalMemberPageInfo pi, ArrayList searchConditionList) {
+			Properties prop = new Properties();
+			String fileName = MemberDao.class.getResource("/sql/admin/admin-query.properties").getPath();
+			try {
+				prop.load(new FileReader(fileName));
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			ArrayList<HashMap<String, Object>> searchCompanyList = null;
+			HashMap<String, Object> hlist = null;
+			Member member = null;
+			String num = "";
+			String comType = "";
+			
+			String query = prop.getProperty("selectSearchCompanyList");
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+			int endRow = startRow + pi.getLimit() - 1;
+			String companyName = searchConditionList.get(0).toString();
+			
+			try {
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, companyName);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+				
+				rset = pstmt.executeQuery();
+				
+				searchCompanyList = new ArrayList<HashMap<String, Object>>();
+				
+				while(rset.next()) {
+					hlist = new HashMap<String,Object>();
+					member = new Member();
+					
+					num = rset.getInt("RNUM")+ "";
+					comType = rset.getString("COM_TYPE");
+					member.setMno(rset.getInt("MNO"));
+					member.setMemberId(rset.getString("MID"));
+					member.setMemberPwd(rset.getString("MPWD"));
+					member.setMemberName(rset.getString("MNAME"));
+					member.setNickName(rset.getString("NICK_NAME"));
+					member.setPhone(rset.getString("PHONE"));
+					member.setEmergenCon(rset.getString("EMERGEN_CON"));
+					member.setEmail(rset.getString("EMAIL"));
+					member.setEmailCheck(rset.getString("EMAIL_CHECK"));
+					member.setGender(rset.getString("GENDER"));
+					member.setEnrollDate(rset.getDate("ENROLL_DATE"));
+					member.setModifyDate(rset.getDate("MODIFY_DATE"));
+					member.setStatus(rset.getString("STATUS"));
+					member.setMemberType(rset.getInt("MTYPE"));
+					member.setWeddingDate(rset.getDate("WEDDING_DATE"));
+					
+					// System.out.println(num);
+					
+					hlist.put("num", num);
+					hlist.put("comType", comType);
+					hlist.put("member", member);
+					searchCompanyList.add(hlist);
+					System.out.println("searchConditionList디에이오 : " + searchConditionList);
+					
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+
+			return searchCompanyList;
 		}
 	
 
