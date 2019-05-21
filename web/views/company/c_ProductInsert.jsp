@@ -267,8 +267,8 @@
          
         
          $("#PIInsertBtn").click(function(){
-            var a = $("#PICategorySelect").val();
-            var b = $("#PIManagerSelect").val();
+            /* var a = $("#PICategorySelect").val();
+            var b = $("#PIManagerSelect").val(); */
             //console.log(a);
             //console.log(b);
             
@@ -288,7 +288,7 @@
          });
          $("#PIResetBtn").click(function(){
             alert("상품등록을 취소하셨습니다.");
-            location.href="<%=request.getContextPath()%>/views/company/c_ProductManagement.jsp";
+            location.href="<%=request.getContextPath()%>/selectProList.pr";
          });
       });
 

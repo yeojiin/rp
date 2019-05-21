@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*, com.kh.redding.product.model.vo.*"%>
 <%   
-   ArrayList<Product> proList = (ArrayList<Product>) request.getAttribute("proList"); 
-   PageInfo pi = (PageInfo)request.getAttribute("pi");
+	HashMap<String, Object> hmap = (HashMap<String, Object>)request.getAttribute("hmap");
+	
+	ArrayList<Product> proList = (ArrayList<Product>)hmap.get("proList");
+	PageInfo pi = (PageInfo) hmap.get("pi");
+			
+   /* ArrayList<Product> proList = (ArrayList<Product>) request.getAttribute("proList"); 
+   PageInfo pi = (PageInfo)request.getAttribute("pi"); */
    
    ProductCounts pcount = (ProductCounts) request.getAttribute("pcount");
    
@@ -18,7 +23,6 @@
             int productTotalCount = pcount.getProductTotalCount();
             int SaleProductCount = pcount.getSaleProductCount();
             int NoSaleProductCount = pcount.getNoSaleProductCount();
-      
          
 %>
 <!DOCTYPE html>
@@ -74,7 +78,8 @@
       <div class="row content">
       
          <div class="col-sm-2 sidenav1 visible-md visible-lg visible-sm">
-            <div id="productUploadBtn">상품 등록</div>
+            <div id="productUploadBtn">상품 등록</div><br><br>
+            <div id="proResBtn">예약 현황</div>
          </div>
          
          
@@ -206,8 +211,8 @@
                         <tr>
                         <!-- ajax로 행 처리하기 처리할때 아래와 같이 체크박스와 버튼 도 같이 나와야 한다. -->
                            <td><input type="checkbox" name="proCheck" id="proCheck"></td>
-                           <td><%-- <%=startRow %> --%>
-                           	  <input type="number" name="startRows" id="startRows" value="<%=startRow %>" readonly>
+                           <td>
+                                <input type="number" name="startRows" id="startRows" value="<%=startRow %>" readonly>
                               <input type="hidden" name="proNum" id="proNum" value="<%=pro.getpNo() %>">
                            </td>
                            <td><%=pro.getpName() %></td>
@@ -238,34 +243,34 @@
                      </tr>
                   </table>
                   <div class="paginArea" align = "center">
-               <button onclick="location.href='<%=request.getContextPath()%>/selectProList.pr?currentPage=1'"> << </button>
-               <%if(currentPage<=1){ %>         
-                  <button disabled> < </button>
-               <%} else{%>
-                  <button onclick="location.href='<%=request.getContextPath() %>/selectProList.pr?currentPage=<%=currentPage - 1 %>'"> < </button>
-               <%} %>
-               
-               
-               <%for(int p=startPage ; p<=endPage ; p++){ 
-                  if(p == currentPage){%>
-                     <button disabled> <%=p %> </button>
-                  <%}else{ %>
-                     <button onclick="location.href='<%=request.getContextPath()%>/selectProList.pr?currentPage=<%=p%>'"> <%=p %> </button>
-                  <%} %>
-               
-               <%} %>
-               
-               
-               <%if(currentPage >= maxPage){ %>
-                  <button disabled> > </button>
-               <%}else{ %>
-                  <button onclick="location.href='<%=request.getContextPath()%>/selectProList.pr?currentPage=<%=currentPage + 1%>'"> > </button>
-               <%} %>         
-               
-               <button onclick="location.href='<%=request.getContextPath()%>/selectProList.pr?currentPage=<%=maxPage%>'"> >> </button>
-         
-         
-            </div>
+	               <button onclick="location.href='<%=request.getContextPath()%>/selectProList.pr?currentPage=1'"> << </button>
+	               <%if(currentPage<=1){ %>         
+	                  <button disabled> < </button>
+	               <%} else{%>
+	                  <button onclick="location.href='<%=request.getContextPath() %>/selectProList.pr?currentPage=<%=currentPage - 1 %>'"> < </button>
+	               <%} %>
+	               
+	               
+	               <%for(int p=startPage ; p<=endPage ; p++){ 
+	                  if(p == currentPage){%>
+	                     <button disabled> <%=p %> </button>
+	                  <%}else{ %>
+	                     <button onclick="location.href='<%=request.getContextPath()%>/selectProList.pr?currentPage=<%=p%>'"> <%=p %> </button>
+	                  <%} %>
+	               
+	               <%} %>
+	               
+	               
+	               <%if(currentPage >= maxPage){ %>
+	                  <button disabled> > </button>
+	               <%}else{ %>
+	                  <button onclick="location.href='<%=request.getContextPath()%>/selectProList.pr?currentPage=<%=currentPage + 1%>'"> > </button>
+	               <%} %>         
+	               
+	               <button onclick="location.href='<%=request.getContextPath()%>/selectProList.pr?currentPage=<%=maxPage%>'"> >> </button>
+	         
+	         
+	            </div>
                </div>
                </div>
             </div>
@@ -296,17 +301,7 @@
             //c_ProductUpload.jsp로 페이지 이동해주기
             location.href="<%=request.getContextPath()%>/views/company/c_ProductInsert.jsp";
          });   
-         $(".productDetail").click(function(){
-            //결과 조회 목록에서 버튼 클릭시 페이지 이동
-            //상세보기 페이지 갓다가 -> 수정페이지 혹은 삭제페이지로 이동하자
-            var pNo = $(this).parent().parent().children().eq(1).children().eq(0).val();
-            //console.log("pno: " + pNo);
-            /* pNo = Number(pNo);
-            console.log("typeof(pno) : " + typeof(pNo)); */
-            
-            
-            location.href="<%=request.getContextPath()%>/proDetail.pr?pno="+pNo;
-         });
+         
          $("#productDeleteBtn").click(function(){
             var result = window.confirm("정말 삭제 하시겠습니까?");
             if(result == true){
@@ -316,70 +311,107 @@
             }
          });
          $("#searchBtn").click(function(){
-            /* 검색값들을 서블릿으로 넘겨주어야 함 */
-            /* var startDate = $("input[name=startDate]").val();
-            var endDate = $("input[name=endDate]").val(); */
             
-            /* console.log(startDate); */
             
-            /* console.log(typeof($("input[name=productSearchForName]").val())); */
-            /* $("#productSearch").submit(); */
-            
-            <%-- var proName = $("input[name=productSearchForName]").val();
+            var proName = $("input[name=productSearchForName]").val();
             console.log(proName);
             var prostatus = $("input[name=productSearchAbountSale]:checked").val();
             console.log(prostatus);
             
             $.ajax({
-            	url:"searchPro.pr",
-            	data:{proName:proName, prostatus:prostatus},
-            	type:"post",
-            	success:function(data){
-            		alert("성공");
-            		alert(data);
-            		$tableBody = $("#productSearchResulTB tbody");
-            		$tableBody.html('');
-            		$.each(data,function(index, value){
-            			
+               url:"searchPro.pr",
+               data:{proName:proName, prostatus:prostatus},
+               type:"post",
+               dataType:"json",
+               success:function(data){
+            	   
+					/* alert("성공");
+					alert(data); */
+					$tableBody = $("#productSearchResulTB tbody");
+					$tableBody.html('');
+					
+					/* ---------------------------------------------------------- */
+					var ctn = 1;
+                  
+					var $tr1 = $("<tr>");
+					var $ckTh = $("<th width='3%'>");
+					var $startTh = $("<th width='5%'>").text("No.");
+					/* var $noTh = $("<th width='5%'>").text("pno."); */
+					var $nameTh = $("<th width='5%'>").text("상품명");
+					var $priceTh = $("<th width='10%'>").text("가격(원)");
+					var $penrollTh = $("<th width='15%'>").text("상품등록일");
+					var $pmodifyTh = $("<th width='15%'>").text("상품수정일");
+					var $pstatusTh = $("<th width='10%'>").text("판매여부");
+					var $btnTh = $("<th width='10%'>");
+					
+					$tr1.append($ckTh);
+					$tr1.append($startTh);
+					$tr1.append($nameTh);
+					$tr1.append($priceTh);
+					$tr1.append($penrollTh);
+					$tr1.append($pmodifyTh);
+					$tr1.append($pstatusTh);
+					$tr1.append($btnTh);
+					
+					$tableBody.append($tr1);
+					$.each(data,function(index, value){
+					   
 						var $tr = $("<tr>");
-						
+						      
 						var $ckTd = $("<td>");
 						var $ckIn = $("<input type='checkbox' name='proCheck' id='proCheck'>");
 						
 						var $startTd = $("<td>");
 						var $startIn = $("<input type='number' name='startRows' id='startRows' readonly>");
-						 value='<%=startRow %>' 
+						$startIn.val(ctn); 
 						
-						var $noTd = $("<td>");
-						var $noIn = $("<input type='hidden' name='proNum' id='proNum'>");
-						val(value.);
-						
-						var $nameTd = $("<td>");
-						/* var $noTd = $("<td>");
-						var $noIn = $("<input type='hidden' name='proNum' id='proNum'>");
-						
-						var $noTd = $("<td>");
-						var $noIn = $("<input type='hidden' name='proNum' id='proNum'>");
+						var $noIn = $("<input type='hidden' name='proNum' id='proNum'>").val(value.pNo);
 						
 						
-												
-						var $noTd = $("<td>").text(value.userNo);
+						var $nameTd = $("<td>").text(value.pName);
 						
-						var $nameTd = $('<td>').text(decodeURIComponent(value.userName));
+						var $priceTd = $("<td>").text(value.price);
 						
-						var $nationTd = $('<td>').text(decodeURIComponent(value.userNation));
+						/* console.log(typeof(value.pEnrollDate)); */
 						
-						$tr.append($noTd);
+						var $penrollDateTd = $("<td>").text(value.pEnrollDate);
+						
+						var $pmodifyDateTd = $("<td>").text(value.pmodifyDate);
+						
+						var $proStatusTd = $("<td>").text(value.proStatus);
+						
+						var $btnTd = $("<td>");
+						var $btnIn = $("<div id='productDetailBtn' class='productDetail'>상세보기</div>");
+						
+						$btnTd.append($btnIn);
+						$startIn.append($noIn);
+						$startTd.append($startIn);
+						$ckTd.append($ckIn);
+						      
+						     
+						$tr.append($ckTd);
+						$tr.append($startTd);
 						$tr.append($nameTd);
-						$tr.append($nationTd);
-						$tableBody.append($tr); */
-            		});
-            	},
-            	error:function(data){
-            		alert("실패");
-            	}
-            	
-            }); --%>
+						$tr.append($priceTd);
+						$tr.append($penrollDateTd);
+						$tr.append($pmodifyDateTd);
+						$tr.append($proStatusTd);
+						$tr.append($btnTd);
+						
+						$tableBody.append($tr);
+						
+						$(".productDetail").click(function(){
+							
+							var pNo = $(this).parent().parent().children().eq(1).children().eq(0).val();
+							location.href="<%=request.getContextPath()%>/proDetail.pr?pno="+pNo;
+						});
+						ctn = ctn + 1;
+					});
+               },
+               error:function(data){
+                  alert("실패");
+               }
+            });
             
          });
          
@@ -387,7 +419,7 @@
              var pnoString = [];
              var status = "판매";
              $("input[name=proCheck]").each(function(){
-                var pno = $(this).parent().parent().children().eq(1).children().eq(0).val();
+                var pno = $(this).parent().parent().children().eq(1).children().eq(1).val();
                 if($(this).is(":checked")){
                    pnoString += pno +",";
                    //console.log(pnoString);
@@ -400,7 +432,7 @@
              var pnoString = [];
              var status = "판매안함";
              $("input[name=proCheck]").each(function(){
-                var pno = $(this).parent().parent().children().eq(1).children().eq(0).val();
+                var pno = $(this).parent().parent().children().eq(1).children().eq(1).val();
                 if($(this).is(":checked")){
                    pnoString += pno +",";
                    //console.log(pnoString);
@@ -409,6 +441,23 @@
                 }    
              });
           });
+         
+         $(".productDetail").click(function(){
+             //결과 조회 목록에서 버튼 클릭시 페이지 이동
+             //상세보기 페이지 갓다가 -> 수정페이지 혹은 삭제페이지로 이동하자
+             var pNo = $(this).parent().parent().children().eq(1).children().eq(1).val();
+             //console.log("pno: " + pNo);
+             /* pNo = Number(pNo);
+             console.log("typeof(pno) : " + typeof(pNo)); */
+             
+             
+             location.href="<%=request.getContextPath()%>/proDetail.pr?pno="+pNo;
+          });
+         
+         $("#proResBtn").click(function(){
+        	 location.href="<%=request.getContextPath()%>/views/company/c_productReservation.jsp";
+         });
+		
       });
    </script>
 </body>

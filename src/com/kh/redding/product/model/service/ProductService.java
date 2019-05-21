@@ -121,6 +121,7 @@ public class ProductService {
 		}else {
 			rollback(con);
 		}
+		close(con);
 		return result;
 	}
 	public Product updateProduct(Product product) {
@@ -141,6 +142,7 @@ public class ProductService {
 		}else {
 			rollback(con);
 		}
+		close(con);
 		return pro;
 	}
 	public int updateUseProductList(int pno, String ustatus, int cno) {
@@ -155,6 +157,7 @@ public class ProductService {
 		}else{
 			rollback(con);
 		}
+		close(con);
 		return result;
 	}
 		
@@ -169,6 +172,7 @@ public class ProductService {
 		}else {
 			rollback(con);
 		}
+		close(con);
 		
 		System.out.println("uproresult : " + result);
 		return result;
@@ -191,22 +195,49 @@ public class ProductService {
 		
 		
 		if(result>0) {
+			//System.out.println("상품업뎃 성공 ");
 			commit(con);
 		}else {
 			rollback(con);
 		}
+		close(con);
 		return result;
 	}
 	public int updateTotalUseProductStatus(int pno, String ustatus) {
 		Connection con = getConnection();
 		int result = new ProductDao().updateTotalUseProductStatus(con, ustatus, pno);
 		if(result>0) {
+			//System.out.println("제품 리스트 업뎃 성공 ");
 			commit(con);
 		}else {
 			rollback(con);
 		}
-		
+		close(con);
 		//System.out.println("uproresult : " + result);
 		return result;
+	}
+	public ArrayList<Product> searchProduct(int value, int cno, String searchProName, String searchStatus, PageInfo pi) {
+		Connection con = getConnection();
+		ArrayList<Product> proList= new ProductDao().searchProduct(con, value, cno, searchProName, searchStatus,pi);
+		close(con);
+		return proList;
+	}
+	public int getListCountJustStatus(int cno, String searchStatus) {
+		Connection con = getConnection();
+	    int listCount = new ProductDao().getListCountJustStatus(con, cno, searchStatus);
+	    close(con);
+	    return listCount;
+	}
+	public int getListCountNameStatus(int cno, String searchProName, String searchStatus) {
+		Connection con = getConnection();
+		int listCount = new ProductDao().getListCountNameStatus(con, cno, searchProName, searchStatus);
+		close(con);
+		return listCount;
+	}
+	public int getListJustName(int cno, String searchProName) {
+		Connection con = getConnection();
+		int listCount = new ProductDao().getListJustName(con, cno, searchProName);
+		close(con);
+		return listCount;
 	}
 }
