@@ -10,11 +10,12 @@ public class Attachment implements java.io.Serializable{
 	private int mno;
 	private String acontent;
 	private int couponCode;
+	private String cno_div;
 	
 	public Attachment () {}
 
 	public Attachment(int aid, String originname, String changename, String filepath, int adivision, int bid, int mno,
-			String acontent, int couponCode) {
+			String acontent, int couponCode, String cno_div) {
 		super();
 		this.aid = aid;
 		this.originname = originname;
@@ -25,6 +26,15 @@ public class Attachment implements java.io.Serializable{
 		this.mno = mno;
 		this.acontent = acontent;
 		this.couponCode = couponCode;
+		this.cno_div = cno_div;
+	}
+
+	public String getCno_div() {
+		return cno_div;
+	}
+
+	public void setCno_div(String cno_div) {
+		this.cno_div = cno_div;
 	}
 
 	public int getAid() {

@@ -227,6 +227,27 @@ public class BoardService {
 		return result;
 	}
 
+	//QnA 리스트 불러오기
+	public ArrayList<HashMap<String, Object>> selectQnAList(int mno, BoardPageInfo pi) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String , Object>> QnAlist = new BoardDao().selectQnAList(con, mno , pi);
+		
+		close(con);
+		
+		return QnAlist;
+	}
+
+	public int getQnACountSelect(int mno) {
+		Connection con = getConnection();
+		
+		int count = new BoardDao().selectQnaCount(con, mno);
+		
+		close(con);
+		
+		return count;
+	}
+
 
 
 	

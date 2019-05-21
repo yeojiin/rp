@@ -20,22 +20,24 @@ import com.kh.redding.company.model.service.CompanyService;
 import com.kh.redding.member.model.vo.Member;
 import com.oreilly.servlet.MultipartRequest;
 
-@WebServlet("/changePhoto.co")
-public class UpdateCompanyPhotoServlet extends HttpServlet {
+
+@WebServlet("/addPhoto.co")
+public class AddCompanyPhotoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-
-    public UpdateCompanyPhotoServlet() {
+    
+    public AddCompanyPhotoServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		if (ServletFileUpload.isMultipartContent(request)) {
 
 			int maxSize = 1024 * 1024 * 10;
 
-			
 			String root = request.getSession().getServletContext().getRealPath("/");
+
 
 			//파일을 저장 경로 설정
 			String filePath = root + "company_upload/";
@@ -54,62 +56,60 @@ public class UpdateCompanyPhotoServlet extends HttpServlet {
 				saveFiles.add(multiRequest.getFilesystemName(name));
 					
 				originFiles.add(multiRequest.getOriginalFileName(name));
-				
 
 			}
+	
 			
-			String changeName = saveFiles.get(0);
-			String originName = originFiles.get(0);
-			
-			int aid = Integer.parseInt(multiRequest.getParameter("changeAid"));
-			String originChange = multiRequest.getParameter("OriginchangeName");
-			
-			Attachment changeAttach= new Attachment();
-			changeAttach.setAid(aid);
-			changeAttach.setChangename(changeName);
-			changeAttach.setOriginname(originName);
+			HttpSession session = request.getSession();
 
+			Member loginUser = (Member)session.getAttribute("loginUser");
+			
+			ArrayList<Attachment> fileList = new ArrayList<Attachment>();
 
-			int	result = new CompanyService().updateAttachment(changeAttach);
-				
+			for (int i = originFiles.size() -1 ; i >= 0 ; i--) {
+				if (originFiles.get(i) != null || saveFiles.get(i) != null) {
+					Attachment at = new Attachment();
 					
+					at.setFilepath(filePath);
+					at.setOriginname(originFiles.get(i));
+					at.setChangename(saveFiles.get(i));
+					
+					at.setCno_div("서브");
+					
+					fileList.add(at);
+					
+				}
+			}
+		
 			
-			String page = "";
-			if (result > 0) {	
-				page = request.getContextPath()+"/selectPhoto.co";
-								
-				File existingFile = new File(filePath + originChange);
-				
-				System.out.println(originChange);
-				
-				existingFile.delete();	
-				
-				response.sendRedirect(page);
-				
+
+			int result = new CompanyService().insertAttachment(loginUser,fileList);
+
+			if(result > 0) {
+				response.sendRedirect(request.getContextPath()+"/photo.co");
+
 			}else {
 				for (int i = 0 ; i< saveFiles.size() ; i++) {
 					File failedFile = new File(filePath + saveFiles.get(i));
-					
+
 					System.out.println(failedFile.delete());
+					
 				}
 
-				
-				page = "/views/common/errorPage.jsp";
-				
-				request.setAttribute("msg", "회원가입 실패");
-				
-				request.getRequestDispatcher(page).forward(request, response);
-				
+				request.setAttribute("msg", "게시물 오류했습니다");
+				request.getRequestDispatcher("/views/common/errorPage.jsp").forward(request, response);
 			}
-
+			
 		}
 		
-	
-	
+		
+		
+		
+		
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
