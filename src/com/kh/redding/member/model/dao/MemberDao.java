@@ -230,7 +230,7 @@ public class MemberDao {
 			while(rset.next()) {
 				hmap = new HashMap<String, Object>();
 				
-				/*hmap.put("filepath", rset.getString("FILE_PATH"));*/
+				hmap.put("filepath", rset.getString("FILE_PATH"));
 				hmap.put("changename", rset.getString("CHANGE_NAME"));
 				hmap.put("membername", rset.getString("MNAME"));
 				hmap.put("price", rset.getInt("PRICE"));
@@ -296,38 +296,72 @@ public class MemberDao {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+			
 		PreparedStatement pstmt = null;
+		Statement stmt = null;
 		ResultSet rset = null;
 		ArrayList<HashMap<String, Object>> list = null;
 		String query = prop.getProperty("dynamicQuery");
 		
-		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
-		int endRow = startRow + pi.getLimit() - 1;
-			
+					
 		try {
 			
-			if(value == 10) {
+
+			if(value == 30 || value == 60 || value == 70){
 				pstmt = con.prepareStatement(query);
-				pstmt.setInt(1, mno);
-				pstmt.setInt(2, startRow);
-				pstmt.setInt(3, endRow);
+				if(value == 70) {
+					pstmt.setString(1, "환불");
+				}else {
+					pstmt.setString(1, "결제");
+				}
+				
 				
 				rset = pstmt.executeQuery();
+				
 				list = new ArrayList<HashMap<String, Object>>();
 				
 				while(rset.next()) {
 					HashMap<String, Object> hmap = new HashMap<String, Object>();
 					
+					hmap.put("payNo", rset.getInt("PAYNO"));
+					hmap.put("upno", rset.getInt("UPNO"));
 					hmap.put("rnum", rset.getInt("RNUM"));
 					hmap.put("pName", rset.getString("PNAME"));
 					hmap.put("cName", rset.getString("CNAME"));
-					hmap.put("rapply", rset.getString("RAPPLY_DATE"));
+					hmap.put("rapply", rset.getString("RAPPLY"));
 					hmap.put("price", rset.getInt("PRICE"));
-					hmap.put("status", rset.getString("RSTATUS"));
+					hmap.put("payDiv", rset.getString("PAYDIV"));
+					hmap.put("approval", rset.getString("APPROVAL"));
 					
 					list.add(hmap);
 
+				}
+				
+			}else if(value ==10 || value == 20 || value == 40 || value == 50) {   
+				stmt = con.createStatement();
+				System.out.println("query" + query);
+				rset = stmt.executeQuery(query);
+				
+				list = new ArrayList<HashMap<String, Object>>();
+				
+				while(rset.next()) {
+					
+					if(value ==10 || value == 20 ||value == 40 || value == 50) {
+						
+						HashMap<String, Object> hmap = new HashMap<String, Object>();
+						
+						hmap.put("resNo", rset.getInt("RESNO"));
+						hmap.put("upno", rset.getInt("UPNO"));
+						hmap.put("rnum", rset.getInt("RNUM"));
+						hmap.put("pName", rset.getString("PNAME"));
+						hmap.put("cName", rset.getString("CNAME"));
+						hmap.put("rapply", rset.getString("RAPPLY_DATE"));
+						hmap.put("price", rset.getInt("PRICE"));
+						hmap.put("status", rset.getString("RSTATUS"));
+						
+						list.add(hmap);
+					}
+									
 				}
 			}
 			
@@ -335,12 +369,112 @@ public class MemberDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
 		}
 		
 		
 		return list;
 	}
+
+	public ArrayList<HashMap<String, Object>> selectDetailCom(Connection con, M_comListPageInfo clpi, String mname) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		
+		System.out.println("con : " + con);
+		System.out.println("mname : " + mname);
+		
+		String query = prop.getProperty("selectDetailCom");
+		
+		int startRow = (clpi.getCurrentPage() - 1) * clpi.getLimit() + 1;
+		int endRow = startRow + clpi.getLimit() - 1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, mname);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				
+				System.out.println("rset.getString(1) : "+rset.getString("FILE_PATH"));
+				
+				hmap.put("filepath", rset.getString("FILE_PATH"));
+				hmap.put("changename", rset.getString("CHANGE_NAME"));
+				hmap.put("comAddress", rset.getString("COM_ADDRESS"));
+				hmap.put("ComUrl", rset.getString("COM_URL"));
+				hmap.put("OpenTime", rset.getString("OPEN_TIMES"));
+				hmap.put("EndTime", rset.getString("CLOSE_TIMES"));
+				hmap.put("membername", rset.getString("MNAME"));
+				hmap.put("pName", rset.getString("PNAME"));
+				
+				list.add(hmap);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		System.out.println("hmap : " + hmap);
+		System.out.println("listDao : " + list);
+		return list;
+	}
 	
+	public int getCountList(Connection con, int value) {
+		Properties prop = new Properties();
+		String fileName = MemberDao.class.getResource("/sql/member/member-query.properties").getPath();
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		Statement stmt = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		String query = prop.getProperty("countDynamicQuery");
+		try {
+			if(value == 60) {
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, "결제");
+				
+				rset = pstmt.executeQuery();
+				
+				
+				
+			}else {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			}
+			
+			if(rset.next()) {
+				count = rset.getInt(1);				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		return count;
+	}	
 	
 }
 

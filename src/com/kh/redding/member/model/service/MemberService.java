@@ -115,7 +115,30 @@ public class MemberService {
 		
 		return list;
 	}
+
+	public ArrayList<HashMap<String, Object>> selectDetailCom(M_comListPageInfo clpi, String mname) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new MemberDao().selectDetailCom(con, clpi, mname);
+		for(int i = 0; i < list.size(); i++) {
+			
+		}
+		System.out.println("list service : " + list);
+		
+		close(con);
+		
+		return list;
+	}
 	
 	
+	public int getCountList(int value) {
+		Connection con = getConnection();
+		
+		int count = new MemberDao().getCountList(con, value);
+		
+		close(con);
+		
+		return count;
+	}
 
 }

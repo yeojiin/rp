@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.redding.member.model.vo.*, com.kh.redding.attachment.model.vo.*, java.util.*"%>
+<%
+	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
+	M_comListPageInfo clpi = (M_comListPageInfo) request.getAttribute("clpi");
+	int currentPage = clpi.getCurrentPage();
+	int maxPage = clpi.getMaxPage();
+	int startPage = clpi.getStartPage();
+	int endPage = clpi.getEndPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -78,8 +86,14 @@
 
 			<div class="col-sm-8 text-left">
 				<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
+				<form action="<%=request.getContextPath()%>/selectDetailCom.dc">
 				<br>
-				<p style="font-size:40px; text-align:center">KH스튜디오</p>
+				<%
+            		HashMap<String, Object> hmap = null;
+            		for (int i = 0; i < list.size(); i++) {
+            			hmap = list.get(i);
+            	%>
+				<p style="font-size:40px; text-align:center"><%=hmap.get("membername") %></p>
 				<div id="titleimg" style="width:100%; height:auto;">
 					<div style="width:50%; height:auto; float:left;">
 						<img src="../../images/logo.png" id="timg" style="max-width:100%;">
@@ -87,7 +101,7 @@
 					<div style="width:50%; height:auto; float:right;">
 					<br><br><br><br><br>
 						<p style="font-size:20px;">상품이름 : <select>
-							<option>선택</option>
+							<option><%=hmap.get("pName") %></option>
 						</select></p>
 						<br><br>
 						<a class="btn btn-default" style="border-color:salmon; background:salmon; color:white; width:50%; height:auto; font-size:20px;">예약하기</a><br><br><br>
@@ -107,10 +121,10 @@
 										
 					<div style="width:100%; height:auto;">
 						<div id="div1" style=" width:50%; height:auto; float:left">
-						<p style="font-size:30px;">업체명</p>
-						<p style="font-size:30px;">서울시 강남구 역삼동</p>
-						<p style="font-size:30px;">영업시간 : PM 13:00 ~ PM 18:30</p>
-						<p style="font-size:30px;">홈페이지 : www.kh.or.kr</p>
+						<p style="font-size:30px;"><%=hmap.get("membername") %></p>
+						<p style="font-size:30px;"><%=hmap.get("comAddress") %></p>
+						<p style="font-size:30px;">영업시간 : AM <%=hmap.get("OpenTime") %> ~ PM <%=hmap.get("EndTime") %></p>
+						<p style="font-size:30px;">홈페이지 : <%=hmap.get("ComUrl") %></p>
 						<p style="font-size:30px;">인사말</p>
 						
 						<p style="font-size:15px;">못할 있는 바이며, 무엇을 희망의 청춘은 것이다. 앞이
@@ -251,17 +265,36 @@
 						<!-- <hr style="align:center; border-color:black; width:100%;" > -->
 						<a class="btn btn-default" style="border-color:salmon; background:salmon; color:white; float:right;">글쓰기</a>
 						<br>
-						<div class="text-center" style="width:100%;">
+						<div class="text-center">
 							<ul class="pagination">
-								<li><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
+								<button onclick="location.href='<%=request.getContextPath() %>/m_DetailSelect.ds?currentPage=1'"><<</button>
+								<% if(currentPage <= 1){ %>
+								<button disabled><</button>
+								<% }else{ %>
+								<button onclick="location.href='<%=request.getContextPath() %>/m_DetailSelect.ds?currentPage=<%=currentPage - 1%>'"><</button>
+								<% } %>
+								
+								<% for(int p = startPage; p <= endPage; p++){
+									if(p == currentPage){%>
+										<button disabled><%= p %></button>
+								<% }else{ %>
+									<button onclick="location.href='<%=request.getContextPath() %>/m_DetailSelect.ds?currentPage=<%= p %>'"><%= p %></button>
+								<% } %>
+								<% } %>
+								
+								<% if(currentPage >= maxPage){ %>
+								<button disabled>></button>
+								<% }else{ %>
+								<button onclick="location.href='<%=request.getContextPath() %>/m_DetailSelect.ds?currentPage=<%=currentPage + 1 %>'">></button>
+								<% } %>
+								<button onclick="location.href='<%=request.getContextPath() %>/m_DetailSelect.ds?currentPage=<%=maxPage %>'">>></button>
 							</ul>
 						</div>
 					</div>
+					<% } %>
+					</form>
 				</div>
+				
 
 				<!-- 오른쪽 빈공간 -->
 				<div class="col-sm-2 sidenav"></div>
@@ -321,14 +354,14 @@
                           level: 1 // 지도의 확대 레벨
                       };  
                   
-                  // 지도를 생성합니다    
+                  // 지도를 생성합니다
                   var map = new daum.maps.Map(mapContainer, mapOption); 
                   
                   // 주소-좌표 변환 객체를 생성합니다
                   var geocoder = new daum.maps.services.Geocoder();
                   
                   // 주소로 좌표를 검색합니다
-                  geocoder.addressSearch('서울특별시 강남구 테헤란로 14길 6', function(result, status) {
+                  geocoder.addressSearch(<%=hmap.get("ComAddress") %>, function(result, status) {
                   
                       // 정상적으로 검색이 완료됐으면 
                        if (status === daum.maps.services.Status.OK) {

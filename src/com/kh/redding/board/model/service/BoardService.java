@@ -210,6 +210,44 @@ public class BoardService {
 		return FAQList;
 	}
 
+	//문의글 작성
+	public int insertQnA(int mno, String conTitle, String contact, String category) {
+		Connection con = getConnection();
+		
+		int result = new BoardDao().insertQnA(con, mno , conTitle , contact , category);
+		
+		if (result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+	//QnA 리스트 불러오기
+	public ArrayList<HashMap<String, Object>> selectQnAList(int mno, BoardPageInfo pi) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String , Object>> QnAlist = new BoardDao().selectQnAList(con, mno , pi);
+		
+		close(con);
+		
+		return QnAlist;
+	}
+
+	public int getQnACountSelect(int mno) {
+		Connection con = getConnection();
+		
+		int count = new BoardDao().selectQnaCount(con, mno);
+		
+		close(con);
+		
+		return count;
+	}
+
 
 
 	

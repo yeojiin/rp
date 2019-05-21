@@ -2,6 +2,7 @@ package com.kh.redding.product.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -89,7 +90,25 @@ public class ProductSelectListServlet extends HttpServlet {
       pcount.setSaleProductCount(saleProductCount);
       pcount.setNoSaleProductCount(noSaleProductCount);
       
+      HashMap<String, Object> hmap = new HashMap<String, Object>();
+      
+      hmap.put("pi", pi);
+      hmap.put("proList", proList);
+      hmap.put("pcount", pcount);
+      
       String page = "";
+      if(proList != null) {
+         page = "views/company/c_ProductManagement.jsp";
+         request.setAttribute("hmap", hmap);
+         request.setAttribute("pi", pi);
+         request.setAttribute("pcount", pcount);
+      }else {
+         page = "views/common/errorPage.jsp";
+         request.setAttribute("msg", "상품목록 조회에 실패하셨습니다.");
+      }
+      request.getRequestDispatcher(page).forward(request, response);
+      
+      /*String page = "";
       if(proList != null) {
          page = "views/company/c_ProductManagement.jsp";
          request.setAttribute("proList", proList);
@@ -99,7 +118,7 @@ public class ProductSelectListServlet extends HttpServlet {
          page = "views/common/errorPage.jsp";
          request.setAttribute("msg", "상품목록 조회에 실패하셨습니다.");
       }
-      request.getRequestDispatcher(page).forward(request, response);
+      request.getRequestDispatcher(page).forward(request, response);*/
    }
 
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

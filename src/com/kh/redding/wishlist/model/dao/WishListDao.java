@@ -53,12 +53,11 @@ public class WishListDao {
 				hmap.put("price", rset.getInt("PRICE"));
 				hmap.put("mname", rset.getString("MNAME"));
 				hmap.put("ctype", rset.getString("COM_TYPE"));
+				hmap.put("wishcode", rset.getInt("WISH_CODE"));
 				
 				list.add(hmap);
 				
 			}
-			
-		
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -96,6 +95,76 @@ public class WishListDao {
 		}
 			
 		return result;
+	}
+
+	
+	//위시리스트 담기용 메소드
+	public int insertPackage(Connection con, int[] packList) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		for(int num : packList) {
+			String query = prop.getProperty("insertPackage");
+			
+			try {
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, num);
+				
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+		}
+		
+		return result;
+	}
+
+	
+	//패키기 불러오기 메소드
+	public ArrayList<HashMap<String, Object>> showPackagePro(Connection con, int mno) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String,Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("showPackage");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+
+			rset= pstmt.executeQuery();
+
+			list = new ArrayList<HashMap<String,Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				
+				hmap.put("wishCode", rset.getInt("WISH_CODE"));
+				hmap.put("mname", rset.getString("MNAME"));
+				hmap.put("mno", rset.getInt("MNO"));
+				hmap.put("pno",rset.getInt("PNO"));
+				hmap.put("comType", rset.getString("COM_TYPE"));
+				hmap.put("pname", rset.getString("PNAME"));
+				hmap.put("pcontent", rset.getString("PCONTENT"));
+				hmap.put("price", rset.getInt("PRICE"));
+				hmap.put("cno", rset.getInt("CNO"));
+				hmap.put("cname", rset.getString("CNAME"));
+				
+				list.add(hmap);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
 	}
 
 }

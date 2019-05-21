@@ -38,6 +38,8 @@ public class MemberReservationSelectServlert extends HttpServlet {
 		
 		int value = Integer.parseInt(request.getParameter("value"));
 		int mno = Integer.parseInt(request.getParameter("mno"));
+		String firstDate = request.getParameter("firstDate");
+		String lastDate = request.getParameter("lastDate");
 		
 		int currentPage;		//현재 페이지를 표시할 변수
 		int limit;				//한 페이지에 게시글이 몇 개 보여질 것인지 표시
@@ -57,7 +59,7 @@ public class MemberReservationSelectServlert extends HttpServlet {
 		
 		//전체 목록 갯수 리턴
 		HashMap<String, Object> hmap= new MemberService().selectCount(mno);
-		System.out.println("hmap : " + hmap);
+		
 		
 		if(value == 10) {
 			maxPage = (int)((double)Integer.parseInt(hmap.get("resWait").toString()) / limit + 0.9);
@@ -65,6 +67,11 @@ public class MemberReservationSelectServlert extends HttpServlet {
 			maxPage = (int)((double)Integer.parseInt(hmap.get("payWait").toString()) / limit + 0.9);
 		}else if(value == 30) {
 			maxPage = (int)((double)Integer.parseInt(hmap.get("payFinal").toString()) / limit + 0.9);
+		}else if(value == 40 || value == 50 || value == 60) {
+			new MakeQuery().makeQueryCount(firstDate, lastDate,value,mno);
+			int listCount = new MemberService().getCountList(value);
+			maxPage = (int)((double)listCount / limit + 0.9);
+			System.out.println("lc : " + listCount);
 		}
 		//총 페이지 수 계산
 		
@@ -88,23 +95,19 @@ public class MemberReservationSelectServlert extends HttpServlet {
 		
 		ArrayList<HashMap<String,Object>> list = null;
 		
-		new MakeQuery().makeQuery(value, mno);
+
+		new MakeQuery().makeQuery(value,mno,firstDate,lastDate,pi);
+		
 		HashMap<String,Object> totalMap = new HashMap<String,Object>();
 		totalMap.put("pi", pi);
-		if(value == 10) {			
-			list = new MemberService().resWaitSelect(value, mno, pi);
-			totalMap.put("list", list);
-		}else if(value == 20) {
-			
-		}else if(value == 30) {
-			
-		}
 		
-		if(list != null) {
+	
+			list = new MemberService().resWaitSelect(value,mno,pi);
+			totalMap.put("list", list);			
+
+
 			response.setContentType("application/json");
 			new Gson().toJson(totalMap, response.getWriter());
-		}
-			
 		
 		
 		

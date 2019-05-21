@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.redding.member.model.vo.Member, com.kh.redding.board.model.vo.*"%>
+	pageEncoding="UTF-8" import="com.kh.redding.member.model.vo.Member, com.kh.redding.board.model.vo.*, java.util.Date"%>
 
 <!DOCTYPE html>
 <html>
@@ -23,6 +23,12 @@
 	href="${pageContext.request.contextPath}/css/member/m_myPage.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/member/m_myPage_payment.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<link href="${pageContext.request.contextPath}/css/dist/css/datepicker.min.css" rel="stylesheet" type="text/css">
+<script src="${pageContext.request.contextPath}/css/dist/js/datepicker.min.js"></script>
+<script src="${pageContext.request.contextPath}/css/dist/js/i18n/datepicker.en.js"></script>
+
 <style>
 
 .container {
@@ -135,20 +141,41 @@
 						<label class="paymentLabel3">개</label>
 					</div>
 					<br><br><br><br> 
-					
-					<table class="search">
-						<tr>
-							<td><button class="searchBtn">1개월</button></td>
-							<td><button class="searchBtn">3개월</button></td>
-							<td><button class="searchBtn">6개월</button></td>
-							<td><button class="searchBtn">조건검색</button></td>
-							<td><input class= type="text" value="2019.05.09"></td>
-							<td> - </td>
-							<td><input type="text" value="2019.05.09"></td>
-							<td><button class="searchBtn">조회</button></td>
-						</tr>
-					</table>
-										
+					<form action="">
+					<fieldset style="border:1px solid lightgray !important; height:74px; margin-top:auto; margin-bottom:auto; padding:24px">
+						<div>
+						<div class="selectArea" style=" width:15%; display:inline-block; padding: 0 12px 0 0;margin: 0 5px 0 2px;">
+							<select class="searchSelect" style="width:100%">
+										<option value="40">예약대기</option>
+										<option value="50">결제대기</option>
+										<option value="60">결제완료</option>
+										<option value="70">결제취소</option>										
+								</select>
+						</div>
+
+								<span style="margin:0">
+									<button type="button" class="cancellation dateSelect" value="1">오늘</button>
+									<button type="button" class="cancellation dateSelect" value="7">1주일</button>
+									<button type="button" class="cancellation dateSelect" value="30">1개월</button>
+									<button type="button" class="cancellation dateSelect" value="90">3개월</button>
+									<button type="button" class="cancellation dateSelect" value="180">6개월</button>
+								</span>
+								&nbsp;&nbsp;&nbsp;&nbsp;
+								
+								<input type='text' class='datepicker-here firstDate' data-language='en' data-date-format ='yyyy-mm-dd' style="width:7%"/>
+								<!-- <input type = "text"  id ="datepicker" style="width:7%"> -->
+
+								&nbsp;&nbsp;&nbsp;&nbsp;~
+								&nbsp;&nbsp;&nbsp;&nbsp;
+								
+								<input type='text' class='datepicker-here lastDate' data-language='en' data-date-format ='yyyy-mm-dd' style="width:7%"/>							
+								
+								&nbsp;&nbsp;&nbsp;&nbsp;
+								<button type="button" class="searchBtn cancellation">조회</button>
+								
+						</div>
+					</fieldset>
+					</form>					
 					<br>					
 				
 					<table class="paymentList">
@@ -157,40 +184,14 @@
 								<td>No</td>
 								<td>업체명</td>
 								<td>상품명</td>
-								<td>결제일</td>
+								<td class="statusPayTd">결제일</td>
 								<td>결제금액</td>
 								<td>상태</td>
 								<td></td>
 							</tr>
 						</thead>
 						<tbody class="infoTable">
-							<tr>
-								<td>3</td>
-								<td>업체3</td>
-								<td>상품3</td>
-								<td>19/05/09</td>
-								<td>350,000</td>
-								<td>예약완료</td>
-								<td><button class="pay">결제하기</button></td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>업체2</td>
-								<td>상품2</td>
-								<td>19/05/08</td>
-								<td>690,000</td>
-								<td>진행중</td>
-								<td><button class="cancellation">예약취소</button></td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>업체1</td>
-								<td>상품1</td>
-								<td>19/05/07</td>
-								<td>280,000</td>
-								<td>결제완료</td>
-								<td><button class="review">후기작성</button></td>
-							</tr>
+							
 						</tbody>
 						<tfoot>
 							<tr>
@@ -227,7 +228,7 @@
 	<script>
 		$(function(){
 			
-			
+			//예약대기, 결제대기, 결제완료 카운트를 리턴
 			$.ajax({
 				url:"<%=request.getContextPath() %>/selectCount.me",
 				type:"post",
@@ -244,9 +245,10 @@
 				
 				
 			});
-				
+			
+			//호출함수
 			$("#resWait").click(function(){
-				currentView(1);				
+				currentView(1,10);				
 			});
 			
 			$("#payWait").click(function(){
@@ -254,61 +256,55 @@
 			});
 			
 			$("#payFinal").click(function(){
-				currentView(1);
+				currentView(1,30);
 			});
 			
+			$(".searchBtn").click(function(){
+				currentView(1,$(".searchSelect").val());		 
+			 });
 			
 			
 			
-			function currentView(currentPage){
+			//페이징 처리를 하며 리스트를 리턴받음
+			function currentView(currentPage,value){
+				if(value == 40 || value == 50 || value == 60 || value == 70){
+					var firstDate = $(".firstDate").val();
+					var lastDate = $(".lastDate").val();
+					 
+					var firstDateArr = new Array();
+					var lastDateArr = new Array();
+					 //firstDate.split("-");	 
+					for(var i=0; i<firstDate.split("-").length; i++){
+						 firstDateArr[i] = firstDate.split("-")[i];
+						 lastDateArr[i] = lastDate.split("-")[i];
+					 }
+					console.log(firstDateArr.join(""));
+					console.log(lastDateArr.join(""));
+				}else{
+					var firstDateArr = new Array();
+					var lastDateArr = new Array();
+				}
+				 
 				
 				$.ajax({
 					url:"<%=request.getContextPath() %>/revSelect.me",
-					type:"post",
-					data:{mno:<%= loginUser.getMno() %>, value:10, currentPage:currentPage},
+					type:"get",
+					data:{mno:<%= loginUser.getMno() %>, value:value, currentPage:currentPage, firstDate:firstDateArr.join(""), lastDate:lastDateArr.join("")},
 					success:function(data){
-						$(".infoTable").empty();
-						console.log(data);
-						
-						for(var i=0; i<data.list.length; i++){
-							var list = data.list[i];
-							$infoTr = $("<tr>");
-							$noTd = $("<td>").text(list.rnum);
-							$pNameTd = $("<td>").text(list.pName);
-							$cNameTd = $("<td>").text(list.cName);
-							$priceTd = $("<td>").text(list.price);
-							$rapplyTd = $("<td>").text(list.rapply.split(" ")[0]);
-							
-							if(list.status == 10) {
-								$status = $("<td>").text("예약대기");
-								$button = $("<button>").text("예약취소").attr("class","cancellation").css("margin-top","8px");
-							}
-							
-							$infoTr.append($noTd);
-							$infoTr.append($cNameTd);
-							$infoTr.append($pNameTd);
-							$infoTr.append($rapplyTd);
-							$infoTr.append($priceTd);
-							$infoTr.append($status);
-							$infoTr.append($button);
-							
-							
-							$(".infoTable").append($infoTr);
-						}
-						
-						
-						
-						pageBtn(data);
-						
+						viewTable(data,value);						
 					},
 					error:function(data){
 						console.log("error");
 					}
 					
 				});
+			
+				
 			}
 			
-		   function pageBtn(data){
+			
+		   //넘겨 받은 pageInfo 객체를  통해 페이징
+		   function pageBtn(data,value){
 			   var $pageBtnArea = $(".pageBtnArea");
 			   			   
 				//BoardPageInfo pi = (BoardPageInfo) session.getAttribute("pi");
@@ -324,23 +320,23 @@
 			   $pageBtnArea.append($("<br>"));		   
 			   
 			   $pageBtnArea.append($("<button>").attr("class","paging").text("<<").css("cursor","pointer").click(function(){
-				   currentView(1);
+				   currentView(1,value);
 			   }));
-			   			   
+			   	   
 				if(currentPage <= 1) { 
 					$pageBtnArea.append($("<button>").attr("class","paging").text("<").attr("disabled",true).css("cursor","pointer"));
 				}else{ 
 					$pageBtnArea.append($("<button>").attr("class","paging").text("<").css("cursor","pointer").click(function(){
-						   currentView(currentPage - 1);
+						   currentView(currentPage - 1,value);
 					   }));
 
 				 } 
 				 for(var p= startPage; p <= endPage; p++){
 					if(p == currentPage){
-					$pageBtnArea.append($("<button>").attr("class","paging").text(p).attr("disabled",true).css("cursor","pointer"));
+					$pageBtnArea.append($("<button>").attr("class","paging").text(p).attr("disabled",true).css({"cursor":"pointer","color":"white","background":"salmon"}));
 				 }else{ 
 					$pageBtnArea.append($("<button>").attr("class","paging").css("cursor","pointer").text(p).click(function(){
-						   currentView($(this).text());
+						   currentView($(this).text(),value);
 					   }));
 				 }
 					
@@ -349,20 +345,160 @@
 					 $pageBtnArea.append($("<button>").attr("class","paging").text(">").attr("disabled",true).css("cursor","pointer"));					
 				 }else {
 					 $pageBtnArea.append($("<button>").attr("class","paging").text(">").css("cursor","pointer").click(function(){
-						   currentView(currentPage + 1);
+						   currentView(currentPage + 1,value);
 					   }));
 				 } 
 				 	$pageBtnArea.append($("<button>").attr("class","paging").text(">>").click(function(){
-						   currentView(maxPage);
+						   currentView(maxPage,value);
 					   }));
-			   
-			   
-				 	
-				 	
-				 	
+		 	
 		   }
+		   			
 			
+		   //초기 날짜를 3개월로 설정
+		   getDate(90);
+		   
+		   
+		   //클릭시 날짜를 계산해주는 함수로 인자값을 전송
+		   $(".dateSelect").click(function(){
 			
+			var value = $(this).val();
+			
+			getDate(value);
+		
+		 });
+		   
+		 
+		 //넘겨받은 값에 따라 날짜를 계산해주는 포맷
+		 function getDate(value){
+			
+			 var date = new Date();
+			 
+				if(value == 7){
+					date.setDate(date.getDate() - 7);					
+				}else if(value == 30){
+					date.setMonth(date.getMonth() - 1);
+				}else if(value == 90){
+					date.setMonth(date.getMonth() - 3);
+				}else if(value == 180){
+					date.setMonth(date.getMonth() - 6);
+				}
+			 
+			 var month = getMonth(date.getMonth());
+			 
+			 $(".firstDate").val(date.getFullYear()+ "-" + month + "-" + date.getDate());
+			 $(".lastDate").val(new Date().getFullYear()+ "-" + getMonth(new Date().getMonth()) + "-" + new Date().getDate());
+			 
+		 }
+		 
+		 
+		 //월을 포맷에 맞게 리턴
+		 function getMonth(month){
+			 		 
+			 if(month < 9){
+				   month = ('0' + (month+1));
+				   
+			   }else{
+				   month = (month+1);				   
+			   }
+			 
+			 
+			 return month;
+		 }
+		 
+		 
+			
+			function viewTable(data,value){
+				$(".infoTable").empty();
+				
+				if(value==10 || value==20 || value==40 || value == 50){
+					$(".statusPayTd").text("예약일");
+				}else if(value == 70){
+					$(".statusPayTd").text("예약일/결제취소일");
+				}else{
+					$(".statusPayTd").text("예약일/결제일");
+				}
+				
+				console.log(data);
+				
+				for(var i=0; i<data.list.length; i++){
+					var list = data.list[i];
+					
+					if(value == 10 || value == 20  || value == 40 || value == 50){
+					var $infoTr = $("<tr>");
+					var $noTd = $("<td>").text(list.rnum);
+					var $pNameTd = $("<td>").text(list.pName);
+					var $cNameTd = $("<td>").text(list.cName);
+					var $priceTd = $("<td>").text(list.price);
+					var $rapplyTd = $("<td>").text(list.rapply.split(" ")[0]);
+					
+					if(value == 10 || value==40 ) {
+						$status = $("<td>").text("예약대기");
+						$button = $("<button>").text("예약취소").attr("class","cancellation").css("margin-top","3px");
+					}else if(value == 20 || value == 50){
+						$status = $("<td>").text("예약승인").css("color","green");
+						$button = $("<button>").text("예약취소요청").attr("class","cancellation").css("margin-top","3px");
+					}else{
+						$status = $("<td>").text("대기");
+					}
+					
+					$infoTr.append($noTd);
+					$infoTr.append($cNameTd);
+					$infoTr.append($pNameTd);
+					$infoTr.append($rapplyTd);
+					$infoTr.append($priceTd);
+					$infoTr.append($status);
+					$infoTr.append($button);
+					
+					
+					$(".infoTable").append($infoTr);
+					
+					}else if(value == 30 || value == 60 || value == 70){
+						var $infoTr = $("<tr>");
+						var $noTd = $("<td>").text(list.rnum);
+						var $pNameTd = $("<td>").text(list.pName);
+						var $cNameTd = $("<td>").text(list.cName);
+						var $priceTd = $("<td>").text(list.price);
+						var $rapplyTd = $("<td>").text(list.rapply.split(" ")[0] + "/" + list.approval.split(" ")[0]);
+						//var $approvalTd = $("<td>").text(list.approval.split(" ")[0]);
+						
+						if(value == 70){
+							var $status = $("<td>").text("결제취소").css("color","red");
+						}else{
+							var $status = $("<td>").text("결제완료").css("color","salmon");
+						}
+						
+						
+						var $div = $("<div>");
+						$div.empty();
+						
+						if(value == 70){
+							
+						}else{						
+						var $button = $("<button>").text("후기작성").attr("class","cancellation").css("margin-top","3px");								
+						var $cancleBtn = $("<button>").text("결제취소요청").attr("class","cancellation").css("margin-top","3px");
+						}
+						
+						$div.append($button);
+						$div.append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+						$div.append($cancleBtn);
+						
+						$infoTr.append($noTd);
+						$infoTr.append($cNameTd);
+						$infoTr.append($pNameTd);
+						$infoTr.append($rapplyTd);
+						//$infoTr.append($approvalTd);
+						$infoTr.append($priceTd);
+						$infoTr.append($status);
+						$infoTr.append($div);
+						
+						$(".infoTable").append($infoTr);
+					}
+						
+				}
+										
+				pageBtn(data,value);
+			}
 		});
 		
 		

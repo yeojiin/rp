@@ -245,7 +245,7 @@
             
             $("#PIManagerSelect option:selected").each(function() {
                var selectedManager = $("#PIManagerSelect option:selected").val();
-               console.log(selectedManager);
+               //console.log(selectedManager);
                if(selectedManager=="기타"){
                   $td.append($input);
                }
@@ -259,7 +259,7 @@
                if(result=="기타"){
                   $td.append($input);
                }
-                  console.log(typeof(result));
+                  //console.log(typeof(result));
             });
             
          });
@@ -267,10 +267,10 @@
          
         
          $("#PIInsertBtn").click(function(){
-            var a = $("#PICategorySelect").val();
-            var b = $("#PIManagerSelect").val();
-            console.log(a);
-            console.log(b);
+            /* var a = $("#PICategorySelect").val();
+            var b = $("#PIManagerSelect").val(); */
+            //console.log(a);
+            //console.log(b);
             
             $("#insertPro").submit();
             alert("상품을 등록하셨습니다.");
@@ -288,7 +288,7 @@
          });
          $("#PIResetBtn").click(function(){
             alert("상품등록을 취소하셨습니다.");
-            location.href="<%=request.getContextPath()%>/views/company/c_ProductManagement.jsp";
+            location.href="<%=request.getContextPath()%>/selectProList.pr";
          });
       });
 

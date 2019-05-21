@@ -2,11 +2,11 @@
    pageEncoding="UTF-8" import="com.kh.redding.member.model.vo.*, com.kh.redding.attachment.model.vo.*, java.util.*"%>
 <%
 	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
-	M_comListPageInfo pi = (M_comListPageInfo) request.getAttribute("clpi");
-	int currentPage = pi.getCurrentPage();
-	int maxPage = pi.getMaxPage();
-	int startPage = pi.getStartPage();
-	int endPage = pi.getEndPage();
+	M_comListPageInfo clpi = (M_comListPageInfo) request.getAttribute("clpi");
+	int currentPage = clpi.getCurrentPage();
+	int maxPage = clpi.getMaxPage();
+	int startPage = clpi.getStartPage();
+	int endPage = clpi.getEndPage();
 %>
 <!DOCTYPE html>
 <html>
@@ -89,7 +89,7 @@ td {
 <body>
    <!-- 멤버 헤더 (미니메뉴, 로고) -->
    <div class="headerArea">
-      <jsp:include page="/views/member/m_header.jsp"></jsp:include>
+   	  <%@ include file="/views/member/m_header.jsp" %>
    </div>
    <br>
 
@@ -109,21 +109,49 @@ td {
             <%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
             <form action="<%=request.getContextPath()%>/listcomtype.mb">
             <div class="list1" align="center">
-            <table>
+            	<div style="width:100%; height:auto">
             	<%
             		HashMap<String, Object> hmap = null;
+            		String name[] = null;
             		for (int i = 0; i < list.size(); i++) {
             			hmap = list.get(i);
             	%>
-               <tr>
-              	  <%-- <td><%=hmap.get("filepath") %></td> --%>
-                  <td><img src="/redding/company_upload/<%=hmap.get("changename") %>"></td>
-                  <td><%=hmap.get("membername") %></td>
-                  <td><%=hmap.get("price") %></td>
-                  <td><%=hmap.get("ComLike") %></td>
-               </tr>
-               <% } %>
-            </table>
+            		<div style="width:25%; height:auto; float:left;">
+            			<div>
+		                  	<img src="/redding/company_upload/<%=hmap.get("changename") %>" style="max-width:100%"; onclick="location.href='<%=request.getContextPath() %>/selectDetailCom.dc?mname=<%=hmap.get("membername") %>'"><br>
+            				<p style="font-size:25px; color:black;"><%=hmap.get("membername") %></p>
+            				<p style="font-size:25px; font-weight:bold; color:salmon;"><%=hmap.get("price") %>~</p>
+            				<p style="font-size:25px; font-weight:bold; color:gold;">★: <%=hmap.get("ComLike") %></p>
+            			</div>
+            		</div>
+               		<% } %>
+            	</div>
+            	<br>
+            	<div class="text-center">
+							<ul class="pagination">
+								<button onclick="location.href='<%=request.getContextPath() %>/listcomtype.mb?currentPage=1'"><<</button>
+								<% if(currentPage <= 1){ %>
+								<button disabled><</button>
+								<% }else{ %>
+								<button onclick="location.href='<%=request.getContextPath() %>/listcomtype.mb?currentPage=<%=currentPage - 1%>'"><</button>
+								<% } %>
+								
+								<% for(int p = startPage; p <= endPage; p++){
+									if(p == currentPage){%>
+										<button disabled><%= p %></button>
+								<% }else{ %>
+									<button onclick="location.href='<%=request.getContextPath() %>/listcomtype.mb?currentPage=<%= p %>'"><%= p %></button>
+								<% } %>
+								<% } %>
+								
+								<% if(currentPage >= maxPage){ %>
+								<button disabled>></button>
+								<% }else{ %>
+								<button onclick="location.href='<%=request.getContextPath() %>/listcomtype.mb?currentPage=<%=currentPage + 1 %>'">></button>
+								<% } %>
+								<button onclick="location.href='<%=request.getContextPath() %>/listcomtype.mb?currentPage=<%=maxPage %>'">>></button>
+							</ul>
+						</div>
             </div>
             </form>
          </div>
