@@ -62,6 +62,18 @@ public class WishListService {
 	}
 
 
+	//패키지 불러오는 메소드
+	public ArrayList<HashMap<String, Object>> showPackagePro(int mno) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new WishListDao().showPackagePro(con, mno);
+		
+		close(con);
+		
+		return list;
+	}
+
+
 
 
 }

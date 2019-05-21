@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.*"%>
+	pageEncoding="UTF-8" import="java.util.*, com.kh.redding.member.model.vo.Member"%>
 <%
 	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
+	Member loginUser = (Member) session.getAttribute("loginUser");
 %>
 <!DOCTYPE html>
 <html>
@@ -100,19 +101,19 @@
 					<h2>패키지 구성</h2>
 					<div class="packageArea">
 						<div class="packageStudio">
-							<input class="Studio">
+							<!-- <input class="Studio"> -->
 							<%-- <img src="<%=request.getContextPath()%>/images/logo.png"> --%>
 							<img src="<%=request.getContextPath()%>/images/plus.png">
 						</div>
 
 						<div class="packageDress">
-							<input class="Dress">
+							<!-- <input class="Dress"> -->
 							<%-- <img src="<%=request.getContextPath()%>/images/logo.png"> --%>
 							<img src="<%=request.getContextPath()%>/images/plus.png">
 						</div>
 
 						<div class="packageMakeup">
-							<input class="Makeup">
+							<!-- <input class="Makeup"> -->
 							<%-- <img src="<%=request.getContextPath()%>/images/logo.png"> --%>
 							<img src="<%=request.getContextPath()%>/images/equal.png">
 						</div>
@@ -127,7 +128,7 @@
 					</div>
 
 				</div>
-
+				
 
 			</div>
 
@@ -185,27 +186,29 @@
 					var pno = $(this).closest("td").siblings('.wishCode').text();
 					
 						if($(this).prop("checked") == true){
-							packList[ctn] = pno;
-							ctn++;
+							/* packList[ctn] = pno;
+							ctn++; */
+							packList.push(pno);
 						}
 					});
-						console.log("packlist : " + packList);
-					 
+					
 					if(packList != ""){
+						//$.ajaxSettings.traditional = true;
 						$.ajax({
 		          			url : "/redding/insertPack.wi",
-		          			type : "post",
+		          			traditional:true,
 		          			data : {packList:packList},
+		          			type : "post",
 		          			success : function(data){
 		          				console.log(data);
 		          				if(data>0){
 								alert("패키지 담기에 성공했습니다!");
 		          				}else{
-		          				alert("패키지 담기에 실패했습니다!");	
+		          				alert("이미 패키지 담겨 있습니다!");	
 		          				}        
 		          			}, 
 		          			error : function(){
-		          				console.log("실패!!");
+		          				console.log("패키지 넣기 실패!!");
 		          			}
 		          		});
 					}else{
@@ -213,6 +216,25 @@
 					}
 				}); 
 				
+				
+				//패키지 구성 불러오기
+				$(document).ready(function(){
+					var mno = <%=loginUser.getMno()%>;
+					console.log(mno);
+					$.ajax({
+		          			url : "/redding/showPack.wi",
+		          			data : {mno:mno},
+		          			type : "post",
+		          			success : function(data){
+		          				console.log(data);
+		          			}, 
+		          			error : function(){
+		          				console.log("패키지 불러오기 실패!!");
+		          			}
+		          		});
+					  
+				});
+
 				
 				/*
 				 var sctn=0;
