@@ -1,11 +1,19 @@
 package com.kh.redding.member.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.kh.redding.member.model.service.MemberService;
+import com.kh.redding.member.model.vo.M_comListPageInfo;
+import com.kh.redding.member.model.vo.Member;
 
 /**
  * Servlet implementation class MemberSelectDetailComServlet
@@ -26,7 +34,54 @@ public class MemberSelectDetailComServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String mname = request.getParameter("mname");
 		
+		System.out.println("mname servlet : " + mname);
+		int currentPage;
+		int limit;
+		int maxPage;
+		int startPage;
+		int endPage;
+		
+		currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		limit = 10;
+		
+		int listCount = new MemberService().getListCount();
+		
+		System.out.println("listCount : " + listCount);
+		
+		maxPage = (int)((double) currentPage / limit + 0.9);
+		
+		startPage = (((int)((double) currentPage / limit + 0.9)) - 1) * 10 + 1;
+		
+		endPage = startPage + 10 - 1;
+		
+		if(maxPage < endPage) {
+			endPage = maxPage;
+		}
+		
+		M_comListPageInfo clpi = new M_comListPageInfo(currentPage, limit, maxPage, startPage, endPage);
+		
+		ArrayList<HashMap<String, Object>> list = new MemberService().selectDetailCom(clpi, mname);
+		System.out.println("list : " + list);
+		String page = "";
+		if(list != null) {
+			page = "views/member/m_Detail.jsp";
+			request.setAttribute("list", list);
+			request.setAttribute("clpi", clpi);
+			System.out.println("전달");
+		}else {
+			page = "views/common/errorPage.jsp";
+			request.setAttribute("msg", "업체 목록 조회 실패");
+		}
+		
+		RequestDispatcher view = request.getRequestDispatcher(page);
+		view.forward(request, response);
 	}
 
 	/**

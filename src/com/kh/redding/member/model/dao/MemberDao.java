@@ -370,6 +370,57 @@ public class MemberDao {
 		
 		return list;
 	}
+
+	public ArrayList<HashMap<String, Object>> selectDetailCom(Connection con, M_comListPageInfo clpi, String mname) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		
+		System.out.println("con : " + con);
+		System.out.println("mname : " + mname);
+		
+		String query = prop.getProperty("selectDetailCom");
+		
+		int startRow = (clpi.getCurrentPage() - 1) * clpi.getLimit() + 1;
+		int endRow = startRow + clpi.getLimit() - 1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, mname);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				
+				System.out.println("rset.getString(1) : "+rset.getString("FILE_PATH"));
+				
+				hmap.put("filepath", rset.getString("FILE_PATH"));
+				hmap.put("changename", rset.getString("CHANGE_NAME"));
+				hmap.put("comAddress", rset.getString("COM_ADDRESS"));
+				hmap.put("ComUrl", rset.getString("COM_URL"));
+				hmap.put("OpenTime", rset.getString("OPEN_TIMES"));
+				hmap.put("EndTime", rset.getString("CLOSE_TIMES"));
+				hmap.put("membername", rset.getString("MNAME"));
+				hmap.put("pName", rset.getString("PNAME"));
+				
+				list.add(hmap);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		System.out.println("hmap : " + hmap);
+		System.out.println("listDao : " + list);
+		return list;
+	}
 	
 	
 }
