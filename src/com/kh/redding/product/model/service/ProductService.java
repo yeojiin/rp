@@ -240,4 +240,29 @@ public class ProductService {
 		close(con);
 		return listCount;
 	}
+	//검샌한 제품 리스트 카운트
+	public int getUseProductSearchListCount(int pNo, String ustatus, Date startDate, Date endDate) {
+		Connection con = getConnection();
+		int listCount = new ProductDao().getUseProductSearchListCount(con, pNo, ustatus, startDate, endDate);
+		close(con);
+		return listCount;
+	}
+	public ArrayList<UseProduct> searchUseProduct(int pNo, String ustatus, Date startDate, Date endDate, PageInfo pi) {
+		Connection con = getConnection();
+		ArrayList<UseProduct> useProList = new ProductDao().searchUseProduct(con, pNo, ustatus, startDate, endDate, pi);
+		close(con);
+		return useProList;
+	}
+	public int getUseProductSearchTotalListCount(int pNo, Date startDate, Date endDate) {
+		Connection con = getConnection();
+		int listCount = new ProductDao().getUseProductSearchTotalListCount(con, pNo, startDate, endDate);
+		close(con);
+		return listCount;
+	}
+	public ArrayList<UseProduct> searchUseProductTotal(int pNo, Date startDate, Date endDate, PageInfo pi) {
+		Connection con = getConnection();
+		ArrayList<UseProduct> useProList = new ProductDao().searchUseProductTotal(con, pNo, startDate, endDate, pi);
+		close(con);
+		return useProList;
+	}
 }

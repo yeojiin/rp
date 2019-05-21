@@ -136,25 +136,25 @@
                      </tr>
                      <tr>
                         <td>
-                           <label>상품 구분</label>
+                           <label>판매 여부</label>
                         </td>
                         <td>
-                           <input type="radio" name="productSearchAbountSale" id="productSearchAllAboutSale" value="sale1">
+                           <input type="radio" name="productSearchAbountSale" id="productSearchAllAboutSale" value="total">
                            <label for="productSearchAllAboutSale">전체 상품</label>
-                           <input type="radio" name="productSearchAbountSale" id="productSearchSale" value="sale2">
+                           <input type="radio" name="productSearchAbountSale" id="productSearchSale" value="Y">
                            <label for="productSearchSale">판매 상품</label>
-                           <input type="radio" name="productSearchAbountSale" id="productSearchNoSale" value="sale3">
+                           <input type="radio" name="productSearchAbountSale" id="productSearchNoSale" value="N">
                            <label for="productSearchNoSale">판매하지 않는 상품</label>
                         </td>
                      </tr>
                      <tr>
                         <td>
-                           <label>예약가능일</label>
+                           <label>검색일</label>
                         </td>
                         <td>
-                           <input type="date" name="startDate" value="">
+                           <input type="date" name="startDate" class="dates">
                            <label> ~ </label>
-                           <input type="date" name="endDate" value="">
+                           <input type="date" name="endDate" class="dates">
                         </td>
                      </tr>
                      <tr>
@@ -180,9 +180,10 @@
                		<% for(UseProduct uproList : useProList){ %>
                         <tr>
                         <!-- ajax로 행 처리하기 처리할때 아래와 같이 체크박스와 버튼 도 같이 나와야 한다. -->
-                           <td><input type="checkbox" name="proCheck" id="proCheck"></td>
-                           <td><%=startRow %>
-                              <input type="hidden" name="proNum" id="proNum" value="<%=uproList.getUpNo()%>">
+                           <td><input type="checkbox" name="upCheck" id="upCheck"></td>
+                           <td>
+                           		<input type="number" name="startRows" id="startRows" value="<%=startRow %>" readonly>
+                              <input type="hidden" name="upNo" id="upNo" value="<%=uproList.getUpNo()%>">
                            </td>
                            <td><%=uproList.getUseDate()%></td>
                            <td><%=uproList.getUseStartTime()%></td>
@@ -261,8 +262,151 @@
     		  }
     	  });
    		  
+   		  $("#searchBtn").click(function(){
+   			  
+   			var pNo = $("input[name=pNo]").val();
+   			console.log("pno : " + pNo);
+   			var ustatus = $("input[name=productSearchAbountSale]:checked").val();
+   			var startDate = $("input[name=startDate]").val();
+   			var endDate = $("input[name=endDate]").val();
+   			if(ustatus == null){
+   				alert("판매여부를 선택해 주세요.");
+   			}else{
+   				if(startDate==""){
+   	   				alert("검색 시작 날짜를 입력해주세요.");
+   	   			}else{
+   	   				alert("ok");
+   	   				if(endDate==""){
+   	   					alert('검색 종료 날짜를 입력해주세요.');
+   	   					
+   	   				}else{
+   			   			
+   			   			
+   			   			$.ajax({
+   			   				url:"uproSearch.pr",
+   			   				data:{ustatus:ustatus,startDate:startDate,endDate:endDate,pNo:pNo},
+   			   				type:"post",
+   			   				dataType:"json",
+   			   				success:function(data){
+	   			   				$tableBody = $("#selectTable tbody");
+	   							$tableBody.html('');
+	   							
+	   							var ctn = 1;
+	   		                  
+	   							var $tr1 = $("<tr>");
+	   							
+	   							var $ckTh = $("<th width='3%'>");
+	   							var $startTh = $("<th width='3%'>").text("No.");
+	   							var $dateTh = $("<th width='15%'>").text("예약가능날짜");
+	   							var $useStartTh = $("<th width='10%'>").text("예약시작시간");
+	   							var $useEndTh = $("<th width='15%'>").text("예약종료시간");
+	   							var $unumTh = $("<th width='15%'>").text("수량");
+	   							var $ustatusTh = $("<th width='10%'>").text("판매여부");
+	   							var $btnTh = $("<th width='10%'>");
+	   							
+	   							$tr1.append($ckTh);
+	   							$tr1.append($startTh);
+	   							$tr1.append($dateTh);
+	   							$tr1.append($useStartTh);
+	   							$tr1.append($useEndTh);
+	   							$tr1.append($unumTh);
+	   							$tr1.append($ustatusTh);
+	   							$tr1.append($btnTh);
+	   							
+	   							$tableBody.append($tr1);
+	   							
+	   							$.each(data,function(index, value){
+	   							   
+	   								var $tr = $("<tr>");
+	   								      
+	   								var $ckTd = $("<td>");
+	   								var $ckIn = $("<input type='checkbox' name='upCheck' id='upCheck'>");
+	   								
+	   								var $startTd = $("<td>");
+	   								var $startIn = $("<input type='number' name='startRows' id='startRows' readonly>");
+	   								$startIn.val(ctn); 
+	   								
+	   								
+	   								var $noIn = $("<input type='hidden' name='upNo' id='ipNo'>").val(value.upNo);
+	   								/* console.log($noIn.val());
+	   								console.log("===================") */
+	   								
+	   								var $dateTd = $("<td>").text(value.useDate);
+	   								
+	   								var $useStartTd = $("<td>").text(value.useStartTime);
+	   								
+	   								/* console.log(typeof(value.pEnrollDate)); */
+	   								
+	   								var $useEndTd = $("<td>").text(value.useEndTime);
+	   								
+	   								var $unumTd = $("<td>").text(value.uNum);
+	   								
+	   								var $ustatusTd = $("<td>").text(value.ustatus);
+	   								
+	   								var $btnTd = $("<td>");
+	   								var $btnIn = $("<div id='productDetailBtn' class='productDetail'>상세보기</div>");
+	   								
+	   								$btnTd.append($btnIn);
+	   								$startTd.append($noIn);
+	   								$startTd.append($startIn);
+	   								$ckTd.append($ckIn);
+	   								      
+	   								     
+	   								$tr.append($ckTd);
+	   								$tr.append($startTd);
+	   								$tr.append($dateTd);
+	   								$tr.append($useStartTd);
+	   								$tr.append($useEndTd);
+	   								$tr.append($unumTd);
+	   								$tr.append($ustatusTd);
+	   								$tr.append($btnTd);
+	   								
+	   								$tableBody.append($tr);
+	   								
+	   								$(".productDetail").click(function(){
+	   									
+	   									var upno = $(this).parent().parent().children().eq(1).children().eq(0).val();
+	   									console.log(upno);
+	   									/* pno = $(this).parent().parent().children().eq(1).children().eq(0).val();
+	   									console.log(pno); */
+	   									location.href="<%=request.getContextPath()%>/uproDetail.pr?upno="+upno;
+	   								});
+	   								ctn = ctn + 1;
+	   							});
+	   							
+	   							
+	   							
+	   							
+	   							
+	   							
+	   							
+	   							
+	   							
+	   							
+	   							
+	   							
+	   							
+	   							
+	   							
+	   							
+	   							
+	   							
+	   							
+   			   				},
+   			   				error:function(data){
+   			   					
+   			   				}
+   			   			});
+   	   					
+   	   				}
+   	   			}
+   			}
+   			
+   			
+   		  });
+   		  
    		  $(".productDetail").click(function(){
-   			  var upno = $(this).parent().parent().children().eq(1).children().eq(0).val();
+   			  var upno = $(this).parent().parent().children().eq(1).children().eq(1).val();
    			  /* console.log(upno); */
    			  location.href="<%=request.getContextPath()%>/uproDetail.pr?upno="+upno;
    		  });
@@ -279,7 +423,7 @@
    			var upnoArr = [];
    			var answer = "Y";
 			  $("input[name=proCheck]").each(function(){
-				  var upno = $(this).parent().parent().children().eq(1).children().eq(0).val();
+				  var upno = $(this).parent().parent().children().eq(1).children().eq(1).val();
 				  if($(this).is(":checked")){
 					  console.log("upno : " + upno);
 					  upnoArr += upno +", ";

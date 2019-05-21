@@ -101,7 +101,7 @@ public class ProductSearchServlet extends HttpServlet {
 		
 		ArrayList<Product> proList = new ProductService().searchProduct(value, cno, searchProName, searchStatus, pi);
 		
-		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		//HashMap<String, Object> hmap = new HashMap<String, Object>();
 		
 		/*hmap.put("pi", pi);
 		
