@@ -630,6 +630,139 @@ public class MemberDao {
 		}
 			
 		return list;
+	}
+
+	//아이디 , 이메일 있는 지 확인
+	// memberid -> memberName
+	public int memberIdSearch(Connection con,String memberid, String email) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("memberIdSearch");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, memberid);
+			pstmt.setString(2, email);
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return result;
+	}
+
+	
+	public String selectMemberId(Connection con, String memberName, String email) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String memberId = null;
+		
+		String query = prop.getProperty("selectMemberId");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, memberName);
+			pstmt.setString(2, email);
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				memberId = rset.getString("MID");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		
+		
+		return memberId;
+	}
+
+	//비밀번호 찾기 - 아이디 , 이메일 , 이름 있는 지 조회
+	public int MemberPasswordSelect(Connection con, String memberid, String membername, String email) {
+		PreparedStatement pstmt = null;
+		ResultSet rset =null;
+		int result = 0;
+		
+		String query = prop.getProperty("PasswordSelect");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, memberid);
+			pstmt.setString(2, membername);
+			pstmt.setString(3, email);
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateMemberPassword(Connection con, String membrid, String memberPwd) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("UpdatePassword");
+		
+		try {
+			//System.out.println("update :" + query);
+			
+			
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, memberPwd);
+			pstmt.setString(2, membrid);
+		
+			//System.out.println("memberPwd :" + memberPwd + "memberId :" + membrid);
+			
+			result = pstmt.executeUpdate();
+			
+			//System.out.println("dao :" + result);
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
 	}	
 	
 }
