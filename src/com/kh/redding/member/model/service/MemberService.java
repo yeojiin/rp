@@ -183,6 +183,9 @@ public class MemberService {
 		
 		
 		return blist;
+	}
+	
+	
 	public ArrayList<HashMap<String, Object>> getPackage(int subno, int mno) {
 		Connection con = getConnection();
 		
