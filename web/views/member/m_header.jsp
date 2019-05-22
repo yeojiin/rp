@@ -29,8 +29,16 @@
 				<ul>
 					<li><button class="miniMenuBtn">관리자님</button></li>&nbsp;&nbsp;&nbsp;&nbsp;
 					<li><button class="miniMenuBtn" onclick="logout()">LOGOUT</button></li>&nbsp;&nbsp;&nbsp;&nbsp;
-
 					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/admin/a_main.jsp'">MY PAGE</button></li>
+					<li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+				</ul>
+				
+			<% } else if (loginUser != null && loginUser.getMemberType() == 20){ %>
+				<br>
+				<ul>
+					<li><button class="miniMenuBtn"><%=loginUser.getMemberName() %></button></li>&nbsp;&nbsp;&nbsp;&nbsp;
+					<li><button class="miniMenuBtn" onclick="logout()">LOGOUT</button></li>&nbsp;&nbsp;&nbsp;&nbsp;
+					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/company/c_main.jsp'">MY PAGE</button></li>
 					<li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
 				</ul>
 				

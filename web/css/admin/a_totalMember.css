@@ -1,5 +1,21 @@
 @charset "UTF-8";
 
+.memberNumtable {
+	width:100%;
+	height:auto;
+	font-family:'Noto Sans KR', sans-serif;
+	text-align:center;
+}
+.memberNumtable tr {
+	height:40px;
+	border-top:1px solid gray;
+	border-bottom:1px solid gray;
+}
+.memberNumTableTd1 {
+	background:mistyrose;
+}
+
+
 .survey{
 	text-align:center;
 	float:center;

@@ -37,11 +37,14 @@ public class MemberSelectDetailComServlet extends HttpServlet {
 		int mno = Integer.parseInt(request.getParameter("mno"));
 		
 		HashMap<String, Object> list = new MemberService().selectDetailCom(mno);
-		//System.out.println("list : " + list);
+		
+		System.out.println("list : " + list);
+		
 		String page = "";
 		if(list != null) {
 			page = "views/member/m_Detail.jsp";
 			request.setAttribute("list", list);
+			request.getSession().setAttribute("cno", mno);
 			System.out.println("전달");
 		}else {
 			page = "views/common/errorPage.jsp";

@@ -1,17 +1,21 @@
 package com.kh.redding.member.model.service;
+import static com.kh.redding.common.JDBCTemplate.close;
+import static com.kh.redding.common.JDBCTemplate.commit;
+import static com.kh.redding.common.JDBCTemplate.getConnection;
+import static com.kh.redding.common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.redding.attachment.model.vo.Attachment;
+import com.kh.redding.board.model.vo.Board;
 import com.kh.redding.board.model.vo.BoardPageInfo;
 import com.kh.redding.company.model.vo.Company;
 import com.kh.redding.member.model.dao.MemberDao;
 import com.kh.redding.member.model.vo.M_comListPageInfo;
 import com.kh.redding.member.model.vo.Member;
 import com.kh.redding.product.model.vo.Product;
-
-import static com.kh.redding.common.JDBCTemplate.*;
 
 public class MemberService {
 
@@ -77,18 +81,18 @@ public class MemberService {
 	}
 
 	//업체 페이지 목록
-	public int getListCount() {
+	public int getListCount(String comType) {
 		Connection con = getConnection();
-		int listCount = new MemberDao().getListCount(con);
+		int listCount = new MemberDao().getListCount(con, comType);
 		close(con);
 		
 		return listCount;
 	}
 
-	public ArrayList<HashMap<String, Object>> selectComList(M_comListPageInfo clpi) {
+	public ArrayList<HashMap<String, Object>> selectComList(M_comListPageInfo clpi, String comType) {
 		Connection con = getConnection();
 		
-		ArrayList<HashMap<String, Object>> list = new MemberDao().selectComList(con, clpi);
+		ArrayList<HashMap<String, Object>> list = new MemberDao().selectComList(con, clpi, comType);
 	
 		
 		close(con);
@@ -125,19 +129,27 @@ public class MemberService {
 		
 		Company com = new MemberDao().selectDetailCom(con, mno);
 		
-		list.put("Company", com);
+		if (com != null) {
+			list.put("Company", com);			
+		}
 		
 		Member mem = new MemberDao().selectDetailMem(con, mno);
 		
-		list.put("Member", mem);
+		if (mem != null) {
+			list.put("Member", mem);			
+		}
 		
 		ArrayList<Attachment> at = new MemberDao().selectDetailAt(con, mno);
 		
-		list.put("Attachment", at);
+		if (at != null) {
+			list.put("Attachment", at);			
+		}
 		
 		ArrayList<Product> pd = new MemberDao().selectDetailPd(con, mno);
 		
-		list.put("Product", pd);
+		if (pd != null) {
+			list.put("Product", pd);			
+		}
 		
 		System.out.println("list service : " + list);
 		
@@ -157,6 +169,20 @@ public class MemberService {
 		return count;
 	}
 
+	//업체Qna목록(광섭)
+	public ArrayList<HashMap<String, Object>> selectDetailComQna(int cno) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> blist = new MemberDao().selectDetailComQna(con, cno);
+		
+		for(int i=0; i<blist.size();i++) {
+			
+		}
+		
+		close(con);
+		
+		
+		return blist;
 	public ArrayList<HashMap<String, Object>> getPackage(int subno, int mno) {
 		Connection con = getConnection();
 		
@@ -175,6 +201,61 @@ public class MemberService {
 		close(con);
 		
 		return list;
+}
+    
+    
+	//아이디 , 이메일을 받아서 아이디 비밀번호 찾기(지원)
+	public int MemberIdSearch(String memberid, String email) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().memberIdSearch(con,memberid, email);
+		
+		
+		close(con);
+		
+		return result;
+	}
+
+	//아이디 조회 - 아이디 찾기
+	public String SelectMemberId(String memberid, String email) {
+		Connection con = getConnection();
+		
+		String memberId = new MemberDao().selectMemberId(con, memberid ,email);
+		
+		close(con);
+		
+		return memberId;
+	}
+
+	//비밀번호 찾기 - 있는 멤버인지 확인 
+	public int MemberPasswordSelect(String memberid, String membername, String email) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().MemberPasswordSelect(con, memberid , membername , email);
+		
+		close(con);
+		
+		return result;
+	}
+
+	public int updateMemberPassword(String membrid, String memberPwd) {
+		Connection con = getConnection();
+		
+		System.out.println("여기로 옴");
+		
+		int result = new MemberDao().updateMemberPassword(con, membrid , memberPwd);
+		
+		//System.out.println("memberservice result : " + result);
+		
+		if (result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
 	}
 
 }

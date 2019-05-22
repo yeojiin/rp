@@ -64,16 +64,16 @@
          <%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
          
             <div class="contentsArea" id="sendMessageArea">
-            	<form action="" method="post">
+            	<form method="post" id="sendMessage">
 	            	<div id="SMHeader">
 	            		<h3>관리자에게 쪽지 보내기</h3>
 	            	</div>
 	            	<div id="SMSection">
 	            		<div id="messageTitleArea">
-	            			<input type="text" name="messageTitleArea" id="messageTitleInputArea" value="쪽지 제목">
+	            			<input type="text" name="messageTitleArea" id="messageTitleInputArea" placeholder="쪽지 제목을 입력해주세요.">
 	            		</div>
 	            		<div id="messageContentArea">
-	            			<textarea name="messageContent" id="messageContent" style="resize:none;">쪽지 내용</textarea>
+	            			<textarea name="messageContent" id="messageContent" style="resize:none;" placeholder="쪽지 내용을 입력해주세요."></textarea>
 	            		</div>
 	            		<div id="btnsArea">
 		               		<span id="send">보내기</span>
@@ -101,8 +101,18 @@
 			$("#send").click(function(){
 				var result = window.confirm("보내시겠습니까?");
 				if(result == true){
-					alert('관리자에게 쪽지를 보내셨습니다.');
-					location.href="<%=request.getContextPath()%>/views/company/c_messageManager.jsp";
+					if($("#messageTitleInputArea").val()==""){
+						alert("제목을 입력해주세요.");
+					}else{
+						if($("#messageContent").text()==null){
+							alert("내용을 입력해주세요.");
+						}else{
+							$("#sendMessage").attr("action":"");
+							
+							alert('관리자에게 쪽지를 보내셨습니다.');
+						}
+					}
+					<%-- location.href="<%=request.getContextPath()%>/views/company/c_messageManager.jsp"; --%>
 				}else{
 					alert("취소하셨습니다.");
 					location.href="<%=request.getContextPath()%>/views/company/c_messageManager.jsp";
