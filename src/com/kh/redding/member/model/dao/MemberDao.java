@@ -337,6 +337,9 @@ public class MemberDao {
 					hmap.put("price", rset.getInt("FINAL_PRICE"));
 					hmap.put("payDiv", rset.getString("PAYDIV"));
 					hmap.put("approval", rset.getString("APPROVAL"));
+					hmap.put("useDate", rset.getString("USE_DATE"));
+					hmap.put("useStart", rset.getString("USE_START_TIME"));
+					hmap.put("useEnd", rset.getString("USE_END_TIME"));
 					
 					list.add(hmap);
 
@@ -364,6 +367,9 @@ public class MemberDao {
 						hmap.put("price", rset.getInt("PRICE"));
 						hmap.put("status", rset.getString("RSTATUS"));
 						hmap.put("subno", rset.getInt("SUBNO"));
+						hmap.put("useDate", rset.getString("USE_DATE"));
+						hmap.put("useStart", rset.getString("USE_START_TIME"));
+						hmap.put("useEnd", rset.getString("USE_END_TIME"));
 						list.add(hmap);
 					}
 									
@@ -383,7 +389,7 @@ public class MemberDao {
 		return list;
 	}
 
-	
+	//조회할 타입의 COUNT 리턴
 	public int getCountList(Connection con, int value) {
 		Properties prop = new Properties();
 		String fileName = MemberDao.class.getResource("/sql/member/member-query.properties").getPath();
@@ -591,7 +597,9 @@ public class MemberDao {
 		}
 		
 		return m;
-
+		
+	}
+	//패키지를 조회
 	public ArrayList<HashMap<String, Object>> getPackage(Connection con, int subno, int mno) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -616,7 +624,7 @@ public class MemberDao {
 				hmap.put("rapply", rset.getString("RAPPLY_DATE"));
 				hmap.put("pName", rset.getString("PNAME"));
 				hmap.put("cName", rset.getString("MNAME"));
-				
+				hmap.put("price", rset.getString("PRICE"));
 				list.add(hmap);
 			}
 			
@@ -628,6 +636,59 @@ public class MemberDao {
 			close(pstmt);
 		}
 			
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> getPayment(Connection con, int mno, int[] upnoArr) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String,Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		String query = prop.getProperty("getPayment");
+		
+		for(int i=0; i<upnoArr.length; i++) {
+			if(i != upnoArr.length - 1) {
+				query += "?,";
+			}else {
+				query += "?)";
+			}
+		}
+		System.out.println("query : " + query);
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			for(int i=0; i<upnoArr.length; i++) {
+				pstmt.setInt(i+2, upnoArr[i]);
+			}
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String,Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				
+				hmap.put("upno", rset.getInt("UPNO"));
+				hmap.put("useDate", rset.getString("USE_DATE"));
+				hmap.put("useStart", rset.getString("USE_START_TIME"));
+				hmap.put("useEnd", rset.getString("USE_END_TIME"));
+				hmap.put("pName", rset.getString("PNAME"));
+				hmap.put("cName", rset.getString("MNAME"));
+				hmap.put("cPhone", rset.getString("PHONE"));
+				hmap.put("price", rset.getString("PRICE"));
+				hmap.put("changeName", rset.getString("CHANGE_NAME"));
+				hmap.put("filePath", rset.getString("FILE_PATH"));
+				
+				list.add(hmap);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
 		return list;
 	}	
 	

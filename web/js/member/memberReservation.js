@@ -1,7 +1,11 @@
 $(function(){
 			
+			//결제 이동 모달 출력
 			$(document).on('click', '.selectPay', function(){
 				var value = $(this).siblings('input').val();
+				var name = $("#memberName").val();
+				
+				console.log(name);
 				$.ajax({
 					url:"../../package.me",
 					type:"get",
@@ -9,12 +13,88 @@ $(function(){
 					success:function(data){
 						 console.log(data);
 						 
+						 var $tbody = $(".paymodalContent");
+						 $tbody.empty();
+						 for(var i=0; i<data.length; i++){
+						 var list = data[i];
+						 var $tr  = $("<tr>").css("color","black");
+						 
+
+						
+						 var $pNameTd = $("<td>").text(list.pName);
+						 var $cNameTd = $("<td>").text(list.cName);
+						 var $priceTd = $("<td>").text(list.price);
+						 var $dateTd = $("<td>").text(list.rapply.split(" ")[0]);
+						 var $statusTd = list.status;
+						 var $nameTd = $("<td>").text(name);
+						 
+						 if($statusTd == 10){
+							 $statusTd = $("<td>").text("예약대기").css("color","black");
+							 var $checkBox = $("<input>").attr("type","checkbox").attr("class","checkBtn").val(list.upno).attr("disabled","true");
+						 }else if($statusTd == 20){
+							 $statusTd = $("<td>").text("예약승인").css("color","green");
+							 var $checkBox = $("<input>").attr("type","checkbox").attr("class","checkBtn").val(list.upno);
+						 }else{
+							 $statusTd = $("<td>").text("예약실패").css("color","red");
+							 var $checkBox = $("<input>").attr("type","checkbox").attr("class","checkBtn").val(list.upno).attr("disabled","true");
+						 }
+						 
+						 var $checkTd = $("<td>");
+						 $checkTd.append($checkBox);
+						 
+						 $tr.append($checkTd);
+						 $tr.append($cNameTd);
+						 $tr.append($pNameTd);
+						 $tr.append($dateTd);
+						 $tr.append($dateTd);
+						 $tr.append($statusTd);
+						 $tr.append($priceTd);
+						 $tr.append($nameTd);
+						 
+						 $tbody.append($tr);
+						 
+						 }
+						 
 						 $(".ui.modal").modal('show');
+						 
 					},
 					error:function(data){
 						
 					}
 				})
+				
+			});
+			
+			//취소버튼 클릭시 모달창 닫기
+			$(document).on('click','.cancleBtn',function(){
+				$(".ui.modal").modal('hide');
+			});
+			
+			//체크박스 선택시 해당 문구 출력
+			$(document).on('change','.checkBtn',function(){
+				
+				var $checkArr = $(".checkBtn");
+				var array = new Array();
+				array[0] = $checkArr[0];
+				array[1] = $checkArr[1];
+				var num = 0;
+				
+				for(var i=0; i<$checkArr.length; i++){
+					if($checkArr[i].checked == true){
+						num++;						
+					}
+				}
+				var $content = $(".eventContent");
+				
+				if(num == 0){
+					$content.text("패키지로 결제시 최대 5% 할인");
+				}else if(num == 1){
+					$content.text(num + "개의 상품을 선택하셨습니다.  1%할인이 적용됩니다.");
+				}else if(num==2){
+					$content.text(num + "개의 상품을 선택하셨습니다.  3%할인이 적용됩니다.");
+				}else{
+					$content.text(num + "개의 상품을 선택하셨습니다.  5%할인이 적용됩니다.");
+				}
 				
 			});
 			
@@ -227,17 +307,20 @@ $(function(){
 					var $infoTr = $("<tr>");
 					var $noTd = $("<td>").text(list.rnum);
 					var $pNameTd = $("<td>").text(list.pName);
+					$pNameTd.append("<br>");
+					$pNameTd.append("(" + list.useDate.split(" ")[0]+ " " + list.useStart + "~" + list.useEnd + ")");
 					var $cNameTd = $("<td>").text(list.cName);
 					var $priceTd = $("<td>").text(list.price);
+					
 					var $rapplyTd = $("<td>").text(list.rapply.split(" ")[0]);
 					
 					if(value == 10 || value==40 ) {
 						$status = $("<td>").text("예약대기");
-						$button = $("<button>").text("예약취소").attr("class","cancellation").css("margin-top","3px");
+						$button = $("<button>").text("예약취소").attr("class","cancellation").css("margin-top","4px");
 					}else if(value == 20 || value == 50){
 						$status = $("<td>").text("예약승인").css("color","green");
-						$paybutton =$("<button>").text("결제하기").attr("class","cancellation selectPay").css("margin-top","3px");
-						$button = $("<button>").text("예약취소요청").attr("class","cancellation").css("margin-top","3px");						
+						$paybutton =$("<button>").text("결제하기").attr("class","cancellation selectPay").css("margin-top","8px");
+						$button = $("<button>").text("예약취소요청").attr("class","cancellation").css("margin-top","8px");						
 						
 						var $div = $("<div>")
 						$div.append($paybutton);
@@ -267,6 +350,8 @@ $(function(){
 						var $infoTr = $("<tr>");
 						var $noTd = $("<td>").text(list.rnum);
 						var $pNameTd = $("<td>").text(list.pName);
+						$pNameTd.append("<br>");
+						$pNameTd.append("(" + list.useDate.split(" ")[0]+ " " + list.useStart + "~" + list.useEnd + ")");
 						var $cNameTd = $("<td>").text(list.cName);
 						var $priceTd = $("<td>").text(list.price);
 						var $rapplyTd = $("<td>").text(list.rapply.split(" ")[0] + "/" + list.approval.split(" ")[0]);
@@ -284,8 +369,8 @@ $(function(){
 						if(value == 70){
 							
 						}else{						
-						var $button = $("<button>").text("후기작성").attr("class","cancellation").css("margin-top","3px");								
-						var $cancleBtn = $("<button>").text("결제취소요청").attr("class","cancellation").css("margin-top","3px");
+						var $button = $("<button>").text("후기작성").attr("class","cancellation").css("margin-top","8px");								
+						var $cancleBtn = $("<button>").text("결제취소요청").attr("class","cancellation").css("margin-top","8px");
 						}
 						
 						$div.append($button);
@@ -309,6 +394,27 @@ $(function(){
 										
 				pageBtn(data,value);
 			}
+			
+			//결제 페이지로 제품번호 보내며 포워딩
+			$(".Paymentmove").click(function(){
+				var $checkBtn = $(".checkBtn");
+				var upnoArr = new Array();
+				
+				for(var i=0; i<$checkBtn.length; i++){
+					if($checkBtn[i].checked == true){
+						upnoArr[i] = $checkBtn[i].value;
+					}
+				}
+				
+				if(upnoArr.length > 0){
+					location.href = "../../payment.me?upnoArr=" + upnoArr.join(",") + "&mno=" + $("#mno").val();
+				}else{
+					window.alert("결제할 상품을 선택하세요.");
+				}
+
+				
+				 
+			});
 			
 			
 			

@@ -167,4 +167,14 @@ public class MemberService {
 		return hmap;
 	}
 
+	public ArrayList<HashMap<String, Object>> getPayment(int mno, int[] upnoArr) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new MemberDao().getPayment(con,mno,upnoArr);
+		
+		close(con);
+		
+		return list;
+	}
+
 }
