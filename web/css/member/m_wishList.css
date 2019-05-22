@@ -47,19 +47,18 @@
 	height:300px;
 	text-align:center;
 }
-#price{
-	font-size:30px;
-	color:red;
-	text-align:center;
-}
-#packageArea{
+.packageArea{
 	width:100%;
-	display :inline;
+	background:mistyrose;
 }
-.packageStudio, .packageDress, .packageMakeup,  .packageButton, .packagePrice{
+.packageArea2{
+	width:100%;
+	background:lightgray;
+}
+.packageButton, .packagePrice{
 	float:left;
 }
-.packageStudio img, .packageDress img, .packageMakeup img{
+.fisrtStudio img, .fisrtDress img, .fisrtMakeup img{
 	max-width:100%;
 }
 #totalPrice{
@@ -70,3 +69,37 @@
 .button {
 	float:right;
 }
+.firstStudio, .firstDress, .firstMakeup{
+	width:25%;
+	text-align:center;
+}
+.secondStudio, .secondDress, .secondMakeup{
+	width:27%;
+	text-align:center;
+}
+
+.pWrap{
+	width : 100%;
+}
+
+.pack{
+	width : 70%;
+	float : left;
+}
+
+.priceWrap{
+	width : 30%;
+	height: 200px;
+	float : left;
+}
+
+
+.totalPrice{
+	margin-top : 30%;
+}
+
+#price{
+	margin-top: 30%;
+	margin-left: 20%;
+	font-size: 25px;
+	color: red;}

@@ -10,13 +10,15 @@ public class Coupon implements java.io.Serializable {
 	private String discountType;
 	private String discountRate;
 	private String discountAmount;
+	private String couponStatus;
 	private String couponStartDate;
 	private String couponEndDate;
 	
 	public Coupon() {}
 
 	public Coupon(int couponCode, String couponName, String couponDescrition, String couponCategory,
-			String discountType, String discountRate, String discountAmount, String couponStartDate, String couponEndDate) {
+			String discountType, String discountRate, String discountAmount, String couponStatus,
+			String couponStartDate, String couponEndDate) {
 		super();
 		this.couponCode = couponCode;
 		this.couponName = couponName;
@@ -25,6 +27,7 @@ public class Coupon implements java.io.Serializable {
 		this.discountType = discountType;
 		this.discountRate = discountRate;
 		this.discountAmount = discountAmount;
+		this.couponStatus = couponStatus;
 		this.couponStartDate = couponStartDate;
 		this.couponEndDate = couponEndDate;
 	}
@@ -55,6 +58,10 @@ public class Coupon implements java.io.Serializable {
 
 	public String getDiscountAmount() {
 		return discountAmount;
+	}
+
+	public String getCouponStatus() {
+		return couponStatus;
 	}
 
 	public String getCouponStartDate() {
@@ -93,6 +100,10 @@ public class Coupon implements java.io.Serializable {
 		this.discountAmount = discountAmount;
 	}
 
+	public void setCouponStatus(String couponStatus) {
+		this.couponStatus = couponStatus;
+	}
+
 	public void setCouponStartDate(String couponStartDate) {
 		this.couponStartDate = couponStartDate;
 	}
@@ -105,9 +116,11 @@ public class Coupon implements java.io.Serializable {
 	public String toString() {
 		return "Coupon [couponCode=" + couponCode + ", couponName=" + couponName + ", couponDescrition="
 				+ couponDescrition + ", couponCategory=" + couponCategory + ", discountType=" + discountType
-				+ ", discountRate=" + discountRate + ", discountAmount=" + discountAmount + ", couponStartDate="
-				+ couponStartDate + ", couponEndDate=" + couponEndDate + "]";
+				+ ", discountRate=" + discountRate + ", discountAmount=" + discountAmount + ", couponStatus="
+				+ couponStatus + ", couponStartDate=" + couponStartDate + ", couponEndDate=" + couponEndDate + "]";
 	}
+
+	
 
 	
 	

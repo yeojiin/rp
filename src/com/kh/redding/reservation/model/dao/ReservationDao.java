@@ -295,7 +295,7 @@ public class ReservationDao {
 		return result;
 	}
 
-	public int reservationInsert(Connection con, int[] upnoArr, int mno) {
+	public int reservationInsert(Connection con, int[] upnoArr, int mno, int count) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String query = prop.getProperty("reservationInsert");
@@ -305,7 +305,8 @@ public class ReservationDao {
 				pstmt = con.prepareStatement(query);
 				pstmt.setInt(1, upnoArr[i]);
 				pstmt.setInt(2, mno);
-				
+				pstmt.setInt(3, count);
+ 			
 				result += pstmt.executeUpdate();
 			}
 			
@@ -404,6 +405,32 @@ public class ReservationDao {
 		
 		
 		return list;
+	}
+
+	public int getCount(Connection con) {
+		Statement stmt = null;
+		int count = 0;
+		ResultSet rset = null;
+		String query = prop.getProperty("getCount");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		return count;
 	}
 
 

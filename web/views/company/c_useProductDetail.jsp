@@ -62,7 +62,8 @@
       <div class="row content">
       
          <div class="col-sm-2 sidenav1 visible-md visible-lg visible-sm">
-            
+            <div id="productUploadBtn">상품 등록</div><br><br>
+            <div id="proResBtn">예약 현황</div>
          </div>
          
          

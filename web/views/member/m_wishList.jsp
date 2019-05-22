@@ -57,7 +57,7 @@
 						<table id="wishListTable">
 							<tr>
 								<th>업체명</th>
-								<th><img id="image"></th>
+								<th></th>
 								<th>제품명</th>
 								<th>상품금액</th>
 								<th></th>
@@ -98,37 +98,55 @@
 				<br>
 				<br>
 				<div class="pResult">
+					<div class = "wishpackage">
 					<h2>패키지 구성</h2>
-					<div class="packageArea">
-						<div class="packageStudio">
-							<!-- <input class="Studio"> -->
-							<%-- <img src="<%=request.getContextPath()%>/images/logo.png"> --%>
+					<div class="pack">
+					<div class="packageArea" id="packageArea" style="display:inline-block">
+						<div class="firstStudio" style="display:inline-block">
+						</div>
+						<div class="packImg" style="display:inline-block">
 							<img src="<%=request.getContextPath()%>/images/plus.png">
 						</div>
-
-						<div class="packageDress">
-							<!-- <input class="Dress"> -->
-							<%-- <img src="<%=request.getContextPath()%>/images/logo.png"> --%>
+						<div class="firstDress" style="display:inline-block">
+						</div>
+						<div class="packImg" style="display:inline-block">
 							<img src="<%=request.getContextPath()%>/images/plus.png">
 						</div>
-
-						<div class="packageMakeup">
-							<!-- <input class="Makeup"> -->
-							<%-- <img src="<%=request.getContextPath()%>/images/logo.png"> --%>
-							<img src="<%=request.getContextPath()%>/images/equal.png">
-						</div>
-						<div class="packagePrice">
-							<label id="totalPrice">1000000</label>
+						<div class="firstMakeup" style="display:inline-block">
 						</div>
 					</div>
+					<div class="packageArea2" id="packageArea2" style="display:inline-block">
+						<div class="secondStudio" style="display:inline-block">
+						</div>
+						<div class="packImg" style="display:inline-block">
+						</div>
+						<div class="secondDress" style="display:inline-block">
+						</div>
+						<div class="packImg" style="display:inline-block">
+						</div>
+						<div class="secondMakeup" style="display:inline-block">
+						</div>
+						<div class="packImg" style="display:inline-block">
+					</div>
+				</div>
+				</div>
+				<div class= "priceWrap">
+					<div class="totalPrice" style="float:left">
+						<img  src="<%=request.getContextPath()%>/images/equal.png">
+					</div>
+					<h2 id = "price"></h2>
+				</div>
+				</div>
+				
+				</div>
+				<br><br><br><br>
+					
 					<div class="button">
-						
 						<button class="ui pink button" style="background: salmon;" id="reserve">예약하기</button>
 						<button class="ui pink button" style="background: salmon;" onclick="location.href='views/member/m_pay.jsp'">결제하기</button>
 					</div>
 
 				</div>
-				
 
 			</div>
 
@@ -220,98 +238,74 @@
 				//패키지 구성 불러오기
 				$(document).ready(function(){
 					var mno = <%=loginUser.getMno()%>;
-					console.log(mno);
+					//console.log(mno);
 					$.ajax({
 		          			url : "/redding/showPack.wi",
 		          			data : {mno:mno},
 		          			type : "post",
 		          			success : function(data){
-		          				console.log(data);
+		          				//console.log(data);
+		          				
+		          				$firstStudio = $(".firstStudio"); 
+		          				$firstDress = $(".firstDress");
+		          				$firstMakeup = $(".firstMakeup");
+		          				$secondStudio = $(".secondStudio");
+		          				$secondDress = $(".secondDress");
+		          				$secondMakeup = $(".secondMakeup");
+		          				$totalPrice = $(".priceWrap");
+		          				var sctn = 0;
+		          				var dctn = 0;
+		          				var mctn = 0;
+		          				var totalPrice = 0;
+		          				
+		          				for(var i=0; i<data.length; i++){
+		          				var cname = data[i].cname;
+		          				var pname = data[i].pname;
+		          				var price = data[i].price;
+		          				var ctype = data[i].comType;
+		          				var pno = data[i].pno;
+	
+			          				if(ctype == "스튜디오" && sctn==0){
+			          					$firstStudio.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+			          					sctn++;
+			          				}else if(ctype == "드레스" && dctn==0 ){
+		    	      					$firstDress.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+		        	  					dctn++;
+		        	  				}else if(ctype == "메이크업" && mctn==0){
+		          						$firstMakeup.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+		          						mctn++;
+		          					}else if(ctype == "스튜디오"){
+		          						$secondStudio.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+		          					}else if(ctype == "드레스") {
+		          						$secondDress.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+		          					}else if(ctype == "메이크업"){
+		          						$secondMakeup.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+		          					}
+		          					
+			          				totalPrice += price;
+		          				}
+		          				
+		          				$("#price").html(totalPrice);
+		          				
+		          				
 		          			}, 
 		          			error : function(){
 		          				console.log("패키지 불러오기 실패!!");
 		          			}
 		          		});
+					
+					$(document).on('click','p',function(){
+						console.log($(this).prop("class"));
+						var value = $(this).prop("class");				
+					});
 					  
 				});
+				
+				//var data = 
+				//console.log("흠: " +data);
+				/* for(int i=0; i<) */
+				//$(".num")
 
-				
-				/*
-				 var sctn=0;
-				var dctn=0;
-				var mctn=0;
-				$(".checkbox").change(function() {
-					var cType = $(this).closest("td").siblings('.cType').text();
-					var pno = $(this).closest("td").siblings('.pno').text();
-					var ctn = 0;
-					console.log($(this).prop("checked"));
-					
-					
-					
-					if($(this).prop("checked") == true){
-						if(cType == "스튜디오" && sctn==0){
-							$(".Studio").val(pno);
-							sctn++;
-						}else if(cType == "드레스" && dctn==0){
-							$(".Dress").val(pno);
-							dctn++;
-						}else if(cType == "메이크업" && mctn==0){
-							$(".Makeup").val(pno);
-							mctn++;
-						 }else if(cType == "스튜디오"){
-							//$(this).prop('checked', false);
-							confirmPack(cType,pno);
-						}else if(cType == "드레스"){
-							//$(this).prop('checked', false);
-							confirmPack(cType,pno);
-						}else if(cType == "메이크업"){
-							//$(this).prop('checked', false);
-							comfirmPack(cType,pno); 
-						}
-					}/* else{
-						if(cType == "스튜디오"){
-							$(".Studio").val("");
-							sctn--;
-						}else if(cType == "드레스"){
-							$(".Dress").val("");
-							dctn--;
-						}else if(cType == "메이크업"){
-							$(".Makeup").val("");
-							mctn--;
-						}
-					} 
-					
-				});
-				
-				
-				//추가 할 것 인가요?
-				function confirmPack(cType, pno){
-					if(cType == "스튜디오"){
-						addPack(cType, pno);
-					}else if(cType == "드레스"){
-						addPack(cType, pno);
-					}else if(cType == "메이크업"){
-						addPack(cType, pno);
-					}
-				}
-				
-				
-				//추가 메소드
-				function addPack(cType, pno){
-					//console.log("제품번호는: " +pno);
-					if(confirm(cType+"가/이 이미 있습니다. 추가하시겠습니까?")){
-						
-						if(cType == "스튜디오"){
-							$(".packageStudio").empty();
-							$(".packageStudio").append($( "<input>",{type:'text'}));
-							
-						}
-						//$("."+pno).empty();
-						//$( "<input>",{type:'text'}).appendTo(".packageArea").val(pno);
-					}else{
-						return false;
-					}
-				} */
 				
 				
 			</script>

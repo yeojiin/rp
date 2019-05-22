@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*, com.kh.redding.product.model.vo.*"%>
 <%   
-	HashMap<String, Object> hmap = (HashMap<String, Object>)request.getAttribute("hmap");
+	/* HashMap<String, Object> hmap = (HashMap<String, Object>)request.getAttribute("hmap");
 	
 	ArrayList<Product> proList = (ArrayList<Product>)hmap.get("proList");
-	PageInfo pi = (PageInfo) hmap.get("pi");
+	PageInfo pi = (PageInfo) hmap.get("pi"); */
 			
-   /* ArrayList<Product> proList = (ArrayList<Product>) request.getAttribute("proList"); 
-   PageInfo pi = (PageInfo)request.getAttribute("pi"); */
+   ArrayList<Product> proList = (ArrayList<Product>) request.getAttribute("proList"); 
+   PageInfo pi = (PageInfo)request.getAttribute("pi");
    
    ProductCounts pcount = (ProductCounts) request.getAttribute("pcount");
    
@@ -335,15 +335,20 @@
                   
 					var $tr1 = $("<tr>");
 					var $ckTh = $("<th width='3%'>");
-					var $startTh = $("<th width='5%'>").text("No.");
+					var $startTh = $("<th width='3%'>").text("No.");
 					/* var $noTh = $("<th width='5%'>").text("pno."); */
-					var $nameTh = $("<th width='5%'>").text("상품명");
+					var $nameTh = $("<th width='15%'>").text("상품명");
 					var $priceTh = $("<th width='10%'>").text("가격(원)");
 					var $penrollTh = $("<th width='15%'>").text("상품등록일");
 					var $pmodifyTh = $("<th width='15%'>").text("상품수정일");
 					var $pstatusTh = $("<th width='10%'>").text("판매여부");
 					var $btnTh = $("<th width='10%'>");
 					
+					/* for(var i=0 ; i<data.length ; i++){
+						
+						console.log(data.pNo);
+					}
+					 */
 					$tr1.append($ckTh);
 					$tr1.append($startTh);
 					$tr1.append($nameTh);
@@ -354,6 +359,9 @@
 					$tr1.append($btnTh);
 					
 					$tableBody.append($tr1);
+					
+					/* var pno=0; */
+					
 					$.each(data,function(index, value){
 					   
 						var $tr = $("<tr>");
@@ -365,8 +373,10 @@
 						var $startIn = $("<input type='number' name='startRows' id='startRows' readonly>");
 						$startIn.val(ctn); 
 						
-						var $noIn = $("<input type='hidden' name='proNum' id='proNum'>").val(value.pNo);
 						
+						var $noIn = $("<input type='hidden' name='proNum' id='proNum'>").val(value.pNo);
+						console.log($noIn.val());
+						console.log("===================")
 						
 						var $nameTd = $("<td>").text(value.pName);
 						
@@ -376,7 +386,7 @@
 						
 						var $penrollDateTd = $("<td>").text(value.pEnrollDate);
 						
-						var $pmodifyDateTd = $("<td>").text(value.pmodifyDate);
+						var $pmodifyDateTd = $("<td>").text(value.pModifyDate);
 						
 						var $proStatusTd = $("<td>").text(value.proStatus);
 						
@@ -384,7 +394,7 @@
 						var $btnIn = $("<div id='productDetailBtn' class='productDetail'>상세보기</div>");
 						
 						$btnTd.append($btnIn);
-						$startIn.append($noIn);
+						$startTd.append($noIn);
 						$startTd.append($startIn);
 						$ckTd.append($ckIn);
 						      
@@ -402,8 +412,11 @@
 						
 						$(".productDetail").click(function(){
 							
-							var pNo = $(this).parent().parent().children().eq(1).children().eq(0).val();
-							location.href="<%=request.getContextPath()%>/proDetail.pr?pno="+pNo;
+							var pno = $(this).parent().parent().children().eq(1).children().eq(0).val();
+							console.log(pno);
+							/* pno = $(this).parent().parent().children().eq(1).children().eq(0).val();
+							console.log(pno); */
+							location.href="<%=request.getContextPath()%>/proDetail.pr?pno="+pno;
 						});
 						ctn = ctn + 1;
 					});
