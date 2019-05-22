@@ -109,6 +109,7 @@
 								<tr>
 									<td rowspan="2" class="searchCompanyListTd1">가입일</td>
 									<td class="searchCompanyListTd2"><input type="radio" value="전체" name="companyEnrollDate" checked>&nbsp;&nbsp;전체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="radio" value="일주일 이내" name="companyEnrollDate">&nbsp;&nbsp;오늘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 										<input type="radio" value="일주일 이내" name="companyEnrollDate">&nbsp;&nbsp;일주일 이내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 										<input type="radio" value="1개월 이내" name="companyEnrollDate">&nbsp;&nbsp;1개월 이내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 										<input type="radio" value="3개월 이내" name="companyEnrollDate">&nbsp;&nbsp;3개월 이내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -162,7 +163,9 @@
 										<td><%=company.getMemberName()%></td>
 										<td><%=company.getEnrollDate()%></td>
 										<td><%=company.getStatus()%></td>
-										<td><div class="reply">쪽지보내기</div></td>
+										<td><div class="reply">쪽지보내기</div>
+											<input type="hidden" class="cno" name="cno" id="cno" value="<%=company.getMno()%>">
+										</td>
 									</tr>
 								</tbody>
 								<%
@@ -319,7 +322,12 @@
 						 lastDateArr[i] = lastDate.split("-")[i];
 					}
 					
-					var searchCondition = [$(".companyName").val(), $("input:radio[name=companyCategory]:checked").val(), $("input:radio[name=companyEnrollDate ]:checked").val(), $("input:radio[name=companyStatus]:checked").val(), firstDateArr.join(""), lastDateArr.join("")];
+					var searchCondition = [$(".companyName").val(), 
+										   $("input:radio[name=companyCategory]:checked").val(), 
+										   $("input:radio[name=companyEnrollDate ]:checked").val(), 
+										   $("input:radio[name=companyStatus]:checked").val(), 
+										   firstDateArr.join(""), 
+										   lastDateArr.join("")];
 					console.log(searchCondition);
 					$.ajaxSettings.traditional = true;
 					$.ajax({
@@ -346,6 +354,12 @@
 								$replyTd = $("<td>");
 		                        $replyIn = $("<div class='reply'>");
 		                        $replyIn.html("쪽지보내기");
+		                        
+		                        $cnoIn = $("<input type='hidden' class='cno' name='cno' id='cno' readonly>");
+	                              $cnoIn.val(data[i].member.mno);
+	                             
+	                              $replyIn.append($cnoIn);
+
 		                        $replyTd.append($replyIn);
 								
 								$inputTd.append($checkbox);
@@ -360,8 +374,10 @@
 								$(".companyListTable").append($infoTr);
 								
 								$(".reply").click(function(){
-		                           var replyCom = $(this).parent().parent().children().eq(3).text();
-		                           location.href="<%=request.getContextPath()%>/getComNo.mes?cname="+replyCom;
+									var cno = $(this).children().val();
+		                               console.log(cno);
+		                               location.href="<%=request.getContextPath()%>/getComNo.mes?cno="+cno;
+
 		                        });
 							}
 							/* pageBtn(data); */
@@ -422,6 +438,7 @@
 					}*/
 				}); 
 				
+				// 업체 상세 정보 조회 ajax
 				$(".companyListTable tbody td").mouseenter(function() {
 					$(this).parent().css({"background":"mistyrose", "cursor":"pointer"});
 				}).mouseout(function(){
@@ -455,8 +472,10 @@
 				});
 				
 				$(".reply").click(function(){
-	               var replyCom = $(this).parent().parent().children().eq(3).text();
-	               location.href="<%=request.getContextPath()%>/getComNo.mes?cname="+replyCom;
+					var cno = $(this).siblings(".cno").val();
+	                  console.log(cno);
+	                  location.href="<%=request.getContextPath()%>/getComNo.mes?cno="+cno;
+
 	            });
 				
 			});
