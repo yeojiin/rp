@@ -591,6 +591,7 @@ public class MemberDao {
 		}
 		
 		return m;
+	}
 
 	public ArrayList<HashMap<String, Object>> getPackage(Connection con, int subno, int mno) {
 		PreparedStatement pstmt = null;

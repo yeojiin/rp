@@ -35,6 +35,14 @@
 <script src="<%=request.getContextPath()%>/js/modal.min.js"></script>
 <script src="<%=request.getContextPath()%>/js/semantic.min.js"></script>
 <title>Insert title here</title>
+<style>
+	.ui.dimmer .ui.modal{
+      margin-left:auto;
+      margin-right:auto;
+      margin-top:auto;
+      margin-bottom:auto;
+   }
+</style>
 </head>
 <body>
 

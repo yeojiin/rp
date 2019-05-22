@@ -435,226 +435,377 @@ public class AdminDao {
 	
 	
 	//정산 갯수 리턴용 메소드
-		public int getCalcCount(Connection con) {
-			Statement stmt = null;
-			int calcCount = 0;
-			ResultSet rset = null;
+	public int getCalcCount(Connection con) {
+		Statement stmt = null;
+		int calcCount = 0;
+		ResultSet rset = null;
 
-			String query = prop.getProperty("allCalcCount");
+		String query = prop.getProperty("allCalcCount");
 
-			try {
-				stmt = con.createStatement();
-				rset = stmt.executeQuery(query);
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
 
-				if(rset.next()) {
-					calcCount = rset.getInt(1);
-				}
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				close(stmt);
-				close(rset);
+			if(rset.next()) {
+				calcCount = rset.getInt(1);
 			}
 
-			return calcCount;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
 		}
 
+		return calcCount;
+	}
+
+	
+	//정산관리 조회용 메소드
+	public ArrayList<HashMap<String, Object>> showCalc(Connection con, TotalMemberPageInfo pi) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String,Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+
+		String query = prop.getProperty("showCalc");
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
 		
-		//정산관리 조회용 메소드
-		public ArrayList<HashMap<String, Object>> showCalc(Connection con, TotalMemberPageInfo pi) {
-			PreparedStatement pstmt = null;
-			ArrayList<HashMap<String,Object>> list = null;
-			HashMap<String, Object> hmap = null;
-			ResultSet rset = null;
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 
-			String query = prop.getProperty("showCalc");
-			int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
-			int endRow = startRow + pi.getLimit() - 1;
 			
-			try {
-				pstmt = con.prepareStatement(query);
-				pstmt.setInt(1, startRow);
-				pstmt.setInt(2, endRow);
+			rset= pstmt.executeQuery();
 
-				
-				rset= pstmt.executeQuery();
+			list = new ArrayList<HashMap<String,Object>>();
 
-				list = new ArrayList<HashMap<String,Object>>();
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				hmap.put("rnum", rset.getInt("RNUM"));
+				hmap.put("mname", rset.getString("MNAME"));
+				hmap.put("price", rset.getInt("PRICE"));
+				hmap.put("pselect", rset.getString("PSELECT"));
+				hmap.put("pstatus", rset.getString("PSTATUS"));
+				hmap.put("payno", rset.getInt("PAYNO"));
+				hmap.put("mno", rset.getInt("MNO"));
+				hmap.put("upno", rset.getInt("UPNO"));
+				hmap.put("payDiv", rset.getString("PAYDIV"));
+				hmap.put("cno", rset.getInt("CNO"));
+				hmap.put("cname", rset.getString("CNAME"));
+				hmap.put("pname", rset.getString("PNAME"));
 
-				while(rset.next()) {
-					hmap = new HashMap<String, Object>();
-					hmap.put("rnum", rset.getInt("RNUM"));
-					hmap.put("mname", rset.getString("MNAME"));
-					hmap.put("price", rset.getInt("PRICE"));
-					hmap.put("pselect", rset.getString("PSELECT"));
-					hmap.put("pstatus", rset.getString("PSTATUS"));
-					hmap.put("payno", rset.getInt("PAYNO"));
-					hmap.put("mno", rset.getInt("MNO"));
-					hmap.put("upno", rset.getInt("UPNO"));
-					hmap.put("payDiv", rset.getString("PAYDIV"));
-					hmap.put("cno", rset.getInt("CNO"));
-					hmap.put("cname", rset.getString("CNAME"));
-					hmap.put("pname", rset.getString("PNAME"));
-
-					list.add(hmap);
-				}
-
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				close(pstmt);
-				close(rset);
+				list.add(hmap);
 			}
 
-			return list;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
 		}
 
-		public ArrayList<HashMap<String, Object>> searchCompanyList(Connection con, TotalMemberPageInfo pi, ArrayList searchConditionList) {
-			Properties prop = new Properties();
-			String fileName = MemberDao.class.getResource("/sql/admin/admin-query.properties").getPath();
-			try {
-				prop.load(new FileReader(fileName));
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-			
-			PreparedStatement pstmt = null;
-			ResultSet rset = null;
-			ArrayList<HashMap<String, Object>> searchCompanyList = null;
-			HashMap<String, Object> hlist = null;
-			Member member = null;
-			String num = "";
-			String comType = "";
-			
-			String query = prop.getProperty("selectSearchCompanyList");
-			
-			int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
-			int endRow = startRow + pi.getLimit() - 1;
-			String companyName = searchConditionList.get(0).toString();
-			
-			try {
-				pstmt = con.prepareStatement(query);
-				pstmt.setString(1, companyName);
-				pstmt.setInt(2, startRow);
-				pstmt.setInt(3, endRow);
-				
-				rset = pstmt.executeQuery();
-				
-				searchCompanyList = new ArrayList<HashMap<String, Object>>();
-				
-				while(rset.next()) {
-					hlist = new HashMap<String,Object>();
-					member = new Member();
-					
-					num = rset.getInt("RNUM")+ "";
-					comType = rset.getString("COM_TYPE");
-					member.setMno(rset.getInt("MNO"));
-					member.setMemberId(rset.getString("MID"));
-					member.setMemberPwd(rset.getString("MPWD"));
-					member.setMemberName(rset.getString("MNAME"));
-					member.setNickName(rset.getString("NICK_NAME"));
-					member.setPhone(rset.getString("PHONE"));
-					member.setEmergenCon(rset.getString("EMERGEN_CON"));
-					member.setEmail(rset.getString("EMAIL"));
-					member.setEmailCheck(rset.getString("EMAIL_CHECK"));
-					member.setGender(rset.getString("GENDER"));
-					member.setEnrollDate(rset.getDate("ENROLL_DATE"));
-					member.setModifyDate(rset.getDate("MODIFY_DATE"));
-					member.setStatus(rset.getString("STATUS"));
-					member.setMemberType(rset.getInt("MTYPE"));
-					member.setWeddingDate(rset.getDate("WEDDING_DATE"));
-					
-					// System.out.println(num);
-					
-					hlist.put("num", num);
-					hlist.put("comType", comType);
-					hlist.put("member", member);
-					searchCompanyList.add(hlist);
-					System.out.println("searchConditionList디에이오 : " + searchConditionList);
-					
-				}
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				close(rset);
-				close(pstmt);
-			}
+		return list;
+	}
 
-			return searchCompanyList;
+	public ArrayList<HashMap<String, Object>> searchCompanyList(Connection con, TotalMemberPageInfo pi, ArrayList searchConditionList) {
+		Properties prop = new Properties();
+		String fileName = MemberDao.class.getResource("/sql/admin/admin-query.properties").getPath();
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> searchCompanyList = null;
+		HashMap<String, Object> hlist = null;
+		Member member = null;
+		String num = "";
+		String comType = "";
+		
+		String query = prop.getProperty("selectSearchCompanyList");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		String companyName = searchConditionList.get(0).toString();
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, companyName);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			searchCompanyList = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hlist = new HashMap<String,Object>();
+				member = new Member();
+				
+				num = rset.getInt("RNUM")+ "";
+				comType = rset.getString("COM_TYPE");
+				member.setMno(rset.getInt("MNO"));
+				member.setMemberId(rset.getString("MID"));
+				member.setMemberPwd(rset.getString("MPWD"));
+				member.setMemberName(rset.getString("MNAME"));
+				member.setNickName(rset.getString("NICK_NAME"));
+				member.setPhone(rset.getString("PHONE"));
+				member.setEmergenCon(rset.getString("EMERGEN_CON"));
+				member.setEmail(rset.getString("EMAIL"));
+				member.setEmailCheck(rset.getString("EMAIL_CHECK"));
+				member.setGender(rset.getString("GENDER"));
+				member.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				member.setModifyDate(rset.getDate("MODIFY_DATE"));
+				member.setStatus(rset.getString("STATUS"));
+				member.setMemberType(rset.getInt("MTYPE"));
+				member.setWeddingDate(rset.getDate("WEDDING_DATE"));
+				
+				// System.out.println(num);
+				
+				hlist.put("num", num);
+				hlist.put("comType", comType);
+				hlist.put("member", member);
+				searchCompanyList.add(hlist);
+				System.out.println("searchConditionList디에이오 : " + searchConditionList);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 
-		public ArrayList<HashMap<String, Object>> searchCompanyList2(Connection con, ArrayList searchConditionList) {
-			Properties prop = new Properties();
-			String fileName = MemberDao.class.getResource("/sql/admin/admin-query.properties").getPath();
-			try {
-				prop.load(new FileReader(fileName));
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
+		return searchCompanyList;
+	}
+
+	// 관리자 업체 조건 검색용 메소드
+	public ArrayList<HashMap<String, Object>> searchCompanyList2(Connection con, ArrayList searchConditionList) {
+		Properties prop = new Properties();
+		String fileName = MemberDao.class.getResource("/sql/admin/admin-query.properties").getPath();
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> searchCompanyList = null;
+		HashMap<String, Object> hlist = null;
+		Member member = null;
+		String num = "";
+		String comType = "";
+		
+		String query = prop.getProperty("selectSearchCompanyList");
+		
+		System.out.println("daoMakeQuery : " + query);
+		
+		String companyName = searchConditionList.get(0).toString();
+		String companyCategory = searchConditionList.get(1).toString();
+		String companyEnrollDate = searchConditionList.get(2).toString();
+		String companyStatus = searchConditionList.get(3).toString();
+		String firstDate = searchConditionList.get(4).toString();
+		String lastDate = searchConditionList.get(5).toString();
+		
+		try {
+			pstmt = con.prepareStatement(query);
 			
-			PreparedStatement pstmt = null;
-			ResultSet rset = null;
-			ArrayList<HashMap<String, Object>> searchCompanyList = null;
-			HashMap<String, Object> hlist = null;
-			Member member = null;
-			String num = "";
-			String comType = "";
-			
-			String query = prop.getProperty("selectSearchCompanyList");
-			
-			String companyName = searchConditionList.get(0).toString();
-			
-			try {
-				pstmt = con.prepareStatement(query);
-				pstmt.setString(1, companyName);
+			if(companyName.equals("")) { // 업체명 널일 때 (1)
 				
-				rset = pstmt.executeQuery();
-				
-				searchCompanyList = new ArrayList<HashMap<String, Object>>();
-				
-				while(rset.next()) {
-					hlist = new HashMap<String,Object>();
-					member = new Member();
+				if(!companyCategory.equals("전체")) { // 업체명이 널이고, 카테고리 전체 아닐 때 (2)
 					
-					num = rset.getInt("RNUM")+ "";
-					comType = rset.getString("COM_TYPE");
-					member.setMno(rset.getInt("MNO"));
-					member.setMemberId(rset.getString("MID"));
-					member.setMemberPwd(rset.getString("MPWD"));
-					member.setMemberName(rset.getString("MNAME"));
-					member.setNickName(rset.getString("NICK_NAME"));
-					member.setPhone(rset.getString("PHONE"));
-					member.setEmergenCon(rset.getString("EMERGEN_CON"));
-					member.setEmail(rset.getString("EMAIL"));
-					member.setEmailCheck(rset.getString("EMAIL_CHECK"));
-					member.setGender(rset.getString("GENDER"));
-					member.setEnrollDate(rset.getDate("ENROLL_DATE"));
-					member.setModifyDate(rset.getDate("MODIFY_DATE"));
-					member.setStatus(rset.getString("STATUS"));
-					member.setMemberType(rset.getInt("MTYPE"));
-					member.setWeddingDate(rset.getDate("WEDDING_DATE"));
+					if(!companyEnrollDate.equals("전체")) { // 업체명이 널이고, 카테고리 전체 아니고, 가입일 전체 아닐 때 (3)
+						
+						if(!companyStatus.equals("전체")) { // 업체명이 널이고, 카테고리 전체 아니고, 가입일 전체 아니고, 상태 전체 아닐 때 (4)
+							
+							if(companyEnrollDate.equals("검색")) { // 가입일 검색일 때
+								pstmt.setString(1, companyCategory);
+								pstmt.setString(2, firstDate);
+								pstmt.setString(3, lastDate);
+								pstmt.setString(4, companyStatus);
+							}
+							
+						}else { // 업체명이 널이고, 카테고리 전체 아니고, 가입일 전체 아니고, 상태 전체일 때 (4)
+							
+							if(companyEnrollDate.equals("검색")) { // 가입일 검색일 때
+								pstmt.setString(1, companyCategory);
+								pstmt.setString(2, firstDate);
+								pstmt.setString(3, lastDate);
+							}
+						}
+						
+					}else { // 업체명이 널이고, 카테고리 전체 아니고, 가입일 전체일 때 (3)
+						
+						if(!companyStatus.equals("전체")) { // 업체명이 널이고, 카테고리 전체 아니고, 가입일 전체이고, 상태 전체 아닐 때 (4)
+							pstmt.setString(1, companyCategory);
+							pstmt.setString(2, companyStatus);
+							
+						}else { // 업체명이 널이고, 카테고리 전체 아니고, 가입일 전체 전체이고, 상태 전체일 때 (4)
+							pstmt.setString(1, companyCategory);
+						}
+					}
 					
-					// System.out.println(num);
+				}else { // 업체명이 널이고, 카테고리 전체일 때 (2)
 					
-					hlist.put("num", num);
-					hlist.put("comType", comType);
-					hlist.put("member", member);
-					searchCompanyList.add(hlist);
-					
+					if(!companyEnrollDate.equals("전체")) { // 업체명이 널이고, 카테고리 전체이고, 가입일 전체 아닐 때 (3)
+						
+						if(!companyStatus.equals("전체")) { // 업체명이 널이고, 카테고리 전체이고, 가입일 전체 아니고, 상태 전체 아닐 때 (4)
+							
+							if(companyEnrollDate.equals("검색")) { // 가입일 검색일 때
+								pstmt.setString(1, firstDate);
+								pstmt.setString(2, lastDate);
+								pstmt.setString(3, companyStatus);
+							}
+							
+						}else { // 업체명이 널이고, 카테고리 전체이고, 가입일 전체 아니고, 상태 전체일 때 (4)
+							
+							if(companyEnrollDate.equals("검색")) { // 가입일 검색일 때
+								pstmt.setString(1, firstDate);
+								pstmt.setString(2, lastDate);
+							}
+						}
+						
+					}else { // 업체명이 널이고, 카테고리 전체이고, 가입일 전체일 때 (3)
+						
+						if(!companyStatus.equals("전체")) { // 업체명이 널이고, 카테고리 전체이고, 가입일 전체이고, 상태 전체가 아닐 때 (4)
+							pstmt.setString(1, companyStatus);
+							
+						}else { // 업체명이 널이고, 카테고리 전체이고, 가입일 전체이고, 상태  전체일 때
+							
+						}
+					}
 				}
 				
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				close(rset);
-				close(pstmt);
+			}else { //업체명이 널이 아닐 때
+				
+				if(!companyCategory.equals("전체")) { // 업체명이 널이 아니고, 카테고리 전체 아닐 때 (2)
+					
+					if(!companyEnrollDate.equals("전체")) { // 업체명이 널이 아니고, 카테고리 전체 아니고, 가입일 전체 아닐 때 (3)
+						
+						if(!companyStatus.equals("전체")) { // 업체명이 널이 아니고, 카테고리 전체 아니고, 가입일 전체 아니고, 상태 전체 아닐 때 (4)
+							
+							if(companyEnrollDate.equals("검색")) { // 가입일 검색일 때
+								pstmt.setString(1, companyName);
+								pstmt.setString(2, companyCategory);
+								pstmt.setString(3, firstDate);
+								pstmt.setString(4, lastDate);
+								pstmt.setString(5, companyStatus);
+							}
+							
+						}else { // 업체명이 널이 아니고, 카테고리 전체 아니고, 가입일 전체 아니고, 상태 전체일 때 (4)
+							
+							if(companyEnrollDate.equals("검색")) { // 가입일 검색일 때
+								pstmt.setString(1, companyName);
+								pstmt.setString(2, companyCategory);
+								pstmt.setString(3, firstDate);
+								pstmt.setString(4, lastDate);
+							}
+						}
+						
+					}else { // 업체명이 널이 아니고, 카테고리 전체 아니고, 가입일 전체일 때 (3)
+						
+						if(!companyStatus.equals("전체")) { // 업체명이 널이 아니고, 카테고리 전체 아니고, 가입일 전체이고, 상태 전체 아닐 때 (4)
+							pstmt.setString(1, companyName);
+							pstmt.setString(2, companyCategory);
+							pstmt.setString(3, companyStatus);
+							
+						}else { // 업체명이 널이 아니고, 카테고리 전체 아니고, 가입일 전체 전체이고, 상태 전체일 때 (4)
+							pstmt.setString(1, companyName);
+							pstmt.setString(2, companyCategory);
+						}
+					}
+					
+				}else { // 업체명이 널이 아니고, 카테고리 전체일 때 (2)
+					
+					if(!companyEnrollDate.equals("전체")) { // 업체명이 널이 아니고, 카테고리 전체이고, 가입일 전체 아닐 때 (3)
+						
+						if(!companyStatus.equals("전체")) { // 업체명이 널이 아니고, 카테고리 전체이고, 가입일 전체 아니고, 상태 전체 아닐 때 (4)
+							
+							if(companyEnrollDate.equals("검색")) { // 가입일 검색일 때
+								pstmt.setString(1, companyName);
+								pstmt.setString(2, firstDate);
+								pstmt.setString(3, lastDate);
+								pstmt.setString(4, companyStatus);
+							}
+							
+						}else { // 업체명이 널이 아니고, 카테고리 전체이고, 가입일 전체 아니고, 상태 전체일 때 (4)
+							
+							if(companyEnrollDate.equals("검색")) { // 가입일 검색일 때
+								pstmt.setString(1, companyName);
+								pstmt.setString(2, firstDate);
+								pstmt.setString(3, lastDate);
+							}
+						}
+						
+					}else { // 업체명이 널이 아니고, 카테고리 전체이고, 가입일 전체일 때 (3)
+						
+						if(!companyStatus.equals("전체")) { // 업체명이 널이 아니고, 카테고리 전체이고, 가입일 전체이고, 상태 전체가 아닐 때 (4)
+							pstmt.setString(1, companyName);
+							pstmt.setString(1, companyStatus);
+							
+						}else { // 업체명이 널이 아니고, 카테고리 전체이고, 가입일 전체이고, 상태  전체일 때
+							pstmt.setString(1, companyName);
+							
+						}
+					}
+				}
+				
 			}
-
-			return searchCompanyList;
+			
+			
+			
+			rset = pstmt.executeQuery();
+			
+			searchCompanyList = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hlist = new HashMap<String,Object>();
+				member = new Member();
+				
+				num = rset.getInt("RNUM")+ "";
+				comType = rset.getString("COM_TYPE");
+				member.setMno(rset.getInt("MNO"));
+				member.setMemberId(rset.getString("MID"));
+				member.setMemberPwd(rset.getString("MPWD"));
+				member.setMemberName(rset.getString("MNAME"));
+				member.setNickName(rset.getString("NICK_NAME"));
+				member.setPhone(rset.getString("PHONE"));
+				member.setEmergenCon(rset.getString("EMERGEN_CON"));
+				member.setEmail(rset.getString("EMAIL"));
+				member.setEmailCheck(rset.getString("EMAIL_CHECK"));
+				member.setGender(rset.getString("GENDER"));
+				member.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				member.setModifyDate(rset.getDate("MODIFY_DATE"));
+				member.setStatus(rset.getString("STATUS"));
+				member.setMemberType(rset.getInt("MTYPE"));
+				member.setWeddingDate(rset.getDate("WEDDING_DATE"));
+				
+				// System.out.println(num);
+				
+				hlist.put("num", num);
+				hlist.put("comType", comType);
+				hlist.put("member", member);
+				searchCompanyList.add(hlist);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
+
+		return searchCompanyList;
+	}
 	
 
 	
