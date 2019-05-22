@@ -167,4 +167,29 @@ public class WishListDao {
 		return list;
 	}
 
+	
+	//패키지 삭제 메소드
+	public int deletePackage(Connection con, int mno, int pno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("deletePackage");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			pstmt.setInt(2, pno);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+
+	}
+
 }

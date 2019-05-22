@@ -265,6 +265,7 @@ public class ReservationDao {
 			close(rset);
 		}
 
+		System.out.println("다오: "+ list);
 		return list;
 	}
 

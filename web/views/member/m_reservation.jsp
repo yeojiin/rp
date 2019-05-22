@@ -89,7 +89,7 @@
 					<%
 						for (int i = 0; i < list.size(); i++) {
 							HashMap<String, Object> hmap = list.get(i);
-							//System.out.println(list);
+							System.out.println(list);
 					%>
 
 					<table
@@ -325,6 +325,108 @@
 				
 			});
 				
+		
+		
+		
+		
+		
+		
+		//패키지 삭제 메소드
+		$(document).on('click','p',function(){
+			var pno = $(this).prop("class");			
+			var mno = <%=loginUser.getMno()%>;
+			
+			var result = confirm('패키지에서 삭제 하시겠습니까?'); 
+
+			
+			if(result){
+			$.ajax({
+				url : "/redding/deletePack.wi",
+      			traditional:true,
+      			data : {pno:pno, mno:mno},
+      			type : "post",
+      			success : function(data){
+      				//console.log(data);
+      				
+      				if(data>0){	
+      					alert("패키지 삭제에 성공했습니다!");
+						
+						/*  $.ajax({
+		          			url : "/redding/showPack.wi",
+		          			data : {mno:mno},
+		          			type : "post",
+		          			success : function(data){
+		          				//console.log(data);
+		          				
+		          				$firstStudio = $(".firstStudio"); 
+		          				$firstDress = $(".firstDress");
+		          				$firstMakeup = $(".firstMakeup");
+		          				$secondStudio = $(".secondStudio");
+		          				$secondDress = $(".secondDress");
+		          				$secondMakeup = $(".secondMakeup");
+		          				$totalPrice = $(".priceWrap");
+		          				var sctn = 0;
+		          				var dctn = 0;
+		          				var mctn = 0;
+		          				var totalPrice = 0;
+		          				
+		          				$firstStudio.empty();
+		          				$firstDress.empty();
+		          				$firstMakeup.empty();
+		          				$secondStudio.empty();
+		          				$secondDress.empty();
+		          				$secondMakeup.empty();
+		          				$totalPrice.empty();
+		          				
+		          				
+		          			 	for(var i in data){
+		          				var cname = data[i].cname;
+		          				var pname = data[i].pname;
+		          				var price = data[i].price;
+		          				var ctype = data[i].comType;
+		          				var pno = data[i].pno;
+	
+			          				if(ctype == "스튜디오" && sctn==0){
+			          					$firstStudio.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+			          					sctn++;
+			          				}else if(ctype == "드레스" && dctn==0 ){
+		    	      					$firstDress.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+		        	  					dctn++;
+		        	  				}else if(ctype == "메이크업" && mctn==0){
+		          						$firstMakeup.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+		          						mctn++;
+		          					}else if(ctype == "스튜디오"){
+		          						$secondStudio.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+		          					}else if(ctype == "드레스") {
+		          						$secondDress.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+		          					}else if(ctype == "메이크업"){
+		          						$secondMakeup.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+		          					}
+		          					
+			          				$totalPrice += price; 
+			          				
+		          				}
+		          				
+		          				$("#price").html(totalPrice);
+		          				
+		          			}, 
+		          			error : function(){
+		          				console.log("패키지 불러오기 실패!!");
+		          			}
+		          		}); */
+      				
+      					
+      				}else{
+      					alert("패키지 삭제에 실패했습니다!");
+      				}
+		});
+			}
+			}
+		
+		
+		
+		
+		
 	
 	</script>
 
