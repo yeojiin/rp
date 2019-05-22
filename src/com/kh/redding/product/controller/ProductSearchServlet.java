@@ -45,34 +45,34 @@ public class ProductSearchServlet extends HttpServlet {
 		int listCount = 0;
 		
 		String searchProName = request.getParameter("proName");
-		System.out.println("searchProName : " + searchProName);
+		//System.out.println("searchProName : " + searchProName);
 		
 		String searchStatus = request.getParameter("prostatus");
-		System.out.println("searchStatus : " + searchStatus);
+		//System.out.println("searchStatus : " + searchStatus);
 		
 		
 		int value = 0;
 		
 		if(searchProName=="") {
-			System.out.println("이름 없음");
+			//System.out.println("이름 없음");
 			if(searchStatus==null||searchStatus.equals("sale")) {
-				System.out.println("판매여부 없음");	//전체 검색
+				//System.out.println("판매여부 없음");	//전체 검색
 				value = 10;
 				listCount = new ProductService().getListCount(cno);
 				
 			}else{
-				System.out.println("판매여부 있음");	//상품명 X 판매여부에 따라서만 검색
+				//System.out.println("판매여부 있음");	//상품명 X 판매여부에 따라서만 검색
 				value = 20;
 				listCount = new ProductService().getListCountJustStatus(cno, searchStatus);
 			}
 		}else {
-			System.out.println("이름 있음");
+			//System.out.println("이름 있음");
 			if(searchStatus==null||searchStatus.equals("sale")) {
-				System.out.println("판매여부 없음");	//상품명O 판매여부 X
+				//System.out.println("판매여부 없음");	//상품명O 판매여부 X
 				value = 30;
 				listCount = new ProductService().getListJustName(cno, searchProName);
 			}else {
-				System.out.println("판매여부 있음");	//상품명 X 판매여부에 따라서만 검색
+				//System.out.println("판매여부 있음");	//상품명 X 판매여부에 따라서만 검색
 				value = 40;
 				listCount = new ProductService().getListCountNameStatus(cno, searchProName, searchStatus);
 			}

@@ -33,9 +33,22 @@ input[name = useDate], input[name = uproStartTime], input[name = uproEndTime], i
    background: lightgray;
 }
 
-#productDetailBtn:hover, #PIResetBtn:hover, #PIInsertBtn:hover{
+#productDetailBtn:hover, #PIResetBtn:hover, #PIInsertBtn:hover, #productUploadBtn:hover,#proResBtn:hover, #productUploadBtn:hover,#proResBtn:hover{
    background: white;
    color: salmon;
+}
+#productUploadBtn, #proResBtn{
+    width: 140px;
+    height: 35px;
+    font-size: 22px;
+    background: salmon;
+    color: white;
+    border: 2px double salmon;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: auto;
+    margin-left: auto;
 }
 #PIBtns{
    margin-right: auto;
