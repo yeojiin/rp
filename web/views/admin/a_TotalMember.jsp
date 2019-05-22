@@ -37,6 +37,9 @@
 	href="<%=request.getContextPath()%>/css/semantic/semantic.min.css">
 <script src="<%=request.getContextPath()%>/css/semantic/semantic.min.js"></script>	
 <script src="<%=request.getContextPath()%>/css/semantic/jquery-3.4.1.min.js"></script>
+<link href="${pageContext.request.contextPath}/css/dist/css/datepicker.min.css" rel="stylesheet" type="text/css">
+<script src="${pageContext.request.contextPath}/css/dist/js/datepicker.min.js"></script>
+<script src="${pageContext.request.contextPath}/css/dist/js/i18n/datepicker.en.js"></script>
 <style>
 
 </style>
@@ -102,36 +105,53 @@
 						<form method="post"> 
 							<table class="searchMemberList">
 								<tr>
-									<td class="searchCompanyListTd1">업체명</td>
-									<td class="searchCompanyListTd2"><input type="text" style="border:1px solid darkgray; height:25px;" class="companyName" name="companyName"></td>
-								</tr>
-								<tr>
-									<td class="searchCompanyListTd1">업체구분</td>
-									<td class="searchCompanyListTd2"><input type="radio" value="전체" name="companyCategory" checked>&nbsp;&nbsp;전체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input type="radio" value="스튜디오" name="companyCategory">&nbsp;&nbsp;스튜디오&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input type="radio" value="드레스" name="companyCategory">&nbsp;&nbsp;드레스&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input type="radio" value="메이크업" name="companyCategory">&nbsp;&nbsp;메이크업&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<td class="searchMemberListTd1">개인정보</td>
+									<td class="searchMemberListTd2">
+										<select class="memberInfoSelect" style="border:1px solid darkgray; height:25px;">
+											<option style="border:1px solid darkgray; height:25px;">- 선택 -</option>
+											<option style="border:1px solid darkgray; height:25px;">회원명</option>
+											<option style="border:1px solid darkgray; height:25px;">닉네임</option>
+											<option style="border:1px solid darkgray; height:25px;">연락처</option>
+											<option style="border:1px solid darkgray; height:25px;">이메일</option>
+										</select>
+										<input type="text" style="border:1px solid darkgray; height:25px;" class="memberInfoInput" name="memberInfoInput">
 									</td>
 								</tr>
 								<tr>
-									<td rowspan="2" class="searchCompanyListTd1">가입일</td>
-									<td class="searchCompanyListTd2"><input type="radio" value="전체" name="companyEnrollDate" checked>&nbsp;&nbsp;전체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input type="radio" value="일주일 이내" name="companyEnrollDate">&nbsp;&nbsp;일주일 이내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-										<input type="radio" value="1개월 이내" name="companyEnrollDate">&nbsp;&nbsp;1개월 이내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-										<input type="radio" value="3개월 이내" name="companyEnrollDate">&nbsp;&nbsp;3개월 이내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<td rowspan="2" class="searchMemberListTd1">가입일</td>
+									<td class="searchMemberListTd2"><input type="radio" value="전체" name="memberEnrollDate" checked>&nbsp;&nbsp;전체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="radio" value="일주일 이내" name="memberEnrollDate">&nbsp;&nbsp;오늘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 										
+										<input type="radio" value="일주일 이내" name="memberEnrollDate">&nbsp;&nbsp;일주일 이내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+										<input type="radio" value="1개월 이내" name="memberEnrollDate">&nbsp;&nbsp;1개월 이내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+										<input type="radio" value="3개월 이내" name="memberEnrollDate">&nbsp;&nbsp;3개월 이내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									</td>
 								</tr>
 								<tr>
-									<td class="searchCompanyListTd2"><input type="radio" value="검색" name="companyEnrollDate">&nbsp;&nbsp;검색&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input type='text' class='datepicker-here firstDate pick' data-language='en' data-date-format ='yyyy-mm-dd' style="border:1px solid darkgray; height:25px;">&nbsp;&nbsp;-&nbsp;&nbsp; 
-										<input type='text' class='datepicker-here lastDate pick' data-language='en' data-date-format ='yyyy-mm-dd' style="border:1px solid darkgray; height:25px;">
+									<td class="searchMemberListTd2"><input type="radio" value="검색" name="memberEnrollDate">&nbsp;&nbsp;검색&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type='text' class='datepicker-here efirstDate pick' data-language='en' data-date-format ='yyyy-mm-dd' style="border:1px solid darkgray; height:25px;">&nbsp;&nbsp;-&nbsp;&nbsp; 
+										<input type='text' class='datepicker-here elastDate pick' data-language='en' data-date-format ='yyyy-mm-dd' style="border:1px solid darkgray; height:25px;">
 									</td>
 								</tr>
 								<tr>
-									<td class="searchCompanyListTd1">활동 상태</td>
-									<td class="searchCompanyListTd2"><input type="radio" value="전체" name="companyStatus" checked>&nbsp;&nbsp;전체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input type="radio" value="Y" name="companyStatus">&nbsp;&nbsp;활동업체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input type="radio" value="N" name="companyStatus">&nbsp;&nbsp;탈퇴업체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<td rowspan="2" class="searchMemberListTd1">결혼예정일</td>
+									<td class="searchMemberListTd2"><input type="radio" value="전체" name="memberWeddingDate" checked>&nbsp;&nbsp;전체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="radio" value="일주일 이내" name="memberWeddingDate">&nbsp;&nbsp;오늘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+										<input type="radio" value="일주일 이내" name="memberWeddingDate">&nbsp;&nbsp;일주일 이내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+										<input type="radio" value="1개월 이내" name="memberWeddingDate">&nbsp;&nbsp;1개월 이내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+										<input type="radio" value="3개월 이내" name="memberWeddingDate">&nbsp;&nbsp;3개월 이내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									</td>
+								</tr>
+								<tr>
+									<td class="searchMemberListTd2"><input type="radio" value="검색" name="memberWeddingDate">&nbsp;&nbsp;검색&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type='text' class='datepicker-here wfirstDate pick' data-language='en' data-date-format ='yyyy-mm-dd' style="border:1px solid darkgray; height:25px;">&nbsp;&nbsp;-&nbsp;&nbsp; 
+										<input type='text' class='datepicker-here wlastDate pick' data-language='en' data-date-format ='yyyy-mm-dd' style="border:1px solid darkgray; height:25px;">
+									</td>
+								</tr>
+								<tr>
+									<td class="searchMemberListTd1">활동 상태</td>
+									<td class="searchMemberListTd2"><input type="radio" value="전체" name="memberStatus" checked>&nbsp;&nbsp;전체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="radio" value="Y" name="memberStatus">&nbsp;&nbsp;활동업체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="radio" value="N" name="memberStatus">&nbsp;&nbsp;탈퇴업체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									</td>
 								</tr>
 							</table>
@@ -156,8 +176,9 @@
 										<td>신고횟수</td>
 									</tr>
 								</thead>
-								<% for(int i = 0 ; i < list.size() ; i++) { 
-									HashMap<String, Object> hmap = list.get(i);
+								<% 
+									for(int i = 0 ; i < list.size() ; i++) { 
+										HashMap<String, Object> hmap = list.get(i);
 								%>
 								<tbody>
 									<tr>
@@ -173,7 +194,9 @@
 										<td><%= member.getMnotiType() %></td>
 									</tr>
 								</tbody>
-								<% } %>
+								<% 
+									} 
+								%>
 							</table>
 							<br>
 							<!-- 페이지 버튼 처리 -->
@@ -312,7 +335,7 @@
 		</div>
 		
 		<script>
-			function surveyClick(obj){
+			/* function surveyClick(obj){
 				var tr = $(obj);
 				var sub = tr.next();
 				
@@ -321,9 +344,58 @@
 				}else{
 					sub.slideDown();
 				}
-			}
+			} */
+			
+			
 			
 			$(function() {
+				
+				// 회원 조건 검색 ajax
+				$(".searchMemberListBtn").click(function() {
+					
+					// 가입일
+					var efirstDate = $(".efirstDate").val();
+					var elastDate = $(".elastDate").val();
+					 
+					var efirstDateArr = new Array();
+					var elastDateArr = new Array();
+					
+					for(var i=0; i<efirstDate.split("-").length; i++){
+						 efirstDateArr[i] = efirstDate.split("-")[i];
+						 elastDateArr[i] = elastDate.split("-")[i];
+					}
+					
+					// 결혼 예쩡일
+					var wfirstDate = $(".wfirstDate").val();
+					var wlastDate = $(".wlastDate").val();
+					 
+					var wfirstDateArr = new Array();
+					var wlastDateArr = new Array();
+					
+					for(var i=0; i<wfirstDate.split("-").length; i++){
+						 wfirstDateArr[i] = wfirstDate.split("-")[i];
+						 wlastDateArr[i] = wlastDate.split("-")[i];
+					}
+					
+					var searchCondition = [$(".memberInfoSelect option:selected").val(), 
+										   $(".memberInfoInput").val(), 
+										   $("input:radio[name=memberEnrollDate]:checked").val(),
+										   efirstDateArr.join(""), 
+										   elastDateArr.join(""),
+										   $("input:radio[name=memberWeddingDate]:checked").val(),
+										   wfirstDateArr.join(""), 
+										   wlastDateArr.join(""),
+										   $("input:radio[name=memberStatus]:checked").val()];
+					
+					console.log(searchCondition);
+					
+					
+					
+					
+				});
+				
+				
+				// 회원 상세 정보 조회 ajax
 				$(".memberListTable tbody td").mouseenter(function() {
 					$(this).parent().css({"background":"mistyrose", "cursor":"pointer"});
 				}).mouseout(function() {
