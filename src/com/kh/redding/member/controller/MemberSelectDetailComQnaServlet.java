@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,13 +35,15 @@ public class MemberSelectDetailComQnaServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int cno = Integer.parseInt(request.getParameter("cno"));
 		
+		
+		
 		ArrayList<HashMap<String, Object>> blist = new MemberService().selectDetailComQna(cno);
 		System.out.println("blist :" + blist);
 		
 		
-		/*String page = "";
+		String page = "";
 		if(blist != null) {
-			page = "views/member/m_Detail.jsp";
+			page = "views/member/m_ComQnaList.jsp";
 			request.setAttribute("blist", blist);
 		}else {
 			page = "views/common/errorPage.jsp";
@@ -48,10 +51,10 @@ public class MemberSelectDetailComQnaServlet extends HttpServlet {
 		}
 		
 		RequestDispatcher view = request.getRequestDispatcher(page);
-		view.forward(request, response);*/
+		view.forward(request, response);
 		
-		response.setContentType("application/json");
-		new Gson().toJson(blist,response.getWriter());
+		/*response.setContentType("application/json");
+		new Gson().toJson(blist,response.getWriter());*/
 	}
 
 	/**

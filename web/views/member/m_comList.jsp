@@ -117,9 +117,9 @@ td {
             		for (int i = 0; i < list.size(); i++) {
             			hmap = list.get(i);
             	%>
-            		<div style="width:25%; height:auto; float:left">
+            		<div style="width:25%; height:40%; float:left">
             			<div>
-		                  	<img src="/redding/company_upload/<%=hmap.get("changename") %>" style="max-width:100%"; onclick="location.href='<%=request.getContextPath() %>/selectDetailCom.dc?mno=<%=hmap.get("mno") %>'"><br>
+		                  	<img src="/redding/company_upload/<%=hmap.get("changename") %>" style="max-width:100%"; onclick="location.href='<%=request.getContextPath() %>/selectDetailCom.dc?cno=<%=hmap.get("mno") %>'"><br>
             				<p style="font-size:25px; color:black;"><%=hmap.get("membername") %></p>
             				<p style="font-size:25px; font-weight:bold; color:salmon;"><%=hmap.get("price") %>~</p>
             				<p style="font-size:25px; font-weight:bold; color:gold;">★: <%=hmap.get("ComLike") %></p>

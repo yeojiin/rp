@@ -8,8 +8,8 @@ public class Message implements Serializable{
 	private String mesContent;	//쪽지내용	//not null
 	private Date mesDisDate;	//발신일자	//not null
 	private Date mesCkDate;		//확인일자
-	private int mesLevel;		//쪽지레벨	//1,2
-	private String mesWType;	//수신,발신 구분	//10, 20	//not null
+	private int mesLevel;		//쪽지레벨	//1:원글,2:답글
+	private String mesWType;	//수신,발신 구분	//10:발신, 20:수신	//not null
 	private int mesRefCode;		//참조쪽지번호
 	private int cno;			//업체 번호
 	

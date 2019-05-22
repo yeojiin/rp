@@ -58,3 +58,18 @@ textarea {
 	font-family: 'Noto Sans KR', sans-serif;
 	font-size:10px;
 }
+
+#deletebtn{
+	outline : 0;
+	border : 0;
+	background : white;
+	color : lightgray;
+	font-size : 20px;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+#deletebtn:hover{
+	color : black;
+}
+
+#

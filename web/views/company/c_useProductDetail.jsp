@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*, com.kh.redding.member.model.vo.Member, com.kh.redding.product.model.vo.*"%>
 <%
-	Member loginUser = (Member) session.getAttribute("loginUser");
-	UseProduct upro = (UseProduct) request.getAttribute("upro");
-	/* UseProduct upro2 = (UseProduct) request.getAttribute("upro2"); */
+   Member loginUser = (Member) session.getAttribute("loginUser");
+   UseProduct upro = (UseProduct) request.getAttribute("upro");
+   /* UseProduct upro2 = (UseProduct) request.getAttribute("upro2"); */
 
 %>
 <!DOCTYPE html>
@@ -86,27 +86,27 @@
                              <th width="20%">판매상태</th>
                           </tr>
                           <tr>
-                          	<td>
-                          		<input type="text" name="useDate" id="useDate" value="<%=upro.getUseDate()%>" readonly>
-                          		<input type="hidden" name="upno" id="upno" value="<%=upro.getUpNo()%>">
-                          	</td>
-                          	<td>
-                          		<input type="text" name="uproStartTime" id="uproStartTime" value="<%=upro.getUseStartTime()%>" readonly>
-                          	</td>
-                          	<td>
-                          		<input type="text" name="uproEndTime" id="uproEndTime" value="<%=upro.getUseEndTime()%>" readonly>
-                          	</td>
-                          	<td>
-                          		<input type="number" name="uproNum" id="uproNum" value="<%=upro.getuNum()%>">
-                          		
-                          	</td>
-                          	<td>
-                          		<input type="radio" name="uproStatus" id="uproStatusYes" value="Y">
+                             <td>
+                                <input type="text" name="useDate" id="useDate" value="<%=upro.getUseDate()%>" readonly>
+                                <input type="hidden" name="upno" id="upno" value="<%=upro.getUpNo()%>">
+                             </td>
+                             <td>
+                                <input type="text" name="uproStartTime" id="uproStartTime" value="<%=upro.getUseStartTime()%>" readonly>
+                             </td>
+                             <td>
+                                <input type="text" name="uproEndTime" id="uproEndTime" value="<%=upro.getUseEndTime()%>" readonly>
+                             </td>
+                             <td>
+                                <input type="number" name="uproNum" id="uproNum" value="<%=upro.getuNum()%>">
+                                
+                             </td>
+                             <td>
+                                <input type="radio" name="uproStatus" id="uproStatusYes" value="Y">
                                 <label for="uproStatusYes">판매함</label>
                                 <input type="radio" name="uproStatus" id="uproStatusNo" value="N">
                                 <label for="uproStatusNo">판매안함</label>
-                          	</td>
-                       	</tr>
+                             </td>
+                          </tr>
                       </table>
                   
                   </div>
@@ -136,65 +136,73 @@
    </div>
    <script>
       $(function(){
-   		  var uStatus = '<%=upro.getUstatus()%>';
-   		  
-    	  $("input[name=uproStatus]").each(function(){
-    		  var uproStatus = $(this).val();
-    		 
-    		  if(uproStatus==uStatus){
-    			  $(this).attr("checked",true);
-    		  }
-    	  });
-    	  
-    	  $("#PIInsertBtn").click(function(){
-    		  $("#updateUpro").submit();
-    		  
-    		 
-    		  
-    		  
-    		  
-    		  
-    		  
-    		  
-    		  
-    		  
-    		  
-    		  
-    		  
-    		  
-    		  
-    		  
-    		  
-    		  
-    		  
-    		  
-    		  
-    		  <%-- var upno = '<%=upro.getUpNo()%>';
-    		  var unum = $("#uproNum").val();
-    		  var ustatus = $("input[name=uproStatus]:checked").val();
-    		  
-    		  //console.log(ustatus);
-    		  $.ajax({
-    			  url:"uproUpdate.pr",
-    			  type:"post",
-    			  data:{upno:upno,unum:unum,ustatus:ustatus},
-    			  success:function(data){
-    				  
-    				  
-    				  $("#uproNum").val(data[key].unum);
-    				  
-    				  $("input[name=uproStatus]:checked").val(data[key].ustatus);
-    				  
-    			  }
-    				  
-    		  });
-			  alert("수정이 완료되었습니다.");
-			  location.href="<%=request.getContextPath()%>/proDetail.pr?pno="+<%=upro.getpNo()%>; --%>
-    	  });
-    	  
-    	  $("#PIResetBtn").click(function(){
-    		  location.href="<%=request.getContextPath()%>/proDetail.pr?pno="+<%=upro.getpNo()%>;
-    	  });
+           var uStatus = '<%=upro.getUstatus()%>';
+           
+         $("input[name=uproStatus]").each(function(){
+            var uproStatus = $(this).val();
+           
+            if(uproStatus==uStatus){
+               $(this).attr("checked",true);
+            }
+         });
+         
+         $("#PIInsertBtn").click(function(){
+            $("#updateUpro").submit();
+            
+           
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <%-- var upno = '<%=upro.getUpNo()%>';
+            var unum = $("#uproNum").val();
+            var ustatus = $("input[name=uproStatus]:checked").val();
+            
+            //console.log(ustatus);
+            $.ajax({
+               url:"uproUpdate.pr",
+               type:"post",
+               data:{upno:upno,unum:unum,ustatus:ustatus},
+               success:function(data){
+                  
+                  
+                  $("#uproNum").val(data[key].unum);
+                  
+                  $("input[name=uproStatus]:checked").val(data[key].ustatus);
+                  
+               }
+                  
+            });
+           alert("수정이 완료되었습니다.");
+           location.href="<%=request.getContextPath()%>/proDetail.pr?pno="+<%=upro.getpNo()%>; --%>
+         });
+         
+         $("#PIResetBtn").click(function(){
+            location.href="<%=request.getContextPath()%>/proDetail.pr?pno="+<%=upro.getpNo()%>;
+         });
+         $("#proResBtn").click(function(){
+        	 location.href="<%=request.getContextPath()%>/views/company/c_productReservation.jsp";
+         });
+         $("#productUploadBtn").click(function(){
+             //상품등록하기 버튼을 눌렀을 때 작동할 함수
+             //c_ProductUpload.jsp로 페이지 이동해주기
+             location.href="<%=request.getContextPath()%>/views/company/c_ProductInsert.jsp";
+          }); 
         
       });
    </script>
