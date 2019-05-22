@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.kh.redding.member.model.vo.*, com.kh.redding.company.model.vo.*, com.kh.redding.attachment.model.vo.*, com.kh.redding.product.model.vo.*, java.util.*"%>
 <%
+	/* ArrayList<HashMap<String, Object>> blist = (ArrayList<HashMap<String, Object>>) request.getAttribute("blist"); */
 	HashMap<String, Object> list = (HashMap<String, Object>)request.getAttribute("list");
 	ArrayList<Product> prolist = (ArrayList<Product>)list.get("Product");
 	ArrayList<Attachment> attachlist = (ArrayList<Attachment>)list.get("Attachment");
 	Company com = (Company)list.get("Company");
 	Member mem = (Member)list.get("Member");
 	String companyAddress = "";
+	Product pro = null;
+	int cno = (int) session.getAttribute("cno");
 %>
 <!DOCTYPE html>
 <html>
@@ -62,6 +65,11 @@
 		height: auto;
 	}
 }
+
+	.imgContent{
+		width: 100%;
+		height: 300px;
+	}
 </style>
 </head>
 <body>
@@ -104,16 +112,16 @@
 					<div style="width:50%; height:auto; float:right;">
 					<br><br><br>
 						
-						<p style="font-size:20px;">상품이름 : <select>
+						<p style="font-size:20px; margin-left:25%;">상품이름 : <select>
 						<%
 						if (prolist != null && prolist.size() > 0){
 						for (int i = 0; i < prolist.size(); i++) {
-	            			Product pro = prolist.get(i); %>
+	            			pro = prolist.get(i); %>
 							<option><%=pro.getpName() %></option>
 						<%} } %>
 						</select></p>
-						<a class="btn btn-default" style="border-color:salmon; background:salmon; color:white; width:50%; height:auto; font-size:20px;">예약하기</a><br><br>
-						<a class="btn btn-default" style="border-color:salmon; background:salmon; color:white; width:50%; height:auto; font-size:20px;">위시리스트에 담기</a>
+						<a class="btn btn-default" style="border-color:salmon; background:salmon; color:white; width:50%; height:auto; font-size:20px; margin-left:25%; margin-top:10%;">예약하기</a><br><br>
+						<a class="btn btn-default" style="border-color:salmon; background:salmon; color:white; width:50%; height:auto; font-size:20px; margin-left:25%">위시리스트에 담기</a>
 					</div>
 					<br><br><br><br><br><br><br><br><br><br>
 					<hr style="border-color: black; width:100%;">
@@ -130,7 +138,7 @@
 					<div style="width:100%; height:auto;">
 						<div id="div1" style=" width:50%; height:auto; float:left">
 						<p style="font-size:30px;"><%=mem.getMemberName() %></p>
-						<%-- <% 
+						<% 
 						String address = com.getComAddress();
 						String[] addressArr = address.split("\\|");
 						if (addressArr.length > 2){
@@ -138,10 +146,10 @@
 						}else {
 							companyAddress = addressArr[1];
 						}
-						%> --%>
-						<p style="font-size:25px;"><%=companyAddress %></p>
-						<p style="font-size:30px;">영업시간 : AM <%=com.getOpenTime() %> ~ PM <%=com.getEndTime() %></p>
-						<p style="font-size:30px;">홈페이지 : <a href="<%=com.getComUrl() %>">바로가기</a></p>
+						%>
+						<p style="font-size:23px;">주소 : <%=companyAddress %></p>
+						<p style="font-size:23px;">영업시간 : AM <%=com.getOpenTime() %> ~ PM <%=com.getEndTime() %></p>
+						<p style="font-size:23px;">홈페이지 : <a href="<%=com.getComUrl() %>">바로가기</a></p>
 						</div>
 							<div id="map" style="width:50%; height:500px; float:right">
 							</div>	
@@ -150,50 +158,29 @@
 					<hr style="align: center; border-color: black; width: 100%;">
 					<div id="div2">
 						<h1>상품정보</h1>
-						<table border:"1" style="width:100%; height:auto;">
-							<tr>
-								<td style="width:50%;"><img src="../../images/dressTest.jpg" id="imgtest" style="max-width:100%;"></td>
-								<td style="width:50%; font-size:20px;">상품설명:못할 있는 바이며, 무엇을 희망의 청춘은 것이다. 앞이 청춘 꾸며
-									뛰노는 동산에는 내려온 인간의 있으랴? 긴지라 방황하였으며, 타오르고 가는 길지 할지니, 현저하게 힘차게 풀이
-									봄바람이다. 없으면, 인도하겠다는 별과 같으며, 인생의 사라지지 교향악이다. 얼음 인생을 산야에 사는가 스며들어
-									그리하였는가? 무엇이 발휘하기 가지에 그들은 있는 되려니와, 것이다. 인생에 얼음이 같이 그러므로 크고 꽃이
-									것이다. 위하여서 돋고, 얼마나 찾아 피는 부패뿐이다. 주며, 안고, 꾸며 위하여서 사막이다. 청춘에서만 피가
-									하여도 유소년에게서 천지는 하는 이는 뜨고, 부패뿐이다.</td>
-							</tr>
+						<% for (int i = 0; i < attachlist.size(); i++) {
+								Attachment att = attachlist.get(i); 
+            					System.out.println("타입 :" + att.getCno_div());
+            					String cnodiv = (String)att.getCno_div();
+            					if(cnodiv != null && cnodiv.equals("서브")){%>
+            					<table border:"1" style="width:100%; height:auto;">
+            					<tr>
+            					<%if(i % 2 == 0) {%>
+            					<td class="imgArea" style="width:50%;">
+            						<img src="/redding/company_upload/<%=att.getChangename() %>" id="timg" class="imgContent">
+            						</td>
+            						<td style="width:50%; font-size:20px;"><%=pro.getpContent() %></td>
+            					<%}else{ %>
+            						<hr style="align: center; border-color: black; width: 100%;">
+									<td style="width:50%; font-size:20px;"><%=pro.getpContent() %></td>
+									<td class="imgArea" style="width:50%;">
+            						<img src="/redding/company_upload/<%=att.getChangename() %>" id="timg" class="imgContent">
+            						</td>
+									</tr>
+									<% } %>
+									<% } %>							
 						</table>
-						<table border:"1" style="width:100%; height:auto;">
-							<tr>
-								<td style="width:50%; font-size:20px;">상품설명:못할 있는 바이며, 무엇을 희망의 청춘은 것이다. 앞이 청춘 꾸며
-									뛰노는 동산에는 내려온 인간의 있으랴? 긴지라 방황하였으며, 타오르고 가는 길지 할지니, 현저하게 힘차게 풀이
-									봄바람이다. 없으면, 인도하겠다는 별과 같으며, 인생의 사라지지 교향악이다. 얼음 인생을 산야에 사는가 스며들어
-									그리하였는가? 무엇이 발휘하기 가지에 그들은 있는 되려니와, 것이다. 인생에 얼음이 같이 그러므로 크고 꽃이
-									것이다. 위하여서 돋고, 얼마나 찾아 피는 부패뿐이다. 주며, 안고, 꾸며 위하여서 사막이다. 청춘에서만 피가
-									하여도 유소년에게서 천지는 하는 이는 뜨고, 부패뿐이다.</td>
-								<td style="width:50%;"><img src="../../images/dressTest.jpg" id="imgtest" style="max-width:100%;"></td>
-							</tr>
-						</table>
-						<table border:"1" style="width:100%; height:auto;">
-							<tr>
-								<td style="width:50%;"><img src="../../images/dressTest.jpg" id="imgtest" style="max-width:100%;"></td>
-								<td style="width:50%; font-size:20px;">상품설명:못할 있는 바이며, 무엇을 희망의 청춘은 것이다. 앞이 청춘 꾸며
-									뛰노는 동산에는 내려온 인간의 있으랴? 긴지라 방황하였으며, 타오르고 가는 길지 할지니, 현저하게 힘차게 풀이
-									봄바람이다. 없으면, 인도하겠다는 별과 같으며, 인생의 사라지지 교향악이다. 얼음 인생을 산야에 사는가 스며들어
-									그리하였는가? 무엇이 발휘하기 가지에 그들은 있는 되려니와, 것이다. 인생에 얼음이 같이 그러므로 크고 꽃이
-									것이다. 위하여서 돋고, 얼마나 찾아 피는 부패뿐이다. 주며, 안고, 꾸며 위하여서 사막이다. 청춘에서만 피가
-									하여도 유소년에게서 천지는 하는 이는 뜨고, 부패뿐이다.</td>
-							</tr>
-						</table>
-						<table border:"1" style="width:100%; height:auto;">
-							<tr>
-								<td style="width:50%; font-size:20px;">상품설명:못할 있는 바이며, 무엇을 희망의 청춘은 것이다. 앞이 청춘 꾸며
-									뛰노는 동산에는 내려온 인간의 있으랴? 긴지라 방황하였으며, 타오르고 가는 길지 할지니, 현저하게 힘차게 풀이
-									봄바람이다. 없으면, 인도하겠다는 별과 같으며, 인생의 사라지지 교향악이다. 얼음 인생을 산야에 사는가 스며들어
-									그리하였는가? 무엇이 발휘하기 가지에 그들은 있는 되려니와, 것이다. 인생에 얼음이 같이 그러므로 크고 꽃이
-									것이다. 위하여서 돋고, 얼마나 찾아 피는 부패뿐이다. 주며, 안고, 꾸며 위하여서 사막이다. 청춘에서만 피가
-									하여도 유소년에게서 천지는 하는 이는 뜨고, 부패뿐이다.</td>
-								<td style="width:50%;"><img src="../../images/dressTest.jpg" id="imgtest" style="max-width:100%;"></td>
-							</tr>
-						</table>
+						<% } %>	
 					</div>
 					
 					<hr style="align: center; border-color: black; width: 100%;">
@@ -226,6 +213,7 @@
 					<hr style="align: center; border-color: black; width: 100%;">
 					<div id="div4">
 						<h1>문의</h1>
+						<form action="'<%=request.getContextPath()%>/selectDetailComQna.cq?cno=<%= cno %>'">
 						<table class="table table-striped" style="width: 100%;">
 							<thead>
 								<tr>
@@ -270,6 +258,7 @@
 								</tr>
 							</tbody>
 						</table>
+						</form>
 						<!-- <hr style="align:center; border-color:black; width:100%;" > -->
 						<a class="btn btn-default" style="border-color:salmon; background:salmon; color:white; float:right;">글쓰기</a>
 						<br>
@@ -294,6 +283,30 @@
 			<jsp:include page="/views/common/footer.jsp"></jsp:include>
 		</div>
 		<script>
+		
+			$(function(){
+				
+				
+				viewCall(<%=cno%>);
+							
+			});
+			
+			function viewCall(cno){
+				
+				$.ajax({
+					url:'<%=request.getContextPath()%>/selectDetailComQna.cq',
+					type:"post",
+					data:{cno:cno},
+					success:function(data){
+						console.log(data);
+					},
+					error:function(data){
+						console.log(data);
+					}
+					
+				});
+			}
+		
 			$(window).scroll(function(){
 				if($(this).scrollTop() > 200){
 					$('.top').fadeIn();
@@ -344,14 +357,14 @@
                   // 주소-좌표 변환 객체를 생성합니다
                   var geocoder = new daum.maps.services.Geocoder();
                   
-                 <%--  <% 
+                    <% 
 					/* String address = (String)company.get("comAddress");
 					String[] addressArr = address.split("\\|"); */
 					companyAddress = addressArr[1];
 					%>
                   
-					var address = "<%=companyAddress%>" --%>
-                  // 주소로 좌표를 검색합니다
+					var address = "<%=companyAddress%>";
+
                   geocoder.addressSearch(address, function(result, status) {
                   
                       // 정상적으로 검색이 완료됐으면 
@@ -367,7 +380,7 @@
                   
                           // 인포윈도우로 장소에 대한 설명을 표시합니다
                           var infowindow = new daum.maps.InfoWindow({
-                              content: '<div style="width:150px;text-align:center;padding:6px 0;"><%=com.getComAddress() %></div>'
+                              content: '<div style="width:150px;text-align:center;padding:6px 0;"><%=mem.getMemberName() %></div>'
                           });
                           infowindow.open(map, marker);
                   

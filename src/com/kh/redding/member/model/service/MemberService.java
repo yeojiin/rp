@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.redding.attachment.model.vo.Attachment;
+import com.kh.redding.board.model.vo.Board;
+import com.kh.redding.board.model.vo.BoardPageInfo;
 import com.kh.redding.company.model.vo.Company;
 import com.kh.redding.member.model.dao.MemberDao;
 import com.kh.redding.member.model.vo.M_comListPageInfo;
@@ -79,18 +81,18 @@ public class MemberService {
 	}
 
 	//업체 페이지 목록
-	public int getListCount() {
+	public int getListCount(String comType) {
 		Connection con = getConnection();
-		int listCount = new MemberDao().getListCount(con);
+		int listCount = new MemberDao().getListCount(con, comType);
 		close(con);
 		
 		return listCount;
 	}
 
-	public ArrayList<HashMap<String, Object>> selectComList(M_comListPageInfo clpi) {
+	public ArrayList<HashMap<String, Object>> selectComList(M_comListPageInfo clpi, String comType) {
 		Connection con = getConnection();
 		
-		ArrayList<HashMap<String, Object>> list = new MemberDao().selectComList(con, clpi);
+		ArrayList<HashMap<String, Object>> list = new MemberDao().selectComList(con, clpi, comType);
 	
 		
 		close(con);
@@ -127,19 +129,27 @@ public class MemberService {
 		
 		Company com = new MemberDao().selectDetailCom(con, mno);
 		
-		list.put("Company", com);
+		if (com != null) {
+			list.put("Company", com);			
+		}
 		
 		Member mem = new MemberDao().selectDetailMem(con, mno);
 		
-		list.put("Member", mem);
+		if (mem != null) {
+			list.put("Member", mem);			
+		}
 		
 		ArrayList<Attachment> at = new MemberDao().selectDetailAt(con, mno);
 		
-		list.put("Attachment", at);
+		if (at != null) {
+			list.put("Attachment", at);			
+		}
 		
 		ArrayList<Product> pd = new MemberDao().selectDetailPd(con, mno);
 		
-		list.put("Product", pd);
+		if (pd != null) {
+			list.put("Product", pd);			
+		}
 		
 		System.out.println("list service : " + list);
 		
@@ -159,6 +169,20 @@ public class MemberService {
 		return count;
 	}
 
+	//업체Qna목록(광섭)
+	public ArrayList<HashMap<String, Object>> selectDetailComQna(int cno) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> blist = new MemberDao().selectDetailComQna(con, cno);
+		
+		for(int i=0; i<blist.size();i++) {
+			
+		}
+		
+		close(con);
+		
+		
+		return blist;
 	public ArrayList<HashMap<String, Object>> getPackage(int subno, int mno) {
 		Connection con = getConnection();
 		

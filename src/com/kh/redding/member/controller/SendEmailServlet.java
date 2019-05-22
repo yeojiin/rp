@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/send")
 public class SendEmailServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
        
    
     public SendEmailServlet() {
@@ -99,30 +99,30 @@ public class SendEmailServlet extends HttpServlet {
 	
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		
-	}
+   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      
+      
+      
+   }
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
-	
+   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      doGet(request, response);
+   }
+   
 
 }
 
 class MyAuthentication extends Authenticator{
-	PasswordAuthentication pa;
-	
-	public MyAuthentication() {
-		String id = "wldnjs7781@gmail.com";
-		String pw = "redding0515";
-		
-		pa = new PasswordAuthentication(id,pw);
-	}
-	
-	public PasswordAuthentication getPasswordAuthentication() {
-		return pa;
-	}
+   PasswordAuthentication pa;
+   
+   public MyAuthentication() {
+      String id = "wldnjs7781@gmail.com";
+      String pw = "redding0515";
+      
+      pa = new PasswordAuthentication(id,pw);
+   }
+   
+   public PasswordAuthentication getPasswordAuthentication() {
+      return pa;
+   }
 }

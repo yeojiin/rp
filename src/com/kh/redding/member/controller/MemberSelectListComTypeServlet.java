@@ -35,6 +35,8 @@ public class MemberSelectListComTypeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String comType = request.getParameter("comType");
+		System.out.println("dd : " + comType);
 		int currentPage;
 		int limit;
 		int maxPage;
@@ -49,7 +51,7 @@ public class MemberSelectListComTypeServlet extends HttpServlet {
 		
 		limit = 10;
 		
-		int listCount = new MemberService().getListCount();
+		int listCount = new MemberService().getListCount(comType);
 		
 		System.out.println("listCount : " + listCount);
 		
@@ -65,7 +67,8 @@ public class MemberSelectListComTypeServlet extends HttpServlet {
 		
 		M_comListPageInfo clpi = new M_comListPageInfo(currentPage, limit, maxPage, startPage, endPage);
 		
-		ArrayList<HashMap<String, Object>> list = new MemberService().selectComList(clpi);
+		ArrayList<HashMap<String, Object>> list = new MemberService().selectComList(clpi, comType);
+		System.out.println(comType);
 		
 		String page = "";
 		if(list != null) {
