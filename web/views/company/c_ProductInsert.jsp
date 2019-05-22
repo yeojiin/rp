@@ -177,13 +177,13 @@
                                 <input type="date" name="proStartDay" id="proStartDay">
                              </td>
                              <td id="space">
-                             	<label>-</label>
+                                <label>-</label>
                              </td>
                              <td>
-                             	<label>판매 종료 날짜</label>
+                                <label>판매 종료 날짜</label>
                              </td>
                              <td>
-                             	<input type="date" name="proEndDay" id="proEndDay">
+                                <input type="date" name="proEndDay" id="proEndDay">
                              </td>
                           </tr>
                           <!-- <tr>
@@ -291,6 +291,14 @@
             alert("상품등록을 취소하셨습니다.");
             location.href="<%=request.getContextPath()%>/selectProList.pr";
          });
+         $("#proResBtn").click(function(){
+        	 location.href="<%=request.getContextPath()%>/views/company/c_productReservation.jsp";
+         });
+         $("#productUploadBtn").click(function(){
+             //상품등록하기 버튼을 눌렀을 때 작동할 함수
+             //c_ProductUpload.jsp로 페이지 이동해주기
+             location.href="<%=request.getContextPath()%>/views/company/c_ProductInsert.jsp";
+          }); 
       });
 
    </script>
