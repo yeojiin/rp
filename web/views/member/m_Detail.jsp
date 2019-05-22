@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.kh.redding.member.model.vo.*, com.kh.redding.company.model.vo.*, com.kh.redding.attachment.model.vo.*, com.kh.redding.product.model.vo.*, java.util.*"%>
 <%
-	/* ArrayList<HashMap<String, Object>> blist = (ArrayList<HashMap<String, Object>>) request.getAttribute("blist"); */
 	HashMap<String, Object> list = (HashMap<String, Object>)request.getAttribute("list");
 	ArrayList<Product> prolist = (ArrayList<Product>)list.get("Product");
 	ArrayList<Attachment> attachlist = (ArrayList<Attachment>)list.get("Attachment");
@@ -132,7 +131,7 @@
 							<td align="center" style="width:25%; font-size:20px;" onclick="fnMove('1')">업체정보</td>
 							<td align="center" style="width:25%; font-size:20px;" onclick="fnMove('2')">상품정보</td>						
 							<td align="center" style="width:25%; font-size:20px;" onclick="fnMove('3')">후기</td>
-							<td align="center" style="width:25%; font-size:20px;" onclick="fnMove('4')">문의</td>				
+							<td align="center" style="width:25%; font-size:20px;" onclick="location.href='<%=request.getContextPath()%>/selectDetailComQna.cq?cno=<%= cno %>'">문의</td>				
 						</tr>
 					</table>
 					<div style="width:100%; height:auto;">
@@ -151,8 +150,7 @@
 						<p style="font-size:23px;">영업시간 : AM <%=com.getOpenTime() %> ~ PM <%=com.getEndTime() %></p>
 						<p style="font-size:23px;">홈페이지 : <a href="<%=com.getComUrl() %>">바로가기</a></p>
 						</div>
-							<div id="map" style="width:50%; height:500px; float:right">
-							</div>	
+							<div id="map" style="width:50%; height:500px; float:right"></div>	
 					</div>
 
 					<hr style="align: center; border-color: black; width: 100%;">
@@ -211,60 +209,7 @@
 							부패뿐이다.</p>
 					</div>
 					<hr style="align: center; border-color: black; width: 100%;">
-					<div id="div4">
-						<h1>문의</h1>
-						<form action="'<%=request.getContextPath()%>/selectDetailComQna.cq?cno=<%= cno %>'">
-						<table class="table table-striped" style="width: 100%;">
-							<thead>
-								<tr>
-									<th>번호</th>
-									<th>제목</th>
-									<th>작성자</th>
-									<th>작성일</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr class="detail">
-									<td>01</td>
-									<td>문의글</td>
-									<td>전효정</td>
-									<td>19.04.16</td>
-								</tr>
-								<tr>
-									<td colspan="4";>못할 있는 바이며, 무엇을 희망의 청춘은 것이다. 앞이 청춘 꾸며 뛰노는 동산에는 내려온 인간의 있으랴?
-							긴지라 방황하였으며, 타오르고 가는 길지 할지니, 현저하게 힘차게 풀이 봄바람이다. 없으면, 인도하겠다는 별과
-							같으며, 인생의 사라지지 교향악이다. 얼음 인생을 산야에 사는가 스며들어 그리하였는가? 무엇이 발휘하기 가지에 그들은
-							있는 되려니와, 것이다. 인생에 얼음이 같이 그러므로 크고 꽃이 것이다. 위하여서 돋고, 얼마나 찾아 피는
-							부패뿐이다. 주며, 안고, 꾸며 위하여서 사막이다. 청춘에서만 피가 하여도 유소년에게서 천지는 하는 이는 뜨고,
-							부패뿐이다.</td>
-								</tr>
-								<tr>
-									<td>02</td>
-									<td>+RE:답변글</td>
-									<td>관리자</td>
-									<td>19.04.16</td>
-								</tr>
-								<tr>
-									<td>03</td>
-									<td>문의글</td>
-									<td>문지원</td>
-									<td>19.04.17</td>
-								</tr>
-								<tr>
-									<td>04</td>
-									<td>+RE:답변글</td>
-									<td>관리자</td>
-									<td>19.04.17</td>
-								</tr>
-							</tbody>
-						</table>
-						</form>
-						<!-- <hr style="align:center; border-color:black; width:100%;" > -->
-						<a class="btn btn-default" style="border-color:salmon; background:salmon; color:white; float:right;">글쓰기</a>
-						<br>
-						<div class="text-center">
-						</div>
-					</div>
+					
 					</form>
 				</div>
 				
@@ -284,7 +229,7 @@
 		</div>
 		<script>
 		
-			$(function(){
+			<%-- $(function(){
 				
 				
 				viewCall(<%=cno%>);
@@ -305,7 +250,7 @@
 					}
 					
 				});
-			}
+			} --%>
 		
 			$(window).scroll(function(){
 				if($(this).scrollTop() > 200){
