@@ -534,7 +534,7 @@ public class ProductDao {
 		return result;
 	}
 
-	public int updateProductStatus(Connection con, String status, int pno) {
+	public int updateProductStatus(Connection con, String status, int pno, Date modifyDate) {
 		PreparedStatement pstmt = null;
 		int result = 0 ;
 		String query = prop.getProperty("updateProductStatus");
@@ -543,7 +543,8 @@ public class ProductDao {
 			pstmt = con.prepareStatement(query);
 			
 			pstmt.setString(1, status);
-			pstmt.setInt(2, pno);
+			pstmt.setDate(2, modifyDate);
+			pstmt.setInt(3, pno);
 			
 			result = pstmt.executeUpdate();
 			
