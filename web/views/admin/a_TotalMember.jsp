@@ -94,164 +94,197 @@
 							</tr>
 						</table>
 					</div>
-					<br>
-
-					<h4 id="text1">회원 조회</h4>
 					<br> <br> <br>
+
 					<div class="memberList">
-						<table class="memberListTable">
-							<tr>
-								<td>선택</td>
-								<td>번호</td>
-								<td>닉네임</td>
-								<td>회원 이름</td>
-								<td>성별</td>
-								<td>연락처</td>
-								<td>이메일주소</td>
-								<td>결혼예정일</td>
-								<td>신고횟수</td>
-							</tr>
-							<% for(int i = 0 ; i < list.size() ; i++) { 
-								HashMap<String, Object> hmap = list.get(i);
-								
-								//System.out.println(hmap.get("num"));
-							%>
-							<tr>
-								<td><input type="checkbox"></td>
-								<td><%= hmap.get("num") %></td>
-								<% Member member = (Member)hmap.get("member"); %>
-								<td><%= member.getNickName() %></td>
-								<td><%= member.getMemberName() %></td>
-								<td><%= member.getGender() %></td>
-								<td><%= member.getPhone() %></td>
-								<td><%= member.getEmail() %></td>
-								<td><%= member.getWeddingDate() %></td>
-								<td><%= member.getMnotiType() %></td>
-							</tr>
-							<% } %>
-						</table>
-						<br>
-						<!-- 페이지 버튼 처리 -->
-						<div class="pagingArea" align="center">
-						<button onclick="location.href='<%= request.getContextPath() %>/selectList.me?currentPage=1'"><<</button>
-						<% if(currentPage <= 1) { %>
-						<button disabled><</button>
-						<% } else { %>
-						<button onclick="location.href='<%= request.getContextPath() %>/selectList.me?currentPage=<%= currentPage - 1 %>'"><</button>
-						<% } %>
-						
-						<% for(int p = startPage; p <= endPage; p++) { 
-								if(p == currentPage) { %>
-									<button disabled><%= p %></button>
-						<% 		}else {%>
-									<button onclick="location.href='<%= request.getContextPath() %>/selectList.me?currentPage=<%= p %>'"><%= p %></button>
-						<%		} %>
-							
-						<% } %>
-						
-						<% if(currentPage >= maxPage) { %>
-						<button disabled>></button>
-						<% } else { %>
-						<button onclick="location.href='<%= request.getContextPath() %>/selectList.me?currentPage=<%= currentPage + 1 %>'">></button>
-						<% } %>
-						<button onclick="location.href='<%= request.getContextPath() %>/selectList.me?currentPage=<%= maxPage %>'">>></button>
-						<br>
-						<div class="btns">
-							<button class="ui pink button" style="background:salmon;">블랙리스트 추가</button>
-							<button class="ui pink button" style="background:salmon;">탈퇴</button>
-						</div>
-						<br>
-						<br>
-						<br>
-
-						<div class="memberDetail">
-							<h3 id="text2">회원 상세정보 조회</h3>
-							<br> <br> <br>
-
-
-							<div class="memberBaseInfo">
-								<h4 id="text3">기본정보</h4>
-								<br> <br>
-								<table id="detailt">
+						<label class="subtitle">회원 목록</label>
+						<br> <br> <br>
+						<form method="post"> 
+							<table class="searchMemberList">
+								<tr>
+									<td class="searchCompanyListTd1">업체명</td>
+									<td class="searchCompanyListTd2"><input type="text" style="border:1px solid darkgray; height:25px;" class="companyName" name="companyName"></td>
+								</tr>
+								<tr>
+									<td class="searchCompanyListTd1">업체구분</td>
+									<td class="searchCompanyListTd2"><input type="radio" value="전체" name="companyCategory" checked>&nbsp;&nbsp;전체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="radio" value="스튜디오" name="companyCategory">&nbsp;&nbsp;스튜디오&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="radio" value="드레스" name="companyCategory">&nbsp;&nbsp;드레스&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="radio" value="메이크업" name="companyCategory">&nbsp;&nbsp;메이크업&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									</td>
+								</tr>
+								<tr>
+									<td rowspan="2" class="searchCompanyListTd1">가입일</td>
+									<td class="searchCompanyListTd2"><input type="radio" value="전체" name="companyEnrollDate" checked>&nbsp;&nbsp;전체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="radio" value="일주일 이내" name="companyEnrollDate">&nbsp;&nbsp;일주일 이내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+										<input type="radio" value="1개월 이내" name="companyEnrollDate">&nbsp;&nbsp;1개월 이내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+										<input type="radio" value="3개월 이내" name="companyEnrollDate">&nbsp;&nbsp;3개월 이내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									</td>
+								</tr>
+								<tr>
+									<td class="searchCompanyListTd2"><input type="radio" value="검색" name="companyEnrollDate">&nbsp;&nbsp;검색&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type='text' class='datepicker-here firstDate pick' data-language='en' data-date-format ='yyyy-mm-dd' style="border:1px solid darkgray; height:25px;">&nbsp;&nbsp;-&nbsp;&nbsp; 
+										<input type='text' class='datepicker-here lastDate pick' data-language='en' data-date-format ='yyyy-mm-dd' style="border:1px solid darkgray; height:25px;">
+									</td>
+								</tr>
+								<tr>
+									<td class="searchCompanyListTd1">활동 상태</td>
+									<td class="searchCompanyListTd2"><input type="radio" value="전체" name="companyStatus" checked>&nbsp;&nbsp;전체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="radio" value="Y" name="companyStatus">&nbsp;&nbsp;활동업체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="radio" value="N" name="companyStatus">&nbsp;&nbsp;탈퇴업체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									</td>
+								</tr>
+							</table>
+							<br>
+							<div class="searchMemberListBtnArea">
+								<button type="button" class="searchMemberListBtn">검색</button>
+							</div>
+						</form>
+						<br> <br>
+						<div class="memberBaseInfo">
+							<table class="memberListTable">
+								<thead>
+									<tr style="background:mistyrose;">
+										<td>선택</td>
+										<td>번호</td>
+										<td>닉네임</td>
+										<td>회원 이름</td>
+										<td>성별</td>
+										<td>연락처</td>
+										<td>이메일주소</td>
+										<td>결혼예정일</td>
+										<td>신고횟수</td>
+									</tr>
+								</thead>
+								<% for(int i = 0 ; i < list.size() ; i++) { 
+									HashMap<String, Object> hmap = list.get(i);
+								%>
+								<tbody>
 									<tr>
-										<td style="background: lightgray;">아이디</td>
+										<td><input type="checkbox"></td>
+										<td><%= hmap.get("num") %></td>
+										<% Member member = (Member)hmap.get("member"); %>
+										<td><%= member.getNickName() %></td>
+										<td><%= member.getMemberName() %></td>
+										<td><%= member.getGender() %></td>
+										<td><%= member.getPhone() %></td>
+										<td><%= member.getEmail() %></td>
+										<td><%= member.getWeddingDate() %></td>
+										<td><%= member.getMnotiType() %></td>
+									</tr>
+								</tbody>
+								<% } %>
+							</table>
+							<br>
+							<!-- 페이지 버튼 처리 -->
+							<div class="pagingArea" align="center">
+							<button onclick="location.href='<%= request.getContextPath() %>/selectList.me?currentPage=1'"><<</button>
+							<% if(currentPage <= 1) { %>
+							<button disabled><</button>
+							<% } else { %>
+							<button onclick="location.href='<%= request.getContextPath() %>/selectList.me?currentPage=<%= currentPage - 1 %>'"><</button>
+							<% } %>
+							
+							<% for(int p = startPage; p <= endPage; p++) { 
+									if(p == currentPage) { %>
+										<button disabled><%= p %></button>
+							<% 		}else {%>
+										<button onclick="location.href='<%= request.getContextPath() %>/selectList.me?currentPage=<%= p %>'"><%= p %></button>
+							<%		} %>
+								
+							<% } %>
+							
+							<% if(currentPage >= maxPage) { %>
+							<button disabled>></button>
+							<% } else { %>
+							<button onclick="location.href='<%= request.getContextPath() %>/selectList.me?currentPage=<%= currentPage + 1 %>'">></button>
+							<% } %>
+							<button onclick="location.href='<%= request.getContextPath() %>/selectList.me?currentPage=<%= maxPage %>'">>></button>
+							<br>
+<!-- 							<div class="btns">
+								<button class="ui pink button" style="background:salmon;">블랙리스트 추가</button>
+								<button class="ui pink button" style="background:salmon;">탈퇴</button>
+							</div> -->
+						</div>
+						<br> <br> <br>
+						<label class="subtitle">회원 상세정보 조회</label>
+						<br>
+						
+						<div>
+							<br> <br>
+								<table class="memberDetailInfo">
+									<tr>
+										<td class="memberDetailInfoTd1">아이디</td>
 										<td class="memberId"></td>
-										<td style="background: lightgray;">이름</td>
+										<td class="memberDetailInfoTd1">이름</td>
 										<td class="memberName"></td>
 									</tr>
 									<tr>
-										<td style="background: lightgray;">닉네임</td>
+										<td class="memberDetailInfoTd1">닉네임</td>
 										<td class="memberNickName"></td>
-										<td style="background: lightgray;">성별</td>
+										<td class="memberDetailInfoTd1">성별</td>
 										<td class="memberGender"></td>
 									</tr>
 									<tr>
-										<td style="background: lightgray;">전화번호</td>
+										<td class="memberDetailInfoTd1">전화번호</td>
 										<td class="memberPhone"></td>
-										<td style="background: lightgray;">비상연락처</td>
+										<td class="memberDetailInfoTd1">비상연락처</td>
 										<td class="memberEmergenCon"></td>
 									</tr>
 									<tr>
-										<td style="background: lightgray;">이메일</td>
+										<td class="memberDetailInfoTd1">이메일</td>
 										<td class="memberEmail"></td>
-										<td style="background: lightgray;">신고횟수</td>
+										<td class="memberDetailInfoTd1">신고횟수</td>
 										<td class="memberMnotiType"></td>
 									</tr>
 									<tr>
-										<td style="background: lightgray;">가입일</td>
+										<td class="memberDetailInfoTd1">가입일</td>
 										<td class="memberEnrollDate"></td>
-										<td style="background: lightgray;">결혼예정일</td>
+										<td class="memberDetailInfoTd1">결혼예정일</td>
 										<td class="memberWeddingDate"></td>
 									</tr>
 									<tr>
-										<td style="background: lightgray;">활동상태</td>
+										<td class="memberDetailInfoTd1">활동상태</td>
 										<td class="memberStatus"></td>
-										<td style="background: lightgray;">탈퇴일</td>
+										<td class="memberDetailInfoTd1">탈퇴일</td>
 										<td class="memberOutDate"></td>
 									</tr>
 								</table>
-								<br>
-									<div class="btns">
-								<button class="ui pink button" style="background:salmon;">블랙리스트 추가</button>
-								<button class="ui pink button" style="background:salmon;">탈퇴</button>
-							</div>
+								<br> <br> <br>
 								
 							</div>
 
 
-
-								<br> <br> <br> <br>
-
-								<div class="survey">
-									<h4 id="surveyTitle" onclick="surveyClick(this);">설문조사 <i class="dropdown icon"></i></h4>
-									<table class="surveyTable" id="surveyContent" style="display:none;">
-										<tr id="surveyHead">
-											<th>번호</th>
-											<th>질문</th>
-											<th>내용</th>
-										</tr>
-										<tr>
-											<td>1</td>
-											<td>예식장을 예약하셨나요?</td>
-											<td>Y</td>
-										</tr>
-										<tr>
-											<td>2</td>
-											<td>선호하는 드레스 스타일은?</td>
-											<td><p>보헤미안 스타일</p></td>
-										</tr>
-										<tr>
-											<td>3</td>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td>4</td>
-											<td></td>
-											<td></td>
-										</tr>
-									</table>
-								</div>
+							<!-- <div class="survey">
+								<h4 id="surveyTitle" onclick="surveyClick(this);">설문조사 <i class="dropdown icon"></i></h4>
+								<table class="surveyTable" id="surveyContent" style="display:none;">
+									<tr id="surveyHead">
+										<th>번호</th>
+										<th>질문</th>
+										<th>내용</th>
+									</tr>
+									<tr>
+										<td>1</td>
+										<td>예식장을 예약하셨나요?</td>
+										<td>Y</td>
+									</tr>
+									<tr>
+										<td>2</td>
+										<td>선호하는 드레스 스타일은?</td>
+										<td><p>보헤미안 스타일</p></td>
+									</tr>
+									<tr>
+										<td>3</td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>4</td>
+										<td></td>
+										<td></td>
+									</tr>
+								</table>
+							</div> -->
 
 							<br>
 
@@ -291,7 +324,7 @@
 			}
 			
 			$(function() {
-				$(".memberListTable td").mouseenter(function() {
+				$(".memberListTable tbody td").mouseenter(function() {
 					$(this).parent().css({"background":"mistyrose", "cursor":"pointer"});
 				}).mouseout(function() {
 					$(this).parent().css({"background":"white"});

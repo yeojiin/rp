@@ -1,12 +1,17 @@
 @charset "UTF-8";
 
-.memberNumtable {
+.subtitle {
+	font-size:25px;
+	font-weight:bold;
+	font-family:'Noto Sans KR', sans-serif;
+}
+.memberNumtable, .memberListTable, .searchMemberList, .memberDetailInfo {
 	width:100%;
 	height:auto;
 	font-family:'Noto Sans KR', sans-serif;
 	text-align:center;
 }
-.memberNumtable tr {
+.memberNumtable tr, .memberListTable tr, .searchMemberList tr, .memberDetailInfo tr {
 	height:40px;
 	border-top:1px solid gray;
 	border-bottom:1px solid gray;
@@ -14,8 +19,43 @@
 .memberNumTableTd1 {
 	background:mistyrose;
 }
-
-
+.searchCompanyListTd1 {
+	width:20%;
+	background:mistyrose;
+}
+.searchCompanyListTd2 {
+	text-align:left;
+	padding-left:20px;
+}
+.searchMemberListBtnArea {
+	width:100%;
+	height:auto;
+	text-align:center;
+}
+.searchMemberListBtn {
+	width:100px;
+	height:40px;
+	color:white;
+	background:salmon;
+	border:1px solid salmon;
+}
+.searchMemberListBtn:hover {
+	width:100px;
+	height:40px;
+	color:salmon;
+	background:white;
+	border:1px solid salmon;
+}
+.memberDetailInfo td {
+	width:25%;
+}
+.memberDetailInfoTd1 {
+	background:mistyrose;
+}	
+.memberDetailInfoTd11 {
+	background:mistyrose;
+}	
+	
 .survey{
 	text-align:center;
 	float:center;
@@ -25,50 +65,7 @@
 	border-top:1px solid gray;
 	border-bottom:none !important;
 }
-#surveyHead{
-	border-bottom:1px solid gray;
-	background:lightgray;
-}
-.memberArea table {
-	margin-left: auto;
-	margin-right: auto;
-	width: 100%;
-}
 
-.memberArea table th {
-	padding: 8px;
-	text-align: center;
-}
-
-.memberArea table tr td {
-	padding: 8px;
-	border-bottom: 1px solid gray;
-	text-align: center;
-}
-
-#memberNumt, #plusInfot {
-	border: 1px solid gray;
-}
-
-#detailt {
-	border-top: 1px solid gray;
-}
-
-#text1, #text2 {
-	float: left;
-	font-size: 25px;
-	margin-left: 0;
-}
-
-#text3{
-	float: left;
-	font-size: 20px;
-	margin-left: 3%;
-}
-#text4{
-	float:center;
-	width:100%;
-}
 
 .sidenav1 {
 	color: black;
