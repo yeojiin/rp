@@ -4,28 +4,26 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.redding.member.model.service.MemberService;
-import com.kh.redding.member.model.vo.M_comListPageInfo;
-import com.kh.redding.member.model.vo.Member;
 
 /**
- * Servlet implementation class MemberSelectDetailComServlet
+ * Servlet implementation class MemberSelectDetailComQnaServlet
  */
-@WebServlet("/selectDetailCom.dc")
-public class MemberSelectDetailComServlet extends HttpServlet {
+@WebServlet("/selectDetailComQna.cq")
+public class MemberSelectDetailComQnaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberSelectDetailComServlet() {
+    public MemberSelectDetailComQnaServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,25 +32,26 @@ public class MemberSelectDetailComServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int mno = Integer.parseInt(request.getParameter("mno"));
+		int cno = Integer.parseInt(request.getParameter("cno"));
 		
-		HashMap<String, Object> list = new MemberService().selectDetailCom(mno);
+		ArrayList<HashMap<String, Object>> blist = new MemberService().selectDetailComQna(cno);
+		System.out.println("blist :" + blist);
 		
-		System.out.println("list : " + list);
 		
-		String page = "";
-		if(list != null) {
+		/*String page = "";
+		if(blist != null) {
 			page = "views/member/m_Detail.jsp";
-			request.setAttribute("list", list);
-			request.getSession().setAttribute("cno", mno);
-			System.out.println("전달");
+			request.setAttribute("blist", blist);
 		}else {
 			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "업체 목록 조회 실패");
+			request.setAttribute("msg", "업체 Qna 목록 조회 실패!");
 		}
 		
 		RequestDispatcher view = request.getRequestDispatcher(page);
-		view.forward(request, response);
+		view.forward(request, response);*/
+		
+		response.setContentType("application/json");
+		new Gson().toJson(blist,response.getWriter());
 	}
 
 	/**
