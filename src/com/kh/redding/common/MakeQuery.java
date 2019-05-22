@@ -193,11 +193,33 @@ public class MakeQuery {
 		String companyCategory = searchConditionList.get(1).toString();
 		String companyEnrollDate = searchConditionList.get(2).toString();
 		String companyStatus = searchConditionList.get(3).toString();
+		String firstDate = searchConditionList.get(4).toString();
+		String lastDate = searchConditionList.get(5).toString();
 
-		String query = "";
+		String query = "SELECT RNUM, MNO, MID, MPWD, MNAME, NICK_NAME, EMAIL, EMAIL_CHECK, PHONE, EMERGEN_CON, GENDER, ENROLL_DATE, STATUS, MODIFY_DATE, MNOTI_TYPE, OUT_DATE, WEDDING_DATE, MTYPE, COM_TYPE FROM(SELECT ROWNUM RNUM, MNO, MID, MPWD, MNAME, NICK_NAME, EMAIL, EMAIL_CHECK, PHONE, EMERGEN_CON, GENDER, ENROLL_DATE, STATUS, MODIFY_DATE, MNOTI_TYPE, OUT_DATE, WEDDING_DATE, MTYPE, COM_TYPE FROM (SELECT M.MNO, M.MID, M.MPWD, M.MNAME, M.NICK_NAME, M.EMAIL, M.EMAIL_CHECK, M.PHONE, M.EMERGEN_CON, M.GENDER, M.ENROLL_DATE, M.STATUS, M.MODIFY_DATE, M.MNOTI_TYPE, M.OUT_DATE, M.WEDDING_DATE, M.MTYPE, C.COM_TYPE FROM MEMBER M JOIN COMPANY C ON(M.MNO = C.CNO) WHERE M.MTYPE=20 ORDER BY M.MNO DESC) ORDER BY RNUM ASC)";
 
-		if(companyName != null) {
-			query = "SELECT RNUM, MNO, MID, MPWD, MNAME, NICK_NAME, EMAIL, EMAIL_CHECK, PHONE, EMERGEN_CON, GENDER, ENROLL_DATE, STATUS, MODIFY_DATE, MNOTI_TYPE, OUT_DATE, WEDDING_DATE, MTYPE, COM_TYPE FROM(SELECT ROWNUM RNUM, MNO, MID, MPWD, MNAME, NICK_NAME, EMAIL, EMAIL_CHECK, PHONE, EMERGEN_CON, GENDER, ENROLL_DATE, STATUS, MODIFY_DATE, MNOTI_TYPE, OUT_DATE, WEDDING_DATE, MTYPE, COM_TYPE FROM (SELECT M.MNO, M.MID, M.MPWD, M.MNAME, M.NICK_NAME, M.EMAIL, M.EMAIL_CHECK, M.PHONE, M.EMERGEN_CON, M.GENDER, M.ENROLL_DATE, M.STATUS, M.MODIFY_DATE, M.MNOTI_TYPE, M.OUT_DATE, M.WEDDING_DATE, M.MTYPE, C.COM_TYPE FROM MEMBER M JOIN COMPANY C ON(M.MNO = C.CNO) WHERE M.MTYPE=20 AND MNAME LIKE '%'||?||'%' ORDER BY M.MNO DESC) ORDER BY RNUM ASC)";
+		if(companyName.equals("")) {
+			query += " WHERE MNAME LIKE '%'";
+		}else {
+			query += " WHERE MNAME LIKE '%'||?||'%'";
+		}
+		
+		if(companyCategory.equals("전체")) {
+			query += " AND COM_TYPE LIKE '%'";
+		}else {
+			query += " AND COM_TYPE = ?";
+		}
+		
+		if(companyEnrollDate.equals("전체")) {
+			query += " AND ENROLL_DATE LIKE '%'";
+		}else if(companyEnrollDate.equals("검색")) {
+			query += " AND ENROLL_DATE BETWEEN ? AND ?";
+		}
+		
+		if(companyStatus.equals("전체")) {
+			query += " AND STATUS LIKE '%'";
+		}else {
+			query += " AND STATUS = ?";
 		}
 		
 		prop.setProperty(prop.getProperty("","selectSearchCompanyList"),query);
