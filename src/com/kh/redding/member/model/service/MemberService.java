@@ -193,7 +193,18 @@ public class MemberService {
 		return hmap;
 	}
 
-	//아이디 , 이메일을 받아서 아이디 비밀번호 찾기
+	public ArrayList<HashMap<String, Object>> getPayment(int mno, int[] upnoArr) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new MemberDao().getPayment(con,mno,upnoArr);
+		
+		close(con);
+		
+		return list;
+}
+    
+    
+	//아이디 , 이메일을 받아서 아이디 비밀번호 찾기(지원)
 	public int MemberIdSearch(String memberid, String email) {
 		Connection con = getConnection();
 		

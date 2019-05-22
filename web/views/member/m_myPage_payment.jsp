@@ -80,6 +80,49 @@
 		border:1px solid darkgray; 
 		height:25px;
 	}
+	
+	.ui.dimmer .ui.modal{
+      margin-left:auto;
+      margin-right:auto;
+      margin-top:auto;
+      margin-bottom:auto;
+   }
+   
+  .modalfooter {
+
+    position:absolute;
+
+    bottom:0;
+    }
+    
+    .modalTable th,td{
+    	text-align:center !important;
+    }
+    .modalTable tr{
+    	height:60px;
+    }
+    .modalTable tr:nth-child(1){
+    	color:white;
+    }
+    .payBtnArea{
+    	text-align:center;
+    	margin-left:auto; 
+    	margin-right:auto;
+    }
+    .ui.button{
+    	border:1px solid salmon;
+    	background:white;
+    	color:salmon;
+    }
+    .ui.button:hover{
+    	background:salmon;
+    	color:white;
+    }
+    .ui.button:active{
+    	background:salmon !important;
+    	color:white;
+    }
+    
 </style>
 </head>
 <body>
@@ -124,6 +167,9 @@
 			<div class="col-sm-10 text-left">
 			<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 				<input type="hidden" value="<%= loginUser.getMno() %>" id="mno" >
+				
+				<input type="hidden" value="<%= loginUser.getMemberName() %>" id="memberName">
+				
 				<div class="contents">
 				
 					<div class="subTitle">
@@ -233,30 +279,44 @@
 	<br>
 	<div class="ui modal" style=" height:auto;">
 
-		<div class="header" style="background:salmon; color:white;">
+		<div class="header" style="background:salmon; color:white; height:80px">
 			<label class="modalHeader">결제 확인</label>
 		</div>
 		<div class="modalContents">
 			<br>
-			<table class="modalTable" style="margin-left:auto; margin-right:auto;">
-				<tr>
-					<th style="width:100px"></th>
+			<table class="modalTable" style="width:80%; margin-left:auto; margin-right:auto;">
+				<thead>
+				<tr style="background:salmon;">
+					<th width="10%"></th>
 					<th>업체명</th>
 					<th>상품명</th>
-					<th>상태</th>
+					<th>예약상태</th>
 					<th>예약날짜</th>
+					<th>가격</th>
 					<th>예약자</th>
 				</tr>
-				<tr>
+				</thead>
+				<tbody class="paymodalContent">
+				<tr style="color:black">
+					<td><input type="checkbox"></td>
 					<td>1</td>
 					<td>1</td>
 					<td>1</td>
 					<td>1</td>
 					<td>1</td>
 					<td>1</td>
-				</tr>				
+				</tr>
+				</tbody>				
 			</table>
 						
+		</div>
+		<div class="footer modalfooter" style="width:100%; background:white;">
+			<div class="payBtnArea">
+			<p class="eventContent" style="color:salmon; font-size:30px">패키지로 결제시 최대 5% 할인</p>
+			<br>
+			<button class="ui button Paymentmove">결제하기</button>
+			<button class="ui button cancleBtn">취소하기</button>
+			</div>
 		</div>
 			
 	</div>
@@ -267,6 +327,7 @@
 	</div>
 	
 <script src="${pageContext.request.contextPath}/js/member/memberReservation.js"></script>
-
+<script>
+</script>
 </body>
 </html>
