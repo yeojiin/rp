@@ -450,7 +450,7 @@
  			  var upnoArr = [];
  			  var answer = "N";
  			  $("input[name=upCheck]").each(function(){
- 				  var upno = $(this).parent().parent().children().eq(1).children().eq(0).val();
+ 				  var upno = $(this).parent().parent().children().eq(1).children().eq(1).val();
  				  if($(this).is(":checked")){
  					  console.log("upno : " + upno);
  					  upnoArr += upno +", ";
