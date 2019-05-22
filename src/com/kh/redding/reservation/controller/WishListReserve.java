@@ -50,6 +50,7 @@ public class WishListReserve extends HttpServlet {
 			page = "views/member/m_reservation.jsp";
 			request.setAttribute("list", list);
 			
+			//System.out.println("예약 서블릿: " + list);
 		}else {
 			page="views/common/errorPage.jsp";
 			request.setAttribute("msg", "예약 조회 실패!");
