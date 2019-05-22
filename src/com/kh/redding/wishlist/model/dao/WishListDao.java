@@ -36,10 +36,12 @@ public class WishListDao {
 		String query = prop.getProperty("showWishList");
 		
 		try {
+			
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, num);
 			
 			rset= pstmt.executeQuery();
+
 			
 			list = new ArrayList<HashMap<String,Object>>();
 			
@@ -54,6 +56,8 @@ public class WishListDao {
 				hmap.put("mname", rset.getString("MNAME"));
 				hmap.put("ctype", rset.getString("COM_TYPE"));
 				hmap.put("wishcode", rset.getInt("WISH_CODE"));
+				hmap.put("filepath", rset.getString("FILE_PATH"));
+				hmap.put("changename", rset.getString("CHANGE_NAME"));
 				
 				list.add(hmap);
 				
@@ -153,6 +157,9 @@ public class WishListDao {
 				hmap.put("price", rset.getInt("PRICE"));
 				hmap.put("cno", rset.getInt("CNO"));
 				hmap.put("cname", rset.getString("CNAME"));
+				hmap.put("filepath", rset.getString("FILE_PATH"));
+				hmap.put("changename", rset.getString("CHANGE_NAME"));
+				
 				
 				list.add(hmap);
 			}

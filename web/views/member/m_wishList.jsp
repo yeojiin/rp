@@ -69,8 +69,7 @@
 							%>
 							<tr>
 								<td class="cName"><%=hmap.get("mname")%></td>
-								<td class="imagetd"><img id="image"
-									src="<%=request.getContextPath()%>/images/dressTest.jpg">
+								<td class="imagetd"><img id="image" style=" max-width:100%" src="<%= request.getContextPath() %>/company_upload/<%=hmap.get("changename").toString()%>">
 								</td>
 								<td class="pName"><%=hmap.get("pname")%></td>
 								<td class="price"><%=hmap.get("price")%></td>
@@ -102,17 +101,24 @@
 					<h2>패키지 구성</h2>
 					<div class="pack">
 					<div class="packageArea" id="packageArea" style="display:inline-block">
-						<div class="firstStudio" style="display:inline-block">
+						<div class="firstStudio" style="display:inline-block;">
+							<img id="simg1" src="" style="max-width:100%; height:200px;">
 						</div>
 						<div class="packImg" style="display:inline-block">
 							<img src="<%=request.getContextPath()%>/images/plus.png">
+							<p></p>
 						</div>
-						<div class="firstDress" style="display:inline-block">
+						<div class="firstDress" style="display:inline-block;">
+							<img id="dimg1" src="" style="max-width:100%; height:200px;">
+							<p></p>
 						</div>
 						<div class="packImg" style="display:inline-block">
 							<img src="<%=request.getContextPath()%>/images/plus.png">
+							<p></p>
 						</div>
-						<div class="firstMakeup" style="display:inline-block">
+						<div class="firstMakeup" style="display:inline-block;">
+							<img id="mimg1" src="" style="max-width:100%; height:200px;">
+							<p></p>
 						</div>
 					</div>
 					<div class="packageArea2" id="packageArea2" style="display:inline-block">
@@ -255,23 +261,26 @@
 					          				var price = data[i].price;
 					          				var ctype = data[i].comType;
 					          				var pno = data[i].pno;
-				
-						          				if(ctype == "스튜디오" && sctn==0){
-						          					$firstStudio.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
-						          					sctn++;
-						          				}else if(ctype == "드레스" && dctn==0 ){
-					    	      					$firstDress.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
-					        	  					dctn++;
-					        	  				}else if(ctype == "메이크업" && mctn==0){
-					          						$firstMakeup.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
-					          						mctn++;
-					          					}else if(ctype == "스튜디오"){
-					          						$secondStudio.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
-					          					}else if(ctype == "드레스") {
-					          						$secondDress.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
-					          					}else if(ctype == "메이크업"){
-					          						$secondMakeup.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
-					          					}
+					          				var changename = data[i].changename;
+					          				
+					        				
+					          				if(ctype == "스튜디오" && sctn==0){
+					          					$firstStudio.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+					          					sctn++;
+					          				}else if(ctype == "드레스" && dctn==0 ){
+				    	      					$firstDress.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+				        	  					dctn++;
+				        	  				}else if(ctype == "메이크업" && mctn==0){
+				          						$firstMakeup.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+				          						mctn++;
+				          					}else if(ctype == "스튜디오"){
+				          						$secondStudio.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+				          					}else if(ctype == "드레스") {
+				          						$secondDress.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+				          					}else if(ctype == "메이크업"){
+				          						$secondMakeup.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+				          					}
+					          				
 						          			$totalPrice += price; 
 				          				}
 					          				
@@ -299,7 +308,7 @@
 				//패키지 구성 불러오기
 				$(document).ready(function(){
 					var mno = <%=loginUser.getMno()%>;
-					//console.log(mno);
+					
 					$.ajax({
 		          			url : "/redding/showPack.wi",
 		          			data : {mno:mno},
@@ -325,24 +334,33 @@
 		          				var price = data[i].price;
 		          				var ctype = data[i].comType;
 		          				var pno = data[i].pno;
-	
-			          				if(ctype == "스튜디오" && sctn==0){
-			          					$firstStudio.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
-			          					sctn++;
-			          				}else if(ctype == "드레스" && dctn==0 ){
-		    	      					$firstDress.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
-		        	  					dctn++;
-		        	  				}else if(ctype == "메이크업" && mctn==0){
-		          						$firstMakeup.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
-		          						mctn++;
-		          					}else if(ctype == "스튜디오"){
-		          						$secondStudio.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
-		          					}else if(ctype == "드레스") {
-		          						$secondDress.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
-		          					}else if(ctype == "메이크업"){
-		          						$secondMakeup.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
-		          					}
-		          					
+		          				var changename = data[i].changename;
+		          				var src = "<%= request.getContextPath() %>/company_upload/" + changename;
+		        				
+		          				//console.log(changename);
+		        				
+		          				
+		        				
+		          				if(ctype == "스튜디오" && sctn==0){
+		          					$("#simg1").attr("src", src);
+		          					$firstStudio.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+		          					sctn++;
+		          				}else if(ctype == "드레스" && dctn==0 ){
+		          					$("#dimg1").attr("src", src);
+	    	      					$firstDress.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+	        	  					dctn++;
+	        	  				}else if(ctype == "메이크업" && mctn==0){
+	        	  					$("#mimg1").attr("src", src);
+	          						$firstMakeup.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+	          						mctn++;
+	          					}else if(ctype == "스튜디오"){
+	          						$secondStudio.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+	          					}else if(ctype == "드레스") {
+	          						$secondDress.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+	          					}else if(ctype == "메이크업"){
+	          						$secondMakeup.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+	          					}
+		          				
 			          				totalPrice += price;
 			          				
 			          				//체크박스 
@@ -415,23 +433,28 @@
 						          				var price = data[i].price;
 						          				var ctype = data[i].comType;
 						          				var pno = data[i].pno;
-					
-							          				if(ctype == "스튜디오" && sctn==0){
-							          					$firstStudio.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
-							          					sctn++;
-							          				}else if(ctype == "드레스" && dctn==0 ){
-						    	      					$firstDress.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
-						        	  					dctn++;
-						        	  				}else if(ctype == "메이크업" && mctn==0){
-						          						$firstMakeup.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
-						          						mctn++;
-						          					}else if(ctype == "스튜디오"){
-						          						$secondStudio.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
-						          					}else if(ctype == "드레스") {
-						          						$secondDress.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
-						          					}else if(ctype == "메이크업"){
-						          						$secondMakeup.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
-						          					}
+						          				var changename = data[i].changename;
+						          				
+						          				
+						        				
+						          				if(ctype == "스튜디오" && sctn==0){
+						          					$firstStudio.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+						  
+						          					sctn++;
+						          				}else if(ctype == "드레스" && dctn==0 ){
+					    	      					$firstDress.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+					        	  					dctn++;
+					        	  				}else if(ctype == "메이크업" && mctn==0){
+					          						$firstMakeup.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+					          						mctn++;
+					          					}else if(ctype == "스튜디오"){
+					          						$secondStudio.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+					          					}else if(ctype == "드레스") {
+					          						$secondDress.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+					          					}else if(ctype == "메이크업"){
+					          						$secondMakeup.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+					          					}
+						          				
 							          			$totalPrice += price; 
 					          				}
 						          				
