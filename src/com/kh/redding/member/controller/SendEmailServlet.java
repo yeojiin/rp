@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/send")
 public class SendEmailServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
        
    
     public SendEmailServlet() {
@@ -46,7 +46,8 @@ public class SendEmailServlet extends HttpServlet {
 		
 		MimeMessage msg = new MimeMessage(session);
 		
-		String code = null;
+		String code = "";
+		String content  = "";
 		
 		try {
 			msg.setSentDate(new Date());
@@ -69,13 +70,15 @@ public class SendEmailServlet extends HttpServlet {
 			//이메일 내용
 			int random = (int)Math.floor((Math.random()*(99999-10000+1)))+10000;
 			
-			code = "안녕하세요 Redding입니다.\n 이메일 인증 코드는 ";
+			content = "안녕하세요 Redding입니다.\n 이메일 인증 코드는 ";
 			
-			code += random + "입니다.";
+			code += random + "";
+			
+			content += code + "입니다.";
 
 			System.out.println("code_check : " + code);
 			
-			msg.setText(code, "UTF-8");
+			msg.setText(content, "UTF-8");
 			
 			msg.setHeader("content-Type", "text/html");
 			
@@ -96,30 +99,30 @@ public class SendEmailServlet extends HttpServlet {
 	
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		
-	}
+   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      
+      
+      
+   }
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
-	
+   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      doGet(request, response);
+   }
+   
 
 }
 
 class MyAuthentication extends Authenticator{
-	PasswordAuthentication pa;
-	
-	public MyAuthentication() {
-		String id = "wldnjs7781@gmail.com";
-		String pw = "redding0515";
-		
-		pa = new PasswordAuthentication(id,pw);
-	}
-	
-	public PasswordAuthentication getPasswordAuthentication() {
-		return pa;
-	}
+   PasswordAuthentication pa;
+   
+   public MyAuthentication() {
+      String id = "wldnjs7781@gmail.com";
+      String pw = "redding0515";
+      
+      pa = new PasswordAuthentication(id,pw);
+   }
+   
+   public PasswordAuthentication getPasswordAuthentication() {
+      return pa;
+   }
 }

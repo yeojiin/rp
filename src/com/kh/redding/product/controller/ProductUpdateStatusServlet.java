@@ -1,6 +1,8 @@
 package com.kh.redding.product.controller;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.util.GregorianCalendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,6 +31,9 @@ public class ProductUpdateStatusServlet extends HttpServlet {
 		String status = request.getParameter("status");
 		//System.out.println("status : " + status);
 		
+		Date modifyDate = new Date(new GregorianCalendar().getTimeInMillis());
+	      
+		
 		Member member = ((Member)request.getSession().getAttribute("loginUser"));
 		
 		int cno = member.getMno();
@@ -44,7 +49,7 @@ public class ProductUpdateStatusServlet extends HttpServlet {
 		for(int i=0 ; i<pno.length ; i++) {
 			pno[i] = Integer.parseInt(pnoArr[i]);
 			//System.out.println("pno["+i+"] : " + pno[i]);
-			proResult = new ProductService().updateProductStatus(pno[i], status, cno);
+			proResult = new ProductService().updateProductStatus(pno[i], status, cno , modifyDate);
 			
 			if(proResult>0) {
 				if(status.equals("판매")) {

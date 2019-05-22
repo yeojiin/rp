@@ -82,14 +82,14 @@
 				<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 				<div class="memberArea">
 					<div class="memberNum">
-						<br>
-						<table id="memberNumt">
+						<br> <br> <br>
+						<table class="memberNumtable">
 							<tr>
-								<td>전체회원</td>
+								<td class="memberNumTableTd1">전체회원</td>
 								<td><%=request.getAttribute("allMemberlistCount")%>명</td>
-								<td>신규회원</td>
+								<td class="memberNumTableTd1">신규회원</td>
 								<td><%=request.getAttribute("newMemberlistCount")%>명</td>
-								<td>탈퇴회원</td>
+								<td class="memberNumTableTd1">탈퇴회원</td>
 								<td><%=request.getAttribute("withdrawalMemberlistCount")%>명</td>
 							</tr>
 						</table>

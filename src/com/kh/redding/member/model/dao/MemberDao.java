@@ -17,6 +17,7 @@ import java.util.Properties;
 
 import com.kh.redding.attachment.model.vo.Attachment;
 import com.kh.redding.board.model.dao.BoardDao;
+import com.kh.redding.board.model.vo.Board;
 import com.kh.redding.board.model.vo.BoardPageInfo;
 import com.kh.redding.company.model.vo.Company;
 import com.kh.redding.member.model.vo.M_comListPageInfo;
@@ -186,17 +187,19 @@ public class MemberDao {
 		return result;
 	}
 
-	public int getListCount(Connection con) {
-		Statement stmt = null;
+	//업체목록페이지수(광섭)
+	public int getListCount(Connection con, String comType) {
+		PreparedStatement pstmt = null;
 		int listCount = 0;
 		ResultSet rset = null;
 		
 		String query = prop.getProperty("listComCount");
 		
 		try {
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(query);
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, comType);
 			
+			rset = pstmt.executeQuery();
 			if(rset.next()) {
 				listCount = rset.getInt(1);
 			}
@@ -204,13 +207,14 @@ public class MemberDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(stmt);
+			close(pstmt);
 			close(rset);
 		}
 		return listCount;
 	}
 
-	public ArrayList<HashMap<String, Object>> selectComList(Connection con, M_comListPageInfo clpi) {
+	//업체목록(광섭)
+	public ArrayList<HashMap<String, Object>> selectComList(Connection con, M_comListPageInfo clpi, String comType) {
 		PreparedStatement pstmt = null;
 		ArrayList<HashMap<String, Object>> list = null;
 		HashMap<String, Object> hmap = null;
@@ -223,8 +227,9 @@ public class MemberDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			pstmt.setString(1, comType);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -240,9 +245,11 @@ public class MemberDao {
 				hmap.put("membername", rset.getString("MNAME"));
 				hmap.put("price", rset.getInt("PRICE"));
 				hmap.put("ComLike", rset.getInt("COM_LIKE"));
+				hmap.put("comType", comType);
 				
 				list.add(hmap);
 			}
+			System.out.println("ff : " + hmap.get("comType"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -446,20 +453,22 @@ public class MemberDao {
 			
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
-			c.setCNO(rset.getInt("CNO"));
-			c.setCom_Rep_Num(rset.getInt("COM_REP_NUM"));
-			c.setRepName(rset.getString("REP_NAME"));
-			c.setComAddress(rset.getString("COM_ADDRESS"));
-			c.setComUrl(rset.getString("COM_URL"));
-			c.setOpenTime(rset.getString("OPEN_TIMES"));
-			c.setEndTime(rset.getString("CLOSE_TIMES"));
-			c.setAccountCode(rset.getInt("ACCOUNT_CODE"));
-			c.setAccountNum(rset.getString("ACCOUNT_NUM"));
-			c.setAccountName(rset.getString("ACCOUNT_NAME"));
-			c.setComType(rset.getString("COM_TYPE"));
-			c.setComLike(rset.getInt("COM_LIKE"));
-			c.setHoliday(rset.getString("HOLIDAY"));
+				c.setCNO(rset.getInt("CNO"));
+				c.setCom_Rep_Num(rset.getInt("COM_REP_NUM"));
+				c.setRepName(rset.getString("REP_NAME"));
+				c.setComAddress(rset.getString("COM_ADDRESS"));
+				c.setComUrl(rset.getString("COM_URL"));
+				c.setOpenTime(rset.getString("OPEN_TIMES"));
+				c.setEndTime(rset.getString("CLOSE_TIMES"));
+				c.setAccountCode(rset.getInt("ACCOUNT_CODE"));
+				c.setAccountNum(rset.getString("ACCOUNT_NUM"));
+				c.setAccountName(rset.getString("ACCOUNT_NAME"));
+				c.setComType(rset.getString("COM_TYPE"));
+				c.setComLike(rset.getInt("COM_LIKE"));
+				c.setHoliday(rset.getString("HOLIDAY"));
 			}
+			
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -593,6 +602,31 @@ public class MemberDao {
 		return m;
 	}
 
+	//보드조회(광섭)
+	/*public Board selectDetailBoard(Connection con, int ref_cnum) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Board brd = null;
+		Member mb = null;
+		
+		String query = prop.getProperty("selectBoard");
+		
+		brd = new Board();
+		mb = new Member();
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, ref_cnum);
+			
+			if(rset.next()) {
+				brd.setBid(rset.getInt("BID"));
+				brd.setBcontent(rset.getString("BCONTENT"));
+				mb.setMemberName(rset.getString("MNAME"));
+				brd.setBdate(rset.getDate("BDATE"));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
 	public ArrayList<HashMap<String, Object>> getPackage(Connection con, int subno, int mno) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -630,6 +664,179 @@ public class MemberDao {
 		}
 			
 		return list;
+	}
+
+	//아이디 , 이메일 있는 지 확인
+	// memberid -> memberName
+	public int memberIdSearch(Connection con,String memberid, String email) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("memberIdSearch");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, memberid);
+			pstmt.setString(2, email);
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return null;
+	}*/
+
+	public ArrayList<HashMap<String, Object>> selectDetailComQna(Connection con, int cno) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String, Object>> blist = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectBoard");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, cno);
+			
+			rset = pstmt.executeQuery();
+			
+			blist = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				
+				hmap.put("bid", rset.getInt("BID"));
+				hmap.put("bcontent", rset.getString("BCONTENT"));
+				hmap.put("mname", rset.getString("MNAME"));
+				hmap.put("bdate", rset.getDate("BDATE"));
+				hmap.put("ref_cnum", rset.getInt("REF_CNUM"));
+				
+				blist.add(hmap);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return blist;
+		
+	
+	}
+
+	
+	public String selectMemberId(Connection con, String memberName, String email) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String memberId = null;
+		
+		String query = prop.getProperty("selectMemberId");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, memberName);
+			pstmt.setString(2, email);
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				memberId = rset.getString("MID");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		
+		
+		return memberId;
+	}
+
+	//비밀번호 찾기 - 아이디 , 이메일 , 이름 있는 지 조회
+	public int MemberPasswordSelect(Connection con, String memberid, String membername, String email) {
+		PreparedStatement pstmt = null;
+		ResultSet rset =null;
+		int result = 0;
+		
+		String query = prop.getProperty("PasswordSelect");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, memberid);
+			pstmt.setString(2, membername);
+			pstmt.setString(3, email);
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateMemberPassword(Connection con, String membrid, String memberPwd) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("UpdatePassword");
+		
+		try {
+			//System.out.println("update :" + query);
+			
+			
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, memberPwd);
+			pstmt.setString(2, membrid);
+		
+			//System.out.println("memberPwd :" + memberPwd + "memberId :" + membrid);
+			
+			result = pstmt.executeUpdate();
+			
+			//System.out.println("dao :" + result);
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
 	}	
 	
 }

@@ -42,7 +42,7 @@ input[name = proName], input[name = proEnrollDate], input[name=proPrice], input[
    background: lightgray;
 }
 
-#productDetailBtn:hover, #productSellYesBtn:hover, #searchBtn:hover, #productSellNoBtn:hover, #PIResetBtn:hover, #PIInsertBtn:hover{
+#productDetailBtn:hover, #productSellYesBtn:hover, #searchBtn:hover, #productSellNoBtn:hover, #PIResetBtn:hover, #PIInsertBtn:hover, #productUploadBtn:hover,#proResBtn:hover{
    background: white;
    color: salmon;
 }
@@ -54,6 +54,19 @@ input[name = proName], input[name = proEnrollDate], input[name=proPrice], input[
 #productDetailBtn{
 	margin-right: auto;
 	margin-left: auto;
+}
+#productUploadBtn, #proResBtn{
+    width: 140px;
+    height: 35px;
+    font-size: 22px;
+    background: salmon;
+    color: white;
+    border: 2px double salmon;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: auto;
+    margin-left: auto;
 }
 #PIInsertBtn, #PIResetBtn, #searchBtn, #productDetailBtn, #productDeleteBtn, #productSellYesBtn, #productSellNoBtn{
    width: 100px;

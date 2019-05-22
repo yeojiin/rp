@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*, com.kh.redding.product.model.vo.*"%>
 <%   
-	HashMap<String, Object> hmap = (HashMap<String, Object>)request.getAttribute("hmap");
+	/* HashMap<String, Object> hmap = (HashMap<String, Object>)request.getAttribute("hmap");
 	
 	ArrayList<Product> proList = (ArrayList<Product>)hmap.get("proList");
-	PageInfo pi = (PageInfo) hmap.get("pi");
+	PageInfo pi = (PageInfo) hmap.get("pi"); */
 			
-   /* ArrayList<Product> proList = (ArrayList<Product>) request.getAttribute("proList"); 
-   PageInfo pi = (PageInfo)request.getAttribute("pi"); */
+   ArrayList<Product> proList = (ArrayList<Product>) request.getAttribute("proList"); 
+   PageInfo pi = (PageInfo)request.getAttribute("pi");
    
    ProductCounts pcount = (ProductCounts) request.getAttribute("pcount");
    

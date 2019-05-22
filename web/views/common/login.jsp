@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Insert title here</title>
+<title>Redding♥</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -61,10 +61,7 @@
 						
 						<table class="loginTable" align="center">
 							<tr>
-								<!-- <td colspan="3">
-									<input type="radio" name="loginSelection" class="loginSelection" id="loginMember" value="member">&nbsp;&nbsp;회원&nbsp;&nbsp;&nbsp;&nbsp;
-									<input type="radio" name="loginSelection" class="loginSelection" id="loginCompany" value="company">&nbsp;&nbsp;업체<br><br>						
-								</td> -->
+								
 							</tr>
 							<tr>
 								<td><label>ID : </label></td>
@@ -89,7 +86,7 @@
 					
 					<br>
 					<button class="loginMenu" onclick="location.href='<%=request.getContextPath()%>/views/common/join.jsp'">회원이 아니신가요?</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
-					<button class="loginMenu">ID/PASSWORD 찾기</button>
+					<button class="loginMenu" onclick= "location.href='<%=request.getContextPath()%>/views/member/m_idpasswordSearch.jsp'">ID/PASSWORD 찾기</button>
 				</div>
 
 			</div>
