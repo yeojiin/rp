@@ -34,9 +34,9 @@ public class MemberSelectDetailComServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int mno = Integer.parseInt(request.getParameter("mno"));
+		int cno = Integer.parseInt(request.getParameter("cno"));
 		
-		HashMap<String, Object> list = new MemberService().selectDetailCom(mno);
+		HashMap<String, Object> list = new MemberService().selectDetailCom(cno);
 		
 		System.out.println("list : " + list);
 		
@@ -44,7 +44,7 @@ public class MemberSelectDetailComServlet extends HttpServlet {
 		if(list != null) {
 			page = "views/member/m_Detail.jsp";
 			request.setAttribute("list", list);
-			request.getSession().setAttribute("cno", mno);
+			request.getSession().setAttribute("cno", cno);
 			System.out.println("전달");
 		}else {
 			page = "views/common/errorPage.jsp";

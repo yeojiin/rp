@@ -445,7 +445,7 @@ public class MemberDao {
 	}
 	
 	//업체조회(광섭)
-	public Company selectDetailCom(Connection con, int mno) {
+	public Company selectDetailCom(Connection con, int cno) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Company c = null;
@@ -455,7 +455,7 @@ public class MemberDao {
 		try {
 			c = new Company();
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, mno);
+			pstmt.setInt(1, cno);
 			
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
@@ -758,15 +758,16 @@ public class MemberDao {
 			while(rset.next()) {
 				hmap = new HashMap<String, Object>();
 
-        hmap.put("bid", rset.getInt("BID"));
+				hmap.put("bid", rset.getInt("BID"));
 				hmap.put("bcontent", rset.getString("BCONTENT"));
 				hmap.put("mname", rset.getString("MNAME"));
 				hmap.put("bdate", rset.getDate("BDATE"));
 				hmap.put("ref_cnum", rset.getInt("REF_CNUM"));
+				/*hmap.put("cno", rset.getInt("CNO"));*/
 				
 				blist.add(hmap);
 			}
-			
+			System.out.println("blistDao : " + blist);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

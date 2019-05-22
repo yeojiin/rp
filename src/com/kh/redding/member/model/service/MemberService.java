@@ -121,31 +121,31 @@ public class MemberService {
 		return list;
 	}
 
-	public HashMap<String, Object> selectDetailCom(int mno) {
+	public HashMap<String, Object> selectDetailCom(int cno) {
 		Connection con = getConnection();
 		
 		//ArrayList<HashMap<String, Object>> list = new MemberDao().selectDetailCom(con, clpi, mname);
 		HashMap<String, Object> list = new HashMap<String, Object>();
 		
-		Company com = new MemberDao().selectDetailCom(con, mno);
+		Company com = new MemberDao().selectDetailCom(con, cno);
 		
 		if (com != null) {
 			list.put("Company", com);			
 		}
 		
-		Member mem = new MemberDao().selectDetailMem(con, mno);
+		Member mem = new MemberDao().selectDetailMem(con, cno);
 		
 		if (mem != null) {
 			list.put("Member", mem);			
 		}
 		
-		ArrayList<Attachment> at = new MemberDao().selectDetailAt(con, mno);
+		ArrayList<Attachment> at = new MemberDao().selectDetailAt(con, cno);
 		
 		if (at != null) {
 			list.put("Attachment", at);			
 		}
 		
-		ArrayList<Product> pd = new MemberDao().selectDetailPd(con, mno);
+		ArrayList<Product> pd = new MemberDao().selectDetailPd(con, cno);
 		
 		if (pd != null) {
 			list.put("Product", pd);			
@@ -173,13 +173,41 @@ public class MemberService {
 	public ArrayList<HashMap<String, Object>> selectDetailComQna(int cno) {
 		Connection con = getConnection();
 		
-		ArrayList<HashMap<String, Object>> blist = new MemberDao().selectDetailComQna(con, cno);
+		ArrayList<HashMap<String, Object>> blist = null;
 		
-		for(int i=0; i<blist.size();i++) {
-			
+		HashMap<String, Object> list = new HashMap<String, Object>();
+		
+		blist = new MemberDao().selectDetailComQna(con, cno);
+		
+		Company com = new MemberDao().selectDetailCom(con, cno);
+		
+		if (com != null) {
+			list.put("Company", com);			
 		}
 		
+		Member mem = new MemberDao().selectDetailMem(con, cno);
+		
+		if (mem != null) {
+			list.put("Member", mem);			
+		}
+		
+		ArrayList<Attachment> at = new MemberDao().selectDetailAt(con, cno);
+		
+		if (at != null) {
+			list.put("Attachment", at);			
+		}
+		
+		ArrayList<Product> pd = new MemberDao().selectDetailPd(con, cno);
+		
+		if (pd != null) {
+			list.put("Product", pd);			
+		}
+		
+		blist.add(list);
+		
 		close(con);
+		
+		System.out.println("blistService : " + blist);
 		
 		
 		return blist;
