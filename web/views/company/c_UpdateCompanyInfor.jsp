@@ -418,6 +418,7 @@
           			success : function(data){
           				if (data == "success"){
           					alert("성공! 비밀번호 변경되었습니다.");
+          					
           				}else {
           					alert("비밀번호 변경이 실패했습니다. 다시 한번 입력해주세요");
           				}
@@ -426,6 +427,10 @@
           				console.log("실패!");
           			}
           		});
+				
+				$("#currentPwd").val("");
+				$("#changePwd").val("");
+				$("#passwordChange2").val("");
 			}			
 		}
 		

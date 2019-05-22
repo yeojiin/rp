@@ -173,8 +173,8 @@
 							</tr>
 							<tr>
 								<td class="col1">이메일&nbsp;&nbsp;<span id="star">*</span></td>
-								<td class="col2"><input type="text" name="email1">&nbsp;&nbsp;@&nbsp;&nbsp;
-									<input type="text" name="email2" id="email2">&nbsp;&nbsp;
+								<td class="col2"><input type="text" name="email1" style = "width:130px">&nbsp;&nbsp;@&nbsp;&nbsp;
+									<input type="text" name="email2" id="email2" style = "width:130px">&nbsp;&nbsp;
 									<select name="email3" id="email3">
 										<option>직접입력</option>
 										<option>naver.com</option>
