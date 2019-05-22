@@ -30,14 +30,16 @@ public class ProductSelectListServlet extends HttpServlet {
       Member member = (Member)request.getSession().getAttribute("loginUser");
       int cno = member.getMno();
       //int cno = Integer.parseInt(request.getParameter("mno"));
-      //페이징 추가
-      int currentPage;      //현재 페이지를 표시할 변수
-      int limit;            //한 페이지에 게시글이 몇 개 보여질 것인지 표시
-      int maxPage;         //전체 페이지에서 가장 마지막 페이지
-      int startPage;         //한번에 표시될 페이지가 시작할 페이지
-      int endPage;         //한번엔 표시될 페이지가 끝나는 페이지
+
+      int currentPage;      
+      int limit;            
+      int maxPage;         
+      int startPage;         
+      int endPage;         
       int startRow;
       int endRow;
+      
+      
       
       //페이지 수 처리용 변수
       currentPage = 1;
@@ -96,7 +98,7 @@ public class ProductSelectListServlet extends HttpServlet {
       hmap.put("proList", proList);
       hmap.put("pcount", pcount);
       
-      String page = "";
+      /*String page = "";
       if(proList != null) {
          page = "views/company/c_ProductManagement.jsp";
          request.setAttribute("hmap", hmap);
@@ -106,9 +108,9 @@ public class ProductSelectListServlet extends HttpServlet {
          page = "views/common/errorPage.jsp";
          request.setAttribute("msg", "상품목록 조회에 실패하셨습니다.");
       }
-      request.getRequestDispatcher(page).forward(request, response);
+      request.getRequestDispatcher(page).forward(request, response);*/
       
-      /*String page = "";
+      String page = "";
       if(proList != null) {
          page = "views/company/c_ProductManagement.jsp";
          request.setAttribute("proList", proList);
@@ -118,7 +120,7 @@ public class ProductSelectListServlet extends HttpServlet {
          page = "views/common/errorPage.jsp";
          request.setAttribute("msg", "상품목록 조회에 실패하셨습니다.");
       }
-      request.getRequestDispatcher(page).forward(request, response);*/
+      request.getRequestDispatcher(page).forward(request, response);
    }
 
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
