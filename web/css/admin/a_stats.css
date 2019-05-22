@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 /* a_Mstats 컨텐츠 영역 */
-.mtotalStatsArea, .mselectArea, .cselectArea, .ctotalStatsArea{
+/* .mtotalStatsArea, .mselectArea, .cselectArea, .ctotalStatsArea{
 	width:100%;
 }
 
@@ -61,7 +61,7 @@ table td{
 	border-radius:25%;
 	cursor:pointer;
 	
-}
+} */
 
 /* a_Mstats 사이드 영역 */
 
@@ -111,7 +111,7 @@ table td{
 
 /* a_Pstats 컨텐츠영역 */
 
-.ptotalStatsArea{
+/* .ptotalStatsArea{
 	width:100%;
 }
 
@@ -134,11 +134,11 @@ table td{
 	background:salmon;
 	border-radius:25%;
 	cursor:pointer;
-}
+} */
 
 /* a_Sstats 컨텐츠영역 */
 
-.StotalStatsArea, .dtotalStatsArea, .mtotalStatsArea, .ytotalStatsArea{
+/* .StotalStatsArea, .dtotalStatsArea, .mtotalStatsArea, .ytotalStatsArea{
 	width:100%;
 }
 
@@ -150,6 +150,6 @@ table td{
 }
 
 .StotalStatsArea table td{
-}
+} */
 
 

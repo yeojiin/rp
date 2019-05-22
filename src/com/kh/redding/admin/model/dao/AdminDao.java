@@ -806,6 +806,41 @@ public class AdminDao {
 
 		return searchCompanyList;
 	}
+
+	//성별 통계
+	public ArrayList<HashMap<String, Object>> getGenderCount(Connection con) {
+		Statement stmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("getGenderCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				
+				hmap.put("gender", rset.getString("GENDER"));
+				hmap.put("gNum", rset.getInt("GNUM"));
+				hmap.put("tNum", rset.getString("TNUM"));
+				
+				list.add(hmap);
+			};
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
+	
+		return list;
+	}
 	
 
 	
