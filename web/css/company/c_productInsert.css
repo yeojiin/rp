@@ -45,7 +45,7 @@ input[name = startTime], input[name = endTime], input[name=proStartDay], input[n
    color: salmon;
 }
 #PIInsertBtn, #PIResetBtn{
-   width: 100px;
+    width: 100px;
     height: 26px;
     background: salmon;
     color: white;

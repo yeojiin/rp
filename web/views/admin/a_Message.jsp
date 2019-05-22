@@ -89,46 +89,50 @@
 							<div class="memberBaseInfo">
 								<br> <br>
 								<table id="detailt">
-									<tr style="background: lightgray;">
-										<td></td>
-										<td>No.</td>
-										<td>발송인</td>
-										<td>내용</td>
-										<td>날짜</td>
-										<td>상태</td>
-									</tr>
-									<tr>
-										<td><input type="radio"></td>
-										<td>1</td>
-										<td>KH스튜디오</td>
-										<td><p>쪽지의 내용이 길어지면 어떡하죠?</p></td>
-										<td>2019-03-05</td>
-										<td><a class="ui red label">미학인</a></td>
-									</tr>
-									<tr>
-										<td><input type="radio"></td>
-										<td>2</td>
-										<td>KH메이크업</td>
-										<td><p>어렵다 어려워 css 어려워</p></td>
-										<td>2019-02-05</td>
-										<td><a class="ui blue label">확인</a></td>
-									</tr>
-									<tr>
-										<td><input type="radio"></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td><input type="radio"></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
+									<thead>
+										<tr style="background: lightgray;">
+											<td></td>
+											<td>No.</td>
+											<td>발송인</td>
+											<td>내용</td>
+											<td>날짜</td>
+											<td>상태</td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td><input type="radio"></td>
+											<td>1</td>
+											<td>KH스튜디오</td>
+											<td><p>쪽지의 내용이 길어지면 어떡하죠?</p></td>
+											<td>2019-03-05</td>
+											<td><a class="ui red label">미학인</a></td>
+										</tr>
+										<tr>
+											<td><input type="radio"></td>
+											<td>2</td>
+											<td>KH메이크업</td>
+											<td><p>어렵다 어려워 css 어려워</p></td>
+											<td>2019-02-05</td>
+											<td><a class="ui blue label">확인</a></td>
+										</tr>
+										<tr>
+											<td><input type="radio"></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+										</tr>
+										<tr>
+											<td><input type="radio"></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+										</tr>
+									</tbody>
 								</table>
 								<div class=btns>
 								<button class="ui pink button" style="background: salmon;" onclick=>삭제</button>
