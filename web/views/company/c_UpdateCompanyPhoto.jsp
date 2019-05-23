@@ -86,74 +86,72 @@
 			<div class="col-sm-8 text-left">
 				<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 					<form action = "<%=request.getContextPath() %>/insertPhoto.co" method = "post"  encType= "multipart/form-data" id = "insertPhoto">
-					<h2>대표사진</h2>
-					<h3 style = "color:red; text-align : center;">반드시 이미지 등록을 해주세요</h3>
+					<h2>대표사진<span style = "color:red">(대표사진은 반드시 추가해야합니다.)</span></h2>
 					<div id = "titlePicture">
-						<img src = "/redding/images/redding.png" alt = "대표사진" id = "titleimg">
-					</div>
+						<img src = "/redding/images/noimg.gif" alt = "대표사진" id = "titleimg">
+					</div><br>
 					<hr>
 					<h2>서브사진</h2>
-					<h4 style = "color:red; text-align : center;">이미지를 순차적으로 등록을 해주세요</h4>
 					<div id = "subPicture">
 						<table id="imgTable">
 					  		<tbody>
 					  			<tr>
 					  				<td>
 					  					<div class = "imgArea" id = "subimg">
-					  						<img  src = "/redding/images/redding.png"   id = "subimg1" name = "subimg1"  class = "subimg">
+					  						<img  src = "/redding/images/noimg.gif"   id = "subimg1" name = "subimg1"  class = "subimg">
 					  					</div>
 					  				</td> 
 					  				<td>
 					  					<div class = "imgArea" id = "subimg">
-					  						<img src = "/redding/images/redding.png"  id = "subimg2" name = "subimg2" class = "subimg">
-					  					</div>
-					  				</td> 
-					  			</tr>
-					  			<tr>
-					  				<td>
-					  					<div class = "imgArea" id = "subimg">
-						  					<img src = "/redding/images/redding.png"  id = "subimg3" name = "subimg3"  class = "subimg">
-					  					</div>
-					  				</td> 
-					  				<td>
-					  					<div class = "imgArea" id = "subimg">
-						  						<img src = "/redding/images/redding.png"  id = "subimg4" name = "subimg4" class = "subimg">
+					  						<img src = "/redding/images/noimg.gif"  id = "subimg2" name = "subimg2" class = "subimg">
 					  					</div>
 					  				</td> 
 					  			</tr>
 					  			<tr>
 					  				<td>
 					  					<div class = "imgArea" id = "subimg">
-						  						<img src = "/redding/images/redding.png"  id = "subimg5" name = "subimg5"  class = "subimg">
+						  					<img src = "/redding/images/noimg.gif"  id = "subimg3" name = "subimg3"  class = "subimg">
 					  					</div>
 					  				</td> 
 					  				<td>
 					  					<div class = "imgArea" id = "subimg">
-						  						<img src = "/redding/images/redding.png"  id = "subimg6" name = "subimg6" class = "subimg">
-					  					</div>
-					  				</td> 
-					  			</tr>
-					  			<tr>
-					  				<td>
-					  					<div class = "imgArea" id = "subimg">
-						  						<img src = "/redding/images/redding.png"  id = "subimg7" name = "subimg7"  class = "subimg">
-					  					</div>
-					  				</td> 
-					  				<td>
-					  					<div class = "imgArea" id = "subimg">
-						  						<img src = "/redding/images/redding.png"  id = "subimg8" name = "subimg8" class = "subimg">
+						  						<img src = "/redding/images/noimg.gif"  id = "subimg4" name = "subimg4" class = "subimg">
 					  					</div>
 					  				</td> 
 					  			</tr>
 					  			<tr>
 					  				<td>
 					  					<div class = "imgArea" id = "subimg">
-						  					<img src = "/redding/images/redding.png"  id = "subimg9" name = "subimg9"  class = "subimg">
+						  						<img src = "/redding/images/noimg.gif"  id = "subimg5" name = "subimg5"  class = "subimg">
 					  					</div>
 					  				</td> 
 					  				<td>
 					  					<div class = "imgArea" id = "subimg">
-						  					<img src = "/redding/images/redding.png"  id = "subimg10" name = "subimg10" class = "subimg">
+						  						<img src = "/redding/images/noimg.gif"  id = "subimg6" name = "subimg6" class = "subimg">
+					  					</div>
+					  				</td> 
+					  			</tr>
+					  			<tr>
+					  				<td>
+					  					<div class = "imgArea" id = "subimg">
+						  						<img src = "/redding/images/noimg.gif"  id = "subimg7" name = "subimg7"  class = "subimg">
+					  					</div>
+					  				</td> 
+					  				<td>
+					  					<div class = "imgArea" id = "subimg">
+						  						<img src = "/redding/images/noimg.gif"  id = "subimg8" name = "subimg8" class = "subimg">
+					  					</div>
+					  				</td> 
+					  			</tr>
+					  			<tr>
+					  				<td>
+					  					<div class = "imgArea" id = "subimg">
+						  					<img src = "/redding/images/noimg.gif"  id = "subimg9" name = "subimg9"  class = "subimg">
+					  					</div>
+					  				</td> 
+					  				<td>
+					  					<div class = "imgArea" id = "subimg">
+						  					<img src = "/redding/images/noimg.gif"  id = "subimg10" name = "subimg10" class = "subimg">
 					  					</div>
 					  				</td> 
 					  			</tr>

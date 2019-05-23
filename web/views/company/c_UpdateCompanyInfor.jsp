@@ -586,6 +586,19 @@
 				
 			});
 		 	
+		 	
+			$("#delete").click(function(){
+		 		var memberid = "<%=member.getMemberId()%>";
+		 		
+		 		var result = confirm("정말 탈퇴하실 건가요?");
+		 		if (result == true){		 			
+		 			location.href = '<%=request.getContextPath()%>/secession.me?mid=' + memberid;
+		 		}else {
+		 			alert("잘생각하셨습니다.\n많은 정보를 받을 수 있는 REDDING이 되겠습니다.")
+		 		}
+		 		
+		 	});
+		 	
 		});
 		
 		

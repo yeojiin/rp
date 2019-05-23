@@ -181,7 +181,7 @@
 								<td>
 									<input type="text" name="nickName" id="nickName" value="<%=loginUser.getNickName()%>">&nbsp;&nbsp;&nbsp;&nbsp;
 									<button class="check" type="button" id="nickCheck">닉네임중복확인</button>&nbsp;&nbsp;&nbsp;&nbsp;
-									<span id="nickCheck2"></span>
+									<span id="nickCheck2">사용가능한 닉네임입니다.</span>
 								</td>
 							</tr>
 							<tr>
@@ -295,6 +295,8 @@
 			 $("input[name=nickName]").change(function(){
 				$("#nickCheck").text("닉네임중복확인");
 				$("#nickCheck").css("color","white");
+				$("#nickCheck2").text("닉네임확인해주세요");
+				$("#nickCheck2").css("color","red");
 			});
 			
 			
@@ -400,9 +402,7 @@
 				$("#emailckbtn").text("인증하기");
 				$("#email_check").val("인증안됨");
 			});
-		 	
-		 	
-		 	
+			
 		 	//이메일 인증
 			$("#emailckbtn").click(function(){	
 				var email1 = $("input[name=email1]").val();		//이메일1
@@ -434,7 +434,17 @@
 				
 			});
 		 	
-		 	
+		 	$("#deletebtn").click(function(){
+		 		var memberid = "<%=loginUser.getMemberId()%>";
+		 		
+		 		var result = confirm("정말 탈퇴하실 건가요?");
+		 		if (result == true){		 			
+		 			location.href = '<%=request.getContextPath()%>/secession.me?mid=' + memberid;
+		 		}else {
+		 			alert("잘생각하셨습니다.\n많은 정보를 받을 수 있는 REDDING이 되겠습니다.")
+		 		}
+		 		
+		 	});
 			
 			
 			
@@ -442,7 +452,21 @@
 		
 		//수정하기 버튼 누를 때
 		function changeInfo() {
-			$("#changeInfoForm").submit();	
+			var nickCheck = $("#nickCheck2").text();
+			var nickname = $("input[name=nickName]").val();
+			
+			if ($("#emailckbtn").text() != "인증됨"){
+				alert("인증하지 않으면 비밀번호 찾지 못할수 있습니다. 인증해주세요");	
+			}else if ($("#memberPwd").val() == ""){
+				alert("비밀번호 입력해주세요");
+			}else if (nickCheck != "사용가능한 닉네임입니다."){
+				alert("닉네임 확인해주세요");	
+			}else if (nickname == ""){
+				alert("닉네임 확인해주세요");	
+			}else {
+				$("#changeInfoForm").submit();
+			}
+			
 		}
 		
 		
@@ -452,7 +476,6 @@
 		    var winHeight = 200;
 		    var popupOption= "width="+winWidth+", height="+winHeight;    //팝업창 옵션(optoin)
 		    var myWindow = window.open(url,"TestName",popupOption);
-		  //  myWindow.document.write("<h1>"+myWindow.name+"</h1>");
 		}
 		
 		
@@ -494,6 +517,8 @@
 				$("#passwordChange2").val("");
 			}			
 		}
+		
+		
 		
 	</script>
 

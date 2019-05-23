@@ -9,31 +9,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.kh.redding.board.model.service.BoardService;
 import com.kh.redding.board.model.vo.BoardPageInfo;
-import com.kh.redding.member.model.vo.Member;
 
 
-@WebServlet("/selectQnA.no")
-public class SelectMemberQnAServlet extends HttpServlet {
+@WebServlet("/AllQnA.no")
+public class SelectAllQnAServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     
-    public SelectMemberQnAServlet() {
+    public SelectAllQnAServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//HttpSession session = request.getSession();
-		
-		//Member loginUser = (Member) session.getAttribute("loginUser"); 
-		
-		int mno = Integer.parseInt(request.getParameter("mno"));
-		
-		//int mno = loginUser.getMno();
-		
+
+
 		// 페이징 추가
 		int currentPage;
 		int limit;
@@ -49,7 +41,7 @@ public class SelectMemberQnAServlet extends HttpServlet {
 				
 		limit = 10;
 				
-		int allNoticeCount = new BoardService().getQnACountSelect(mno);
+		int allNoticeCount = new BoardService().getQnAAllCountSelect();
 				
 		maxPage = (int)((double) allNoticeCount / limit + 0.9);
 				
@@ -66,15 +58,16 @@ public class SelectMemberQnAServlet extends HttpServlet {
 		BoardPageInfo pi = new BoardPageInfo(currentPage, limit, maxPage, startPage, endPage);
 		
 		
-		ArrayList<HashMap<String, Object>> QnAList = new BoardService().selectQnAList(mno, pi);
+		ArrayList<HashMap<String, Object>> QnAList = new BoardService().selectAllQnAList(pi);
 		
 		String page = "";
 		if (QnAList != null) {
 			
-			page = "/views/notice/contact_list.jsp";
+			page = "/views/admin/a_MemberInquiry.jsp";
 			
 			request.setAttribute("QnAList", QnAList);
 			request.setAttribute("pi", pi);
+			request.setAttribute("Allcount", allNoticeCount);
 			
 		}else {
 			page = "/views/common/errorPage.jsp";
@@ -83,6 +76,9 @@ public class SelectMemberQnAServlet extends HttpServlet {
 		}
 	
 		request.getRequestDispatcher(page).forward(request, response);
+		
+		
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
