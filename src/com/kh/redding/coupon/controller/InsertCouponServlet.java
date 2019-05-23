@@ -1,4 +1,4 @@
-package com.kh.redding.admin.controller;
+package com.kh.redding.coupon.controller;
 
 import java.io.File;
 import java.io.IOException;

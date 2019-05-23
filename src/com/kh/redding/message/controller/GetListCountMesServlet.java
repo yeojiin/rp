@@ -1,4 +1,4 @@
-package com.kh.redding.message;
+package com.kh.redding.message.controller;
 
 import java.io.IOException;
 import java.util.HashMap;

@@ -610,7 +610,7 @@ public class AdminDao {
 		
 		String query = prop.getProperty("selectSearchCompanyList");
 		
-		System.out.println("daoMakeQuery : " + query);
+		System.out.println("업체검색쿼리 : " + query);
 		
 		String companyName = searchConditionList.get(0).toString();
 		String companyCategory = searchConditionList.get(1).toString();
@@ -753,7 +753,7 @@ public class AdminDao {
 						
 						if(!companyStatus.equals("전체")) { // 업체명이 널이 아니고, 카테고리 전체이고, 가입일 전체이고, 상태 전체가 아닐 때 (4)
 							pstmt.setString(1, companyName);
-							pstmt.setString(1, companyStatus);
+							pstmt.setString(2, companyStatus);
 							
 						}else { // 업체명이 널이 아니고, 카테고리 전체이고, 가입일 전체이고, 상태  전체일 때
 							pstmt.setString(1, companyName);
@@ -811,8 +811,282 @@ public class AdminDao {
 
 	// 검색한 회원 목록 조회용 메소드 (효정)
 	public ArrayList<HashMap<String, Object>> searchMemberList(Connection con, ArrayList searchConditionList) {
-		// TODO Auto-generated method stub
-		return null;
+
+		Properties prop = new Properties();
+		String fileName = MemberDao.class.getResource("/sql/admin/admin-query.properties").getPath();
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> searchMemberList = null;
+		HashMap<String, Object> hlist = null;
+		Member member = null;
+		String num = "";
+		
+		String query = prop.getProperty("selectSearchMemberList");
+		
+		System.out.println("멤버검색쿼리 : " + query);
+		
+		String memberInfoSelect = searchConditionList.get(0).toString();
+		String memberInfoInput = searchConditionList.get(1).toString();
+		String memberEnrollDate = searchConditionList.get(2).toString();
+		String efirstDate = searchConditionList.get(3).toString();
+		String elastDate = searchConditionList.get(4).toString();
+		String memberWeddingDate = searchConditionList.get(5).toString();
+		String wfirstDate = searchConditionList.get(6).toString();
+		String wlastDate = searchConditionList.get(7).toString();
+		String memberStatus = searchConditionList.get(8).toString();
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			
+			if(!memberInfoSelect.equals("- 선택 -")) { // 개인정보 검색 전체 아닐 때 (1)
+				
+				if(!memberStatus.equals("전체")) { // 개인정보 검색이 전체가 아니고, 활동상태가 전체가 아닐 때 (2)
+					
+					if(!memberEnrollDate.equals("전체")) { // 개인정보 검색이 전체가 아니고, 활동상태가 전체가 아니고, 가입일이 전체가 아닐 때 (3)
+						
+						if(!memberWeddingDate.equals("전체")) { // 개인정보 검색이 전체가 아니고, 활동상태가 전체가 아니고, 가입일이 전체가 아니고, 결혼예정일이 전체가 아닐 때 (4)
+							
+							if(memberEnrollDate.equals("검색") && memberWeddingDate.equals("검색")) {
+								
+								pstmt.setString(1, memberInfoInput);
+								pstmt.setString(2, memberStatus);
+								pstmt.setString(3, efirstDate);
+								pstmt.setString(4, elastDate);
+								pstmt.setString(5, wfirstDate);
+								pstmt.setString(6, wlastDate);
+								
+							}
+							
+						}else { // 개인정보 검색이 전체가 아니고, 활동상태가 전체가 아니고, 가입일이 전체가 아니고, 결혼예정일이 전체일 때 (4)
+							
+							if(memberEnrollDate.equals("검색")) {
+								
+								pstmt.setString(1, memberInfoInput);
+								pstmt.setString(2, memberStatus);
+								pstmt.setString(3, efirstDate);
+								pstmt.setString(4, elastDate);
+								
+							}
+							
+						}
+						
+					}else { // 개인정보 검색이 전체가 아니고, 활동상태가 전체가 아니고, 가입일이 전체일 때 (3)
+						
+						if(!memberWeddingDate.equals("전체")) { // 개인정보 검색이 전체가 아니고, 활동상태가 전체가 아니고, 가입일이 전체이고, 결혼예정일이 전체가 아닐 때 (4)
+							
+							if(memberWeddingDate.equals("검색")) {
+								
+								pstmt.setString(1, memberInfoInput);
+								pstmt.setString(2, memberStatus);
+								pstmt.setString(3, wfirstDate);
+								pstmt.setString(4, wlastDate);
+								
+							}
+							
+						}else { // 개인정보 검색이 전체가 아니고, 활동상태가 전체가 아니고, 가입일이 전체이고, 결혼예정일이 전체일 때 (4)
+								
+							pstmt.setString(1, memberInfoInput);
+							pstmt.setString(2, memberStatus);
+							
+						}
+
+					}
+					
+				}else { // 개인정보 검색이 전체가 아니고, 활동상태가 전체일 때 (2)
+					
+					if(!memberEnrollDate.equals("전체")) { // 개인정보 검색이 전체가 아니고, 활동상태가 전체이고, 가입일이 전체가 아닐 때 (3)
+						
+						if(!memberWeddingDate.equals("전체")) { // 개인정보 검색이 전체가 아니고, 활동상태가 전체이고, 가입일이 전체가 아니고, 결혼예정일이 전체가 아닐 때 (4)
+							
+							if(memberEnrollDate.equals("검색") && memberWeddingDate.equals("검색")) {
+								
+								pstmt.setString(1, memberInfoInput);
+								pstmt.setString(2, efirstDate);
+								pstmt.setString(3, elastDate);
+								pstmt.setString(4, wfirstDate);
+								pstmt.setString(5, wlastDate);
+								
+							}
+							
+						}else { // 개인정보 검색이 전체가 아니고, 활동상태가 전체이고, 가입일이 전체가 아니고, 결혼예정일이 전체일 때 (4)
+							
+							if(memberEnrollDate.equals("검색")) {
+								
+								pstmt.setString(1, memberInfoInput);
+								pstmt.setString(2, efirstDate);
+								pstmt.setString(3, elastDate);
+								
+							}
+							
+						}
+						
+					}else { // 개인정보 검색이 전체가 아니고, 활동상태가 전체이고, 가입일이 전체일 때 (3)
+						
+						if(!memberWeddingDate.equals("전체")) { // 개인정보 검색이 전체가 아니고, 활동상태가 전체이고, 가입일이 전체이고, 결혼예정일이 전체가 아닐 때 (4)
+							
+							if(memberWeddingDate.equals("검색")) {
+								
+								pstmt.setString(1, memberInfoInput);
+								pstmt.setString(2, wfirstDate);
+								pstmt.setString(3, wlastDate);
+								
+							}
+							
+						}else { // 개인정보 검색이 전체가 아니고, 활동상태가 전체이고, 가입일이 전체이고, 결혼예정일이 전체일 때 (4)
+								
+							pstmt.setString(1, memberInfoInput);
+							
+						}
+						
+					}
+					
+				}
+				
+			}else { // 개인정보 검색 전체일 때 (1)
+				
+				if(!memberStatus.equals("전체")) { // 개인정보 검색이 전체이고, 활동상태가 전체가 아닐 때 (2)
+					
+					if(!memberEnrollDate.equals("전체")) { // 개인정보 검색이 전체이고, 활동상태가 전체가 아니고, 가입일이 전체가 아닐 때 (3)
+							
+						if(!memberWeddingDate.equals("전체")) { // 개인정보 검색이 전체이고, 활동상태가 전체가 아니고, 가입일이 전체가 아니고, 결혼예정일이 전체가 아닐 때 (4)
+							
+							if(memberEnrollDate.equals("검색") && memberWeddingDate.equals("검색")) {
+								
+								pstmt.setString(1, memberStatus);
+								pstmt.setString(2, efirstDate);
+								pstmt.setString(3, elastDate);
+								pstmt.setString(4, wfirstDate);
+								pstmt.setString(5, wlastDate);
+								
+							}
+							
+						}else { // 개인정보 검색이 전체이고, 활동상태가 전체가 아니고, 가입일이 전체가 아니고, 결혼예정일이 전체일 때 (4)
+							
+							if(memberEnrollDate.equals("검색")) {
+								
+								pstmt.setString(1, memberStatus);
+								pstmt.setString(2, efirstDate);
+								pstmt.setString(3, elastDate);
+								
+							}
+							
+						}
+						
+					}else { // 개인정보 검색이 전체이고, 활동상태가 전체가 아니고, 가입일이 전체일 때 (3)
+						
+						if(!memberWeddingDate.equals("전체")) { // 개인정보 검색이 전체이고, 활동상태가 전체가 아니고, 가입일이 전체이고, 결혼예정일이 전체가 아닐 때 (4)
+							
+							if(memberWeddingDate.equals("검색")) {
+								
+								pstmt.setString(1, memberStatus);
+								pstmt.setString(2, wfirstDate);
+								pstmt.setString(3, wlastDate);
+								
+							}
+							
+						}else { // 개인정보 검색이 전체이고, 활동상태가 전체가 아니고, 가입일이 전체이고, 결혼예정일이 전체일 때 (4)
+															
+							pstmt.setString(1, memberStatus);
+															
+						}
+
+					}
+					
+				}else { // 개인정보 검색이 전체이고, 활동상태가 전체일 때 (2)
+					
+					if(!memberEnrollDate.equals("전체")) { // 개인정보 검색이 전체이고, 활동상태가 전체이고, 가입일이 전체가 아닐 때 (3)
+						
+						if(!memberWeddingDate.equals("전체")) { // 개인정보 검색이 전체이고, 활동상태가 전체이고, 가입일이 전체가 아니고, 결혼예정일이 전체가 아닐 때 (4)
+							
+							if(memberEnrollDate.equals("검색") && memberWeddingDate.equals("검색")) {
+								
+								pstmt.setString(1, efirstDate);
+								pstmt.setString(2, elastDate);
+								pstmt.setString(3, wfirstDate);
+								pstmt.setString(4, wlastDate);
+								
+							}
+							
+						}else { // 개인정보 검색이 전체이고, 활동상태가 전체이고, 가입일이 전체가 아니고, 결혼예정일이 전체일 때 (4)
+							
+							if(memberEnrollDate.equals("검색")) {
+								
+								pstmt.setString(1, efirstDate);
+								pstmt.setString(2, elastDate);
+								
+							}
+							
+						}
+						
+					}else { // 개인정보 검색이 전체이고, 활동상태가 전체이고, 가입일이 전체일 때 (3)
+						
+						if(!memberWeddingDate.equals("전체")) { // 개인정보 검색이 전체이고, 활동상태가 전체이고, 가입일이 전체이고, 결혼예정일이 전체가 아닐 때 (4)
+							
+							if(memberWeddingDate.equals("검색")) {
+								
+								pstmt.setString(1, wfirstDate);
+								pstmt.setString(2, wlastDate);
+								
+							}
+							
+						}else { // 개인정보 검색이 전체이고, 활동상태가 전체이고, 가입일이 전체이고, 결혼예정일이 전체일 때 (4)
+							
+							
+							
+						}
+						
+					}
+					
+				}
+				
+			}				
+			
+			rset = pstmt.executeQuery();
+			
+			searchMemberList = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hlist = new HashMap<String,Object>();
+				member = new Member();
+				
+				num = rset.getInt("RNUM")+ "";
+				member.setMno(rset.getInt("MNO"));
+				member.setMemberId(rset.getString("MID"));
+				member.setMemberPwd(rset.getString("MPWD"));
+				member.setMemberName(rset.getString("MNAME"));
+				member.setNickName(rset.getString("NICK_NAME"));
+				member.setPhone(rset.getString("PHONE"));
+				member.setEmergenCon(rset.getString("EMERGEN_CON"));
+				member.setEmail(rset.getString("EMAIL"));
+				member.setEmailCheck(rset.getString("EMAIL_CHECK"));
+				member.setGender(rset.getString("GENDER"));
+				member.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				member.setModifyDate(rset.getDate("MODIFY_DATE"));
+				member.setStatus(rset.getString("STATUS"));
+				member.setMemberType(rset.getInt("MTYPE"));
+				member.setWeddingDate(rset.getDate("WEDDING_DATE"));
+								
+				hlist.put("num", num);
+				hlist.put("member", member);
+				searchMemberList.add(hlist);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return searchMemberList;
 	}
 
     

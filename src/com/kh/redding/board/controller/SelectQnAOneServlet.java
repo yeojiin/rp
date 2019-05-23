@@ -1,6 +1,8 @@
 package com.kh.redding.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,42 +13,47 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.redding.board.model.service.BoardService;
 
 
-@WebServlet("/QnAinsert.no")
-public class insertQnAServlet extends HttpServlet {
+@WebServlet("/QnAOne.no")
+public class SelectQnAOneServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     
-    public insertQnAServlet() {
+    public SelectQnAOneServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String category = request.getParameter("category");
-		String conTitle = request.getParameter("conTilte");
-		String contact = request.getParameter("contact");
-		int mno = Integer.parseInt(request.getParameter("mno"));
 		
-		int result = new BoardService().insertQnA(mno,conTitle, contact, category);
+		int bid = Integer.parseInt(request.getParameter("no"));
 		
+		System.out.println(bid);
+		
+		ArrayList<HashMap<String , Object>> QnADetail = new BoardService().SelectQnAOneDetail(bid);
+
 		String page = "";
-		if (result > 0) {
+		if (QnADetail != null) {
+			page = "/views/admin/a_MemberInquiryDetail.jsp";
 			
-			System.out.println("mno :" + mno);
+			request.setAttribute("QnADetail", QnADetail);
 			
-			page = request.getContextPath() + "/selectQnA.no?mno="+ mno;
-			
-			response.sendRedirect(page);
 		}else {
 			page = "/views/common/errorPage.jsp";
 			
-			request.setAttribute("msg", "문의 실패");
-			request.getRequestDispatcher(page).forward(request, response);
+			request.setAttribute("msg", "문의 상세 오류");
+			
 		}
+		
+		request.getRequestDispatcher(page).forward(request, response);
+		
 		
 		
 	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

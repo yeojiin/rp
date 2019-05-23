@@ -42,6 +42,7 @@ public class SelectAllQnAServlet extends HttpServlet {
 		limit = 10;
 				
 		int allNoticeCount = new BoardService().getQnAAllCountSelect();
+		int completeCount = new BoardService().getQnACompleteSelect();
 				
 		maxPage = (int)((double) allNoticeCount / limit + 0.9);
 				
@@ -68,6 +69,7 @@ public class SelectAllQnAServlet extends HttpServlet {
 			request.setAttribute("QnAList", QnAList);
 			request.setAttribute("pi", pi);
 			request.setAttribute("Allcount", allNoticeCount);
+			request.setAttribute("CompleteCount", completeCount);
 			
 		}else {
 			page = "/views/common/errorPage.jsp";
