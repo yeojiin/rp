@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.kh.redding.member.model.service.MemberService;
+import com.kh.redding.member.model.vo.M_ComQnaListPageInfo;
 
 /**
  * Servlet implementation class MemberSelectDetailComQnaServlet
@@ -34,17 +35,48 @@ public class MemberSelectDetailComQnaServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int cno = Integer.parseInt(request.getParameter("cno"));
+		System.out.println("Cno :"+ cno);
 		
+		int currentPage;
+		int limit;
+		int maxPage;
+		int startPage;
+		int endPage;
 		
+		currentPage = 1;
 		
-		ArrayList<HashMap<String, Object>> blist = new MemberService().selectDetailComQna(cno);
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		limit = 10;
+		
+		int listCount = new MemberService().getQnaListCount(cno);
+		
+		System.out.println("QnalistCount : " + listCount);
+		
+		maxPage = (int)((double) listCount / limit + 0.9);
+		
+		startPage = (((int)((double) currentPage / limit + 0.9)) - 1) * 10 + 1;
+		
+		endPage = startPage + 10 - 1;
+		
+		if(maxPage < endPage) {
+			endPage = maxPage;
+		}
+		
+		M_ComQnaListPageInfo cqlpi = new M_ComQnaListPageInfo(currentPage, limit, maxPage, startPage, endPage);
+		
+		ArrayList<HashMap<String, Object>> blist = new MemberService().selectDetailComQna(cqlpi, cno);
 		System.out.println("blist :" + blist);
+		System.out.println(cno);
 		
-		
+		System.out.println(currentPage);
 		String page = "";
 		if(blist != null) {
 			page = "views/member/m_ComQnaList.jsp";
 			request.setAttribute("blist", blist);
+			request.setAttribute("cqlpi", cqlpi);
 		}else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "업체 Qna 목록 조회 실패!");

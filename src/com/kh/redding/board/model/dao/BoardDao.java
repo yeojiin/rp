@@ -797,6 +797,37 @@ public class BoardDao {
 		
 		return QnAList;
 	}
+	
+	//qna insert(0523광섭)
+	public int insertQnaBoard(Connection con, Board b) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertQnaBoard");
+		
+		try {
+			
+			System.out.println("query" + query);
+			pstmt = con.prepareStatement(query);
+			
+			
+			pstmt.setString(1, b.getBtitle());
+			pstmt.setInt(2, b.getBwriter());
+			pstmt.setString(3, b.getBcontent());
+			pstmt.setString(4, null);
+			pstmt.setString(5, b.getBdivision());
+			pstmt.setInt(6, b.getRef_cnum());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 
 	//진행완료인 QnA
 	public int selectQnACompleteSelect(Connection con) {

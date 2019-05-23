@@ -13,6 +13,7 @@ import com.kh.redding.board.model.vo.Board;
 import com.kh.redding.board.model.vo.BoardPageInfo;
 import com.kh.redding.company.model.vo.Company;
 import com.kh.redding.member.model.dao.MemberDao;
+import com.kh.redding.member.model.vo.M_ComQnaListPageInfo;
 import com.kh.redding.member.model.vo.M_comListPageInfo;
 import com.kh.redding.member.model.vo.Member;
 import com.kh.redding.product.model.vo.Product;
@@ -170,14 +171,14 @@ public class MemberService {
 	}
 
 	//업체Qna목록(광섭)
-	public ArrayList<HashMap<String, Object>> selectDetailComQna(int cno) {
+	public ArrayList<HashMap<String, Object>> selectDetailComQna(M_ComQnaListPageInfo cqlpi, int cno) {
 		Connection con = getConnection();
 		
 		ArrayList<HashMap<String, Object>> blist = null;
 		
 		HashMap<String, Object> list = new HashMap<String, Object>();
 		
-		blist = new MemberDao().selectDetailComQna(con, cno);
+		blist = new MemberDao().selectDetailComQna(con, cqlpi, cno);
 		
 		Company com = new MemberDao().selectDetailCom(con, cno);
 		
@@ -304,6 +305,15 @@ public class MemberService {
 		close(con);
 		
 		return result;
+	}
+
+	//Qna목록페이지수조회
+	public int getQnaListCount(int cno) {
+		Connection con = getConnection();
+		int listCount = new MemberDao().getQnaListCount(con, cno);
+		close(con);
+		
+		return listCount;
 	}
 
 }

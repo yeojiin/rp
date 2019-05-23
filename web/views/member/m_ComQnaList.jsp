@@ -9,12 +9,13 @@
 	Member mem = (Member)list.get("Member");
 	String companyAddress = "";
 	Product pro = null;
-	int cno = (int) session.getAttribute("cno");
-	/* M_comListPageInfo clpi = (M_comListPageInfo) request.getAttribute("clpi");
-	int currentPage = clpi.getCurrentPage();
-	int maxPage = clpi.getMaxPage();
-	int startPage = clpi.getStartPage();
-	int endPage = clpi.getEndPage(); */
+	int cno = com.getCNO();
+	/* int cno = (int) session.getAttribute("cno"); */
+	M_ComQnaListPageInfo cqlpi = (M_ComQnaListPageInfo) request.getAttribute("cqlpi");
+	int currentPage = cqlpi.getCurrentPage();
+	int maxPage = cqlpi.getMaxPage();
+	int startPage = cqlpi.getStartPage();
+	int endPage = cqlpi.getEndPage();
 %>
 <!DOCTYPE html>
 <html>
@@ -148,7 +149,7 @@ table {
 							<td align="center" style="width:25%; font-size:20px;" onclick="location.href='<%=request.getContextPath()%>/selectDetailCom.dc?cno=<%= cno%>'">업체정보</td>
 							<td align="center" style="width:25%; font-size:20px;" onclick="location.href='<%=request.getContextPath()%>/selectDetailCom.dc?cno=<%= cno%>'">상품정보</td>						
 							<td align="center" style="width:25%; font-size:20px;" onclick="fnMove('3')">후기</td>
-							<td align="center" style="width:25%; font-size:20px;" onclick="location.href='<%=request.getContextPath()%>/selectDetailComQna.cq?cno=<%= cno%>'">문의</td>				
+							<td align="center" style="width:25%; font-size:20px;" onclick="location.href='<%=request.getContextPath()%>/selectDetailComQna.cq?cno=<%=cno%>'">문의</td>				
 						</tr>
 					</table>
             			<div style="width:100%; height:auto;">
@@ -166,25 +167,46 @@ table {
 							    <%  HashMap<String, Object> hmap = null;
 							    	String name[] = null;
 									for (int i = 0; i < blist.size()-1; i++) {
+									System.out.println("dd:" + blist);
 										hmap = blist.get(i);
 										if (hmap != null){
 								%>
 								<tr class="detail">
-									<td><%=hmap.get("bid") %></td>
+									<td><%=hmap.get("bid") %>
+									<%-- <input type="hidden" name="cno" value="<%=cno%>"> --%></td>
 									<td><%=hmap.get("bcontent") %></td>
 									<td><%=hmap.get("mname") %></td>
-									<td><%=hmap.get("ref_cnum") %></td>
+									<td><%=hmap.get("bdate") %></td>
 								</tr>
 								<% 
 										}
 								} %>
 							</tbody>
 						</table>
-						<!-- <hr style="align:center; border-color:black; width:100%;" > -->
-						<a class="btn btn-default" style="border-color:salmon; background:salmon; color:white; float:right;">글쓰기</a>
-						<br>
-						<div class="text-center">
-						</div>
+					<button onclick="location.href='<%=request.getContextPath() %>/views/member/m_ComQnaWrite.jsp?cno=<%=cno %>'">글쓰기</button>
+					</div>
+					<div style="width:100%; height:auto;">
+						<button type="button" class="test" onclick="location.href='<%=request.getContextPath() %>/selectDetailComQna.cq?currentPage=1&cno=<%= hmap.get("cno") %>'"><<</button>
+						<% if(currentPage <= 1){ %>
+						<button disabled><</button>
+						<% }else{ %>
+						<button onclick="location.href='<%=request.getContextPath() %>/selectDetailComQna.cq?currentPage=<%=currentPage - 1 %>&cno=<%= hmap.get("cno") %>'"><</button>
+						<% } %>
+									
+						<% for(int p = startPage; p <= endPage; p++){
+						if(p == currentPage){%>
+						<button disabled><%= p %></button>
+						<% }else{ %>
+						<button onclick="location.href='<%=request.getContextPath() %>/selectDetailComQna.cq?currentPage=<%= p %>&cno=<%= hmap.get("cno") %>'"><%= p %></button>
+						<% } %>
+						<% } %>
+									
+						<% if(currentPage >= maxPage){ %>
+						<button disabled>></button>
+						<% }else{ %>
+						<button onclick="location.href='<%=request.getContextPath() %>/selectDetailComQna.cq?currentPage=<%=currentPage + 1 %>&cno=<%= hmap.get("cno") %>'">></button>
+						<% } %>
+						<button onclick="location.href='<%=request.getContextPath() %>/selectDetailComQna.cq?currentPage=<%=maxPage %>&cno=<%= hmap.get("cno") %> '">>></button>
 					</div>
             
             <%---------------------------------------------------------------------------------------------------------------%>
