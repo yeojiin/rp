@@ -269,6 +269,21 @@ public class BoardService {
 		return QnAlist;
 	}
 
+	public int insertQnaBoard(Board b) {
+		Connection con = getConnection();
+		
+		int result = new BoardDao().insertQnaBoard(con, b);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			System.out.println("nnn");
+			rollback(con);
+		}
+		
+		return result;
+	}
+
 
 
 	

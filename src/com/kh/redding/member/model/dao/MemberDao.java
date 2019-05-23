@@ -20,6 +20,7 @@ import com.kh.redding.board.model.dao.BoardDao;
 import com.kh.redding.board.model.vo.Board;
 import com.kh.redding.board.model.vo.BoardPageInfo;
 import com.kh.redding.company.model.vo.Company;
+import com.kh.redding.member.model.vo.M_ComQnaListPageInfo;
 import com.kh.redding.member.model.vo.M_comListPageInfo;
 import com.kh.redding.member.model.vo.Member;
 import com.kh.redding.product.model.vo.Product;
@@ -739,7 +740,7 @@ public class MemberDao {
 
   
   //광섭
-	public ArrayList<HashMap<String, Object>> selectDetailComQna(Connection con, int cno) {
+	public ArrayList<HashMap<String, Object>> selectDetailComQna(Connection con, M_ComQnaListPageInfo cqlpi, int cno) {
 		PreparedStatement pstmt = null;
 		ArrayList<HashMap<String, Object>> blist = null;
 		HashMap<String, Object> hmap = null;
@@ -747,9 +748,14 @@ public class MemberDao {
 		
 		String query = prop.getProperty("selectBoard");
 		
+		int startRow = (cqlpi.getCurrentPage() - 1) * cqlpi.getLimit() + 1;
+		int endRow = startRow + cqlpi.getLimit() - 1;
+		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, cno);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -758,12 +764,13 @@ public class MemberDao {
 			while(rset.next()) {
 				hmap = new HashMap<String, Object>();
 
+				hmap.put("rownum", rset.getInt("RNUM"));
 				hmap.put("bid", rset.getInt("BID"));
 				hmap.put("bcontent", rset.getString("BCONTENT"));
 				hmap.put("mname", rset.getString("MNAME"));
 				hmap.put("bdate", rset.getDate("BDATE"));
 				hmap.put("ref_cnum", rset.getInt("REF_CNUM"));
-				/*hmap.put("cno", rset.getInt("CNO"));*/
+				hmap.put("cno", rset.getInt("CNO"));
 				
 				blist.add(hmap);
 			}
@@ -902,6 +909,31 @@ public class MemberDao {
 		
 		
 		return result;
+	}
+
+	public int getQnaListCount(Connection con, int cno) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("listQnaCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, cno);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return listCount;
 	}	
 	
 }
