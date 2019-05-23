@@ -56,6 +56,7 @@ public class SelectSearchMemberServlet extends HttpServlet {
 		
 		response.setContentType("application/json");
 		new Gson().toJson(searchMemberList, response.getWriter());
+	
 		
 	}
 
