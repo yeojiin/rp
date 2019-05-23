@@ -74,7 +74,7 @@ public class ShowCalculateServlet extends HttpServlet {
 			request.setAttribute("pi", pi);
 		}else {
 			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "정산목록 조회 실패!");
+			request.setAttribute("msg", "회원 정산목록 조회 실패!");
 		}
 		
 		RequestDispatcher view = request.getRequestDispatcher(page);

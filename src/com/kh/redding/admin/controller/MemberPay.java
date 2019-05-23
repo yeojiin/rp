@@ -1,29 +1,25 @@
-package com.kh.redding.admin;
+package com.kh.redding.admin.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.kh.redding.admin.model.sevice.AdminService;
 
 /**
- * Servlet implementation class AdminGetGenderCountServlet
+ * Servlet implementation class MemberPay
  */
-@WebServlet("/getGenderCount.ad")
-public class AdminGetGenderCountServlet extends HttpServlet {
+@WebServlet("/memberPay.ad")
+public class MemberPay extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminGetGenderCountServlet() {
+    public MemberPay() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,12 +28,15 @@ public class AdminGetGenderCountServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		ArrayList<HashMap<String, Object>> list = new AdminService().getGenderCount();
+		int payno = Integer.parseInt(request.getParameter("payno"));
+		int result = 0;
 		
-		response.setContentType("application/json");
-		new Gson().toJson(list, response.getWriter());
+		result = new AdminService().memberPay(payno);
 		
+		if(result>0) {
+			response.getWriter().print(result);
+		}
+	
 	}
 
 	/**

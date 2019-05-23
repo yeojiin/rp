@@ -70,6 +70,7 @@ public class WishListDao {
 			close(rset);
 		}
 		
+		System.out.println("위: " + list);
 		return list;
 	}
 
@@ -189,7 +190,7 @@ public class WishListDao {
 			
 			result = pstmt.executeUpdate();
 			
-		} catch (SQLException e) {
+		} catch (SQLException e) {	
 			e.printStackTrace();
 		} finally {
 			close(pstmt);

@@ -103,7 +103,7 @@ public class AdminService {
 		return oneCompany;
 	}
 
-	// 정산관리 갯수 리턴용 메소드 (정연)
+	// 회원 정산관리 갯수 리턴용 메소드 (정연)
 	public int getCalcCount() {
 		Connection con = getConnection();
 		int calcCount = new AdminDao().getCalcCount(con);
@@ -111,7 +111,7 @@ public class AdminService {
 		return calcCount;
 	}
 
-	// 정산관리 조회용 메소드 (정연)
+	// 회원 정산관리 조회용 메소드 (정연)
 	public ArrayList<HashMap<String, Object>> showCalc(TotalMemberPageInfo pi) {
 		Connection con = getConnection();
 		ArrayList<HashMap<String, Object>> list = new AdminDao().showCalc(con, pi);
@@ -135,14 +135,32 @@ public class AdminService {
 		return searchMemberList;
 	}
 
-	public ArrayList<HashMap<String, Object>> getGenderCount() {
+	public ArrayList<HashMap<String, Object>> getGenderCount(int value) {
 		Connection con = getConnection();
 		
-		ArrayList<HashMap<String, Object>> hmap = new AdminDao().getGenderCount(con);
+		ArrayList<HashMap<String, Object>> hmap = new AdminDao().getGenderCount(con,value);
 		
 		close(con);
 		
 		return hmap;
+	}
+
+	
+	//맴버 정산 승인하기 버튼(정연)
+	public int memberPay(int payno) {
+		Connection con = getConnection();
+		
+		int result = new AdminDao().memberPay(payno, con);
+		
+		if(result>0) {
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		close(con);
+		
+		
+		return result;
 	}
 
 

@@ -76,13 +76,11 @@ table td{
 
 .navList li{
 	margin:15px;
-	font-size:20px;
-	transition: padding-left 1s;
+	font-size:15px;
 	color:black;
 }
 
-.navList li:hover{
-	padding-left:25px;
+.navList{
 	cursor:pointer;
 	color:lightgray;
 }

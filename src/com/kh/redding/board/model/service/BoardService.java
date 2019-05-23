@@ -280,15 +280,29 @@ public class BoardService {
 			System.out.println("nnn");
 			rollback(con);
 		}
+    return result;
+	}
+    
+	public int getQnACompleteSelect() {
+		Connection con = getConnection();
+		
+		int result = new BoardDao().selectQnACompleteSelect(con);
+		
+		close(con);
 		
 		return result;
 	}
 
+	public ArrayList<HashMap<String, Object>> SelectQnAOneDetail(int bid) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> QnAList = new BoardDao().selectQnAOneDetail(con,bid);
+		
+		close(con);
+		
+		return QnAList;
+	}
 
 
-	
-
-	
-	
 
 }
