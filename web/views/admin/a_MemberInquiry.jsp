@@ -4,6 +4,8 @@
 ArrayList<HashMap<String, Object>> QnAList = (ArrayList<HashMap<String, Object>>)request.getAttribute("QnAList");
 BoardPageInfo pi = (BoardPageInfo) request.getAttribute("pi");
 int Allcount = (int) request.getAttribute("Allcount");
+int CompleteCount = (int)request.getAttribute("CompleteCount");
+int ProgressCount = Allcount - CompleteCount;
 int currentPage = pi.getCurrentPage();
 int maxPage = pi.getMaxPage();
 int startPage = pi.getStartPage();
@@ -92,9 +94,9 @@ int endPage = pi.getEndPage();
 								<td width="250" style="background: lightgray;">문의내역</td>
 								<td width="100"><%=Allcount %></td>
 								<td width="250" style="background: lightgray;">진행중</td>
-								<td width="100">5</td>
+								<td width="100"><%=ProgressCount %></td>
 								<td width="250" style="background: lightgray;">진행완료</td>
-								<td width="100">5</td>
+								<td width="100"><%=CompleteCount %></td>
 							</tr>
 						</table>
 					</div>
@@ -118,8 +120,8 @@ int endPage = pi.getEndPage();
 							<tr style="background: lightgray;">
 								<td><input type="checkbox"></td>
 								<td>문의 번호</td>
-								<td>문의 제목</td>
-								<td>문의 내용</td>
+								<td>카테고리</td>
+								<td>문의제목</td>
 								<td>회원 아이디</td>
 								<td>회원이름</td>
 								<td>진행상태</td>
@@ -128,26 +130,34 @@ int endPage = pi.getEndPage();
 							<% if (QnAList == null || QnAList.size() == 0){ %>
 							<tr>
 								<td><input type="checkbox"></td>
-								<td>1521</td>
-								<td>KH 스튜디오</td>
-								<td>리허설</td>
-								<td>user01</td>
-								<td>김수민</td>
-								<td><a class="ui red label">진행중</a></td>
+								<td></td>
+								<td colspan= "4">작성된 문의가 없습니다.</td>
+								<td></td>
 							</tr>
 							<%}else { %>
-							<% for (int i = 0 ; i < QnAList.size() ; i++){ %>
-								<tr>
+							<% for (int i = 0 ; i < QnAList.size() ; i++){ 
+								HashMap Qmap = QnAList.get(i);
+								Board QnA = (Board)Qmap.get("QnA");
+								Reply reply = (Reply)Qmap.get("reply");
+								String memberid = (String)Qmap.get("memberId");
+								String nickname = (String)Qmap.get("NickName");
+								int no = (int)Qmap.get("num");
+							%>
+							<tr onclick = "location.href= '<%=request.getContextPath()%>/QnAOne.no?no='+<%=QnA.getBid()%>">
 									<td><input type="checkbox"></td>
-									<td>1521</td>
-									<td>KH 스튜디오</td>
-									<td>리허설</td>
-									<td>user01</td>
-									<td>김수민</td>
+									<td><%=no %></td>
+									<td><%=QnA.getBcategory() %></td>
+									<td><%=QnA.getBtitle() %></td>
+									<td><%=memberid %></td>
+									<td><%=nickname %></td>
+									<%if(reply.getReply_code() == 0){%>
 									<td><a class="ui red label">진행중</a></td>
-								</tr>
+									<%}else { %>
+									<td><a class="ui blue label">진행완료</a></td>
+									<%} %>
+							</tr>
 							<%} %>
-							<%} %>
+						<%} %>
 							
 						</table>
 						<br>

@@ -162,11 +162,15 @@ int endPage = pi.getEndPage();
 								<% }%>
 								</tbody>
 							</table>
+						</div>
+					</div>	
+							
 							<br>
-							<div class = "notice_footer">
+					<div class = "notice_footer">
 						<!-- 페이지 버튼 처리 -->
 						<div class="pagingArea" align="center">
 						<button onclick="location.href='<%= request.getContextPath() %>/selectnotice.no?currentPage=1'"><<</button>
+						<% if (pi != null){ %>
 						<% if(currentPage <= 1) { %>
 						<button disabled><</button>
 						<% } else { %>
@@ -188,11 +192,11 @@ int endPage = pi.getEndPage();
 						<button onclick="location.href='<%= request.getContextPath() %>/selectnotice.no?currentPage=<%= currentPage + 1 %>'">></button>
 						<% } %>
 						<button onclick="location.href='<%= request.getContextPath() %>/selectnotice.no?currentPage=<%= maxPage %>'">>></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						</div>
-						
+					</div>
+						<%} %>	
 				</div>
-			</div>				
-		</div>
+				
+			</div>
 
 
 		</div>
