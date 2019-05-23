@@ -809,6 +809,7 @@ public class AdminDao {
 		return searchCompanyList;
 	}
 
+
 	// 검색한 회원 목록 조회용 메소드 (효정)
 	public ArrayList<HashMap<String, Object>> searchMemberList(Connection con, ArrayList searchConditionList) {
 
@@ -1091,14 +1092,47 @@ public class AdminDao {
 
     
    //성별 통계
-	public ArrayList<HashMap<String, Object>> getGenderCount(Connection con) {
+   	public ArrayList<HashMap<String, Object>> getGenderCount(Connection con, int value) {
+		PreparedStatement pstmt = null; 
 		Statement stmt = null;
 		ArrayList<HashMap<String, Object>> list = null;
 		HashMap<String, Object> hmap = null;
 		ResultSet rset = null;
-		String query = prop.getProperty("getGenderCount");
+		Properties prop = new Properties();
+		String fileName = MemberDao.class.getResource("/sql/admin/admin-query.properties").getPath();
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		//String query = prop.getProperty("statsDynamicQuery");
+		String query = "";
+		if(value == 10) {
+			query = prop.getProperty("getGenderCount");
+			System.out.println(query);
+		}else if(value == 20){
+			query = prop.getProperty("getDateCount");
+			System.out.println(query);
+		}else if(value == 30) {
+			query = prop.getProperty("getYearCount");
+			System.out.println(query);
+		}
+		
+		
 		
 		try {
+			/*pstmt = con.prepareStatement(query);
+			if(value == 10) {
+				pstmt.setInt(1, 10);
+				pstmt.setInt(2, 10);
+			}else if(value == 20) {
+				pstmt.setInt(1, 10);
+			}
+
+			rset = pstmt.executeQuery();*/
 			stmt = con.createStatement();
 			rset = stmt.executeQuery(query);
 			
@@ -1107,7 +1141,7 @@ public class AdminDao {
 				hmap = new HashMap<String, Object>();
 				
 				hmap.put("gender", rset.getString("GENDER"));
-				hmap.put("gNum", rset.getInt("GNUM"));
+				hmap.put("gNum", rset.getString("GNUM"));
 				hmap.put("tNum", rset.getString("TNUM"));
 				
 				list.add(hmap);
@@ -1117,7 +1151,7 @@ public class AdminDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			close(stmt);
+			close(pstmt);
 			close(rset);
 		}
 		
