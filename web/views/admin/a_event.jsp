@@ -71,7 +71,7 @@
 				<br> <br>
 			</div>
 
-			<div class="col-sm-8 text-left">
+			<div class="col-sm-10 text-left">
 				<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 				
 				<div class="couponArea">
@@ -80,15 +80,19 @@
 					<br><br>
 					<div class="couponList" align="center">
 						<table class="couponListTable">
-							<tr>
-								<td>쿠폰이미지</td>
-								<td>카테고리</td>
-								<td>쿠폰명</td>
-								<td>할인형태</td>
-								<td>할인율(액)</td>
-								<td>시작날짜</td>
-								<td>종료날짜</td>
-							</tr>
+							<thead>
+								<tr>
+									<td>쿠폰이미지</td>
+									<td>카테고리</td>
+									<td>쿠폰명</td>
+									<td>할인형태</td>
+									<td>할인율(액)</td>
+									<td>시작날짜</td>
+									<td>종료날짜</td>
+									<td>쿠폰발급가능상태</td>
+								</tr>
+							</thead>
+							<tbody>
 							<%
 								for (int i = 0; i < list.size(); i++) {
 									HashMap<String, Object> hmap = list.get(i);
@@ -106,11 +110,13 @@
 								<% } %>
 								<td><%=hmap.get("couponStartDate")%></td>
 								<td><%=hmap.get("couponEndDate")%></td>
+								<td><%=hmap.get("couponStatus") %></td>
 							</tr>
 
 							<%
 								}
 							%>
+							</tbody>
 						</table>
 					</div>
 				</div>
