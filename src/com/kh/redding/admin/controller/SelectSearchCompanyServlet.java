@@ -41,11 +41,11 @@ public class SelectSearchCompanyServlet extends HttpServlet {
 		searchConditionList.add(firstDate);
 		searchConditionList.add(lastDate);
 		
-		System.out.println("searchConditionList서블릿 : " + searchConditionList);
+		System.out.println("업체searchConditionList서블릿 : " + searchConditionList);
 						
 		new MakeQuery().makeSearchCompanyListQuery(searchConditionList); 
 		
-		ArrayList<HashMap<String,Object>> searchCompanyList = new AdminService().searchCompanyList2(searchConditionList);
+		ArrayList<HashMap<String,Object>> searchCompanyList = new AdminService().searchCompanyList(searchConditionList);
 		
 		response.setContentType("application/json");
 		new Gson().toJson(searchCompanyList, response.getWriter());

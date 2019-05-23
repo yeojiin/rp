@@ -180,6 +180,7 @@ public class MakeQuery {
 		}
 	}
 
+	// 관리자 업체 목록 조건 검색 (효정)
 	public void makeSearchCompanyListQuery(ArrayList searchConditionList) {
 		Properties prop = new Properties();
 		String fileName = MemberDao.class.getResource("/sql/admin/admin-query.properties").getPath();
@@ -250,6 +251,12 @@ public class MakeQuery {
 
 		}
 
+	}
+
+	// 관리자 회원 목록 조건 검색 (효정)
+	public void makeSearchMemberListQuery(ArrayList searchConditionList) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

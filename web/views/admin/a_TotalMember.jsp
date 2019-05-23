@@ -81,7 +81,7 @@
 			
 
 
-			<div class="col-sm-8 text-left">
+			<div class="col-sm-10 text-left">
 				<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 				<div class="memberArea">
 					<div class="memberNum">
@@ -120,7 +120,7 @@
 								<tr>
 									<td rowspan="2" class="searchMemberListTd1">가입일</td>
 									<td class="searchMemberListTd2"><input type="radio" value="전체" name="memberEnrollDate" checked>&nbsp;&nbsp;전체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input type="radio" value="일주일 이내" name="memberEnrollDate">&nbsp;&nbsp;오늘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 										
+										<input type="radio" value="오늘" name="memberEnrollDate">&nbsp;&nbsp;오늘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 										
 										<input type="radio" value="일주일 이내" name="memberEnrollDate">&nbsp;&nbsp;일주일 이내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 										<input type="radio" value="1개월 이내" name="memberEnrollDate">&nbsp;&nbsp;1개월 이내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 										<input type="radio" value="3개월 이내" name="memberEnrollDate">&nbsp;&nbsp;3개월 이내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -135,7 +135,7 @@
 								<tr>
 									<td rowspan="2" class="searchMemberListTd1">결혼예정일</td>
 									<td class="searchMemberListTd2"><input type="radio" value="전체" name="memberWeddingDate" checked>&nbsp;&nbsp;전체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input type="radio" value="일주일 이내" name="memberWeddingDate">&nbsp;&nbsp;오늘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+										<input type="radio" value="오늘" name="memberWeddingDate">&nbsp;&nbsp;오늘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 										<input type="radio" value="일주일 이내" name="memberWeddingDate">&nbsp;&nbsp;일주일 이내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 										<input type="radio" value="1개월 이내" name="memberWeddingDate">&nbsp;&nbsp;1개월 이내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 										<input type="radio" value="3개월 이내" name="memberWeddingDate">&nbsp;&nbsp;3개월 이내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -172,8 +172,9 @@
 										<td>성별</td>
 										<td>연락처</td>
 										<td>이메일주소</td>
+										<td>가입일</td>
 										<td>결혼예정일</td>
-										<td>신고횟수</td>
+										<td>활동상태</td>
 									</tr>
 								</thead>
 								<% 
@@ -190,8 +191,9 @@
 										<td><%= member.getGender() %></td>
 										<td><%= member.getPhone() %></td>
 										<td><%= member.getEmail() %></td>
+										<td><%= member.getEnrollDate() %></td>
 										<td><%= member.getWeddingDate() %></td>
-										<td><%= member.getMnotiType() %></td>
+										<td><%= member.getStatus() %></td>
 									</tr>
 								</tbody>
 								<% 
@@ -322,7 +324,7 @@
 				</div>
 
 
-				<div class="col-sm-2 sidenav2"></div>
+				<!-- <div class="col-sm-2 sidenav2"></div> -->
 
 			</div>
 		</div>
@@ -352,6 +354,7 @@
 				
 				// 회원 조건 검색 ajax
 				$(".searchMemberListBtn").click(function() {
+					console.log("버튼눌림");
 					
 					// 가입일
 					var efirstDate = $(".efirstDate").val();
@@ -387,7 +390,53 @@
 										   wlastDateArr.join(""),
 										   $("input:radio[name=memberStatus]:checked").val()];
 					
-					console.log(searchCondition);
+					// console.log(searchCondition);
+					
+					$.ajaxSettings.traditional = true;
+					$.ajax({
+						url:"searchMember.ad",
+						traditional:true,
+						data:{searchCondition:searchCondition},
+						type:"get",
+						success:function(data) {
+							$(".memberListTable tbody").empty();
+							
+							for(var i in data) {
+								$infoTr = $("<tr>");
+								$inputTd = $("<td>");
+								$checkbox = $("<input type='checkbox'>");
+								$rNumTd = $("<td>").text(data[i].num);
+								$nickNameTd = $("<td>").text(data[i].member.nickName);
+								$memberNameTd = $("<td>").text(data[i].member.memberName);
+								$genderTd = $("<td>").text(data[i].member.gender);
+								$phoneTd = $("<td>").text(data[i].member.phone);
+								$emailTd = $("<td>").text(data[i].member.email);
+								$enrollDateTd = $("<td>").text(data[i].member.enrollDate);
+								$weddingDateTd = $("<td>").text(data[i].member.weddingDate);
+								$statusTd = $("<td>").text(data[i].member.status);
+								
+								$inputTd.append($checkbox);
+								$infoTr.append($inputTd);
+								$infoTr.append($rNumTd);
+								$infoTr.append($nickNameTd);
+								$infoTr.append($memberNameTd);
+								$infoTr.append($genderTd);
+								$infoTr.append($phoneTd);
+								$infoTr.append($emailTd);
+								$infoTr.append($enrollDateTd);
+								$infoTr.append($weddingDateTd);
+								$infoTr.append($statusTd);
+								
+								$(".memberListTable").append($infoTr);
+								
+							}
+							
+						},
+						error:function(data) {
+							console.log("에러펑션");
+						}
+					});
+					
 					
 					
 					
