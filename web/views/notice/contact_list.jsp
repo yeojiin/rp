@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import = "java.util.* , com.kh.redding.board.model.vo.*"  %>
+<% 
+ArrayList<HashMap<String, Object>> QnAList = (ArrayList<HashMap<String, Object>>)request.getAttribute("QnAList");
+BoardPageInfo pi = (BoardPageInfo) request.getAttribute("pi");
+int currentPage = pi.getCurrentPage();
+int maxPage = pi.getMaxPage();
+int startPage = pi.getStartPage();
+int endPage = pi.getEndPage();
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,7 +70,7 @@
 	<!-- 멤버 헤더 (미니메뉴, 로고) -->
 	<div class="headerArea">
 		<%-- <jsp:include page="/views/member/m_header.jsp"></jsp:include> --%>
-		<%@ include file="/views/member/m_header.jsp"%>s
+		<%@ include file="/views/member/m_header.jsp"%>
 	</div><br>
 
 	<!-- 멤버 나브 -->
@@ -110,23 +119,83 @@
 									</tr>
 								</thead>
 								<tbody>
-								<% if (loginUser == null){ %>
+								<% if (QnAList == null || QnAList.size() == 0){ %>
 									<tr id="contactTitle" onclick="NoticeClick(this);">
 										<td></td>
 										<td colspan = "2">등록된 게시글이 없습니다</td>
 										<td></td>
 									</tr>
 								<% }else { %>
-									
-								
+									<% for(int i = 0 ; i < QnAList.size() ; i++){ 
+										HashMap hmap = QnAList.get(i);
+										Board qna = (Board)hmap.get("QnA");
+										int no = (int)hmap.get("num");
+										Reply re = (Reply)hmap.get("reply");
+										int recode = re.getReply_code();
+									%>
+									<tr id="contactTitle" onclick="NoticeClick(this);">
+										<td><%=no %></td>
+										<td><%=qna.getBtitle() %></td>
+										<td><%=qna.getBdate() %></td>
+										<% if (recode == 0){ %>
+										<td><span style = "color:red">진행중</span></td>
+										<%}else { %>
+										<td><span style = "color:blue">진행완료</span></td>
+										<%} %>
+									</tr>
+									<tr id = "noticecontent" style = "display:none;">
+										<td colspan = "4">
+											<span id = "Q" style= "color: red;">Q</span><br>
+											<span id = "noticeContent">
+												<%=qna.getBcontent() %>
+											</span>
+											<hr>
+											<span id = "A" style= "color: blue;">A</span><br>
+											<% if (recode != 0){ %>
+												<span><%=re.getReply_content() %></span>
+											<%}else{ %>
+												<span>아직 답변을 하지 않았습니다.</span>
+											<%} %>
+										</td>
+									</tr>
+									<%} %>
 								<% }%>
 								</tbody>
 							</table>
+							<br>
+							<div class = "notice_footer">
+						<!-- 페이지 버튼 처리 -->
+						<div class="pagingArea" align="center">
+						<button onclick="location.href='<%= request.getContextPath() %>/selectnotice.no?currentPage=1'"><<</button>
+						<% if(currentPage <= 1) { %>
+						<button disabled><</button>
+						<% } else { %>
+						<button onclick="location.href='<%= request.getContextPath() %>/selectnotice.no?currentPage=<%= currentPage - 1 %>'"><</button>
+						<% } %>
+						
+						<% for(int p = startPage; p <= endPage; p++) { 
+								if(p == currentPage) { %>
+									<button disabled><%= p %></button>
+						<% 		}else {%>
+									<button onclick="location.href='<%= request.getContextPath() %>/selectnotice.no?currentPage=<%= p %>'"><%= p %></button>
+						<%		} %>
+							
+						<% } %>
+						
+						<% if(currentPage >= maxPage) { %>
+						<button disabled>></button>
+						<% } else { %>
+						<button onclick="location.href='<%= request.getContextPath() %>/selectnotice.no?currentPage=<%= currentPage + 1 %>'">></button>
+						<% } %>
+						<button onclick="location.href='<%= request.getContextPath() %>/selectnotice.no?currentPage=<%= maxPage %>'">>></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						</div>
-					</div>
-
-
+						
 				</div>
+			</div>				
+		</div>
+
+
+		</div>
 			
 			<!-- 오른쪽 빈공간 -->
 			<div class="col-sm-2 sidenav"></div>
@@ -142,9 +211,21 @@
 	</div>
 	
 	<script>
+		function NoticeClick(obj){
+			var tr = $(obj);
+			var sub = tr.next();
+		
+			if(sub.is(":visible")){
+				sub.slideUp();
+			}else{
+				sub.slideDown();
+			}
+		
+		}
+	
 		$(function(){
 			$(".listbtn").click(function(){
-				location.href = "<%=request.getContextPath()%>/views/notice/contact_list.jsp";
+				location.href = "<%=request.getContextPath()%>/selectQnA.no?mno="+ mno;
 			});
 			
 			$(".writerbtn").click(function(){
