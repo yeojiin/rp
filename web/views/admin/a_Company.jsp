@@ -52,7 +52,8 @@
 					<div class="sidenavArea">
 						<ul class="navList">
 							<li onclick="location.href='a_Company.jsp'">업체 목록</li>
-							<li onclick="location.href='<%=request.getContextPath()%>/views/admin/a_Message.jsp'">업체 쪽지 관리</li>
+							<li onclick="location.href='<%=request.getContextPath()%>/views/admin/a_Message.jsp'">받은 쪽지 관리</li>
+                     		<li onclick="location.href='<%=request.getContextPath()%>/views/admin/a_SendMessage.jsp'">보낸 쪽지 관리</li>
 						</ul>
 					</div>
 				</div>
@@ -63,7 +64,8 @@
 					<div class="sidenavArea2">
 						<ul class="navList2">
 							<li onclick="location.href='a_Company.jsp'">업체 목록</li>
-							<li onclick="location.href='<%=request.getContextPath()%>/views/admin/a_Message.jsp'">업체 쪽지 관리</li>
+							<li onclick="location.href='<%=request.getContextPath()%>/views/admin/a_Message.jsp'">받은 쪽지 관리</li>
+                     		<li onclick="location.href='<%=request.getContextPath()%>/views/admin/a_SendMessage.jsp'">보낸 쪽지 관리</li>
 						</ul>
 					</div>
 				</div>
@@ -328,7 +330,7 @@
 										   $("input:radio[name=companyStatus]:checked").val(), 
 										   firstDateArr.join(""), 
 										   lastDateArr.join("")];
-					console.log(searchCondition);
+					// console.log(searchCondition);
 					$.ajaxSettings.traditional = true;
 					$.ajax({
 						url:"searchCompany.ad",
@@ -336,12 +338,11 @@
 						data:{searchCondition:searchCondition},
 						type:"get",
 						success:function(data) {
-							console.log(data);
+							// console.log(data);
 							
 							$(".companyListTable tbody").empty();
 							
 							for(var i in data) {
-								//var list = data.list[i];
 								$infoTr = $("<tr>");
 								$inputTd = $("<td>");
 								$checkbox = $("<input type='checkbox'>");
@@ -356,10 +357,9 @@
 		                        $replyIn.html("쪽지보내기");
 		                        
 		                        $cnoIn = $("<input type='hidden' class='cno' name='cno' id='cno' readonly>");
-	                              $cnoIn.val(data[i].member.mno);
+	                            $cnoIn.val(data[i].member.mno);
 	                             
-	                              $replyIn.append($cnoIn);
-
+	                            $replyIn.append($cnoIn);
 		                        $replyTd.append($replyIn);
 								
 								$inputTd.append($checkbox);

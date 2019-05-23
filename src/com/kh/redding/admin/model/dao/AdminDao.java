@@ -36,7 +36,7 @@ public class AdminDao {
 		
 	}
 
-	// 전체 회원 목록 조회용 메소드 (페이징 처리)
+	// 전체 회원 목록 조회용 메소드 (페이징 처리) (효정)
 	public ArrayList<HashMap<String, Object>> selectMemberList(Connection con, TotalMemberPageInfo pi) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -96,7 +96,7 @@ public class AdminDao {
 		return list;
 	}
 	
-	// 전체 회원 수 조회용 메소드
+	// 전체 회원 수 조회용 메소드 (효정)
 	public int getAllListCount(Connection con) {
 		
 		Statement stmt = null;
@@ -124,7 +124,7 @@ public class AdminDao {
 		return allMemberListCount;
 	}
 		
-	// 신규 회원 수 조회용 메소드
+	// 신규 회원 수 조회용 메소드 (효정)
 	public int getNewListCount(Connection con) {
 		Statement stmt = null;
 		int newMemberlistCount = 0;
@@ -151,7 +151,7 @@ public class AdminDao {
 		return newMemberlistCount;
 	}
 
-	// 탈퇴 회원 수 조회용 메소드
+	// 탈퇴 회원 수 조회용 메소드 (효정)
 	public int allMemberListCount(Connection con) {
 		Statement stmt = null;
 		int withdrawalMemberlistCount = 0;
@@ -178,7 +178,7 @@ public class AdminDao {
 		return withdrawalMemberlistCount;
 	}
 
-	// 회원 상세 정보 조회용 메소드
+	// 회원 상세 정보 조회용 메소드 (효정)
 	public Member selectOneMember(Connection con, int num) {
 		
 		PreparedStatement pstmt = null;
@@ -224,7 +224,7 @@ public class AdminDao {
 		
 	}
 	
-	// 전체 업체 목록 조회용 메소드 (페이징 처리)
+	// 전체 업체 목록 조회용 메소드 (페이징 처리) (효정)
 	public ArrayList<HashMap<String, Object>> selectCompanyList(Connection con, TotalMemberPageInfo pi) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -288,7 +288,7 @@ public class AdminDao {
 		return list;
 	}
 
-	// 전체 업체 수 조회용 메소드
+	// 전체 업체 수 조회용 메소드 (효정)
 	public int getAllCompanyListCount(Connection con) {
 		Statement stmt = null;
 		int allCompanylistCount = 0;
@@ -315,7 +315,7 @@ public class AdminDao {
 		return allCompanylistCount;
 	}
 
-	// 신규 업체 수 조회용 메소드
+	// 신규 업체 수 조회용 메소드 (효정)
 	public int getNewCompanyCount(Connection con) {
 		Statement stmt = null;
 		int newCompanylistCount = 0;
@@ -342,7 +342,7 @@ public class AdminDao {
 		return newCompanylistCount;
 	}
 
-	// 탈퇴 업체 수 조회용 메소드
+	// 탈퇴 업체 수 조회용 메소드 (효정)
 	public int getWithdrawalCompanyListCount(Connection con) {
 		Statement stmt = null;
 		int withdrawalCompanylistCount = 0;
@@ -369,7 +369,7 @@ public class AdminDao {
 		return withdrawalCompanylistCount;
 	}
 
-	// 업세 상세 정보 조회용 메소드
+	// 업세 상세 정보 조회용 메소드 (효정)
 	public ArrayList<HashMap<String, Object>> selectOneCompany2(Connection con, int num) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -511,7 +511,7 @@ public class AdminDao {
 		return list;
 	}
 
-	public ArrayList<HashMap<String, Object>> searchCompanyList(Connection con, TotalMemberPageInfo pi, ArrayList searchConditionList) {
+	/*public ArrayList<HashMap<String, Object>> searchCompanyList(Connection con, TotalMemberPageInfo pi, ArrayList searchConditionList) {
 		Properties prop = new Properties();
 		String fileName = MemberDao.class.getResource("/sql/admin/admin-query.properties").getPath();
 		try {
@@ -565,9 +565,7 @@ public class AdminDao {
 				member.setStatus(rset.getString("STATUS"));
 				member.setMemberType(rset.getInt("MTYPE"));
 				member.setWeddingDate(rset.getDate("WEDDING_DATE"));
-				
-				// System.out.println(num);
-				
+								
 				hlist.put("num", num);
 				hlist.put("comType", comType);
 				hlist.put("member", member);
@@ -584,10 +582,10 @@ public class AdminDao {
 		}
 
 		return searchCompanyList;
-	}
+	}*/
 
-	// 관리자 업체 조건 검색용 메소드
-	public ArrayList<HashMap<String, Object>> searchCompanyList2(Connection con, ArrayList searchConditionList) {
+	// 검색한 업체 목록 조회용 메소드 (효정)
+	public ArrayList<HashMap<String, Object>> searchCompanyList(Connection con, ArrayList searchConditionList) {
 		Properties prop = new Properties();
 		String fileName = MemberDao.class.getResource("/sql/admin/admin-query.properties").getPath();
 		try {
@@ -760,8 +758,6 @@ public class AdminDao {
 				
 			}
 			
-			
-			
 			rset = pstmt.executeQuery();
 			
 			searchCompanyList = new ArrayList<HashMap<String, Object>>();
@@ -805,6 +801,12 @@ public class AdminDao {
 		}
 
 		return searchCompanyList;
+	}
+
+	// 검색한 회원 목록 조회용 메소드 (효정)
+	public ArrayList<HashMap<String, Object>> searchMemberList(Connection con, ArrayList searchConditionList) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 
