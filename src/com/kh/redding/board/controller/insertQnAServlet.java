@@ -30,7 +30,10 @@ public class insertQnAServlet extends HttpServlet {
 		
 		String page = "";
 		if (result > 0) {
-			page = request.getContextPath() + "/views/notice/contact_list.jsp";
+			
+			System.out.println("mno :" + mno);
+			
+			page = request.getContextPath() + "/selectQnA.no?mno="+ mno;
 			
 			response.sendRedirect(page);
 		}else {

@@ -93,6 +93,18 @@ public class WishListService {
 	}
 
 
+	//패키지 예약 시 리스트 조회
+	public ArrayList searchPackReserve(int mno) {
+		Connection con = getConnection();
+		
+		ArrayList list = new WishListDao().searchPackReserve(con, mno); 
+		
+		close(con);
+		
+		return list;
+	}
+
+
 
 
 }

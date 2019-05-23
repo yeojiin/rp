@@ -4,7 +4,12 @@
 	margin-right: auto;
 	width: 100%;
 }
-
+#sendMesTB *{
+	border: none;
+}
+#sendMesTB tr{
+	border-top: 1px solid lightgray;
+}
 .messageArea table th {
 	padding: 8px;
 	text-align: center;

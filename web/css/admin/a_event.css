@@ -9,8 +9,18 @@
 .couponListTable {
 	font-family: 'Noto Sans KR', sans-serif;
 	text-align:center;
-	border:1px solid gray;
+	border-top:1px solid gray;
 	width:100%;
+}
+.couponListTable tr {
+	border-bottom:1px solid gray;
+}
+.couponListTable thead tr {
+	background:MistyRose;
+	height:40px;
+}
+.couponListTable tbody tr {
+	height:100px;
 }
 .modal {
 	height:600px;

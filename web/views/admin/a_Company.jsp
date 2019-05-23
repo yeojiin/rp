@@ -52,7 +52,8 @@
 					<div class="sidenavArea">
 						<ul class="navList">
 							<li onclick="location.href='a_Company.jsp'">업체 목록</li>
-							<li onclick="location.href='<%=request.getContextPath()%>/views/admin/a_Message.jsp'">업체 쪽지 관리</li>
+							<li onclick="location.href='<%=request.getContextPath()%>/views/admin/a_Message.jsp'">받은 쪽지 관리</li>
+                     		<li onclick="location.href='<%=request.getContextPath()%>/views/admin/a_SendMessage.jsp'">보낸 쪽지 관리</li>
 						</ul>
 					</div>
 				</div>
@@ -63,7 +64,8 @@
 					<div class="sidenavArea2">
 						<ul class="navList2">
 							<li onclick="location.href='a_Company.jsp'">업체 목록</li>
-							<li onclick="location.href='<%=request.getContextPath()%>/views/admin/a_Message.jsp'">업체 쪽지 관리</li>
+							<li onclick="location.href='<%=request.getContextPath()%>/views/admin/a_Message.jsp'">받은 쪽지 관리</li>
+                     		<li onclick="location.href='<%=request.getContextPath()%>/views/admin/a_SendMessage.jsp'">보낸 쪽지 관리</li>
 						</ul>
 					</div>
 				</div>
@@ -71,7 +73,7 @@
 				<br> <br>
 			</div>
 
-			<div class="col-sm-8 text-left">
+			<div class="col-sm-10 text-left">
 				<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 				<div class="companyArea">
 					<div class="companyNum">
@@ -109,7 +111,7 @@
 								<tr>
 									<td rowspan="2" class="searchCompanyListTd1">가입일</td>
 									<td class="searchCompanyListTd2"><input type="radio" value="전체" name="companyEnrollDate" checked>&nbsp;&nbsp;전체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input type="radio" value="일주일 이내" name="companyEnrollDate">&nbsp;&nbsp;오늘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+										<input type="radio" value="오늘" name="companyEnrollDate">&nbsp;&nbsp;오늘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 										<input type="radio" value="일주일 이내" name="companyEnrollDate">&nbsp;&nbsp;일주일 이내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 										<input type="radio" value="1개월 이내" name="companyEnrollDate">&nbsp;&nbsp;1개월 이내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 										<input type="radio" value="3개월 이내" name="companyEnrollDate">&nbsp;&nbsp;3개월 이내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -295,7 +297,7 @@
 					</div>
 
 
-					<div class="col-sm-2 sidenav2"></div>
+					<!-- <div class="col-sm-2 sidenav2"></div> -->
 
 				</div>
 			</div>
@@ -328,7 +330,7 @@
 										   $("input:radio[name=companyStatus]:checked").val(), 
 										   firstDateArr.join(""), 
 										   lastDateArr.join("")];
-					console.log(searchCondition);
+					// console.log(searchCondition);
 					$.ajaxSettings.traditional = true;
 					$.ajax({
 						url:"searchCompany.ad",
@@ -336,12 +338,11 @@
 						data:{searchCondition:searchCondition},
 						type:"get",
 						success:function(data) {
-							console.log(data);
+							// console.log(data);
 							
 							$(".companyListTable tbody").empty();
 							
 							for(var i in data) {
-								//var list = data.list[i];
 								$infoTr = $("<tr>");
 								$inputTd = $("<td>");
 								$checkbox = $("<input type='checkbox'>");
@@ -356,10 +357,9 @@
 		                        $replyIn.html("쪽지보내기");
 		                        
 		                        $cnoIn = $("<input type='hidden' class='cno' name='cno' id='cno' readonly>");
-	                              $cnoIn.val(data[i].member.mno);
+	                            $cnoIn.val(data[i].member.mno);
 	                             
-	                              $replyIn.append($cnoIn);
-
+	                            $replyIn.append($cnoIn);
 		                        $replyTd.append($replyIn);
 								
 								$inputTd.append($checkbox);
@@ -379,104 +379,58 @@
 		                               location.href="<%=request.getContextPath()%>/getComNo.mes?cno="+cno;
 
 		                        });
+								
+								searchCompanyDetailInfo();
 							}
-							/* pageBtn(data); */
 						},
 						error:function(data) {
 							console.log("에러펑션");
 						}
 					});
 					
-					// 페이지 버튼
-					/* function pageBtn(data){
-				   		var $pageBtnArea = $(".pageBtnArea");
-				   			   
-						//BoardPageInfo pi = (BoardPageInfo) session.getAttribute("pi");
-						var currentPage = data.pi.currentPage;//pi.getCurrentPage();
-						var limit = data.pi.limit;
-						var maxPage = data.pi.maxPage;
-						var startPage = data.pi.startPage;
-						var endPage = data.pi.endPage;
-					
-								
-				   		$pageBtnArea.empty();
-				   
-				   		$pageBtnArea.append($("<br>"));		   
-				   
-				  		$pageBtnArea.append($("<button>").attr("class","paging").text("<<").css("cursor","pointer").click(function(){
-							currentView(1);
-				   		}));
-				   			   
-						if(currentPage <= 1) { 
-							$pageBtnArea.append($("<button>").attr("class","paging").text("<").attr("disabled",true).css("cursor","pointer"));
-						}else{ 
-							$pageBtnArea.append($("<button>").attr("class","paging").text("<").css("cursor","pointer").click(function(){
-								currentView(currentPage - 1);
-						 	}));
-					 	} 
-						for(var p= startPage; p <= endPage; p++){
-							if(p == currentPage){
-								$pageBtnArea.append($("<button>").attr("class","paging").text(p).attr("disabled",true).css("cursor","pointer"));
-					 		}else{ 
-								$pageBtnArea.append($("<button>").attr("class","paging").css("cursor","pointer").text(p).click(function(){
-							   		currentView($(this).text());
-						   		}));
-					 		}
-					 	} 
-						
-					 	if(currentPage >= maxPage){ 
-							$pageBtnArea.append($("<button>").attr("class","paging").text(">").attr("disabled",true).css("cursor","pointer"));					
-					 	}else {
-						 	$pageBtnArea.append($("<button>").attr("class","paging").text(">").css("cursor","pointer").click(function(){
-								currentView(currentPage + 1);
-						   	}));
-					 	} 
-					 	$pageBtnArea.append($("<button>").attr("class","paging").text(">>").click(function(){
-							currentView(maxPage);
-						}));
-						 	
-					}*/
 				}); 
 				
 				// 업체 상세 정보 조회 ajax
-				$(".companyListTable tbody td").mouseenter(function() {
-					$(this).parent().css({"background":"mistyrose", "cursor":"pointer"});
-				}).mouseout(function(){
-					$(this).parent().css({"background":"white"});
-				}).click(function() {
-					var num = $(this).parent().children().eq(1).text();
-					$.ajax({
-						url:"selectOneCompany.ad",
-						data:{num:num},
-						type:"get",
-						success:function(data) {
-							
-							$(".memberId").text(data[0].memberId);
-							$(".repName").text(data[0].repName);
-							$(".comType").text(data[0].comType);
-							$(".memberName").text(data[0].memberName);
-							$(".memberEmail").text(data[0].memberEmail);
-							$(".memberPhone").text(data[0].memberPhone);
-							$(".companyAddress").text(data[0].companyAddress);
-							$(".companyUrl").text(data[0].companyUrl);
-							$(".companyOpenTime").text(data[0].companyOpenTime);
-							$(".companyCloseTime").text(data[0].companyCloseTime);
-							$(".companyBank").text(data[0].companyBank);
-							$(".companyBankNum").text(data[0].companyBankNum);
-							$(".companyHoliday").text(data[0].companyHoliday);
-							$(".memberEnrollDate").text(data[0].memberEnrollDate);
-							$(".memberStatus").text(data[0].memberStatus);
-							$(".memberOutDate").text(data[0].memberOutDate);
-						}
+				function searchCompanyDetailInfo() {
+					$(".companyListTable tbody td").mouseenter(function() {
+						$(this).parent().css({"background":"mistyrose", "cursor":"pointer"});
+					}).mouseout(function(){
+						$(this).parent().css({"background":"white"});
+					}).click(function() {
+						var num = $(this).parent().children().eq(1).text();
+						$.ajax({
+							url:"selectOneCompany.ad",
+							data:{num:num},
+							type:"get",
+							success:function(data) {
+								
+								$(".memberId").text(data[0].memberId);
+								$(".repName").text(data[0].repName);
+								$(".comType").text(data[0].comType);
+								$(".memberName").text(data[0].memberName);
+								$(".memberEmail").text(data[0].memberEmail);
+								$(".memberPhone").text(data[0].memberPhone);
+								$(".companyAddress").text(data[0].companyAddress);
+								$(".companyUrl").text(data[0].companyUrl);
+								$(".companyOpenTime").text(data[0].companyOpenTime);
+								$(".companyCloseTime").text(data[0].companyCloseTime);
+								$(".companyBank").text(data[0].companyBank);
+								$(".companyBankNum").text(data[0].companyBankNum);
+								$(".companyHoliday").text(data[0].companyHoliday);
+								$(".memberEnrollDate").text(data[0].memberEnrollDate);
+								$(".memberStatus").text(data[0].memberStatus);
+								$(".memberOutDate").text(data[0].memberOutDate);
+							}
+						});
 					});
-				});
-				
-				$(".reply").click(function(){
-					var cno = $(this).siblings(".cno").val();
-	                  console.log(cno);
-	                  location.href="<%=request.getContextPath()%>/getComNo.mes?cno="+cno;
-
-	            });
+					
+					$(".reply").click(function(){
+						var cno = $(this).siblings(".cno").val();
+		                  console.log(cno);
+		                  location.href="<%=request.getContextPath()%>/getComNo.mes?cno="+cno;
+	
+		            });
+				}
 				
 			});
 			

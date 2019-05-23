@@ -70,6 +70,7 @@ public class WishListDao {
 			close(rset);
 		}
 		
+		System.out.println("위: " + list);
 		return list;
 	}
 
@@ -189,7 +190,7 @@ public class WishListDao {
 			
 			result = pstmt.executeUpdate();
 			
-		} catch (SQLException e) {
+		} catch (SQLException e) {	
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
@@ -197,6 +198,36 @@ public class WishListDao {
 
 		return result;
 
+	}
+
+	
+	//패키지 예약 시 리스트 조회
+	public ArrayList searchPackReserve(Connection con, int mno) {
+		PreparedStatement pstmt = null;
+		ArrayList list = new ArrayList();
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("searchPackReserve");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			
+			rset= pstmt.executeQuery();
+
+			while(rset.next()) {
+				list.add(rset.getInt("PNO"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return list;
 	}
 
 }

@@ -22,13 +22,13 @@ public class SendMessageToCompanyServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("업체에게 쪽지 보내기 - 쪽지 insert 서블릿");
+		//System.out.println("업체에게 쪽지 보내기 - 쪽지 insert 서블릿");
 		
 		int cno = Integer.parseInt(request.getParameter("smCno"));
-		System.out.println("cno : " + cno);
+		//System.out.println("cno : " + cno);
 		
 		String mesContent = request.getParameter("smContent");
-		System.out.println("mesContent : " + mesContent);
+		//System.out.println("mesContent : " + mesContent);
 		
 		Date disDate = new Date(new GregorianCalendar().getTimeInMillis());
 		
@@ -42,7 +42,8 @@ public class SendMessageToCompanyServlet extends HttpServlet {
 		String page = "";
 		
 		if(result>0) {
-			page = "views/admin/a_Message.jsp";
+			//System.out.println("쪽지 보내기는 성공");
+			page = "views/admin/a_SendMessage.jsp";
 			response.sendRedirect(page);
 		}else {
 			page = "views/common/errorPage.jsp";

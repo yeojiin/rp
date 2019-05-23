@@ -289,4 +289,21 @@ public class MemberService {
 		return result;
 	}
 
+	public int memberDelete(String memberid) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().memberDelete(con,memberid);
+		
+		if (result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		
+		close(con);
+		
+		return result;
+	}
+
 }

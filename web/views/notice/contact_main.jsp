@@ -151,7 +151,12 @@
 	<script>
 		$(function(){
 			$(".listbtn").click(function(){
-				location.href = "<%=request.getContextPath()%>/views/notice/contact_list.jsp";
+				
+				<% if(loginUser != null) { %>
+					location.href = "<%=request.getContextPath()%>/selectQnA.no?mno="+ <%=loginUser.getMno()%>;
+				<% }else { %>	
+					alert("로그인 후 이용 가능합니다.");
+				<%}%>
 			});
 			
 			$(".writerbtn").click(function(){

@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import = "java.util.* , com.kh.redding.board.model.vo.*"  %>
+<% 
+ArrayList<HashMap<String, Object>> QnAList = (ArrayList<HashMap<String, Object>>)request.getAttribute("QnAList");
+BoardPageInfo pi = (BoardPageInfo) request.getAttribute("pi");
+int Allcount = (int) request.getAttribute("Allcount");
+int CompleteCount = (int)request.getAttribute("CompleteCount");
+int ProgressCount = Allcount - CompleteCount;
+int currentPage = pi.getCurrentPage();
+int maxPage = pi.getMaxPage();
+int startPage = pi.getStartPage();
+int endPage = pi.getEndPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,7 +63,7 @@
 					<ul class="navList">
 						<li onclick="location.href='a_TotalMember.jsp'">전체 회원</li>
 						<li onclick="location.href='a_MemberOrder.jsp'">주문내역</li>
-						<li onclick="location.href='a_MemberInquiry.jsp'" style="color:lightgray; padding-left:25px">문의</li>
+						<li onclick="location.href='<%=request.getContextPath()%>/AllQnA.no'" style="color:lightgray; padding-left:25px">문의</li>
 					</ul>
 				</div>
 			</div>
@@ -64,7 +75,7 @@
 						<ul class="navList2">
 						<li onclick="location.href='a_TotalMember.jsp'" style="color:lightgray; padding-left:25px">전체 회원</li>
 						<li onclick="location.href='a_MemberOrder.jsp'">주문내역</li>
-						<li onclick="location.href='a_MemberInquiry.jsp'" style="color:lightgray; padding-left:25px">문의</li>
+						<li onclick="location.href='<%=request.getContextPath()%>/AllQnA.no'" style="color:lightgray; padding-left:25px">문의</li>
 						</ul>
 					</div>
 					</div>
@@ -81,11 +92,11 @@
 						<table id="inquiryNumt">
 							<tr>
 								<td width="250" style="background: lightgray;">문의내역</td>
-								<td width="100">10</td>
+								<td width="100"><%=Allcount %></td>
 								<td width="250" style="background: lightgray;">진행중</td>
-								<td width="100">5</td>
+								<td width="100"><%=ProgressCount %></td>
 								<td width="250" style="background: lightgray;">진행완료</td>
-								<td width="100">5</td>
+								<td width="100"><%=CompleteCount %></td>
 							</tr>
 						</table>
 					</div>
@@ -109,56 +120,72 @@
 							<tr style="background: lightgray;">
 								<td><input type="checkbox"></td>
 								<td>문의 번호</td>
-								<td>문의 제목</td>
-								<td>문의 내용</td>
-								<td>회원 아이다</td>
+								<td>카테고리</td>
+								<td>문의제목</td>
+								<td>회원 아이디</td>
 								<td>회원이름</td>
 								<td>진행상태</td>
 								<!-- <td></td> -->
 							</tr>
-							<tr>
-								<td><input type="checkbox"></td>
-								<td>1521</td>
-								<td>KH 스튜디오</td>
-								<td>리허설</td>
-								<td>user01</td>
-								<td>김수민</td>
-								<td><a class="ui red label">진행중</a></td>
-								<!-- <td><button class="negative ui button">신고</button></td> -->
-							</tr>
-							<tr>
-								<td><input type="checkbox"></td>
-								<td>1522</td>
-								<td>KH 드레스</td>
-								<td>드레스</td>
-								<td>user02</td>
-								<td>임정연</td>
-								<td><a class="ui blue label">진행완료</a></td>
-								<!-- <td><button class="negative ui button">신고</button></td> -->
-							</tr>
+							<% if (QnAList == null || QnAList.size() == 0){ %>
 							<tr>
 								<td><input type="checkbox"></td>
 								<td></td>
+								<td colspan= "4">작성된 문의가 없습니다.</td>
 								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<!-- <td><button class="negative ui button">신고</button></td> -->
 							</tr>
-							<tr>
-								<td><input type="checkbox"></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<!-- <td><button class="negative ui button">신고</button></td> -->
+							<%}else { %>
+							<% for (int i = 0 ; i < QnAList.size() ; i++){ 
+								HashMap Qmap = QnAList.get(i);
+								Board QnA = (Board)Qmap.get("QnA");
+								Reply reply = (Reply)Qmap.get("reply");
+								String memberid = (String)Qmap.get("memberId");
+								String nickname = (String)Qmap.get("NickName");
+								int no = (int)Qmap.get("num");
+							%>
+							<tr onclick = "location.href= '<%=request.getContextPath()%>/QnAOne.no?no='+<%=QnA.getBid()%>">
+									<td><input type="checkbox"></td>
+									<td><%=no %></td>
+									<td><%=QnA.getBcategory() %></td>
+									<td><%=QnA.getBtitle() %></td>
+									<td><%=memberid %></td>
+									<td><%=nickname %></td>
+									<%if(reply.getReply_code() == 0){%>
+									<td><a class="ui red label">진행중</a></td>
+									<%}else { %>
+									<td><a class="ui blue label">진행완료</a></td>
+									<%} %>
 							</tr>
+							<%} %>
+						<%} %>
+							
 						</table>
 						<br>
-						<h4>< 1, 2, 3 ></h4>
+						<!-- 페이지 버튼 처리 -->
+						<div class="pagingArea" align="center">
+						<button onclick="location.href='<%= request.getContextPath() %>/selectnotice.no?currentPage=1'"><<</button>
+						<% if(currentPage <= 1) { %>
+						<button disabled><</button>
+						<% } else { %>
+						<button onclick="location.href='<%= request.getContextPath() %>/selectnotice.no?currentPage=<%= currentPage - 1 %>'"><</button>
+						<% } %>
+						
+						<% for(int p = startPage; p <= endPage; p++) { 
+								if(p == currentPage) { %>
+									<button disabled><%= p %></button>
+						<% 		}else {%>
+									<button onclick="location.href='<%= request.getContextPath() %>/selectnotice.no?currentPage=<%= p %>'"><%= p %></button>
+						<%		} %>
+							
+						<% } %>
+						
+						<% if(currentPage >= maxPage) { %>
+						<button disabled>></button>
+						<% } else { %>
+						<button onclick="location.href='<%= request.getContextPath() %>/selectnotice.no?currentPage=<%= currentPage + 1 %>'">></button>
+						<% } %>
+						<button onclick="location.href='<%= request.getContextPath() %>/selectnotice.no?currentPage=<%= maxPage %>'">>></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						</div>
 						<br> <br> <br> <br>
 
 

@@ -92,7 +92,11 @@
 				<% if (i % 2 != 0){ %>
 						<td>
 							<div class = 'imgArea' id = "img<%=i%>">
-								<img id = 'subimg<%=i%>' class = 'subimg' src = "<%=request.getContextPath()%>/company_upload/<%=at.getChangename()%>">
+								<div class = "wrap" >
+								<div class="centered"> 
+									<img id = 'subimg<%=i%>' class = 'subimg' src = "<%=request.getContextPath()%>/company_upload/<%=at.getChangename()%>">
+								</div>
+								</div>
 								<input type = "hidden" id = "Aid<%=i%>" class = "id" value = "<%=at.getAid() %>">
 								<input type = "hidden" id = "Achangename<%=i%>" class = "changename" value = "<%=at.getChangename() %>">
 								<input type = "hidden" id = "AoriginName<%=i%>" class = "originName" value = "<%=at.getOriginname() %>">
@@ -105,7 +109,11 @@
 					<tr>
 					<td>
 						<div class = 'imgArea' id = "img<%=i%>">
+								<div class = "wrap" >
+								<div class="centered"> 
 								<img id = 'subimg<%=i%>' class = 'subimg' src = "<%=request.getContextPath()%>/company_upload/<%=at.getChangename()%>">
+								</div>
+								</div>
 								<input type = "hidden" id = "Aid<%=i%>" class = "id" value = "<%=at.getAid() %>">
 								<input type = "hidden" id = "Achangename<%=i%>" class = "changename" value = "<%=at.getChangename() %>">
 								<input type = "hidden" id = "AoriginName<%=i%>" class = "originName" value = "<%=at.getOriginname() %>">
@@ -135,18 +143,19 @@
 						<table>
 							<tr>
 								<td>
-									<label id = "prelabel"></label>
-									<img id = "originImg" name = "originImg" class = "subimg">
+									<label id = "prelabel"></label><br>
+									<img id = "originImg" name = "originImg" class = "upimg">
 									<input type = "hidden" id = "changeAid" name = "changeAid">
 									<input type = "hidden" id = "OriginchangeName" name = "OriginchangeName">
 								</td>
+								<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 								<td>
-									<label id = "afterlabel"></label>
-									<img id = "changeImg" name = "changeImgs" class = "subimg">
+									<label id = "afterlabel"></label><br>
+									<img id = "changeImg" name = "changeImgs" class = "upimg">
 								</td>
 							</tr>
 							<tr>
-								<td></td>
+								<td colspan= "2"></td>
 								<td>&nbsp;&nbsp;&nbsp;&nbsp;<button type = "button" id = "changeSubmit"></button>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 							</tr>
 						</table>

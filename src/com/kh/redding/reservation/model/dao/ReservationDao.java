@@ -252,6 +252,8 @@ public class ReservationDao {
 				hmap.put("pname", rset.getString("PNAME"));
 				hmap.put("price", rset.getInt("PRICE"));
 				hmap.put("pContent", rset.getString("PCONTENT"));
+				hmap.put("filepath", rset.getString("FILE_PATH"));
+				hmap.put("changename", rset.getString("CHANGE_NAME"));
 				
 				list.add(hmap);
 				

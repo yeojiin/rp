@@ -248,6 +248,47 @@ public class BoardService {
 		return count;
 	}
 
+	public int getQnAAllCountSelect() {
+		Connection con = getConnection();
+		
+		int count = new BoardDao().selectQnaAllCount(con);
+		
+		close(con);
+		
+		return count;
+	}
+
+	//관리자 믄의 전체 리스트 조회
+	public ArrayList<HashMap<String, Object>> selectAllQnAList(BoardPageInfo pi) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String , Object>> QnAlist = new BoardDao().selectQnAAllList(con, pi);
+		
+		close(con);
+		
+		return QnAlist;
+	}
+
+	public int getQnACompleteSelect() {
+		Connection con = getConnection();
+		
+		int result = new BoardDao().selectQnACompleteSelect(con);
+		
+		close(con);
+		
+		return result;
+	}
+
+	public ArrayList<HashMap<String, Object>> SelectQnAOneDetail(int bid) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> QnAList = new BoardDao().selectQnAOneDetail(con,bid);
+		
+		close(con);
+		
+		return QnAList;
+	}
+
 
 
 	

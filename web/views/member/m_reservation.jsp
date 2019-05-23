@@ -98,7 +98,7 @@
 							<td colspan="4"><h1 align="center" style="color: salmon; font-size: 35px;">예약</h1></td>
 						</tr>
 						<tr>
-							<td class="imagetd" width="40%" height="470px"><img id="image" src="<%=request.getContextPath()%>/images/dressTest.jpg">
+							<td class="imagetd" width="40%" height="470px"><img id="image" style=" max-width:100%; height:400px;" src="<%= request.getContextPath() %>/company_upload/<%=hmap.get("changename").toString()%>">
 								<br>
 							<br> <input class="form-control" id="productDetail"
 								type="text" readonly value=<%=hmap.get("pContent")%>></td>
