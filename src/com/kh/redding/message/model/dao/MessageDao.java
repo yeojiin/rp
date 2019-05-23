@@ -6,10 +6,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
-import com.kh.redding.company.model.vo.Company;
 import com.kh.redding.member.model.vo.Member;
 import com.kh.redding.message.model.vo.Message;
 
@@ -92,6 +93,86 @@ public class MessageDao {
 		}
 				
 		return result;
+	}
+	//보낸 쪽지 전체 조회 서블릿
+	public ArrayList<Message> selectListMes(Connection con, int wtype) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Message> mesList = null;
+		Message mes = null;
+		
+		String query = prop.getProperty("selectListMes");
+		
+		//System.out.println("con : " + con);
+		//System.out.println("wtype : " + wtype);
+		//System.out.println("query : " + query);
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, wtype);
+			
+			rset = pstmt.executeQuery();
+			
+			//System.out.println("rset : " + rset);
+			
+			mesList = new ArrayList<Message>();
+			
+			while(rset.next()) {
+				mes = new Message();
+				
+				mes.setMessageCode(rset.getInt("MESSAGE_CODE"));
+				//System.out.println("rset.getInt(MESSAGE_CODE) : " + rset.getInt("MESSAGE_CODE"));
+				mes.setMesContent(rset.getString("MESSAGE_CONTENT"));
+				//System.out.println("rset.getString(MESSAGE_CONTENT) : " +rset.getString("MESSAGE_CONTENT"));
+				mes.setMesDisDate(rset.getDate("MESSAGE_DISDATE"));
+				//System.out.println("rset.getDate(MESSAGE_DISDATE) : " + rset.getDate("MESSAGE_DISDATE"));
+				mes.setMesCkDate(rset.getDate("MESSAGE_CKDATE"));
+				//System.out.println("rset.getDate(MESSAGE_CKDATE) : " + rset.getDate("MESSAGE_CKDATE"));
+				mes.setMesLevel(rset.getInt("MESSAGE_LEVEL"));
+				//System.out.println("rset.getInt(MESSAGE_LEVEL) : " + rset.getInt("MESSAGE_LEVEL"));
+				mes.setMesWType(rset.getInt("MESSAGE_WTYPE"));
+				//System.out.println("rset.getint : " +rset.getInt("MESSAGE_WTYPE"));
+				mes.setMesRefCode(rset.getInt("MESSAGE_REFCODE"));
+				//System.out.println("rset.getIntMESSAGE_REFCODE) : " + rset.getInt("MESSAGE_REFCODE"));
+				mes.setCno(rset.getInt("CNO"));
+				//System.out.println("rset.getInt(CNO) : " + rset.getInt("CNO"));
+				
+				//System.out.println("mes : " + mes);
+				mesList.add(mes);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		//System.out.println("mesList Dao : " + mesList);
+		return mesList;
+	}
+	//listCount 확인용 메소드
+	public HashMap<String, Object> selectListCount(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> hmap = null;
+		
+		String query = prop.getProperty("selectListCount");
+		
+		try {
+			stmt  = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				hmap.put("CK_COUNT", rset.getInt("CK_COUNT"));
+				hmap.put("NOCK_COUNT", rset.getInt("NOCK_COUNT"));
+				hmap.put("TOTAL_COUNT", rset.getInt("TOTAL_COUNT"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return hmap;
 	}
 
 }

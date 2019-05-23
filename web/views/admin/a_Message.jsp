@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.*, com.kh.redding.message.model.vo.*"%>
+<%
+	ArrayList<Message> receiveList = (ArrayList<Message>)request.getAttribute("receiveList");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,8 +54,8 @@
 				<div class="sidenavArea">
 					<ul class="navList">
 						<li onclick="location.href='a_Company.jsp'">업체 목록</li>
-						<li onclick="location.href='a_CompanyDetail.jsp'">업체 정보 조회</li>
-						<li onclick="location.href='a_Message.jsp'" style="color:lightgray; padding-left:25px">업체 쪽지 관리</li>
+							<li onclick="location.href='<%=request.getContextPath()%>/receiveList.mes'">받은 쪽지 관리</li>
+							<li onclick="location.href='<%=request.getContextPath()%>/sendList.mes'">보낸 쪽지 관리</li>
 					</ul>
 				</div>
 			</div>
@@ -63,8 +66,8 @@
 						<div class="sidenavArea2">
 						<ul class="navList2">
 							<li onclick="location.href='a_Company.jsp'">업체 목록</li>
-						<li onclick="location.href='a_CompanyDetail.jsp'">업체 정보 조회</li>
-						<li onclick="location.href='a_Message.jsp'" style="color:lightgray; padding-left:25px">업체 쪽지 관리</li>
+							<li onclick="location.href='<%=request.getContextPath()%>/receiveList.mes'">받은 쪽지 관리</li>
+							<li onclick="location.href='<%=request.getContextPath()%>/sendList.mes'">보낸 쪽지 관리</li>
 						</ul>
 					</div>
 					</div>
@@ -141,67 +144,7 @@
 								<h4 style="text-align:center;">< 1, 2, 3></h4>
 							</div>
 						</div>
-						<br><br>
 						
-						<div class="sendMessage">
-							<h3 id="text2">보낸 쪽지 목록</h3>
-							<br>
-							<div class="ui category search">
-									<div class="ui icon input">
-										<select></select> <input class="prompt" type="text"> 
-										<i class="search icon"></i>
-									</div>
-								</div>
-							<div class="memberBaseInfo">
-								<br> <br>
-								<table id="detailt">
-									<tr style="background: lightgray;">
-										<td></td>
-										<td>No.</td>
-										<td>발송인</td>
-										<td>내용</td>
-										<td>날짜</td>
-										<td>상태</td>
-									</tr>
-									<tr>
-										<td><input type="radio"></td>
-										<td>1</td>
-										<td>KH스튜디오</td>
-										<td><p>디자인 감각이 없어서 슬픈 정연이</p></td>
-										<td>2019-03-05</td>
-										<td><a class="ui red label">미학인</a></td>
-									</tr>
-									<tr>
-										<td><input type="radio"></td>
-										<td>2</td>
-										<td>KH메이크업</td>
-										<td><p>으아아앙 졸려요 자고 싶어요</p></td>
-										<td>2019-02-05</td>
-										<td><a class="ui blue label">확인</a></td>
-									</tr>
-									<tr>
-										<td><input type="radio"></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td><input type="radio"></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-								</table>
-								<div class="btns">
-								<button class="ui pink button" style="background: salmon;" onclick=>삭제</button>
-								</div>
-								<h4 style="text-align:center;">< 1, 2, 3></h4>
-							</div>
-						</div>
 
 					</div>
 				</div>
