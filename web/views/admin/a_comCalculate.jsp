@@ -49,7 +49,7 @@
 				<div class="col-sm-2 sidenav1">
 					<div class="sidenavArea">
 						<ul class="navList">
-							<li id="memCalc">회원 정산</li>	
+							<li id="memCalc">회원 정산</li>
 							<li onclick="location.href='<%=request.getContextPath()%>/views/admin/a_comCalculate.jsp">업체 정산</li>
 						</ul>
 					</div>
@@ -94,46 +94,21 @@
 						HashMap<String, Object> hmap = list.get(i);
 					%>
 						<tr>
-							<td id="mno" hidden><%=hmap.get("mno") %></td>
-							<td id="payno" hidden><%=hmap.get("payno") %></td>
-							<td id="rnum"><%=hmap.get("rnum")%></td>
-							<td id="cname" style="width:70px;"><%=hmap.get("cname") %></td>
-							<td id="pname" style="width:60px;"><%=hmap.get("pname") %></td>
-							<td id="price"><%=hmap.get("price") %></td>
-							<td id="mname"><%=hmap.get("mname") %></td>
-							<td id="pselect"  style="width:40px;"><%=hmap.get("pselect")%></td>
-							<td id="paydiv" style="width:40px;"><%=hmap.get("paydiv") %></td>
-							<td id="paycode" style="width:50px;"><%=hmap.get("paycode") %></td>
-							<td id="pcompdate"><%=hmap.get("pcompdate") %></td>
-					<%
-							if(hmap.get("pstatus").equals("승인")){
-					%>
-							<td id="pstatus" class="pstatus" style="width:40px; color:blue;"><%=hmap.get("pstatus") %></td>
-					<% 
-							}else{
-					%>		
-							<td id="pstatus" class="pstatus" style="width:40px; color:red;"><%=hmap.get("pstatus") %></td>
-					<%
-							}
-					%>		
-							<td id="fprice"><%=hmap.get("fprice") %></td>
-					<%
-							if(hmap.get("pstatus").equals("승인")){
-					%>		
-							<td><button class="ui blue button" id="pay" disabled>승인하기</button></td>
-							<td><button class="ui red button" id="cancle">취소하기</button></td>
-					<% 
-							}else{
-					%>
-							<td><button class="ui blue button" id ="pay">승인하기</button></td>	
-							<td><button class="ui green button" id="hold">보류하기</button></td>
-					<%
-							}
-					%>	
-						
-						
+							<td class="rnum"><%=hmap.get("rnum")%></td>
+							<td class="cname"><%=hmap.get("cname") %></td>
+							<td class="pname"><%=hmap.get("pname") %></td>
+							<td class="price"><%=hmap.get("price") %></td>
+							<td class="buyer"><%=hmap.get("mname") %></td>
+							<td class="pselect"><%=hmap.get("pselect")%></td>
+							<td class="paydiv"><%=hmap.get("paydiv") %></td>
+							<td class="paycode"><%=hmap.get("paycode") %></td>
+							<td class="pcompdate"><%=hmap.get("pcompdate") %></td>
+							<td class="pstatus"><%=hmap.get("pstatus") %></td>
+							<td class="fprice"><%=hmap.get("fprice") %></td>
+							<td><button class="ui button" class="hold">결제보류하기</button></td>
+							<td><button class="ui button" class="pay">결제승인하기</button></td>
 						</tr>
-					<%	
+					<%
 						}
 					%>	
 					</table>
@@ -242,7 +217,6 @@
 		<jsp:include page="/views/common/footer.jsp"></jsp:include>
 	</div>
 	
-	
 	<script>	
 	
 	//배경 바꾸기
@@ -255,47 +229,11 @@
 	});
 	
 	
-	//회원정산메뉴 클릭
 	$("#memCalc").click(function(){
-		 location.href="<%=request.getContextPath()%>/showCalc.ad"; 
+		location.href="<%=request.getContextPath()%>/showCalc.ad";
 		
 	});
 		
-	
-	/* $(document).ready(function(){
-		$.ajax
-		
-	});
-	 */
-	
-	
-	
-	//승인하기 버튼(계좌이체 확인)
-	$(document).on("click","#pay",function(){
-		var payno = $(this).closest("td").siblings('#payno').text();
-		
-		$.ajax({
-			url : "/redding/memberPay.ad",
-  			data : {payno:payno},
-  			type : "post",
-  			success : function(data){
-  				if(data>0){
-  					alert("승인성공!");
-  					
-  					location.href="<%=request.getContextPath()%>/showCalc.ad";
-  				}else{
-  					alert("승인실패!");
-  				}
-  				
-  				
-  			},error:function(){
-  				console.log("승인하기 실패!");
-  			}
-		});
-		
-		
-	});
-	
 	
 		
 	</script>

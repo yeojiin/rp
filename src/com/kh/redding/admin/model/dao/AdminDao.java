@@ -434,7 +434,7 @@ public class AdminDao {
 
 	
 	
-	//정산 갯수 리턴용 메소드
+	//회원 정산 갯수 리턴용 메소드(정연)
 	public int getCalcCount(Connection con) {
 		Statement stmt = null;
 		int calcCount = 0;
@@ -461,7 +461,7 @@ public class AdminDao {
 	}
 
 	
-	//정산관리 조회용 메소드
+	//회원 정산관리 조회용 메소드(정연)
 	public ArrayList<HashMap<String, Object>> showCalc(Connection con, TotalMemberPageInfo pi) {
 		PreparedStatement pstmt = null;
 		ArrayList<HashMap<String,Object>> list = null;
@@ -492,11 +492,17 @@ public class AdminDao {
 				hmap.put("payno", rset.getInt("PAYNO"));
 				hmap.put("mno", rset.getInt("MNO"));
 				hmap.put("upno", rset.getInt("UPNO"));
-				hmap.put("payDiv", rset.getString("PAYDIV"));
+				hmap.put("paydiv", rset.getString("PAYDIV"));
 				hmap.put("cno", rset.getInt("CNO"));
 				hmap.put("cname", rset.getString("CNAME"));
 				hmap.put("pname", rset.getString("PNAME"));
-
+				hmap.put("paycode", rset.getInt("PAYCODE"));
+				hmap.put("appdate", rset.getDate("APPDATE"));
+				hmap.put("pcompdate", rset.getDate("PCOMPDATE"));
+				hmap.put("cardcode", rset.getInt("CARDCODE"));
+				hmap.put("replaycode", rset.getInt("REPLAYCODE"));
+				hmap.put("fprice", rset.getInt("FPRICE"));
+				
 				list.add(hmap);
 			}
 
@@ -805,6 +811,7 @@ public class AdminDao {
 
 	// 검색한 회원 목록 조회용 메소드 (효정)
 	public ArrayList<HashMap<String, Object>> searchMemberList(Connection con, ArrayList searchConditionList) {
+
 		Properties prop = new Properties();
 		String fileName = MemberDao.class.getResource("/sql/admin/admin-query.properties").getPath();
 		try {
@@ -1116,6 +1123,30 @@ public class AdminDao {
 		
 	
 		return list;
+	}
+
+	
+	//맴버 정산 승인하기 버튼(정연)
+	public int memberPay(int payno, Connection con) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("memberPay");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "승인");
+			pstmt.setInt(2, payno);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 	
 
