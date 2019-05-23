@@ -199,4 +199,34 @@ public class WishListDao {
 
 	}
 
+	
+	//패키지 예약 시 리스트 조회
+	public ArrayList searchPackReserve(Connection con, int mno) {
+		PreparedStatement pstmt = null;
+		ArrayList list = new ArrayList();
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("searchPackReserve");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			
+			rset= pstmt.executeQuery();
+
+			while(rset.next()) {
+				list.add(rset.getInt("PNO"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return list;
+	}
+
 }
