@@ -255,7 +255,76 @@ public class MakeQuery {
 
 	// 관리자 회원 목록 조건 검색 (효정)
 	public void makeSearchMemberListQuery(ArrayList searchConditionList) {
-		// TODO Auto-generated method stub
+		Properties prop = new Properties();
+		String fileName = MemberDao.class.getResource("/sql/admin/admin-query.properties").getPath();
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		String memberInfoSelect = searchConditionList.get(0).toString();
+		String memberInfoInput = searchConditionList.get(1).toString();
+		String memberEnrollDate = searchConditionList.get(2).toString();
+		String efirstDate = searchConditionList.get(3).toString();
+		String elastDate = searchConditionList.get(4).toString();
+		String memberWeddingDate = searchConditionList.get(5).toString();
+		String wfirstDate = searchConditionList.get(6).toString();
+		String wlastDate = searchConditionList.get(7).toString();
+		String memberStatus = searchConditionList.get(8).toString();
+
+		String query = "SELECT RNUM, MNO, MID, MPWD, MNAME, NICK_NAME, EMAIL, EMAIL_CHECK, PHONE, EMERGEN_CON, GENDER, ENROLL_DATE, STATUS, MODIFY_DATE, MNOTI_TYPE, OUT_DATE, WEDDING_DATE, MTYPE FROM(SELECT ROWNUM RNUM, MNO, MID, MPWD, MNAME, NICK_NAME, EMAIL, EMAIL_CHECK, PHONE, EMERGEN_CON, GENDER, ENROLL_DATE, STATUS, MODIFY_DATE, MNOTI_TYPE, OUT_DATE, WEDDING_DATE, MTYPE FROM (SELECT MNO, MID, MPWD, MNAME, NICK_NAME, EMAIL, EMAIL_CHECK, PHONE, EMERGEN_CON, GENDER, ENROLL_DATE, STATUS, MODIFY_DATE, MNOTI_TYPE, OUT_DATE, WEDDING_DATE, MTYPE FROM MEMBER WHERE MTYPE=10 ORDER BY MNO DESC) ORDER BY RNUM ASC)";
+		
+		/*if(companyName.equals("")) {
+			query += " WHERE MNAME LIKE '%'";
+		}else {
+			query += " WHERE MNAME LIKE '%'||?||'%'";
+		}
+		
+		if(companyCategory.equals("전체")) {
+			query += " AND COM_TYPE LIKE '%'";
+		}else {
+			query += " AND COM_TYPE = ?";
+		}
+		
+		if(companyEnrollDate.equals("전체")) {
+			query += " AND ENROLL_DATE LIKE '%'";
+		}else if(companyEnrollDate.equals("검색")) {
+			query += " AND ENROLL_DATE BETWEEN ? AND ?";
+		}
+		
+		if(companyStatus.equals("전체")) {
+			query += " AND STATUS LIKE '%'";
+		}else {
+			query += " AND STATUS = ?";
+		}*/
+		
+		prop.setProperty(prop.getProperty("","selectSearchCompanyList"),query);
+		
+		FileOutputStream fos = null;
+		OutputStreamWriter osw = null;
+
+		try {
+
+			fos = new FileOutputStream(fileName);
+			osw = new OutputStreamWriter(fos, "UTF-8");
+
+			prop.store(osw, "");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				fos.close();
+				osw.close();
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			}
+
+		}
 		
 	}
 

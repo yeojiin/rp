@@ -614,7 +614,7 @@ public class AdminDao {
 		String lastDate = searchConditionList.get(5).toString();
 		
 		try {
-			pstmt = con.prepareStatement(query);
+pstmt = con.prepareStatement(query);
 			
 			if(companyName.equals("")) { // 업체명 널일 때 (1)
 				
@@ -747,7 +747,7 @@ public class AdminDao {
 						
 						if(!companyStatus.equals("전체")) { // 업체명이 널이 아니고, 카테고리 전체이고, 가입일 전체이고, 상태 전체가 아닐 때 (4)
 							pstmt.setString(1, companyName);
-							pstmt.setString(1, companyStatus);
+							pstmt.setString(2, companyStatus);
 							
 						}else { // 업체명이 널이 아니고, 카테고리 전체이고, 가입일 전체이고, 상태  전체일 때
 							pstmt.setString(1, companyName);

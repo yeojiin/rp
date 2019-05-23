@@ -111,7 +111,7 @@
 								<tr>
 									<td rowspan="2" class="searchCompanyListTd1">가입일</td>
 									<td class="searchCompanyListTd2"><input type="radio" value="전체" name="companyEnrollDate" checked>&nbsp;&nbsp;전체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input type="radio" value="일주일 이내" name="companyEnrollDate">&nbsp;&nbsp;오늘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+										<input type="radio" value="오늘" name="companyEnrollDate">&nbsp;&nbsp;오늘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 										<input type="radio" value="일주일 이내" name="companyEnrollDate">&nbsp;&nbsp;일주일 이내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 										<input type="radio" value="1개월 이내" name="companyEnrollDate">&nbsp;&nbsp;1개월 이내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 										<input type="radio" value="3개월 이내" name="companyEnrollDate">&nbsp;&nbsp;3개월 이내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
