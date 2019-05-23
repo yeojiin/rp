@@ -274,31 +274,59 @@ public class MakeQuery {
 
 		String query = "SELECT RNUM, MNO, MID, MPWD, MNAME, NICK_NAME, EMAIL, EMAIL_CHECK, PHONE, EMERGEN_CON, GENDER, ENROLL_DATE, STATUS, MODIFY_DATE, MNOTI_TYPE, OUT_DATE, WEDDING_DATE, MTYPE FROM(SELECT ROWNUM RNUM, MNO, MID, MPWD, MNAME, NICK_NAME, EMAIL, EMAIL_CHECK, PHONE, EMERGEN_CON, GENDER, ENROLL_DATE, STATUS, MODIFY_DATE, MNOTI_TYPE, OUT_DATE, WEDDING_DATE, MTYPE FROM (SELECT MNO, MID, MPWD, MNAME, NICK_NAME, EMAIL, EMAIL_CHECK, PHONE, EMERGEN_CON, GENDER, ENROLL_DATE, STATUS, MODIFY_DATE, MNOTI_TYPE, OUT_DATE, WEDDING_DATE, MTYPE FROM MEMBER WHERE MTYPE=10 ORDER BY MNO DESC) ORDER BY RNUM ASC)";
 		
-		/*if(companyName.equals("")) {
-			query += " WHERE MNAME LIKE '%'";
+		if(!memberInfoSelect.equals("- 선택 -")) {
+			
+			if(memberInfoSelect.equals("닉네임")) {
+				query += " WHERE NICK_NAME = ?";
+			}else if(memberInfoSelect.equals("회원명")) {
+				query += " WHERE MNAME = ?";
+			}else if(memberInfoSelect.equals("연락처")) {
+				query += " WHERE PHONE = ?";
+			}else if(memberInfoSelect.equals("이메일")) {
+				query += " WHERE EMAIL = ?";
+			}
+			
+			if(memberStatus.equals("전체")) {
+				query += " AND STATUS LIKE '%'";
+			}else {
+				query += " AND STATUS = ?";
+			}
+			
+			if(memberEnrollDate.equals("전체")) {
+				query += " AND ENROLL_DATE LIKE '%'";
+			}else if(memberEnrollDate.equals("검색")) {
+				query += " AND ENROLL_DATE BETWEEN ? AND ?";
+			}
+			
+			if(memberWeddingDate.equals("전체")) {
+				query += " AND WEDDING_DATE LIKE '%'";
+			}else if(memberWeddingDate.equals("검색")) {
+				query += " AND WEDDING_DATE BETWEEN ? AND ?";
+			}
+			
 		}else {
-			query += " WHERE MNAME LIKE '%'||?||'%'";
+			
+			if(memberStatus.equals("전체")) {
+				query += " WHERE STATUS LIKE '%'";
+			}else {
+				query += " WHERE STATUS = ?";
+			}
+			
+			if(memberEnrollDate.equals("전체")) {
+				query += " AND ENROLL_DATE LIKE '%'";
+			}else if(memberEnrollDate.equals("검색")) {
+				query += " AND ENROLL_DATE BETWEEN ? AND ?";
+			}
+			
+			if(memberWeddingDate.equals("전체")) {
+				query += " AND WEDDING_DATE LIKE '%'";
+			}else if(memberWeddingDate.equals("검색")) {
+				query += " AND WEDDING_DATE BETWEEN ? AND ?";
+			}
+			
 		}
 		
-		if(companyCategory.equals("전체")) {
-			query += " AND COM_TYPE LIKE '%'";
-		}else {
-			query += " AND COM_TYPE = ?";
-		}
-		
-		if(companyEnrollDate.equals("전체")) {
-			query += " AND ENROLL_DATE LIKE '%'";
-		}else if(companyEnrollDate.equals("검색")) {
-			query += " AND ENROLL_DATE BETWEEN ? AND ?";
-		}
-		
-		if(companyStatus.equals("전체")) {
-			query += " AND STATUS LIKE '%'";
-		}else {
-			query += " AND STATUS = ?";
-		}*/
-		
-		prop.setProperty(prop.getProperty("","selectSearchCompanyList"),query);
+		prop.setProperty(prop.getProperty("","selectSearchMemberList"),query);
 		
 		FileOutputStream fos = null;
 		OutputStreamWriter osw = null;

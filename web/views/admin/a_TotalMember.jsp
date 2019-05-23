@@ -150,8 +150,8 @@
 								<tr>
 									<td class="searchMemberListTd1">활동 상태</td>
 									<td class="searchMemberListTd2"><input type="radio" value="전체" name="memberStatus" checked>&nbsp;&nbsp;전체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input type="radio" value="Y" name="memberStatus">&nbsp;&nbsp;활동업체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input type="radio" value="N" name="memberStatus">&nbsp;&nbsp;탈퇴업체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="radio" value="Y" name="memberStatus">&nbsp;&nbsp;활동회원&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="radio" value="N" name="memberStatus">&nbsp;&nbsp;탈퇴회원&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									</td>
 								</tr>
 							</table>
@@ -429,6 +429,8 @@
 								
 								$(".memberListTable").append($infoTr);
 								
+								searchMemberDetailInfo();
+								
 							}
 							
 						},
@@ -441,33 +443,36 @@
 				
 				
 				// 회원 상세 정보 조회 ajax
-				$(".memberListTable tbody td").mouseenter(function() {
-					$(this).parent().css({"background":"mistyrose", "cursor":"pointer"});
-				}).mouseout(function() {
-					$(this).parent().css({"background":"white"});
-				}).click(function() {
-					var num = $(this).parent().children().eq(1).text();
-					$.ajax({
-						url:"selectOneMember.ad",
-						data:{num:num},
-						type:"get",
-						success:function(data) {
-							$(".memberId").text(data.memberId);	
-							$(".memberName").text(data.memberName);	
-							$(".memberNickName").text(data.nickName);	
-							$(".memberGender").text(data.gender);	
-							$(".memberPhone").text(data.phone);	
-							$(".memberEmergenCon").text(data.emergenCon);	
-							$(".memberEmail").text(data.email);	
-							$(".memberMnotiType").text(data.mnotiType);	
-							$(".memberEnrollDate").text(data.enrollDate);	
-							$(".memberWeddingDate").text(data.weddingDate);	
-							$(".memberStatus").text(data.status);	
-							$(".memberOutDate").text(data.outDate);
-						}
+				function searchMemberDetailInfo() {
+					$(".memberListTable tbody td").mouseenter(function() {
+						$(this).parent().css({"background":"mistyrose", "cursor":"pointer"});
+					}).mouseout(function() {
+						$(this).parent().css({"background":"white"});
+					}).click(function() {
+						var num = $(this).parent().children().eq(1).text();
+						$.ajax({
+							url:"selectOneMember.ad",
+							data:{num:num},
+							type:"get",
+							success:function(data) {
+								$(".memberId").text(data.memberId);	
+								$(".memberName").text(data.memberName);	
+								$(".memberNickName").text(data.nickName);	
+								$(".memberGender").text(data.gender);	
+								$(".memberPhone").text(data.phone);	
+								$(".memberEmergenCon").text(data.emergenCon);	
+								$(".memberEmail").text(data.email);	
+								$(".memberMnotiType").text(data.mnotiType);	
+								$(".memberEnrollDate").text(data.enrollDate);	
+								$(".memberWeddingDate").text(data.weddingDate);	
+								$(".memberStatus").text(data.status);	
+								$(".memberOutDate").text(data.outDate);
+							}
+						});
+						
 					});
+				}	
 					
-				});
 			});
 			
 		</script>
