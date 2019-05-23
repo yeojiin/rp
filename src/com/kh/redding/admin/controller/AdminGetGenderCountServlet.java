@@ -1,4 +1,4 @@
-package com.kh.redding.admin;
+package com.kh.redding.admin.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.kh.redding.admin.model.sevice.AdminService;
+import com.kh.redding.common.MakeQuery;
 
 /**
  * Servlet implementation class AdminGetGenderCountServlet
@@ -32,9 +33,15 @@ public class AdminGetGenderCountServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		ArrayList<HashMap<String, Object>> list = new AdminService().getGenderCount();
 		
+		int value = Integer.parseInt(request.getParameter("value"));
+				
+		//new MakeQuery().makeStatsQuery(value);
+		
+		
+		ArrayList<HashMap<String, Object>> list = new AdminService().getGenderCount(value);
+		
+				
 		response.setContentType("application/json");
 		new Gson().toJson(list, response.getWriter());
 		

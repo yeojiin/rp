@@ -135,10 +135,10 @@ public class AdminService {
 		return searchCompanyList;
 	}
 
-	public ArrayList<HashMap<String, Object>> getGenderCount() {
+	public ArrayList<HashMap<String, Object>> getGenderCount(int value) {
 		Connection con = getConnection();
 		
-		ArrayList<HashMap<String, Object>> hmap = new AdminDao().getGenderCount(con);
+		ArrayList<HashMap<String, Object>> hmap = new AdminDao().getGenderCount(con,value);
 		
 		close(con);
 		
