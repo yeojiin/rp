@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>	
+	pageEncoding="UTF-8" import="java.util.*"%>
+
+<%
+	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
+	System.out.println("list : " + list);
+	HashMap<String, Object> hmap = null;
+	int price = 0;
+	int discount = 0;
+	int totalPrice = 0;
+	String fullName = null;
+%>		
 
 <!DOCTYPE html>
 <html>
@@ -30,7 +40,6 @@
 	<!-- 멤버 헤더 (미니메뉴, 로고) -->
 	<div class="headerArea">
 		<%@ include file="/views/member/m_header.jsp"%>
-		<%-- <jsp:include page="/views/member/m_header.jsp"></jsp:include> --%>
 	</div>
 	<br>
 
@@ -51,46 +60,57 @@
 				<section>
                <div>
                   <br>
-                  <h2 align="center" style="color: salmon">OREDR</h2>
+                  <h2 align="center" style="color:salmon">OREDR</h2>
                </div>
 
                <div class="payArea">
                   <br>
-                  <table align="center" width="600px">
-                     <tr style="background: lightgray;">
-                        <th width="300"><input type="checkbox" checked disabled>
-                        </th>
-                        <th width="300"><label>상품명</label></th>
-                        <th width="300"><label>날짜</label></th>
-                        <th width="300"><label>금액</label></th>
+                  <table class="payTable" align="center" width="600px">
+                     <tr style="background: MistyRose;">
+                        <th width="300">No</th>
+                        <th width="300">항목</th>
+                        <th width="300">상품명</th>
+                        <th width="300">판매가</th>
+                        <th width="300">할인금액</th>
+                        <th width="300">할인적용금액</th>
+                        <th width="300">판매자</th>
                      </tr>
+                     <% for(int i=0; i<list.size(); i++){
+                    	 hmap = list.get(i);
+                    	 price += Integer.parseInt(hmap.get("price").toString());
+                    	 fullName = hmap.get("pName").toString() + " 외 " + (list.size()-1) + "건";
+                     %>
+                     
                      <tr height="80">
-                        <td><input type="checkbox"></td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                     </tr>
-                     <tr height="80">
-                        <td><input type="checkbox"></td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                     </tr>
+                        <td><%= i+1 %></td>
+                        <td><img style=" max-width:100%" src="<%= request.getContextPath() %>/company_upload/<%=hmap.get("changeName").toString()%>"></td>
+                        <td><%= hmap.get("pName") %>
+                        	<br>
+                        	(<%= hmap.get("useDate").toString().split(" ")[0] %>)<br> <%= hmap.get("useStart")  %> ~ <%= hmap.get("useEnd") %>
+                        </td>
+                        <td><%= hmap.get("price") %></td>
+                        <td>0</td>
+                        <td><%= hmap.get("price") %></td>
+                        <td><%= hmap.get("cName") %>
+                        	<br>
+                        	<%= hmap.get("cPhone") %>
+                        </td>
+                        
+                   <%  }%>
                   </table>
                   <br>
-                  <div class="deletebtn">
-                     <button style="float: right">선택삭제</button>
-                     </td>
+                  
+                  <div style="width:100%; border-bottom:1px solid black; height:50px">
+                  	
                   </div>
+ 
                   <br> <br>
 
                   <div class="payUserArea">
-                     <h4>주문자 정보</h4>
-                     <span> <label>김수민</label> &nbsp;
-                        <button>수정</button>
-                     </span>
-                     <h6>휴대전화:</h6>
-                     <h6>주소:</h6>
+                     <h4 style="font-weight:900">주문자 정보</h4>
+                     <span> <label>이름 : <%= loginUser.getMemberName() %></label></span>
+                     <br>
+                     <label>휴대전화 : <%= loginUser.getPhone() %></label>
                   </div>
                   <br>
 
@@ -100,15 +120,19 @@
                   </div>
 
                   <table width="600px">
-                     <tr style="background: lightgray; height: 30px">
-                        <th width="300"><label>총 주문 금액</label></th>
-                        <th width="300"><label>할인가</label></th>
-                        <th width="300"><label>금액</label></th>
+                     <tr height="30px">
+                     
+                        <th width="300">총 주문 금액</th>
+                        <th width="300">할인가</th>
+                        <th width="300">금액</th>
                      </tr>
                      <tr height="80">
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
+                     <% if(list.size() == 1){ totalPrice = (price - price/100); discount = price/10;   %>                   	 
+                     <% }else if(list.size() == 2){ totalPrice = (price - (price/100)*3);  discount = (price/100)*3;   %>
+                     <% }else{ price = (totalPrice - (price/100)*3);  discount = (price/100)*5; } %>
+                        <td><%= price %></td>
+                        <td><%= discount  %></td>
+                        <td><%= totalPrice %></td>
                      </tr>
                   </table>
                   <br>
@@ -128,8 +152,8 @@
                   </div>
                   <table>
                      <tr>
-                        <th width="700" style="background: lightgray;"><label>결제수단</label></th>
-                        <th width="400" style="background: lightgray;"><label>금액</label></th>
+                        <th width="700"><label>결제수단</label></th>
+                        <th width="400"><label>금액</label></th>
                         <th rowspan="3" width="300px">
                            <button style="width: 100%; height: 150px" onclick="requestPay();">결제하기</button>
                         </th>
@@ -175,6 +199,19 @@
 	 $(function(){
 	      var IMP = window.IMP; // 생략가능
 	      IMP.init('imp59683824'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+	      
+	      
+	      //
+	     
+	      
+	      
+	      
+	      
+	      
+	      
+	      
+	      
+	      
 	   });
 	   
 	   function requestPay(){
@@ -182,7 +219,7 @@
 	          pg : 'danal', // version 1.1.0부터 지원.
 	          pay_method :'card',
 	          merchant_uid : 'merchant_' + new Date().getTime(),
-	          name : '스드메는 지옥이야',
+	          name : '<%= fullName %>',
 	          amount : 1000,
 	          buyer_email : '<%= loginUser.getEmail() %>',
 	          buyer_name : '<%= loginUser.getMemberName() %>',

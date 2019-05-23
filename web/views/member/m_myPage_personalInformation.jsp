@@ -116,14 +116,51 @@
 					</div>
 					
 					<br><br>
-
+					
+					<form>
+						<h4>비밀번호 수정</h4>
+						<table class = "changeInfoTable">
+							<tr>
+								<td class="col1"><label>현재 비밀번호&nbsp;&nbsp;</label><label class="star">*</label></td>
+								<td class="col2">
+									<input type="password" name="currentPwd" id="currentPwd" maxlength="16">&nbsp;&nbsp;&nbsp;&nbsp;(8~16자 이상 입력)&nbsp;&nbsp;&nbsp;&nbsp;
+									<span id="Spwd1"></span>
+								</td>
+							</tr>
+							<tr>
+								<td class="col1"><label>변경할 비밀번호&nbsp;&nbsp;</label><label class="star">*</label></td>
+								<td class="col2">
+									<input type="password" name="changePwd" id="changePwd" maxlength="16">&nbsp;&nbsp;&nbsp;&nbsp;
+									<span id="Spwd2"></span>
+								</td>
+							</tr>
+							<tr>
+								<td class="col1"><label>변경할 비밀번호 확인&nbsp;&nbsp;</label><label class="star">*</label></td>
+								<td class="col2">
+									<input type="password" name="passwordChange2" id="passwordChange2" maxlength="16">&nbsp;&nbsp;&nbsp;&nbsp;
+									<span id="Spwd2"></span>
+								</td>
+							</tr>
+						</table>
+					</form>
+					<br><br>
+					<div class="changeInfoBtnArea">
+						<input class="changeInfoBtn" type="reset" value="다시 입력하기">&nbsp;&nbsp;&nbsp;&nbsp;
+						<input class="changeInfoBtn" type="button" value="수정하기" onclick="PasswordChange()">
+					</div>
+					
+					<br><br>
+					<hr>
+					<br><br>
+					
 					<form id="changeInfoForm" action="<%=request.getContextPath()%>/changeInfo.me" method="post">
+						<h4>개인정보 수정</h4>
 						<table class="changeInfoTable">
 							<tr>
 								<td class="col1"><label>아이디&nbsp;&nbsp;</label><label class="star">*</label></td>
 								<td class="col2">
 									<input type="text" name="memberId" id="memberId" maxlength="16" value="<%=loginUser.getMemberId()%>" readonly>
-									&nbsp;&nbsp;&nbsp;&nbsp;(영문 대소문자/숫자, 4~16자)
+									&nbsp;&nbsp;&nbsp;&nbsp;
 								</td>
 							</tr>
 							<tr>
@@ -131,13 +168,6 @@
 								<td class="col2">
 									<input type="password" name="memberPwd" id="memberPwd" maxlength="16">&nbsp;&nbsp;&nbsp;&nbsp;(8~16자 이상 입력)&nbsp;&nbsp;&nbsp;&nbsp;
 									<span id="Spwd1"></span>
-								</td>
-							</tr>
-							<tr>
-								<td class="col1"><label>비밀번호 확인&nbsp;&nbsp;</label><label class="star">*</label></td>
-								<td class="col2">
-									<input type="password" name="memberPwd2" id="memberPwd2" maxlength="16">&nbsp;&nbsp;&nbsp;&nbsp;
-									<span id="Spwd2"></span>
 								</td>
 							</tr>
 							<tr>
@@ -151,7 +181,7 @@
 								<td>
 									<input type="text" name="nickName" id="nickName" value="<%=loginUser.getNickName()%>">&nbsp;&nbsp;&nbsp;&nbsp;
 									<button class="check" type="button" id="nickCheck">닉네임중복확인</button>&nbsp;&nbsp;&nbsp;&nbsp;
-									<span id="nickCheck2"></span>
+									<span id="nickCheck2">사용가능한 닉네임입니다.</span>
 								</td>
 							</tr>
 							<tr>
@@ -223,10 +253,12 @@
 					</form>
 					<br> <br>
 					<div class="changeInfoBtnArea">
-						<input class="changeInfoBtn" type="reset" value="뒤로가기">&nbsp;&nbsp;&nbsp;&nbsp;
-						<input class="changeInfoBtn" type="button" value="수정하기" onclick="changeInfo()">
+						<input class="changeInfoBtn" type="reset" value="다시 입력하기">&nbsp;&nbsp;&nbsp;&nbsp;
+						<input class="changeInfoBtn" type="button" value="수정하기" onclick="changeInfo()">&nbsp;&nbsp;&nbsp;&nbsp;
 					</div>
-
+					<br><br>
+					<hr>
+					<input id = "deletebtn" type = "button" value = "개인정보및 사이트 탈퇴" >
 				</div>
 
 			</div>
@@ -249,114 +281,6 @@
 	</div>
 
 	<script>
-		function insertMember() {
-			var Sidcheck = $("#Sidcheck").text();
-			var Spwd1 = $("#Spwd1").text();
-			var Spwd2 = $("#Spwd2").text();
-			var nickCheck = $("#nickCheck").text();
-			
-			var memberid = $("#memberId").val();
-			var memberpwd1 = $("#memberPwd").val();
-			var memberpwd2 = $("#memberPwd2").val();
-			var nickname = $("#nickName").val();
-			var memberName = $("#memberName").val();
-			var tel1 = $("select[name=tel1]").val();
-			var tel2 = $("input[name=tel2]").val();
-			var tel3 = $("input[name=tel3]").val();
-			var email1 = $("input[name=email1]").val();
-			var email2 = $("#email2").val();
-			var gender = $("input[name=gender]").val();
-		
-			console.log("Spwd1 :" + Spwd1);
-			console.log("Spwd2 :" + Spwd2);
-			console.log("nickCheck :" + nickCheck);
-			
-			console.log("tel1 :" + tel1 + "tel2 :" + tel2 + "tel3 :" + tel3);
-		
-			//회원가입 체크
-			if(memberid == ""){
-				alert("아이디 입력해주세요");			
-			}else if (Sidcheck != "사용가능한 아이디입니다!"){
-				alert("아이디 중복 체크 해주세요");	
-			}else if (memberpwd1 == ""){
-				alert("비밀번호 다시 확인해주세요.");
-			}else if (Spwd1 != ""){
-				alert("비밀번호 다시 확인해주세요.");
-			}else if (memberpwd2 == "" ){
-				alert("비밀번호 다시 확인해주세요.");
-			}else if (Spwd2 != "비밀번호가 일치합니다."){
-				alert("비밀번호 다시 확인해주세요");
-			}else if (memberName == "") {
-				alert("이름 입력해주세요");
-			}else if (nickname == ""){
-				alert("닉네임 입력해주세요.");
-			}else if (nickCheck != "사용가능한 닉네임입니다."){
-				alert("닉네임 중복 체크 해주세요");
-			}else if (tel1 == ""){
-				alert("전화번호 입력해주세요");
-			}else if (tel2 == "") { 
-				alert("전화번호 입력해주세요");
-			}else if (tel3 == ""){
-				alert("전화번호 입력해주세요");
-			}else if (email1 == ""){
-				alert("이메일 입력해주세요");
-			}else if (email2 == ""){
-				alert("이메일 입력해주세요");
-			}else if ($("input[name=condition1]").is(":checked") == false ){
-				alert("약관의 동의해주세요");
-			}else if ($("input[name=condition2]").is(":checked") == false){
-				alert("약관의 동의해주세요");
-			}else{
-				$("#joinForm").submit();
-			}
-			
-	
-			
-		}
-		
-		function registerId(){
-			var userId = $("#memberId").val();
-			var count = 0;
-			
-			//아이디 유효성 검사
-			for (var i = 0 ; i < userId.length; i++){
-				ch = userId.charAt(i);
-				
-				if (!(ch >= '0' && ch <= '9') && !(ch >= 'a' && ch <= 'z') &&! (ch >= 'A' && ch <= 'Z')) {
-	                alert("아이디는 대소문자, 숫자만 입력가능합니다.");
-	                return false;
-	            }
-			}
-			
-			//아이디 중복 체크
-			if (userId == ""){
-				alert("아이디를 입력해주세요.");
-			}else if(userId.length < 4){
-				alert("아이디는 4자 이상으로 이루어져야 합니다.");
-			}else if (count > 0){
-				alert("아이디에 특수기호가 포함될 수 없습니다.");
-			}else {
-	    		$.ajax({
-	    			url : "/redding/idcheck.me",
-	    			type : "post",
-	    			data : {userId : userId},
-	    			success : function(data){
-	    				if (data === "success"){
-	    					$("#Sidcheck").text("사용가능한 아이디입니다!");
-	    					$("#Sidcheck").css("color","green");
-	    				}else {
-	    					$("#Sidcheck").text("중복된 아이디입니다.");
-	    					$("#Sidcheck").css("color","red");
-	    					$("#memberId").val("");
-	    				}
-	    			}, 
-	    			error : function(){
-	    				console.log("아이디 변경 실패!");
-	    			}
-	    		});
-			}
-		}
-		
 		$(function() {
 			
 			//엔터 막기
@@ -365,40 +289,14 @@
 			        event.preventDefault();
 			    }
 			}, true);
-			
-			//비밀번호 누를때 생기는 함수
-			$("#memberPwd").change(function(){
-				$("#memberPwd2").val("");
-				var memberPwd = $("#memberPwd").val();
-				
-				if (memberPwd.length < 8){
-					$("#Spwd1").html("비밀번호는 8자 이상으로 이루어져야 합니다.");
-					$("#Spwd1").css("color" , "red");
-				}else{
-					$("#Spwd1").html("");
-				}
-			});
-			
-			//비밀번호 확인 누를때 생기는 함수
-			$("#memberPwd2").change(function(){
-				var memberPwd = $("#memberPwd").val();
-				var memberPwd2 = $("#memberPwd2").val()
-				
-				if (memberPwd != memberPwd2){
-					$("#Spwd2").html("비밀번호가 일치하지 않습니다.");
-					$("#Spwd2").css("color" , "red");
-				}else {
-					$("#Spwd2").html("비밀번호가 일치합니다.");
-					$("#Spwd2").css("color" , "green");
-				}
-				
-				
-			});
+
 			
 			//닉네임 다시 작성할때
 			 $("input[name=nickName]").change(function(){
 				$("#nickCheck").text("닉네임중복확인");
 				$("#nickCheck").css("color","white");
+				$("#nickCheck2").text("닉네임확인해주세요");
+				$("#nickCheck2").css("color","red");
 			});
 			
 			
@@ -454,14 +352,7 @@
 				
 			});
 			
-			function popupOpen(){
-				var url= "<%=request.getContextPath()%>/views/common/checkcode.jsp";    //팝업창에 출력될 페이지 URL
-				var winWidth = 200;
-			    var winHeight = 200;
-			    var popupOption= "width="+winWidth+", height="+winHeight;    //팝업창 옵션(optoin)
-			    var myWindow = window.open(url,"TestName",popupOption);
-			  //  myWindow.document.write("<h1>"+myWindow.name+"</h1>");
-			}
+			
 			
 			//이메일 기본값
 		 	var result = "<%=loginUser.getEmailCheck() %>";
@@ -478,7 +369,7 @@
 				$("#emailckbtn").css("border","1px solid blue");
 				$("#emailckbtn").text("인증됨");
 				$("#email_check").val("인증됨");
-			}
+			} 
 		 	
 			//이메일 바꿀경우 
 			$("input[name=email1]").change(function(){
@@ -495,7 +386,7 @@
 				$("#emailckbtn").css("border","1px solid #FB6E5F");
 				$("#emailckbtn").text("인증하기");
 				$("#email_check").val("인증안됨");
-			});
+			}); 
 			
 			//select에서 바꿀때
 			$("#email3").change(function(){
@@ -511,9 +402,7 @@
 				$("#emailckbtn").text("인증하기");
 				$("#email_check").val("인증안됨");
 			});
-		 	
-		 	
-		 	
+			
 		 	//이메일 인증
 			$("#emailckbtn").click(function(){	
 				var email1 = $("input[name=email1]").val();		//이메일1
@@ -544,6 +433,18 @@
 				
 				
 			});
+		 	
+		 	$("#deletebtn").click(function(){
+		 		var memberid = "<%=loginUser.getMemberId()%>";
+		 		
+		 		var result = confirm("정말 탈퇴하실 건가요?");
+		 		if (result == true){		 			
+		 			location.href = '<%=request.getContextPath()%>/secession.me?mid=' + memberid;
+		 		}else {
+		 			alert("잘생각하셨습니다.\n많은 정보를 받을 수 있는 REDDING이 되겠습니다.")
+		 		}
+		 		
+		 	});
 			
 			
 			
@@ -551,8 +452,73 @@
 		
 		//수정하기 버튼 누를 때
 		function changeInfo() {
-			$("#changeInfoForm").submit();
+			var nickCheck = $("#nickCheck2").text();
+			var nickname = $("input[name=nickName]").val();
+			
+			if ($("#emailckbtn").text() != "인증됨"){
+				alert("인증하지 않으면 비밀번호 찾지 못할수 있습니다. 인증해주세요");	
+			}else if ($("#memberPwd").val() == ""){
+				alert("비밀번호 입력해주세요");
+			}else if (nickCheck != "사용가능한 닉네임입니다."){
+				alert("닉네임 확인해주세요");	
+			}else if (nickname == ""){
+				alert("닉네임 확인해주세요");	
+			}else {
+				$("#changeInfoForm").submit();
+			}
+			
 		}
+		
+		
+		function popupOpen(){
+			var url= "<%=request.getContextPath()%>/views/common/checkcode.jsp";    //팝업창에 출력될 페이지 URL
+			var winWidth = 200;
+		    var winHeight = 200;
+		    var popupOption= "width="+winWidth+", height="+winHeight;    //팝업창 옵션(optoin)
+		    var myWindow = window.open(url,"TestName",popupOption);
+		}
+		
+		
+		//비밀번호 변경 클릭
+		function PasswordChange(){
+			var currentPwd =  $("#currentPwd").val();
+			var changePwd = $("#changePwd").val();
+			var changepwd2 = $("#passwordChange2").val();
+			var memberId = $("#memberId").val();
+			
+			if (currentPwd == ""){
+				alert("비밀번호 입력해주세요" + pwd);
+			}else if (changePwd == ""){
+				alert("변경할 비밀번호 다시 확인해주세요" + changepwd);
+			}else if (changepwd2 == ""){
+				alert("변경할 비밀번호 다시 확인해주세요" + changepwd2);
+			}else if (changePwd != changepwd2){
+				alert("변경할 비밀번호 다시 확인해주세요" + changepwd + changepwd2);
+			}else {
+				$.ajax({
+          			url : "/redding/changePassword.me",
+          			type : "post",
+          			data : {currentPwd : currentPwd , changePwd : changePwd , memberId : memberId},
+          			success : function(data){
+          				if (data == "success"){
+          					alert("성공! 비밀번호 변경되었습니다.");
+          					
+          				}else {
+          					alert("비밀번호 변경이 실패했습니다. 다시 한번 입력해주세요");
+          				}
+          			}, 
+          			error : function(){
+          				console.log("실패!");
+          			}
+          		});
+				
+				$("#currentPwd").val("");
+				$("#changePwd").val("");
+				$("#passwordChange2").val("");
+			}			
+		}
+		
+		
 		
 	</script>
 

@@ -74,6 +74,37 @@ public class WishListService {
 	}
 
 
+	
+	//패키지 삭제 메소드
+	public int deletePackage(int mno, int pno) {
+		Connection con = getConnection();
+
+		int result = new WishListDao().deletePackage(con, mno, pno);
+
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+
+
+		return result;
+	}
+
+
+	//패키지 예약 시 리스트 조회
+	public ArrayList searchPackReserve(int mno) {
+		Connection con = getConnection();
+		
+		ArrayList list = new WishListDao().searchPackReserve(con, mno); 
+		
+		close(con);
+		
+		return list;
+	}
+
+
 
 
 }

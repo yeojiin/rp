@@ -8,8 +8,8 @@ com_wrap{
 
 #com_title{
 	color: #989898;
-	font-family: 'Nanum Pen Script', cursive;
-	font-size : 40px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size : 30px;
 }
 
 
@@ -17,7 +17,7 @@ com_wrap{
 #com_label{
 	font-weight : bold;
 	font-size : 20px;
-	font-family: 'Nanum Pen Script', cursive;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 .comTable{
@@ -27,8 +27,8 @@ com_wrap{
 .comTable tr>td{
 	padding-right : 20px;
 	padding-bottom : 20px;
-	font-family: 'Nanum Pen Script', cursive;
-	font-size : 18px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size : 15px;
 }
 
 .fileBox .fileName {
@@ -99,8 +99,7 @@ input[type="checkbox"]{
 
 #all_check{
 	font-size : 20px;
-	font-family: 'Nanum Pen Script';
-	font-size : 20px;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 .com_wrap textarea{
@@ -115,7 +114,7 @@ input[type="checkbox"]{
 	margin-right : auto;
 	margin-bottom : 7%;
 	align : center;
-	font-family: 'Nanum Pen Script', cursive;
+	font-family: 'Noto Sans KR', sans-serif;
 	font-size : 20px;
 }
 

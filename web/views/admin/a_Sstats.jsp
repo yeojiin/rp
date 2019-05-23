@@ -22,7 +22,19 @@
 	href="${pageContext.request.contextPath}/css/company/c_main.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin/a_stats.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common/layout.css">
+<!-- 차트js -->
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/dist/css/Chart.min.css">
+<script src="${pageContext.request.contextPath}/css/dist/js/Chart.min.js"></script>
+<script src="${pageContext.request.contextPath}/css/dist/js/utils.js"></script>
 <title>Insert title here</title>
+<style>
+	canvas {
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+	}
+
+</style>
 </head>
 <body>
 
@@ -70,138 +82,26 @@
 			
 			<div class="col-sm-8 text-left">
 			<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
-				<div class="StotalStatsArea">
-					<div class="dtotalStatsArea sArea">
-						<h3 align="center">요일별 매출 현황</h3>
-						<div class="dtotalStatschart">
-							<br><br><br><br><br><br><br><br><br>
-						</div>
-						<table>
-							<tr>
-								<th>요일</th>
-								<th>일</th>
-								<th>월</th>
-								<th>화</th>
-								<th>수</th>
-								<th>목</th>
-								<th>금</th>
-								<th>토</th>
-							</tr>
-							<tr>
-								<td>금액(원)</td>
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-							</tr>
-							<tr>
-								<td>건</td>
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-							</tr>
-						</table>
-					</div>
-				
-					<div class="mtotalStatsArea sArea">
-						<h3 align="center">월별 매출 현황</h3>
-						<div class="mtotalStatschart">
-							<br><br><br><br><br><br><br><br><br> 
-						</div>
-						<table>
-							<tr>
-								<th>월</th>
-								<th>1월</th>
-								<th>2월</th>
-								<th>3월</th>
-								<th>4월</th>
-								<th>5월</th>
-								<th>6월</th>
-								<th>7월</th>
-								<th>8월</th>
-								<th>9월</th>
-								<th>10월</th>
-								<th>11월</th>
-								<th>12월</th>
-							</tr>
-							<tr>
-								<td>금액</td>
-								<td>1</td>
-								<td>2</td>
-								<td>3</td>
-								<td>4</td>
-								<td>5</td>
-								<td>6</td>
-								<td>7</td>
-								<td>8</td>
-								<td>9</td>
-								<td>10</td>
-								<td>11</td>
-								<td>12</td>
-							</tr>
-							<tr>
-								<td>건</td>
-								<td>1</td>
-								<td>2</td>
-								<td>3</td>
-								<td>4</td>
-								<td>5</td>
-								<td>6</td>
-								<td>7</td>
-								<td>8</td>
-								<td>9</td>
-								<td>10</td>
-								<td>11</td>
-								<td>12</td>
-							</tr>
-						</table>
-					</div>
-				
-					<div class="ytotalStatsArea sArea">
-						<h3 align="center">연도별 매출 현황</h3>
-						<div class="ytotalStatschart">
-							<br><br><br><br><br><br><br><br><br>  
-						</div>
-						<table>
-							<tr>
-								<th>연</th>
-								<th>2017</th>
-								<th>2018</th>
-								<th>2019</th>
-								<th>2020</th>
-								<th>2021</th>
-								<th>2022</th>
-								<th>2023</th>
-							</tr>
-							<tr>
-								<td>금액(원)</td>
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-							</tr>
-							<tr>
-								<td>건</td>
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-							</tr>
-						</table>
-					</div>
+				<div class="StatArea" style="width:100%; height:300px">
+				<br><br>
+				<table>
+					<tr>
+						<td width="100%">
+							<div id="container" style="width: 75%;">
+								<canvas id="canvas"></canvas>
+							</div>
+							
+						</td>
+						<td width="100%">
+							<div id="canvas-holder" style="width:100%;float:left">
+							<canvas id="chart-area"></canvas>
+							<br><br>
+							<p class="percentContent" style="text-align:center">성비 차트</p>					
+							</div>
+						</td>
+					</tr>
+													
+				</table>	
 				</div>
 				
 			</div>
@@ -211,7 +111,127 @@
 	<div class="footerArea">
 		<jsp:include page="/views/common/footer.jsp"></jsp:include>
 	</div>
+	<script>
+	
+	function setConfig(data){
+		var config = {
+				type: 'pie',
+				data: {
+					datasets: [{
+						data: [
+							data[1].gNum,
+							data[0].gNum,
+						],
+						backgroundColor: [
+							window.chartColors.red,
+							window.chartColors.blue
 
+						],
+					}],
+					labels: [
+						'여성회원',
+						'남성회원'
+					]
+				},
+				 options: {
+					responsive: true
+
+					},
+
+								
+			};
+		 return config;
+		}
+	
+	
+	//실행 로직
+	window.onload = function(){
+		//성별 통계 리턴
+		getGenderCount();
+		
+		var ctx = document.getElementById('canvas').getContext('2d');
+		window.myBar = new Chart(ctx, {
+			type: 'bar',
+			data: barChartData,
+			options: {
+				responsive: true,
+				legend: {
+					position: 'top',
+				},
+				title: {
+					display: true,
+					text: 'Chart.js Bar Chart'
+				}
+			}
+		});
+		
+	}
+	
+	
+	//파이 차트 출력
+	function viewPie(config){
+		var ctx = document.getElementById('chart-area').getContext('2d');
+		window.myPie = new Chart(ctx, config);
+	}
+	
+	
+	//젠더 카운터 리턴
+	function getGenderCount(){
+		$.ajax({
+			url:'<%=request.getContextPath()%>/getGenderCount.ad',
+			type:'get',
+			success: function(data){
+				console.log(data);
+				viewPie(setConfig(data));
+			},
+			error: function(data){
+				console.log("에러");
+			}
+			
+		});
+	}
+	
+	//
+	var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+		var color = Chart.helpers.color;
+		var barChartData = {
+			labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+			datasets: [{
+				label: 'Dataset 1',
+				backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+				borderColor: window.chartColors.red,
+				borderWidth: 1,
+				data: [
+					randomScalingFactor(),
+					randomScalingFactor(),
+					randomScalingFactor(),
+					randomScalingFactor(),
+					randomScalingFactor(),
+					randomScalingFactor(),
+					randomScalingFactor()
+				]
+			}, {
+				label: 'Dataset 2',
+				backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+				borderColor: window.chartColors.blue,
+				borderWidth: 1,
+				data: [
+					randomScalingFactor(),
+					randomScalingFactor(),
+					randomScalingFactor(),
+					randomScalingFactor(),
+					randomScalingFactor(),
+					randomScalingFactor(),
+					randomScalingFactor()
+				]
+			}]
+
+		};
+	
+	
+
+	
+	</script>
 
 </body>
 </html>

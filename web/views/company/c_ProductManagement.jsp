@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*, com.kh.redding.product.model.vo.*"%>
 <%   
-	HashMap<String, Object> hmap = (HashMap<String, Object>)request.getAttribute("hmap");
+	/* HashMap<String, Object> hmap = (HashMap<String, Object>)request.getAttribute("hmap");
 	
 	ArrayList<Product> proList = (ArrayList<Product>)hmap.get("proList");
-	PageInfo pi = (PageInfo) hmap.get("pi");
+	PageInfo pi = (PageInfo) hmap.get("pi"); */
 			
-   /* ArrayList<Product> proList = (ArrayList<Product>) request.getAttribute("proList"); 
-   PageInfo pi = (PageInfo)request.getAttribute("pi"); */
+   ArrayList<Product> proList = (ArrayList<Product>) request.getAttribute("proList"); 
+   PageInfo pi = (PageInfo)request.getAttribute("pi");
    
    ProductCounts pcount = (ProductCounts) request.getAttribute("pcount");
    
@@ -88,191 +88,188 @@
             <div class="contentsArea" id="productListContentsArea">
                <!-- 상품목록 밑의 전체~ 상품등록하기 버튼까지 -->
                <div id="PMTotalArea">
-                  <div id="productListTitle">
-                        <h2>상품목록</h2>
-                     <div id="productListAll">
-                           <div id="productCountAllTb">
-                           <table id="productCountAll">
-                              <tr>
-                                 <td>
-                                    <label>전체 : </label>
-                                    <input type="text" name="productTotalCount" value="<%=productTotalCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
-                                    <label>|</label>&nbsp;&nbsp;&nbsp;
-                                 </td>
-                                 <td>
-                                    <label>판매함 : </label>
-                                    <input type="text" name="SaleProductCount" value="<%=SaleProductCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
-                                    <label>|</label>&nbsp;&nbsp;&nbsp;
-                                 </td>
-                                 <td>
-                                    <label>판매 안함 : </label>
-                                    <input type="text" name="NoSaleProductCount" value="<%=NoSaleProductCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
-                                    <label>|</label>&nbsp;&nbsp;&nbsp;
-                                 </td><%-- 
-                                 <td>
-                                    <label>공개함 : </label>
-                                    <input type="text" name="OpenProductCount" value="<%=OpenProductCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
-                                    <label>|</label>&nbsp;&nbsp;&nbsp;
-                                 </td>
-                                 <td>
-                                    <label>공개 안함 : </label>
-                                    <input type="text" name="CloseProductCount" value="<%=CloseProductCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
-                                    &nbsp;&nbsp;&nbsp;
-                                 </td> --%>
-                              </tr>
-                           </table>
-                        </div>
-                     </div>
-                  </div>
+	                  <div id="productListTitle">
+	                        <h2>상품목록</h2>
+	                     <div id="productListAll">
+	                           <div id="productCountAllTb">
+	                           <table id="productCountAll">
+	                              <tr>
+	                                 <td>
+	                                    <label>전체 : </label>
+	                                    <input type="text" name="productTotalCount" value="<%=productTotalCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
+	                                    <label>|</label>&nbsp;&nbsp;&nbsp;
+	                                 </td>
+	                                 <td>
+	                                    <label>판매함 : </label>
+	                                    <input type="text" name="SaleProductCount" value="<%=SaleProductCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
+	                                    <label>|</label>&nbsp;&nbsp;&nbsp;
+	                                 </td>
+	                                 <td>
+	                                    <label>판매 안함 : </label>
+	                                    <input type="text" name="NoSaleProductCount" value="<%=NoSaleProductCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
+	                                    <label>|</label>&nbsp;&nbsp;&nbsp;
+	                                 </td><%-- 
+	                                 <td>
+	                                    <label>공개함 : </label>
+	                                    <input type="text" name="OpenProductCount" value="<%=OpenProductCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
+	                                    <label>|</label>&nbsp;&nbsp;&nbsp;
+	                                 </td>
+	                                 <td>
+	                                    <label>공개 안함 : </label>
+	                                    <input type="text" name="CloseProductCount" value="<%=CloseProductCount %>건" readonly id="productCountInput" style="width:45px; color:red; border: 0px;">
+	                                    &nbsp;&nbsp;&nbsp;
+	                                 </td> --%>
+	                              </tr>
+	                           </table>
+	                        </div>
+	                     </div>
+	                  </div>
                
                <!-- 검색분류테이블 -->
-               <div id="productSearchTBArea">
-                     <form id="productSearch" method="post" action="searchPro.pr">
-                       <table id="productSearchTB">
-                          <tr>
-                             <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>                        
-                             <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                          </tr>
-                          <tr>
-                             <td>
-                                <label>상품명 검색</label>
-                             </td>
-                             <td><!-- 
-                                <label></label>
-                             </td>
-                             <td>
-                                <select>                              
-                                   <option>상품명</option>
-                                   <option>기간</option>
-                                </select> -->
-                                <input type="search" name="productSearchForName" id="productSearchForName" placeholder="상품명을 입력해주세요 ex>리허설-본식">
-                             </td>
-                          </tr>
-                          <tr>
-                             <td>
-                                <label>상품 구분</label>
-                             </td>
-                             <td>
-                                <input type="radio" name="productSearchAbountSale" id="productSearchAllAboutSale" value="sale">
-                                <label for="productSearchAllAboutSale">전체 상품</label>
-                                <input type="radio" name="productSearchAbountSale" id="productSearchSale" value="판매">
-                                <label for="productSearchSale">판매 상품</label>
-                                <input type="radio" name="productSearchAbountSale" id="productSearchNoSale" value="판매안함">
-                                <label for="productSearchNoSale">판매하지 않는 상품</label>
-                             </td>
-                          </tr><!-- 
-                          <tr>
-                             <td>
-                                <label>상품 등록일</label>
-                             </td>
-                             <td>
-                                <input type="radio" name="productSearchAboutTerm" id="productSearchToday" value="today">
-                                <label for="productSearchToday">오늘</label>
-                                <input type="radio" name="productSearchAboutTerm" id="productSearchOneWeek" value="week">
-                                <label for="productSearchOneWeek">일주일이내</label>
-                                <input type="radio" name="productSearchAboutTerm" id="productSearchOneMonth" value="month">
-                                <label for="productSearchOneMonth">1개월이내</label>
-                                <input type="radio" name="productSearchAboutTerm" id="productSearchDays" value="days">
-                                <label for="productSearchDays">기간선택</label>
-                                <br>
-                                <input type="date" name="startDate" class="Day">
-                                <label> ~ </label>
-                                <input type="date" name="endDate"class="Day">
-                             </td>
-                          </tr> -->
-                          <tr>
-                             <td colspan="2">
-                                <div id="searchBtn">검색하기</div>
-                             </td>
-                          </tr>
-                       </table>
-                     </form>
-               </div>
-               <br><br>
+		               <div id="productSearchTBArea">
+		                     <form id="productSearch" method="post" action="searchPro.pr">
+		                       <table id="productSearchTB">
+		                          <tr>
+		                             <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>                        
+		                             <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+		                          </tr>
+		                          <tr>
+		                             <td>
+		                                <label>상품명 검색</label>
+		                             </td>
+		                             <td><!-- 
+		                                <label></label>
+		                             </td>
+		                             <td>
+		                                <select>                              
+		                                   <option>상품명</option>
+		                                   <option>기간</option>
+		                                </select> -->
+		                                <input type="search" name="productSearchForName" id="productSearchForName" placeholder="상품명을 입력해주세요 ex>리허설-본식">
+		                             </td>
+		                          </tr>
+		                          <tr>
+		                             <td>
+		                                <label>상품 구분</label>
+		                             </td>
+		                             <td>
+		                                <input type="radio" name="productSearchAbountSale" id="productSearchAllAboutSale" value="sale">
+		                                <label for="productSearchAllAboutSale">전체 상품</label>
+		                                <input type="radio" name="productSearchAbountSale" id="productSearchSale" value="판매">
+		                                <label for="productSearchSale">판매 상품</label>
+		                                <input type="radio" name="productSearchAbountSale" id="productSearchNoSale" value="판매안함">
+		                                <label for="productSearchNoSale">판매하지 않는 상품</label>
+		                             </td>
+		                          </tr><!-- 
+		                          <tr>
+		                             <td>
+		                                <label>상품 등록일</label>
+		                             </td>
+		                             <td>
+		                                <input type="radio" name="productSearchAboutTerm" id="productSearchToday" value="today">
+		                                <label for="productSearchToday">오늘</label>
+		                                <input type="radio" name="productSearchAboutTerm" id="productSearchOneWeek" value="week">
+		                                <label for="productSearchOneWeek">일주일이내</label>
+		                                <input type="radio" name="productSearchAboutTerm" id="productSearchOneMonth" value="month">
+		                                <label for="productSearchOneMonth">1개월이내</label>
+		                                <input type="radio" name="productSearchAboutTerm" id="productSearchDays" value="days">
+		                                <label for="productSearchDays">기간선택</label>
+		                                <br>
+		                                <input type="date" name="startDate" class="Day">
+		                                <label> ~ </label>
+		                                <input type="date" name="endDate"class="Day">
+		                             </td>
+		                          </tr> -->
+		                          <tr>
+		                             <td colspan="2">
+		                                <div id="searchBtn">검색하기</div>
+		                             </td>
+		                          </tr>
+		                       </table>
+		                     </form>
+		               </div>
+		               <br><br>
+               
                <!-- 조회결과물 보여주는 목록 -->
                <!-- 페이징 처리 해야 함 -->
-               
-               <div id="productSearchResultList">
-                     
-            
-              <table align="center" id="productSearchResulTB">
-                     <tr>
-                        <th width="3%"></th>
-                        <th width="5%">No.</th>
-                        <th width="15%">상품명</th>
-                        <th width="10%">가격(원)</th>
-                        <th width="15%">상품등록일</th>
-                        <th width="15%">상품수정일</th>
-                        <th width="10%">판매 여부</th>
-                        <th width="10%"></th>
-                     </tr>
-                     
-                     <% for(Product pro : proList){ %>
-                        <tr>
-                        <!-- ajax로 행 처리하기 처리할때 아래와 같이 체크박스와 버튼 도 같이 나와야 한다. -->
-                           <td><input type="checkbox" name="proCheck" id="proCheck"></td>
-                           <td>
-                                <input type="number" name="startRows" id="startRows" value="<%=startRow %>" readonly>
-                              <input type="hidden" name="proNum" id="proNum" value="<%=pro.getpNo() %>">
-                           </td>
-                           <td><%=pro.getpName() %></td>
-                           <td><%=pro.getPrice() %></td>
-                           <td><%=pro.getpEnrollDate() %></td>
-                           <%if(pro.getpModifyDate() == null){ %>
-                                 <td>-</td>
-                           <%}else{ %>
-                              <td><%=pro.getpModifyDate() %></td>
-                                 
-                           <%} %>
-                           <td><%=pro.getProStatus() %></td>
-                           <td>
-                                 <div id="productDetailBtn" class="productDetail">상세보기</div>
-                           </td>
-                        </tr>
-                        <%                        
-                           startRow = startRow+1;
-                           %>
-                     <% } %>
-                     <tr>
-                        <td colspan="8">
-                           <div id="sellStatusBtns">
-                              <div id="productSellYesBtn">판매하기</div>
-                              <div id="productSellNoBtn">판매취소</div>
-                           </div>
-                        </td>
-                     </tr>
-                  </table>
-                  <div class="paginArea" align = "center">
-	               <button onclick="location.href='<%=request.getContextPath()%>/selectProList.pr?currentPage=1'"> << </button>
-	               <%if(currentPage<=1){ %>         
-	                  <button disabled> < </button>
-	               <%} else{%>
-	                  <button onclick="location.href='<%=request.getContextPath() %>/selectProList.pr?currentPage=<%=currentPage - 1 %>'"> < </button>
-	               <%} %>
-	               
-	               
-	               <%for(int p=startPage ; p<=endPage ; p++){ 
-	                  if(p == currentPage){%>
-	                     <button disabled> <%=p %> </button>
-	                  <%}else{ %>
-	                     <button onclick="location.href='<%=request.getContextPath()%>/selectProList.pr?currentPage=<%=p%>'"> <%=p %> </button>
-	                  <%} %>
-	               
-	               <%} %>
-	               
-	               
-	               <%if(currentPage >= maxPage){ %>
-	                  <button disabled> > </button>
-	               <%}else{ %>
-	                  <button onclick="location.href='<%=request.getContextPath()%>/selectProList.pr?currentPage=<%=currentPage + 1%>'"> > </button>
-	               <%} %>         
-	               
-	               <button onclick="location.href='<%=request.getContextPath()%>/selectProList.pr?currentPage=<%=maxPage%>'"> >> </button>
-	         
-	         
-	            </div>
-               </div>
-               </div>
+               		<div>
+               			<table align="center" id="productSearchResulTB">
+		                     <tr>
+		                        <th width="3%"></th>
+		                        <th width="5%">No.</th>
+		                        <th width="15%">상품명</th>
+		                        <th width="10%">가격(원)</th>
+		                        <th width="15%">상품등록일</th>
+		                        <th width="15%">상품수정일</th>
+		                        <th width="10%">판매 여부</th>
+		                        <th width="10%"></th>
+		                     </tr>
+		                     
+		                     <% for(Product pro : proList){ %>
+		                        <tr>
+		                        <!-- ajax로 행 처리하기 처리할때 아래와 같이 체크박스와 버튼 도 같이 나와야 한다. -->
+		                           <td><input type="checkbox" name="proCheck" id="proCheck"></td>
+		                           <td>
+		                                <input type="number" name="startRows" id="startRows" value="<%=startRow %>" readonly>
+		                              <input type="hidden" name="proNum" id="proNum" value="<%=pro.getpNo() %>">
+		                           </td>
+		                           <td><%=pro.getpName() %></td>
+		                           <td><%=pro.getPrice() %></td>
+		                           <td><%=pro.getpEnrollDate() %></td>
+		                           <%if(pro.getpModifyDate() == null){ %>
+		                                 <td>-</td>
+		                           <%}else{ %>
+		                              <td><%=pro.getpModifyDate() %></td>
+		                                 
+		                           <%} %>
+		                           <td><%=pro.getProStatus() %></td>
+		                           <td>
+		                                 <div id="productDetailBtn" class="productDetail">상세보기</div>
+		                           </td>
+		                        </tr>
+		                        <%                        
+		                           startRow = startRow+1;
+		                           %>
+		                     <% } %>
+		                     <tr>
+		                        <td colspan="8">
+		                           <div id="sellStatusBtns">
+		                              <div id="productSellYesBtn">판매하기</div>
+		                              <div id="productSellNoBtn">판매취소</div>
+		                           </div>
+		                        </td>
+		                     </tr>
+		                  </table>
+		                  <div class="paginArea" align = "center">
+				               <button onclick="location.href='<%=request.getContextPath()%>/selectProList.pr?currentPage=1'"> << </button>
+				               <%if(currentPage<=1){ %>         
+				                  <button disabled> < </button>
+				               <%} else{%>
+				                  <button onclick="location.href='<%=request.getContextPath() %>/selectProList.pr?currentPage=<%=currentPage - 1 %>'"> < </button>
+				               <%} %>
+				               
+				               
+				               <%for(int p=startPage ; p<=endPage ; p++){ 
+				                  if(p == currentPage){%>
+				                     <button disabled> <%=p %> </button>
+				                  <%}else{ %>
+				                     <button onclick="location.href='<%=request.getContextPath()%>/selectProList.pr?currentPage=<%=p%>'"> <%=p %> </button>
+				                  <%} %>
+				               
+				               <%} %>
+				               
+				               
+				               <%if(currentPage >= maxPage){ %>
+				                  <button disabled> > </button>
+				               <%}else{ %>
+				                  <button onclick="location.href='<%=request.getContextPath()%>/selectProList.pr?currentPage=<%=currentPage + 1%>'"> > </button>
+				               <%} %>         
+				               
+				               <button onclick="location.href='<%=request.getContextPath()%>/selectProList.pr?currentPage=<%=maxPage%>'"> >> </button>
+			         
+			         
+			            	</div>
+			           </div>
             </div>
          
          </div>
@@ -296,11 +293,7 @@
             console.log($(this).val());
             $(".Day").attr("type","date");
          });
-         $("#productUploadBtn").click(function(){
-            //상품등록하기 버튼을 눌렀을 때 작동할 함수
-            //c_ProductUpload.jsp로 페이지 이동해주기
-            location.href="<%=request.getContextPath()%>/views/company/c_ProductInsert.jsp";
-         });   
+         
          
          $("#productDeleteBtn").click(function(){
             var result = window.confirm("정말 삭제 하시겠습니까?");
@@ -419,6 +412,17 @@
 							location.href="<%=request.getContextPath()%>/proDetail.pr?pno="+pno;
 						});
 						ctn = ctn + 1;
+						
+						var $lastTr = $("<tr>");
+						var $lastTd = $("<td colspan='8'>");
+						var $yesDiv = $("<div class='productSellYesBtn'>판매하기");
+						var $noDiv = $("<div class='productSellNoBtn'>판매취소");
+						
+						$yesDiv.append($noDiv);
+						$lastTd.append($yesDiv);
+						$lastTr.append($lastTd);
+						$tableBody.append($lastTr);
+						
 					});
                },
                error:function(data){
@@ -470,6 +474,11 @@
          $("#proResBtn").click(function(){
         	 location.href="<%=request.getContextPath()%>/views/company/c_productReservation.jsp";
          });
+         $("#productUploadBtn").click(function(){
+             //상품등록하기 버튼을 눌렀을 때 작동할 함수
+             //c_ProductUpload.jsp로 페이지 이동해주기
+             location.href="<%=request.getContextPath()%>/views/company/c_ProductInsert.jsp";
+          });   
 		
       });
    </script>

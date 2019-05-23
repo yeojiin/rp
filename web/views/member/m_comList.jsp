@@ -107,8 +107,9 @@ td {
 
          <div class="col-sm-8 text-left">
             <%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
-            <form action="<%=request.getContextPath()%>/listcomtype.mb">
+            
             <div class="list1" align="center">
+            <br>
             	<div style="width:100%; height:auto">
             	<%
             		HashMap<String, Object> hmap = null;
@@ -116,9 +117,9 @@ td {
             		for (int i = 0; i < list.size(); i++) {
             			hmap = list.get(i);
             	%>
-            		<div style="width:25%; height:auto; float:left;">
+            		<div style="width:25%; height:40%; float:left">
             			<div>
-		                  	<img src="/redding/company_upload/<%=hmap.get("changename") %>" style="max-width:100%"; onclick="location.href='<%=request.getContextPath() %>/selectDetailCom.dc?mno=<%=hmap.get("mno") %>'"><br>
+		                  	<img src="/redding/company_upload/<%=hmap.get("changename") %>" style="max-width:100%"; onclick="location.href='<%=request.getContextPath() %>/selectDetailCom.dc?cno=<%=hmap.get("mno") %>'"><br>
             				<p style="font-size:25px; color:black;"><%=hmap.get("membername") %></p>
             				<p style="font-size:25px; font-weight:bold; color:salmon;"><%=hmap.get("price") %>~</p>
             				<p style="font-size:25px; font-weight:bold; color:gold;">★: <%=hmap.get("ComLike") %></p>
@@ -127,33 +128,31 @@ td {
                		<% } %>
             	</div>
             	<br>
-            	<div class="text-center">
-							<ul class="pagination">
-								<button onclick="location.href='<%=request.getContextPath() %>/listcomtype.mb?currentPage=1'"><<</button>
-								<% if(currentPage <= 1){ %>
-								<button disabled><</button>
-								<% }else{ %>
-								<button onclick="location.href='<%=request.getContextPath() %>/listcomtype.mb?currentPage=<%=currentPage - 1%>'"><</button>
-								<% } %>
+            	<div style="width:100%; height:auto; margin-top:50%;">
+					<button type="button" class="test" onclick="location.href='<%=request.getContextPath() %>/listcomtype.mb?currentPage=1&comType=<%= hmap.get("comType") %>'"><<</button>
+					<% if(currentPage <= 1){ %>
+					<button disabled><</button>
+					<% }else{ %>
+					<button onclick="location.href='<%=request.getContextPath() %>/listcomtype.mb?currentPage=<%=currentPage - 1 %>&comType=<%= hmap.get("comType") %>'"><</button>
+					<% } %>
 								
-								<% for(int p = startPage; p <= endPage; p++){
-									if(p == currentPage){%>
-										<button disabled><%= p %></button>
-								<% }else{ %>
-									<button onclick="location.href='<%=request.getContextPath() %>/listcomtype.mb?currentPage=<%= p %>'"><%= p %></button>
-								<% } %>
-								<% } %>
+					<% for(int p = startPage; p <= endPage; p++){
+					if(p == currentPage){%>
+					<button disabled><%= p %></button>
+					<% }else{ %>
+					<button onclick="location.href='<%=request.getContextPath() %>/listcomtype.mb?currentPage=<%= p %>&comType=<%= hmap.get("comType") %>'"><%= p %></button>
+					<% } %>
+					<% } %>
 								
-								<% if(currentPage >= maxPage){ %>
-								<button disabled>></button>
-								<% }else{ %>
-								<button onclick="location.href='<%=request.getContextPath() %>/listcomtype.mb?currentPage=<%=currentPage + 1 %>'">></button>
-								<% } %>
-								<button onclick="location.href='<%=request.getContextPath() %>/listcomtype.mb?currentPage=<%=maxPage %>'">>></button>
-							</ul>
-						</div>
+					<% if(currentPage >= maxPage){ %>
+					<button disabled>></button>
+					<% }else{ %>
+					<button onclick="location.href='<%=request.getContextPath() %>/listcomtype.mb?currentPage=<%=currentPage + 1 %>&comType=<%= hmap.get("comType") %>'">></button>
+					<% } %>
+					<button onclick="location.href='<%=request.getContextPath() %>/listcomtype.mb?currentPage=<%=maxPage %>&comType=<%= hmap.get("comType") %> '">>></button>
+				</div>
             </div>
-            </form>
+            
          </div>
 
          <!-- 오른쪽 빈공간 -->
@@ -168,7 +167,6 @@ td {
    <div class="footerArea">
       <jsp:include page="/views/common/footer.jsp"></jsp:include>
    </div>
-
 
 </body>
 </html>

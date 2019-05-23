@@ -70,7 +70,8 @@
       <div class="row content">
       
          <div class="col-sm-2 sidenav1 visible-md visible-lg visible-sm">
-            
+            <div id="productUploadBtn">상품 등록</div><br><br>
+            <div id="proResBtn">예약 현황</div>
          </div>
          
          
@@ -165,75 +166,75 @@
                   </table>
                </div>
                <br><br>
-               </div>
-               <table id="selectTable">
-               		<tr>
-               			<th width="3%"></th>
-               			<th width="3%">No.</th>
-               			<th width="10%">예약가능날짜</th>
-               			<th width="10%">예약시작시간</th>
-               			<th width="10%">예약종료시간</th>
-               			<th width="5%">수량</th>
-               			<th width="5%">판매여부</th>
-               			<th width="5%"></th>
-               		</tr>
-               		<% for(UseProduct uproList : useProList){ %>
-                        <tr>
-                        <!-- ajax로 행 처리하기 처리할때 아래와 같이 체크박스와 버튼 도 같이 나와야 한다. -->
-                           <td><input type="checkbox" name="upCheck" id="upCheck"></td>
-                           <td>
-                           		<input type="number" name="startRows" id="startRows" value="<%=startRow %>" readonly>
-                              <input type="hidden" name="upNo" id="upNo" value="<%=uproList.getUpNo()%>">
-                           </td>
-                           <td><%=uproList.getUseDate()%></td>
-                           <td><%=uproList.getUseStartTime()%></td>
-                           <td><%=uproList.getUseEndTime()%></td>
-                           <td><%=uproList.getuNum()%></td>
-                           <td><%=uproList.getUstatus()%></td>
-                           <td>
-                                 <div id="productDetailBtn" class="productDetail">상세보기</div>
-                           </td>
-                        </tr>
-                        <%                        
-                           startRow = startRow+1;
-                           %>
-                     <% } %>
-                     <tr>
-                     	<td colspan="8">
-                     		<div id="sellStatusBtns">
-	                     		<div id="productSellYesBtn">판매하기</div>
-	                     		<div id="productSellNoBtn">판매취소</div>
-                     		</div>
-                     	</td>
-                     </tr>
-               </table>
-              <div class="paginArea" align = "center">
-               <button onclick="location.href='<%=request.getContextPath()%>/proDetail.pr?currentPage=1&pno=<%=pro.getpNo()%>'"> << </button>
-               <%if(currentPage<=1){ %>         
-                  <button disabled> < </button>
-               <%} else{%>
-                  <button onclick="location.href='<%=request.getContextPath() %>/proDetail.pr?currentPage=<%=currentPage - 1 %>&pno=<%=pro.getpNo()%>'"> < </button>
-               <%} %>
-               
-               
-               <%for(int p=startPage ; p<=endPage ; p++){ 
-                  if(p == currentPage){%>
-                     <button disabled> <%=p %> </button>
-                  <%}else{ %>
-                     <button onclick="location.href='<%=request.getContextPath()%>/proDetail.pr?currentPage=<%=p%>&pno=<%=pro.getpNo()%>'"> <%=p %> </button>
-                  <%} %>
-               
-               <%} %>
-               
-               
-               <%if(currentPage >= maxPage){ %>
-                  <button disabled> > </button>
-               <%}else{ %>
-                  <button onclick="location.href='<%=request.getContextPath()%>/proDetail.pr?currentPage=<%=currentPage + 1%>&pno=<%=pro.getpNo()%>'"> > </button>
-               <%} %>         
-               
-               <button onclick="location.href='<%=request.getContextPath()%>/proDetail.pr?currentPage=<%=maxPage%>&pno=<%=pro.getpNo()%>'"> >> </button>
-            </div>
+           </div>
+           <table id="selectTable">
+           		<tr>
+           			<th width="3%"></th>
+           			<th width="3%">No.</th>
+           			<th width="10%">예약가능날짜</th>
+           			<th width="10%">예약시작시간</th>
+           			<th width="10%">예약종료시간</th>
+           			<th width="5%">수량</th>
+           			<th width="5%">판매여부</th>
+           			<th width="5%"></th>
+           		</tr>
+           		<% for(UseProduct uproList : useProList){ %>
+                    <tr>
+                    <!-- ajax로 행 처리하기 처리할때 아래와 같이 체크박스와 버튼 도 같이 나와야 한다. -->
+                       <td><input type="checkbox" name="upCheck" id="upCheck"></td>
+                       <td>
+                       		<input type="number" name="startRows" id="startRows" value="<%=startRow %>" readonly>
+                          <input type="hidden" name="upNo" id="upNo" value="<%=uproList.getUpNo()%>">
+                       </td>
+                       <td><%=uproList.getUseDate()%></td>
+                       <td><%=uproList.getUseStartTime()%></td>
+                       <td><%=uproList.getUseEndTime()%></td>
+                       <td><%=uproList.getuNum()%></td>
+                       <td><%=uproList.getUstatus()%></td>
+                       <td>
+                             <div id="productDetailBtn" class="productDetail">상세보기</div>
+                       </td>
+                    </tr>
+                    <%                        
+                       startRow = startRow+1;
+                       %>
+                 <% } %>
+                 <tr>
+                 	<td colspan="8">
+                 		<div id="sellStatusBtns">
+                  		<div id="productSellYesBtn">판매하기</div>
+                  		<div id="productSellNoBtn">판매취소</div>
+                 		</div>
+                 	</td>
+                 </tr>
+           </table>
+          <div class="paginArea" align = "center">
+           <button onclick="location.href='<%=request.getContextPath()%>/proDetail.pr?currentPage=1&pno=<%=pro.getpNo()%>'"> << </button>
+           <%if(currentPage<=1){ %>         
+              <button disabled> < </button>
+           <%} else{%>
+              <button onclick="location.href='<%=request.getContextPath() %>/proDetail.pr?currentPage=<%=currentPage - 1 %>&pno=<%=pro.getpNo()%>'"> < </button>
+           <%} %>
+           
+           
+           <%for(int p=startPage ; p<=endPage ; p++){ 
+              if(p == currentPage){%>
+                 <button disabled> <%=p %> </button>
+              <%}else{ %>
+                 <button onclick="location.href='<%=request.getContextPath()%>/proDetail.pr?currentPage=<%=p%>&pno=<%=pro.getpNo()%>'"> <%=p %> </button>
+              <%} %>
+           
+           <%} %>
+           
+           
+           <%if(currentPage >= maxPage){ %>
+              <button disabled> > </button>
+           <%}else{ %>
+              <button onclick="location.href='<%=request.getContextPath()%>/proDetail.pr?currentPage=<%=currentPage + 1%>&pno=<%=pro.getpNo()%>'"> > </button>
+           <%} %>         
+           
+           <button onclick="location.href='<%=request.getContextPath()%>/proDetail.pr?currentPage=<%=maxPage%>&pno=<%=pro.getpNo()%>'"> >> </button>
+        </div>
          
          </div>
          
@@ -275,7 +276,6 @@
    				if(startDate==""){
    	   				alert("검색 시작 날짜를 입력해주세요.");
    	   			}else{
-   	   				alert("ok");
    	   				if(endDate==""){
    	   					alert('검색 종료 날짜를 입력해주세요.');
    	   					
@@ -422,7 +422,7 @@
    		  $("#productSellYesBtn").click(function(){
    			var upnoArr = [];
    			var answer = "Y";
-			  $("input[name=proCheck]").each(function(){
+			  $("input[name=upCheck]").each(function(){
 				  var upno = $(this).parent().parent().children().eq(1).children().eq(1).val();
 				  if($(this).is(":checked")){
 					  console.log("upno : " + upno);
@@ -448,8 +448,8 @@
    		$("#productSellNoBtn").click(function(){
  			  var upnoArr = [];
  			  var answer = "N";
- 			  $("input[name=proCheck]").each(function(){
- 				  var upno = $(this).parent().parent().children().eq(1).children().eq(0).val();
+ 			  $("input[name=upCheck]").each(function(){
+ 				  var upno = $(this).parent().parent().children().eq(1).children().eq(1).val();
  				  if($(this).is(":checked")){
  					  console.log("upno : " + upno);
  					  upnoArr += upno +", ";
@@ -470,7 +470,14 @@
 				  }
 			  });
  		  });
-  		 		  
+   		$("#proResBtn").click(function(){
+       	 location.href="<%=request.getContextPath()%>/views/company/c_productReservation.jsp";
+        });
+        $("#productUploadBtn").click(function(){
+            //상품등록하기 버튼을 눌렀을 때 작동할 함수
+            //c_ProductUpload.jsp로 페이지 이동해주기
+            location.href="<%=request.getContextPath()%>/views/company/c_ProductInsert.jsp";
+         }); 	  
         
       });
    </script>

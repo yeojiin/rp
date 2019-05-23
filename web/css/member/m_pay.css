@@ -26,3 +26,14 @@
       border-bottom:1px solid gray;
       text-align:center;
    }
+   
+   table th{
+   	background:salmon;
+   }
+   
+   th{
+   	  color:white;
+   }
+ 
+   
+   

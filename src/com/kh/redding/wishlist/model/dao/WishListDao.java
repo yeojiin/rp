@@ -36,10 +36,12 @@ public class WishListDao {
 		String query = prop.getProperty("showWishList");
 		
 		try {
+			
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, num);
 			
 			rset= pstmt.executeQuery();
+
 			
 			list = new ArrayList<HashMap<String,Object>>();
 			
@@ -54,6 +56,8 @@ public class WishListDao {
 				hmap.put("mname", rset.getString("MNAME"));
 				hmap.put("ctype", rset.getString("COM_TYPE"));
 				hmap.put("wishcode", rset.getInt("WISH_CODE"));
+				hmap.put("filepath", rset.getString("FILE_PATH"));
+				hmap.put("changename", rset.getString("CHANGE_NAME"));
 				
 				list.add(hmap);
 				
@@ -153,6 +157,9 @@ public class WishListDao {
 				hmap.put("price", rset.getInt("PRICE"));
 				hmap.put("cno", rset.getInt("CNO"));
 				hmap.put("cname", rset.getString("CNAME"));
+				hmap.put("filepath", rset.getString("FILE_PATH"));
+				hmap.put("changename", rset.getString("CHANGE_NAME"));
+				
 				
 				list.add(hmap);
 			}
@@ -163,6 +170,61 @@ public class WishListDao {
 			close(pstmt);
 			close(rset);
 		}
+		
+		return list;
+	}
+
+	
+	//패키지 삭제 메소드
+	public int deletePackage(Connection con, int mno, int pno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("deletePackage");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			pstmt.setInt(2, pno);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+
+	}
+
+	
+	//패키지 예약 시 리스트 조회
+	public ArrayList searchPackReserve(Connection con, int mno) {
+		PreparedStatement pstmt = null;
+		ArrayList list = new ArrayList();
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("searchPackReserve");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			
+			rset= pstmt.executeQuery();
+
+			while(rset.next()) {
+				list.add(rset.getInt("PNO"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
 		
 		return list;
 	}

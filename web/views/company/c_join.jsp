@@ -111,7 +111,7 @@
 								<td></td>
 							</tr>
 							<tr>
-								<td class="col1">휴대전화&nbsp;&nbsp;<span id="star">*</span></td>
+								<td class="col1">전화번호&nbsp;&nbsp;<span id="star">*</span></td>
 								<td class="col2"><input type="text" name="tel1"
 									style="width: 60px;"> &nbsp;- <input type="text"
 									name="tel2" style="width: 60px;">&nbsp;- <input
@@ -173,8 +173,8 @@
 							</tr>
 							<tr>
 								<td class="col1">이메일&nbsp;&nbsp;<span id="star">*</span></td>
-								<td class="col2"><input type="text" name="email1">&nbsp;&nbsp;@&nbsp;&nbsp;
-									<input type="text" name="email2" id="email2">&nbsp;&nbsp;
+								<td class="col2"><input type="text" name="email1" style = "width:130px">&nbsp;&nbsp;@&nbsp;&nbsp;
+									<input type="text" name="email2" id="email2" style = "width:130px">&nbsp;&nbsp;
 									<select name="email3" id="email3">
 										<option>직접입력</option>
 										<option>naver.com</option>
@@ -229,7 +229,7 @@
 					<div class="com_term">
 						<input type="checkbox" id="terms_all"> <label
 							id="all_check">이용약관,개인정보 처리방침 모두 동의</label> <br> <br> <label>이용약관</label><br>
-						<textarea readonly>
+						<textarea style= "resize:none;" readonly >
 기업 회원 약관 (개정 및 적용 2019. 05. 05)
 제1조 (목적)
 본 약관은 Redding(이하 "회사")이 각각 운영하는 웹사이트(이하 "사이트")를 통해 인터넷 관련 "서비스"를 제공함에 있어, 회사가 제공하는 "서비스"와 관련하여, 이를 이용하는 가입자(이하 "회원" 또는 "기업회원")의 이용조건 및 제반 절차, 기타 필요한 사항을 규정함을 목적으로 한다.
@@ -443,7 +443,7 @@ Redding
 							이용약관에 동의하십니까?&nbsp;&nbsp; <input type="checkbox" id="condition1">동의함
 						</div>
 						<br> <br> <label>개인정보처리방침</label><br>
-						<textarea readonly>
+						<textarea style= "resize:none;"  readonly>
 1. 개인정보 수집 및 이용 현황
 가. 회사는 서비스 제공을 위한 최소한의 범위 내에서 이용자의 동의 하에 개인정보를 수집하며, 수집한 모든 개인정보는 고지한 목적 범위 내에서만 사용됩니다. 또한, 제공하는 서비스(채용 정보제공 등) 특성상 「근로기준법」에 따라 만15세 미만인 경우 회원가입을 허용하지 않습니다. 회사에서 제공하는 서비스 유형에 따라 다음과 같이 개인정보를 수집, 이용, 보유 및 파기하고 있습니다.
 

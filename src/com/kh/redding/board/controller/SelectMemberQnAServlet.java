@@ -26,11 +26,13 @@ public class SelectMemberQnAServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
+		//HttpSession session = request.getSession();
 		
-		Member loginUser = (Member) session.getAttribute("loginUser"); 
+		//Member loginUser = (Member) session.getAttribute("loginUser"); 
 		
-		int mno = loginUser.getMno();
+		int mno = Integer.parseInt(request.getParameter("mno"));
+		
+		//int mno = loginUser.getMno();
 		
 		// 페이징 추가
 		int currentPage;
@@ -66,7 +68,21 @@ public class SelectMemberQnAServlet extends HttpServlet {
 		
 		ArrayList<HashMap<String, Object>> QnAList = new BoardService().selectQnAList(mno, pi);
 		
+		String page = "";
+		if (QnAList != null) {
+			
+			page = "/views/notice/contact_list.jsp";
+			
+			request.setAttribute("QnAList", QnAList);
+			request.setAttribute("pi", pi);
+			
+		}else {
+			page = "/views/common/errorPage.jsp";
+			
+			request.setAttribute("msg", "문의 조회 실패");
+		}
 	
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

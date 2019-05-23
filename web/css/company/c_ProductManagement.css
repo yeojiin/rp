@@ -34,7 +34,7 @@ input[name=productSearchForName]{
    float: right;
    margin-top: -29px;
 }
-#productDetailBtn:hover, #searchBtn:hover, #productUploadBtn:hover, #productSellYesBtn:hover, #productSellNoBtn:hover{
+#productDetailBtn:hover, #searchBtn:hover, #productUploadBtn:hover, #productSellYesBtn:hover, #productSellNoBtn:hover, #proResBtn:hover{
    background: white;
    color: salmon;
 }

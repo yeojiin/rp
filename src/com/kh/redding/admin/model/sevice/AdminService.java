@@ -135,6 +135,16 @@ public class AdminService {
 		return searchMemberList;
 	}
 
+	public ArrayList<HashMap<String, Object>> getGenderCount() {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> hmap = new AdminDao().getGenderCount(con);
+		
+		close(con);
+		
+		return hmap;
+	}
+
 
 
 
