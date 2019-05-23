@@ -9,13 +9,13 @@ public class Message implements Serializable{
 	private Date mesDisDate;	//발신일자	//not null
 	private Date mesCkDate;		//확인일자
 	private int mesLevel;		//쪽지레벨	//1:원글,2:답글
-	private String mesWType;	//수신,발신 구분	//10:발신, 20:수신	//not null
+	private int mesWType;	//수신,발신 구분	//20:발신, 10:수신	//not null
 	private int mesRefCode;		//참조쪽지번호
 	private int cno;			//업체 번호
 	
 	public Message() {}
 
-	public Message(int messageCode, String mesContent, Date mesDisDate, Date mesCkDate, int mesLevel, String mesWType,
+	public Message(int messageCode, String mesContent, Date mesDisDate, Date mesCkDate, int mesLevel, int mesWType,
 			int mesRefCode, int cno) {
 		super();
 		this.messageCode = messageCode;
@@ -68,11 +68,11 @@ public class Message implements Serializable{
 		this.mesLevel = mesLevel;
 	}
 
-	public String getMesWType() {
+	public int getMesWType() {
 		return mesWType;
 	}
 
-	public void setMesWType(String mesWType) {
+	public void setMesWType(int mesWType) {
 		this.mesWType = mesWType;
 	}
 
@@ -98,8 +98,6 @@ public class Message implements Serializable{
 				+ ", mesCkDate=" + mesCkDate + ", mesLevel=" + mesLevel + ", mesWType=" + mesWType + ", mesRefCode="
 				+ mesRefCode + ", cno=" + cno + "]";
 	}
-	
-	
 	
 	
 }

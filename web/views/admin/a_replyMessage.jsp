@@ -53,7 +53,8 @@
 					<div class="sidenavArea">
 						<ul class="navList">
 							<li onclick="location.href='a_Company.jsp'">업체 목록</li>
-							<li onclick="location.href='<%=request.getContextPath()%>/views/admin/a_Message.jsp'">업체 쪽지 관리</li>
+							<li onclick="location.href='<%=request.getContextPath()%>/views/admin/a_Message.jsp'">받은 쪽지 관리</li>
+							<li onclick="location.href='<%=request.getContextPath()%>/views/admin/a_SendMessage.jsp'">보낸 쪽지 관리</li>
 						</ul>
 					</div>
 				</div>
@@ -64,7 +65,8 @@
 					<div class="sidenavArea2" style="margin-top:-10px; height: 60px;">
 						<ul class="navList2">
 							<li onclick="location.href='a_Company.jsp'">업체 목록</li><br><br>
-							<li onclick="location.href='<%=request.getContextPath()%>/views/admin/a_Message.jsp'">업체 쪽지 관리</li>
+							<li onclick="location.href='<%=request.getContextPath()%>/views/admin/a_Message.jsp'">받은 쪽지 관리</li>
+							<li onclick="location.href='<%=request.getContextPath()%>/views/admin/a_SendMessage.jsp'">보낸 쪽지 관리</li>
 						</ul>
 					</div>
 				</div>
