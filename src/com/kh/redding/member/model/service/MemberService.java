@@ -347,7 +347,6 @@ public class MemberService {
 		}
 		\
 		
-		
 		close(con);
 		
 		return result;

@@ -752,6 +752,7 @@ public class MemberDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			
+			
 			pstmt.setInt(1, cno);
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, endRow);

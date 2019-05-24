@@ -35,6 +35,7 @@ public class MemberInsertComQnaReplyServlet extends HttpServlet {
 		int mno = Integer.parseInt(request.getParameter("mno"));
 		int bid = Integer.parseInt(request.getParameter("bid"));
 		
+		
 		int result = new BoardService().insertQnAReply(bid,mno,content);
 		
 		String page = "";
