@@ -118,8 +118,6 @@ int endPage = pi.getEndPage();
 
 						<table id="inquiryListt">
 							<tr style="background: lightgray;">
-								<td><input type="checkbox"></td>
-								<td>문의 번호</td>
 								<td>카테고리</td>
 								<td>문의제목</td>
 								<td>회원 아이디</td>
@@ -134,7 +132,9 @@ int endPage = pi.getEndPage();
 								<td colspan= "4">작성된 문의가 없습니다.</td>
 								<td></td>
 							</tr>
-							<%}else { %>
+							<%}else { 
+								int bid = 0;
+							%>
 							<% for (int i = 0 ; i < QnAList.size() ; i++){ 
 								HashMap Qmap = QnAList.get(i);
 								Board QnA = (Board)Qmap.get("QnA");
@@ -144,8 +144,7 @@ int endPage = pi.getEndPage();
 								int no = (int)Qmap.get("num");
 							%>
 							<tr onclick = "location.href= '<%=request.getContextPath()%>/QnAOne.no?no='+<%=QnA.getBid()%>">
-									<td><input type="checkbox"></td>
-									<td><%=no %></td>
+									<% if (bid != QnA.getBid()){ %>
 									<td><%=QnA.getBcategory() %></td>
 									<td><%=QnA.getBtitle() %></td>
 									<td><%=memberid %></td>
@@ -155,6 +154,8 @@ int endPage = pi.getEndPage();
 									<%}else { %>
 									<td><a class="ui blue label">진행완료</a></td>
 									<%} %>
+									<% bid = QnA.getBid();
+									} %>
 							</tr>
 							<%} %>
 						<%} %>

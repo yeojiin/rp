@@ -112,7 +112,8 @@ int endPage = pi.getEndPage();
 							<table class="contacttable">
 								<thead>
 									<tr>
-										<th>NO</th>
+										<th>문의 접수번호</th>
+										<th>카테고리</th>
 										<th>제목</th>
 										<th>작성일</th>
 										<th>진행상태</th>
@@ -122,10 +123,12 @@ int endPage = pi.getEndPage();
 								<% if (QnAList == null || QnAList.size() == 0){ %>
 									<tr id="contactTitle" onclick="NoticeClick(this);">
 										<td></td>
-										<td colspan = "2">등록된 게시글이 없습니다</td>
+										<td colspan = "3">등록된 게시글이 없습니다</td>
 										<td></td>
 									</tr>
-								<% }else { %>
+								<% }else { 
+									int bid = 0;
+								%>
 									<% for(int i = 0 ; i < QnAList.size() ; i++){ 
 										HashMap hmap = QnAList.get(i);
 										Board qna = (Board)hmap.get("QnA");
@@ -134,7 +137,9 @@ int endPage = pi.getEndPage();
 										int recode = re.getReply_code();
 									%>
 									<tr id="contactTitle" onclick="NoticeClick(this);">
-										<td><%=no %></td>
+										<% if (bid != qna.getBid()){ %>
+										<td id = "bid"><%=qna.getBid() %></td>
+										<td><%=qna.getBcategory() %></td>
 										<td><%=qna.getBtitle() %></td>
 										<td><%=qna.getBdate() %></td>
 										<% if (recode == 0){ %>
@@ -142,20 +147,32 @@ int endPage = pi.getEndPage();
 										<%}else { %>
 										<td><span style = "color:blue">진행완료</span></td>
 										<%} %>
+										<% bid = qna.getBid();
+										} %>
 									</tr>
 									<tr id = "noticecontent" style = "display:none;">
-										<td colspan = "4">
+										<td colspan = "5">
 											<span id = "Q" style= "color: red;">Q</span><br>
 											<span id = "noticeContent">
 												<%=qna.getBcontent() %>
 											</span>
 											<hr>
 											<span id = "A" style= "color: blue;">A</span><br>
+											<div id = "answer"></div>
 											<% if (recode != 0){ %>
-												<span><%=re.getReply_content() %></span>
+												<span id = "answer"><%=re.getReply_content() %></span>
+												<div id = "AnswerArea" style = "margin-left : 87%">
+												<input type = "hidden" id = "Modifybid" name = "Modifybid" value = "<%=qna.getBid() %>" >
+												<button type = "button" id = "deleteBtn">삭제</button>
+												</div>
 											<%}else{ %>
 												<span>아직 답변을 하지 않았습니다.</span>
-											<%} %>
+												<div id = "ModifyBtn" style = "margin-left : 80%">
+												<input type = "hidden" id = "Modifybid" name = "Modifybid" value = "<%=qna.getBid() %>" >
+												<button type = "button" id = "updateBtn">수정</button>
+												<button type = "button" id = "deleteBtn">삭제</button>
+												</div>
+											<%} %> 
 										</td>
 									</tr>
 									<%} %>
@@ -163,9 +180,8 @@ int endPage = pi.getEndPage();
 								</tbody>
 							</table>
 						</div>
-					</div>	
-							
-							<br>
+					</div>				
+				<br>
 					<div class = "notice_footer">
 						<!-- 페이지 버튼 처리 -->
 						<div class="pagingArea" align="center">
@@ -235,7 +251,46 @@ int endPage = pi.getEndPage();
 			$(".writerbtn").click(function(){
 				location.href = "<%=request.getContextPath()%>/views/notice/contact_main.jsp";
 			});
-		})
+			
+			
+			
+			$(document).on("click", "#deleteBtn" , function(){
+				var bid = $(this).parent().children().eq(0).val();
+				
+				console.log(bid);
+				
+				var check = confirm("해당 문의를 삭제 하실건가요 ?");
+				
+				if (check == true){
+	          		//location.href = "/redding/delteQnA.no?num=" + bid;
+	          			
+	          		$.ajax({
+	          			url : "/redding/delteQnA.no",
+	          			type : "post",
+	          			data : {num : bid},
+	          			success : function(data){
+	          				 if (data == "success"){
+	          					 alert("문의 글을 삭제했습니다.");
+	          					 
+	          					 location.href = "<%=request.getContextPath()%>/selectQnA.no?mno=" + <%=loginUser.getMno()%>;
+	          					 
+	          					 
+	          				 }else {
+	          					 alert("게시글 삭제를 실패했습니다. \n새로고침 후 다시한번 클릭해주세요.\n ");
+	          				 }
+	          	                    
+	          			}, 
+	          			error : function(){
+	          				console.log("실패!");
+	          			}
+	          		});
+					
+				}else {
+					alert("해당 문의를 삭제하지 않았습니다.");
+				}
+			});
+			
+		});
 		
 	</script>
 
