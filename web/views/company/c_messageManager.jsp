@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,7 +50,7 @@
 
    <!-- 업체 나브 -->
    <div>
-      <jsp:include page="/views/company/c_nav.jsp"></jsp:include>
+      <%@include file="/views/company/c_nav.jsp"%>
    </div>
 
    <div class="container-fluid text-center">
@@ -74,57 +75,63 @@
                      </div>
                   </div>
                   <table id="RMTable">
-                     <!-- 받은 쪽지 조회 전체 결과 테이블 -->
-                     <tr>
-                        <th width="30">체크</th>
-                        <th width="50">No.</th>
-                        <th width="80">보낸 사람</th>
-                        <th>내용</th>
-                        <th width="120">날짜</th>
-                        <th width="100">읽기-버튼영역</th>                     
-                     </tr>
-                     <!-- 다음 행부터는 자바스크립트로 ajax 처리 -->
-                     <!-- radio 버튼도 함께 보내줘야 한다.
-                     읽기 버튼도 함께 보내줘야 한다 -->
-                     <tr>
-                     	<td>
-                     		<input type="checkbox" name="receiveMeessage" id="receiveMeessage">
-                     	</td>
-                     	<td>2</td>
-                     	<td>3</td>
-                     	<td>
-                     		<p id="messageContent"></p>
-                     		<p></p>
-                     	</td>
-                     	<td>5</td>
-                     	<td>6</td>
-                     </tr>
-                     <tr>
-                     	<td>
-                     		<input type="checkbox" name="receiveMeessage" id="receiveMeessage">
-                     	</td>
-                     	<td>2</td>
-                     	<td>3</td>
-                     	<td>4</td>
-                     	<td>5</td>
-                     	<td>6</td>
-                     </tr>
+                     <thead>
+	                     <tr>
+	                        <th width="30"></th>
+	                        <th width="50">No.</th>
+	                        <th>내용</th>
+	                        <th width="120">받은날짜</th>
+	                        <th width="100">상태</th>                     
+	                     </tr>
+                     </thead>
+                     <tbody class="rmTbody" id="rmTbody">
+	                     <tr>
+	                     	<td>
+	                     		<input type="checkbox" name="receiveMeessage" id="receiveMeessage">
+	                     	</td>
+	                     	<td>2</td>
+	                     	<td>3</td>
+	                     	<td>
+	                     		<p id="messageContent"></p>
+	                     		<p></p>
+	                     	</td>
+	                     	<td>5</td>
+	                     	<td>6</td>
+	                     </tr>
+	                     <tr>
+	                     	<td>
+	                     		<input type="checkbox" name="receiveMeessage" id="receiveMeessage">
+	                     	</td>
+	                     	<td>2</td>
+	                     	<td>3</td>
+	                     	<td>4</td>
+	                     	<td>5</td>
+	                     	<td>6</td>
+	                     </tr>
+                     </tbody>
+                     <tfoot class="TfootPage" id="rmTF">
+                     	<tr>
+							<td colspan="6" class="pageBtnArea"><br>
+								<button class="paging"> << </button>
+								<button class="paging"> < </button>
+								<button class="paging"> 1 </button>
+								<button class="paging"> > </button>
+								<button class="paging"> >> </button>                     
+							</td>
+						</tr>
+                     </tfoot>
                   </table>
-                  
-                  <div id="RMPagingArea">
-                     <!-- 페이징버튼 -->
-                  </div>
                </div>
                
-               <div id="myModal" class="modal">
+               <!-- <div id="myModal" class="modal">
  
-				      <!-- Modal content -->
+				      Modal content
 				      <div class="modal-content">
 				        	<span class="close">&times;</span> 
 				        	<form action="" method="post">
 				        		<div id="receiveArea">
 							        <h3>받은 쪽지</h3>
-							        <!-- 고객의 문의에 대한 답변 -->
+							        고객의 문의에 대한 답변
 							        <div class="modalContent">
 							        	<label>발신인 </label> <input type="text" class="receiveMessage" name="receiveId" id="receiveId" value="해당쪽지의 수신인을 getAttribute(admin)로 가져오시오"readonly>
 							        	<label>수신날짜 </label> <input type="text" class="receiveMessage" name="receiveDay" id="receiveDay" value="받은 쪽지 날짜"readonly>
@@ -149,7 +156,7 @@
 				        	</form>                                                              
 				      </div>
 				 
-				  </div>
+				  </div> -->
                
                <div id="sendMessageArea">
                   <!-- 예약자 정보 조회 -->   
@@ -159,35 +166,39 @@
                   </div>
                   <div id="SMSelectListArea">
                      <table id="SMTable">
-                        <tr>
-                        	<th width="30">체크</th>
-	                        <th width="50">No.</th>
-	                        <th width="80">받는 사람</th>
-	                        <th>내용</th>
-	                        <th width="120">날짜</th>
-                       		<th width="100">읽기-버튼영역</th> 
-                        </tr>
-                        <!-- 자바스크립트로 전체리스트조회 결과 테이블 보여주고 input에서 search한 결과를 ajax로 변경해서 보여준다 -->
-                        <tr>
-                     	<td>
-                     		<input type="checkbox" name="sendMessage" id="sendMessage">
-                     	</td>
-                     	<td>2</td>
-                     	<td>3</td>
-                     	<td>4</td>
-                     	<td>5</td>
-                     	<td>6</td>
-                     </tr>
-                     <tr>
-                     	<td>
-                     		<input type="checkbox" name="sendMessage" id="sendMessage">
-                     	</td>
-                     	<td>2</td>
-                     	<td>3</td>
-                     	<td>4</td>
-                     	<td>5</td>
-                     	<td>6</td>
-                     </tr>
+	                     <thead>
+	                        <tr>
+	                        	<th width="30"></th>
+		                        <th width="50">No.</th>
+		                        <th>내용</th>
+		                        <th width="120">보낸날짜</th>
+	                       		<th width="100">상태</th> 
+	                        </tr>
+	                     </thead>
+	                     <tbody>
+	                        <tr>
+	                     		<td>
+	                     			<input type="checkbox" name="sendMessage" id="sendMessage">
+		                     	</td>
+		                     	<td>2</td>
+		                     	<td>3</td>
+		                     	<td>4</td>
+		                     	<td>5</td>
+		                     	<td>6</td>
+		                     </tr>
+	                     </tbody>
+	                     <tfoot>
+		                     <tr>
+		                     	<td>
+		                     		<input type="checkbox" name="sendMessage" id="sendMessage">
+		                     	</td>
+		                     	<td>2</td>
+		                     	<td>3</td>
+		                     	<td>4</td>
+		                     	<td>5</td>
+		                     	<td>6</td>
+		                     </tr>
+	                     </tfoot>
                      </table>
                   </div>
                   <div id="SMPagingArea">
@@ -209,35 +220,178 @@
    </div>
    <script>
    	$(function(){
-   		//답장하기 눌렀을 때 나오는 모달창
-   		var modal = document.getElementById('myModal');		
-		var span = document.getElementsByClassName("close")[0];                                          
-   		$("#RMReplyBtn").click(function(){
-   			modal.style.display="block";
+   		var ckCount = 0;
+   		var nockCount=0;
+   		var totalCount = 0;
+   		var cno = <%=loginUser.getMno()%>;
+   		$.ajax({
+   			url:"<%=request.getContextPath()%>/listCountComp.mes",
+   			type:"post",
+   			success:function(data){
+   				console.log('성공');
+   				ckCount = data.CK_COUNT;
+   				nockCount = data.NOCK_COUNT;
+   				totalCount = data.TOTAL_COUNT;
+   				totalView(1, totalCount);
+   				/* console.log("totalCount : " + totalCount); */
+   			},
+   			error:function(data){
+   				console.log('실패');
+   			}
+   			
    		});
-		span.onclick = function() {
-		    modal.style.display = "none";
-		}
-		window.onclick = function(event) {
-		    if (event.target == modal) {
-		        modal.style.display = "none";
-		    }
-		}
    		
-		$("#sendMessageBtn").click(function(){
-			location.href="<%=request.getContextPath()%>/views/company/c_sendMessage.jsp";
-		});
-		$("#sendBtn").click(function(){
-   			location.href="<%=request.getContextPath()%>/views/company/c_messageManager.jsp";
-   		});		
-		
-		/* ajax로 해야 됨 */
-		var totalContent = "우는 품고 끓는 거선의 있는 것은 바로 인류의 청춘이 운다. 뜨거운지라, 이상 하여도 곳으로 관현악이며, 가치를 그러므로 사막이다. 꾸며 풀이 얼마나 보는 보내는 청춘 것이다.천지는 노래하며 고행을 가는 피다. 뜨거운지라, 가슴이 않는 예가 칼이다. 공자는 따뜻한 새 간에 가치를 들어 피가 가장 설산에서 보라. 내는 같이, 싹이 아름다우냐? 얼음과 가지에 꽃이 그들의 인생을 광야에서 그리하였는가? 몸이 너의 때까지 이것을 뼈 그들의 천하를 약동하다. 산야에 심장은 거친 무엇을 끓는 구하지 것이다. 커다란 같이, 보는 못할 아름답고 보이는 영원히 너의 때문이다. 천고에 자신과 우리의 우리의 풀이 이것이다. 타오르고 고동을 그러므로 구하지 약동하다. 놀이 그것을 그들은 앞이 이상의 이상이 길지 부패뿐이다.";		
+   		function totalView(currentPage,totalCount){
+   			console.log('totalView까지 옴');
+   			$.ajax({
+   				url:"<%=request.getContextPath()%>/comMesList.mes",
+   				type:"post",
+   				data:{currentPage:currentPage,totalCount:totalCount},
+   				success:function(data){
+   					/* console.log('통신 성공'); */
+   					console.log(data);
+   					makeRmTable(data);
+   					
+   					
+   				},
+   				error:function(data){
+   					console.log('리스트 서블릿과 통신 실패');
+   				}
+   			});
+   		}
+   		//보낸쪽지 테이블 생성함수
+   		function makeSmTable(data, wtype){
+   			
+   		}
+   		
+   		//받은쪽지 테이블 생성함수
+   		function makeRmTable(data, wtype){
+   			$(".rmTbody").empty();
+   			/* console.log("data.compMesList.length : " + data.compMesList.length); */
+   			for(var i=0 ; i<data.compMesList.length ; i++){
+   				var list = data.compMesList[i];
+   				/* console.log("list : " + list); */
+   				var pi = data.pi;
+   				
+   				var $rmListTr = $("<tr>");
+   				
+   				//체크박스
+   				var $ckTd = $("<td>");
+   				var $ckIn = $("<input type='checkbox' class='ckBtns' name='ckBtns' style='cursor:pointer;'>");
+   				$ckTd.append($ckIn);
+   				
+   				//받은메세지startRow
+   				var $startRowTd = $("<td>").text(pi.startRow);
+   				
+   				//받은메세시코드
+   				var $codeIn = $("<input type='hidden'>");
+   				$codeIn.val(list.messageCode);
+   				$startRowTd.append($codeIn);
+   				
+   				//받은내용
+   				var $contentTd = $("<td>").text(list.mesContent.substr(0,10)+"....");
+   				
+   				//관리자가 발신한 날짜 업체는 받은날짜
+   				var $disDateTd = $("<td>").text(list.mesDisDate);
+   				
+   				//받은 쪽지 레벨
+   				var $levelIn =$("<inpyt type='hidden'>");
+   				$levelIn.val(list.mesLevel);
+   				$disDateTd.append($levelIn);
+   				
+   				//받은 메세지 발신, 수신 구분
+   				var $wtypeIn = $("<input type='hidden'>").text(list.mesType);
+   				$disDateTd.append($wtypeIn);
+   				
+   				//원글 참조 쪽지번호 
+   				var $refIn = $("<input type='hidden'>");
+   				$refIn.val(list.mesRefCode);
+   				$disDateTd.append($refIn);
+   				
+   				//받은 쪽지 확인날짜(클릭시 읽음으로 바뀜)
+   				var $ckDateTd = $("<td>");
+   				var $ckDateDiv = null;
+   				if(list.mesCkDate != null){
+   					$ckDateDiv = $("<div class='readTd' style='border-radius: 5px;background:white;border:1px solid salmon;color:salmon;'>").text(list.mesCkDate);
+   				}else{
+   					$ckDateDiv = $("<div class='noreadTd' style='border-radius: 5px;background:salmon;border:1px solid salmon;color:white;'>").text("읽지않음")
+   				}
+   				$ckDateTd.append($ckDateDiv);
+   				
+   				//업체 번호
+				var $cnoIn = $("<input type='hidden'>")
+				$cnoIn.val(list.cno);
+   				$ckTd.append($cnoIn);
+   				
+   				$rmListTr.append($ckTd);
+   				$rmListTr.append($startRowTd);
+   				$rmListTr.append($contentTd);
+   				$rmListTr.append($disDateTd);
+   				$rmListTr.append($ckDateTd);
+   				
+   				$(".rmTbody").append($rmListTr);
+   				pi.startRow++;
+   				
+   				$(".ckBtns").parent().siblings().click(function(){
+   					var code = $(this).parent().children().eq(1).children().eq(0).val();
+   					/* console.log(code); */
+   					location.href="<%=request.getContextPath()%>/replyToAdmin.mes?code="+code;
+   				});
+   			}
+   			
+   		}
+   		//페이징
+        function page(data, value){
+           var $page = $(".TfootPage");
+           
+           var pi = data.pi;
+           var currentPage = pi.currentPage;
+           var limit = pi.limit;
+           var maxPage = pi.maxPage;
+           var startPage = pi.startPage;
+           var endPage = pi.endPage;
+           
+           $page.empty();
+           
+           $page.append($("<button>").attr("class","paging").text("<<").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).click(function(){
+              totalView(1,value);
+          }));
+           
+           
+            if(currentPage <= 1) { 
+           		$page.append($("<button>").attr("class","paging").text("<").attr("disabled",true).css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}));
+            }else{ 
+               $page.append($("<button>").attr("class","paging").text("<").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).click(function(){
+                     totalView(currentPage - 1,value);
+               }));
+
+            } 
+            for(var p= startPage; p <= endPage; p++){
+               if(p == currentPage){
+                  $page.append($("<button>").attr("class","paging").text(p).attr("disabled",true).css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}));
+               }else{ 
+                  $page.append($("<button>").attr("class","paging").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).text(p).click(function(){
+                     totalView($(this).text(),value);
+                  }));
+               }
+            
+            } 
+            if(currentPage >= maxPage){ 
+                $page.append($("<button>").attr("class","paging").text(">").attr("disabled",true).css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}));               
+            }else {
+                $page.append($("<button>").attr("class","paging").text(">").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).click(function(){
+                   totalView(currentPage + 1,value);
+                }));
+            } 
+            $page.append($("<button>").attr("class","paging").text(">>").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).click(function(){
+               totalView(maxPage,value);
+            }));
+        }
+		/* var totalContent = "우는 품고 끓는 거선의 있는 것은 바로 인류의 청춘이 운다. 뜨거운지라, 이상 하여도 곳으로 관현악이며, 가치를 그러므로 사막이다. 꾸며 풀이 얼마나 보는 보내는 청춘 것이다.천지는 노래하며 고행을 가는 피다. 뜨거운지라, 가슴이 않는 예가 칼이다. 공자는 따뜻한 새 간에 가치를 들어 피가 가장 설산에서 보라. 내는 같이, 싹이 아름다우냐? 얼음과 가지에 꽃이 그들의 인생을 광야에서 그리하였는가? 몸이 너의 때까지 이것을 뼈 그들의 천하를 약동하다. 산야에 심장은 거친 무엇을 끓는 구하지 것이다. 커다란 같이, 보는 못할 아름답고 보이는 영원히 너의 때문이다. 천고에 자신과 우리의 우리의 풀이 이것이다. 타오르고 고동을 그러므로 구하지 약동하다. 놀이 그것을 그들은 앞이 이상의 이상이 길지 부패뿐이다.";		
 		var sampleContent = totalContent.substr(0,30) + "...";
 		$("#messageContent").text(sampleContent);
 		
 		$("#RMDeleteBtn").click(function(){
-			/* 체크된 메세지들을 삭제 */
 			var resultRM = window.confirm('해당 메세지들을 삭제하시겠습니까?');
 			
 			if(resultRM==true){
@@ -247,7 +401,6 @@
 			}
 		});
 		$("#SMDeleteBtn").click(function(){
-			/* 체크된 메세지들을 삭제 */
 			var resultSM = window.confirm('해당 메세지들을 삭제하시겠습니까?');
 			
 			if(resultSM==true){
@@ -255,7 +408,7 @@
 			}else{
 				alert('삭제가 취소되었습니다.');
 			}
-		});
+		}); */
    	});
    </script>
 </body>

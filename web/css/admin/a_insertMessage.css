@@ -5,26 +5,19 @@
 	margin-right: auto;
 	margin-left: auto; */
 	margin-top: 3%;
+	height: 100%;
 }
-.rM h2{
+#sendMesToCompany h2{
 	color: salmon;
 }
-#receiveContent{
-	width: 100%;
-	height: 250px;
-	resize: none;
-}
-#receiveSection input, #receiveSection textarea, #smSection textarea{
-	border: 1px solid lightgray;
-}
-#receiveArea{
-	height: 330px;
-	color: #7D7D7D;
+#sendMesToCompany{
+	border-top: 5%;
 }
 #smSection{
+	margin-top: 3%;
 	width: 100%;
 }
-#smTB, #receiveTB{
+#smTB{
 	width: 100%;
 }
 #smTB *{
@@ -33,6 +26,9 @@
 #smCname{
 	width: 100%;
 	color: salmon;
+}
+#receiveContent{
+	height: 200px;
 }
 #smContent{
 	width: 100%;

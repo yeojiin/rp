@@ -24,7 +24,7 @@ public class SelectListSendMessageServlet extends HttpServlet {
     }
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       System.out.println("모든 업체들에게 보낸 쪽지 전체 리스트 조회 서블릿");
-      int wtype = 10;
+      int wtype = 20;//발신
       int listCount = Integer.parseInt(request.getParameter("value"));
       
       int currentPage;
@@ -70,13 +70,8 @@ public class SelectListSendMessageServlet extends HttpServlet {
       
       HashMap<String, Object> hmap = new HashMap<String, Object>();
       
-      ArrayList<Member> cnames = new ArrayList<Member>();
-      cnames = new MessageService().selectCompany();
-      
-      
       //System.out.println("cnames : " + cnames);
       
-      hmap.put("cnames", cnames);
       hmap.put("sendList",sendList);
       hmap.put("pi",pi);
       

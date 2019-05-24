@@ -23,9 +23,9 @@ public class SelectListReceiveMessageServlet extends HttpServlet {
         super();
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//System.out.println("모든 업체들에게 받은 쪽지 전체 리스트 조회 서블릿");
+		System.out.println("모든 업체들에게 받은 쪽지 전체 리스트 조회 서블릿");
 		
-		int wtype = 20;
+		int wtype = 10;//수신
 
 		int listCount = Integer.parseInt(request.getParameter("value"));
 		  
@@ -65,20 +65,24 @@ public class SelectListReceiveMessageServlet extends HttpServlet {
 		  //System.out.println("listCount : " + listCount);
 		  //System.out.println("wt : " + wtype);
 		  
-		ArrayList<Message> sendList = new MessageService().selectListMes(pi, wtype);
+		ArrayList<Message> receiveList = new MessageService().selectListMes(pi, wtype);
 		  
 		  //System.out.println("sendList : " + sendList);
 		  
 		HashMap<String, Object> hmap = new HashMap<String, Object>();
 		 
-		ArrayList<Member> cnames = new ArrayList<Member>();
-		cnames = new MessageService().selectCompany();
+		/*ArrayList<Member> cnames = new ArrayList<Member>();
+		for(int i = 0 ; i< receiveList.size() ; i++) {
+			Member comp = new MessageService().selectCompanyOne(receiveList.get(i).getCno());
+			System.out.println("comp : " + comp);
+			cnames.add(comp);
+		}
 		  
 		  
 		  //System.out.println("cnames : " + cnames);
 		  
-		hmap.put("cnames", cnames);
-		hmap.put("sendList",sendList);
+		hmap.put("cnames", cnames);*/
+		hmap.put("receiveList",receiveList);
 		hmap.put("pi",pi);
 		  
 		  

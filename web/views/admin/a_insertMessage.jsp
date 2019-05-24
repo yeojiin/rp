@@ -1,9 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
 
-	import="com.kh.redding.message.model.vo.*, com.kh.redding.admin.model.vo.*, java.util.*"%>
+	import="com.kh.redding.member.model.vo.*, com.kh.redding.admin.model.vo.*, java.util.*"%>
 <%
-	Message mes = (Message)request.getAttribute("mes");
+	/* ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
+	TotalMemberPageInfo pi = (TotalMemberPageInfo) request.getAttribute("pi");
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	ArrayList<HashMap<String, Object>> oneCompany = (ArrayList<HashMap<String, Object>>) request.getAttribute("oneCompany"); */
+	Member company = (Member) request.getAttribute("company");
 %>
 <!DOCTYPE html>
 <html>
@@ -30,7 +37,7 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/semantic/semantic.min.css">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/admin/a_replyMessage.css">	
+	href="${pageContext.request.contextPath}/css/admin/a_insertMessage.css">	
 
 <title>Insert title here</title>
 </head>
@@ -69,26 +76,7 @@
 
 			<div class="col-sm-8 text-left">
 				<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
-				<div class="companyArea rM">
-					<div id="receiveArea">
-						<div id="receiveHeader">
-							<h2>쪽지 내용</h2>
-						</div>
-						<div id="receiveSection">
-							<table id="receiveTB">
-								<tr>
-									<td>
-										<input type="text" name="smCname" id="smCname" readonly value="<%=mes.getMname()%>">
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<textarea id="receiveContent" name="receiveContent"readonly><%=mes.getMesContent() %></textarea>
-									</td>
-								</tr>
-							</table>
-						</div>
-					</div>
+				<div class="companyArea">
 					<div id="sendMesToCompany">
 						<div id="smTitle">
 							<h2>쪽지 보내기</h2>
@@ -98,8 +86,8 @@
 								<table id="smTB">
 									<tr>
 										<td>
-											
-											<input type="hidden" name="code" id="code" value="<%=mes.getMessageCode()%>">
+											<input type="text" name="smCname" id="smCname" readonly value="<%=company.getMemberName()%>">
+											<input type="hidden" name="smCno" id="smCno" value="<%=company.getMno()%>">
 										</td>
 									</tr>
 									<tr>
@@ -129,15 +117,15 @@
 		</div>
 		<!-- 커먼 풋터 -->
 		<div class="footerArea">
-			<%@include file="/views/common/footer.jsp"%>
+			<jsp:include page="/views/common/footer.jsp"></jsp:include>
 		</div>
 		
 		<script>
 			$(function(){
 				$("#sendBtn").click(function(){
-					var answer = window.confirm('<%=mes.getMname()%>에게 쪽지를 보내겠습니까?');
+					var answer = window.confirm('<%=company.getMemberName()%>에게 쪽지를 보내겠습니까?');
 					if(answer){
-						$("#sendMesForm").attr("action","<%=request.getContextPath()%>/replycomp.mes");
+						$("#sendMesForm").attr("action","<%=request.getContextPath()%>/toCompany.mes");
 						$("#sendMesForm").submit();
 					}else{
 						

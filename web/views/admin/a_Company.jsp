@@ -424,13 +424,13 @@
 						});
 					});
 					
-					$(".reply").click(function(){
-						var cno = $(this).siblings(".cno").val();
-		                  console.log(cno);
-		                  location.href="<%=request.getContextPath()%>/getComNo.mes?cno="+cno;
-	
-		            });
 				}
+				$(".reply").click(function(){
+					var cno = $(this).siblings(".cno").val();
+	                  console.log(cno);
+	                  location.href="<%=request.getContextPath()%>/getComNo.mes?cno="+cno;
+
+	            });
 				
 			});
 			
