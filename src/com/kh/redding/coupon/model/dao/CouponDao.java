@@ -62,6 +62,8 @@ private Properties prop = new Properties();
 				hmap.put("discountAmount", rset.getString("DISCOUNT_AMOUNT"));
 				hmap.put("couponStartDate", rset.getDate("COUPON_STARTDATE"));
 				hmap.put("couponEndDate", rset.getDate("COUPON_ENDDATE"));
+				hmap.put("couponStatus", rset.getString("COUPON_STATUS"));
+				
 				hmap.put("originName", rset.getString("ORIGIN_NAME"));
 				hmap.put("changeName", rset.getString("CHANGE_NAME"));
 				hmap.put("filePath", rset.getString("FILE_PATH"));
@@ -75,7 +77,7 @@ private Properties prop = new Properties();
 			close(stmt);
 			close(rset);
 		}
-		
+
 		return list;
 			
 	}
@@ -160,6 +162,48 @@ private Properties prop = new Properties();
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	// 쿠폰 업데이트용 메소드 (발급가능상태 만들기)
+	public int updateCouponY(Connection con) {
+		Statement stmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateCouponListY");
+		
+		try {
+			stmt = con.createStatement();
+			
+			result = stmt.executeUpdate(query);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+		}
+		
+		return result;
+	}
+	
+	// 쿠폰 업데이트용 메소드 (발급불가능상태 만들기)
+	public int updateCouponN(Connection con) {
+		Statement stmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateCouponListN");
+		
+		try {
+			stmt = con.createStatement();
+			
+			result = stmt.executeUpdate(query);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
 		}
 		
 		return result;

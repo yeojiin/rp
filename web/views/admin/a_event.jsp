@@ -110,7 +110,14 @@
 								<% } %>
 								<td><%=hmap.get("couponStartDate")%></td>
 								<td><%=hmap.get("couponEndDate")%></td>
-								<td><%=hmap.get("couponStatus") %></td>
+								<td>
+									<% if((hmap.get("couponStatus")).equals("N")) { %>
+										<button class="nonIssuableCoupon">발급불가능</button>
+									<% }else if((hmap.get("couponStatus")).equals("Y")) { %>
+										<button class="issuableCoupon">발급가능</button>
+									<% } %>
+								
+								</td>
 							</tr>
 
 							<%
@@ -200,6 +207,7 @@
 
 
 	<script>
+	
 		$(function() {
 			$(".createBtn").click(function() {
 				console.log("e");
@@ -242,6 +250,7 @@
 				reader.readAsDataURL(value.files[0]);
 			}
 		} 
+		
 	</script>
 </body>
 </html>

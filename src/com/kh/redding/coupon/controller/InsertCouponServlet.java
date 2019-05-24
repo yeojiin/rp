@@ -81,6 +81,8 @@ public class InsertCouponServlet extends HttpServlet {
 			
 			int result = new CouponService().insertCoupon(coupon, attachment);
 			
+			int result2 = new CouponService().updateCouponListY(); // 쿠폰 상태 Y로 변경
+			
 			if(result > 0) {
 				response.sendRedirect("/redding/selectCouponList.ad");
 			}else {
