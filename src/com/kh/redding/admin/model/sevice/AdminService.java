@@ -163,6 +163,43 @@ public class AdminService {
 		return result;
 	}
 
+	
+	//회원 환불 목록 조회용 메소드(정연)
+	public ArrayList<HashMap<String, Object>> showMemberRefund(TotalMemberPageInfo pi) {
+		Connection con = getConnection();
+		ArrayList<HashMap<String, Object>> list = new AdminDao(). showMemberRefund(con, pi);
+		close(con);
+		return list;
+	}
+
+	
+	//환불 목록 갯수 리턴용 메소드(정연)
+	public int getRefundCount() {
+		Connection con = getConnection();
+		int calcCount = new AdminDao().getRefundCount(con);
+		close(con);
+		
+		return calcCount;
+	}
+
+	
+	//환불 승인 메소드(정연)
+	public int memberRefund(int payno) {
+		Connection con = getConnection();
+		
+		int result = new AdminDao().memberRefund(payno, con);
+		
+		if(result>0) {
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		close(con);
+		
+		
+		return result;
+	}
+
 
 
 

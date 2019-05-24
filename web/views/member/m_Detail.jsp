@@ -9,6 +9,7 @@
 	String companyAddress = "";
 	Product pro = null;
 	int cno = (int) session.getAttribute("cno");
+	Member loginUser = (Member) session.getAttribute("loginUser");
 %>
 <!DOCTYPE html>
 <html>
@@ -101,7 +102,7 @@
 					<div style="width:50%; height:auto; float:left;">
 						<% for (int i = 0; i < attachlist.size(); i++) {
 	            			Attachment att = attachlist.get(i); 
-	            			System.out.println("타입 :" + att.getCno_div());
+	            			//System.out.println("타입 :" + att.getCno_div());
 	            			String cnodiv = (String)att.getCno_div();
 	            			if(cnodiv != null && cnodiv.equals("대표")){%>
 								<img src="/redding/company_upload/<%=att.getChangename() %>" id="timg" style="max-width:100%;">
@@ -120,7 +121,9 @@
 						<%} } %>
 						</select></p>
 						<a class="btn btn-default" style="border-color:salmon; background:salmon; color:white; width:50%; height:auto; font-size:20px; margin-left:25%; margin-top:10%;">예약하기</a><br><br>
-						<a class="btn btn-default" style="border-color:salmon; background:salmon; color:white; width:50%; height:auto; font-size:20px; margin-left:25%">위시리스트에 담기</a>
+						<a class="btn btn-default" style="border-color:salmon; background:salmon; color:white; width:50%; height:auto; font-size:20px; margin-left:25%" id="wishList">위시리스트에 담기</a>
+							<h2 id="pnoRe" hidden><%=pro.getpNo() %></h2>
+							<h2 id="mnoRe" hidden><%=loginUser.getMno() %></h2>
 					</div>
 					<br><br><br><br><br><br><br><br><br><br>
 					<hr style="border-color: black; width:100%;">
@@ -334,5 +337,36 @@
                       } 
                   });    
          </script>
+         
+         
+         	<!-- 예약하기(정연) -->
+         <script>
+         	$("#wishList").click(function(){
+         		var pno = $("#pnoRe").text();
+         		var mno = $("#mnoRe").text();
+         		
+         		$.ajax({
+        			url : "/redding/insert.wi",
+          			data : {pno:pno, mno:mno},
+          			type : "post",
+          			success : function(data){
+          				if(data>0){
+          					alert("위시리스트 담기 성공!");
+          				}else{
+          					alert("이미 위시리스트에 담겨있습니다!");
+          				}
+          				
+          			},error:function(){
+          				console.log("위시리스트 담기 실패!");
+          			}
+          			
+          			
+
+         		});
+         		<%-- location.href="<%=request.getContextPath()%>/insert.wi?pno="+pno; --%>
+         	});
+         
+         </script>
+         
 </body>
 </html>

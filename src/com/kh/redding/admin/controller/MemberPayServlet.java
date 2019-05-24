@@ -13,13 +13,13 @@ import com.kh.redding.admin.model.sevice.AdminService;
  * Servlet implementation class MemberPay
  */
 @WebServlet("/memberPay.ad")
-public class MemberPay extends HttpServlet {
+public class MemberPayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberPay() {
+    public MemberPayServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
