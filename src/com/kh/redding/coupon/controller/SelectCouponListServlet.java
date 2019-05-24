@@ -24,9 +24,10 @@ public class SelectCouponListServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		int result =  new CouponService().updateCouponListN(); // 종료날짜 지나면 쿠폰 상태 N으로 변경
+		
 		ArrayList<HashMap<String, Object>> list = new CouponService().selectCouponList();
 		
-		//System.out.println("COUPONLIST : " + list);
 		
 		String page = "";
 		if(list != null) {
