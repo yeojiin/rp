@@ -22,7 +22,7 @@ public class ReplyToCompanyServlet extends HttpServlet {
         super();
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("업체한테 답장 보내기 서블릿");
+		//System.out.println("업체한테 답장 보내기 서블릿");
 		
 		int code = Integer.parseInt(request.getParameter("code"));
 		//System.out.println("cno : " + cno);
@@ -46,7 +46,7 @@ public class ReplyToCompanyServlet extends HttpServlet {
 		mes.setMname(originalMes.getMname());
 		mes.setMesRefCode(code);
 		
-		System.out.println("mes : " + mes);
+		//System.out.println("mes : " + mes);
 		
 		int result = new MessageService().insertReplyMesToCompany(mes);
 		

@@ -43,7 +43,7 @@ public class SendMessageToCompanyServlet extends HttpServlet {
 		mes.setMesWType(wtype);
 		mes.setMname(comp.getMemberName());
 		
-		System.out.println("mes : " + mes);
+		//System.out.println("mes : " + mes);
 		
 		int result = new MessageService().insertMesToCompany(mes);
 		

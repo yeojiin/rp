@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.redding.message.model.vo.*"%>
+<%
+	Message mes = (Message)request.getAttribute("mes");
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +26,7 @@
 <link rel="stylesheet" type="text/css"
    href="${pageContext.request.contextPath}/css/company/c_main.css">
 <link rel="stylesheet" type="text/css"
-   href="${pageContext.request.contextPath}/css/company/c_sendMessage.css"> 
+   href="${pageContext.request.contextPath}/css/company/c_detailMessage.css"> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <style>
    .row.content {
@@ -69,17 +73,16 @@
          
             <div class="contentsArea" id="sendMessageArea">
                <div id="SMHeader">
-                  <h3>관리자에게 쪽지 보내기</h3>
+                  <h3>보낸 쪽지 확인</h3>
                </div>
                <div id="SMSection">
                   <form method="post" id="sendMessage">
                         <div id="messageContentArea">
-                           <textarea name="messageContent" id="messageContent" style="resize:none;" placeholder="쪽지 내용을 입력해주세요."></textarea>
+                           <textarea name="messageContent" id="messageContent" style="resize:none;" placeholder="쪽지 내용을 입력해주세요." readonly><%=mes.getMesContent()%></textarea>
                            <input type="hidden" name="cno" value="<%=loginUser.getMno()%>">
                         </div>
                         <div id="btnsArea">
-                              <span id="send">보내기</span>
-                              <span id="reset">취소하기</span>
+                              <span id="reset">이전으로</span>
                         </div>
                            
                   </form>
@@ -100,12 +103,7 @@
    </div>
    <script>
       $(function(){
-         $("#send").click(function(){
-               $("#sendMessage").attr("action","<%=request.getContextPath()%>/toAdmin.mes");
-               $("#sendMessage").submit();
-         });
          $("#reset").click(function(){
-            alert("취소하셨습니다.");
             location.href="<%=request.getContextPath()%>/views/company/c_messageManager.jsp";
          });
          

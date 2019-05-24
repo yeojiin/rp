@@ -245,11 +245,26 @@
                   
                   
                   $(".sendTBody").append($listTr);
+                  $(".ckBtns").parent().siblings().mouseenter(function(){
+                	  $(this).parent().css("background","mistyrose");
+                  }).mouseout(function(){
+                	  $(this).parent().css("background","white");
+                  }).click(function(){
+                	  var ck1 = $(this).parent().children().eq(0).children().eq(1);
+                	  /* console.log("ck1 : " + ck1); */
+                	  var ck2 = ck1.val();
+                	  /* console.log("ck2 : " + ck2); */
+                	  
+                	  var code1 = $(this).parent().children().eq(1).children().eq(0);
+                	  var code2 = code1.val();
+                	  console.log(code2);
+                      location.href="<%=request.getContextPath()%>/adminOne.mes?code="+code2;
+                  });
                   
                   pi.startRow++;
                }
                
-               $(".sendRBody").append($("<br>"));
+               $(".sendTBody").append($("<br>"));
                page(data, value);
             };
             
@@ -299,56 +314,6 @@
 				   totalView(maxPage,value);
 				}));
             }
-            /* //페이징함수
-            function pageBtn(data,value){
-                var $pageBtnArea = $(".pageBtnArea");
-                           
-               //BoardPageInfo pi = (BoardPageInfo) session.getAttribute("pi");
-               var currentPage = data.pi.currentPage;//pi.getCurrentPage();
-               var limit = data.pi.limit;
-               var maxPage = data.pi.maxPage;
-               var startPage = data.pi.startPage;
-               var endPage = data.pi.endPage;
-               
-                        
-               $pageBtnArea.empty();
-               
-               $pageBtnArea.append($("<br>"));         
-               
-               $pageBtnArea.append($("<button>").attr("class","paging").text("<<").css("cursor","pointer").click(function(){
-                  currentView(1,value);
-               }));
-                     
-               if(currentPage <= 1) { 
-                  $pageBtnArea.append($("<button>").attr("class","paging").text("<").attr("disabled",true).css("cursor","pointer"));
-               }else{ 
-                  $pageBtnArea.append($("<button>").attr("class","paging").text("<").css("cursor","pointer").click(function(){
-                        currentView(currentPage - 1,value);
-                     }));
-
-                } 
-                for(var p= startPage; p <= endPage; p++){
-                  if(p == currentPage){
-                  $pageBtnArea.append($("<button>").attr("class","paging").text(p).attr("disabled",true).css({"cursor":"pointer","color":"white","background":"salmon"}));
-                }else{ 
-                  $pageBtnArea.append($("<button>").attr("class","paging").css("cursor","pointer").text(p).click(function(){
-                        currentView($(this).text(),value);
-                     }));
-                }
-                  
-                } 
-                if(currentPage >= maxPage){ 
-                   $pageBtnArea.append($("<button>").attr("class","paging").text(">").attr("disabled",true).css("cursor","pointer"));               
-                }else {
-                   $pageBtnArea.append($("<button>").attr("class","paging").text(">").css("cursor","pointer").click(function(){
-                        currentView(currentPage + 1,value);
-                     }));
-                } 
-                   $pageBtnArea.append($("<button>").attr("class","paging").text(">>").click(function(){
-                        currentView(maxPage,value);
-                     }));
-                
-               } */
          });
       </script>
 </body>
