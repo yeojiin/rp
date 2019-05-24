@@ -463,5 +463,67 @@ public class MakeQuery {
 		
 	}
 
+	public void saleStatsQuery(String radioValue, String selectValue, String startDate, String endDate) {
+		
+		Properties prop = new Properties();
+		String fileName = MemberDao.class.getResource("/sql/admin/admin-query.properties").getPath();
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		String type = "";
+		
+		
+		if(selectValue.equals("일별")) {
+			if(radioValue.equals("전체")) {
+				type = "";
+			}else{
+				type = "AND C.COM_TYPE='" + radioValue + "'";
+			}
+		}
+		
+		String query = "SELECT DECODE(DAY_DATE,'월요일',10,'화요일' ,20,'수요일',30,'목요일',40,'금요일',50,'토요일',60,'일요일',70) DAY_NUM ,DAY_DATE, TO_CHAR(FINAL_PRICE,'999,999,999') FROM (SELECT TO_CHAR(APPROVAL_DATE,'DAY') DAY_DATE ,SUM(FINAL_PRICE) FINAL_PRICE  FROM PAY_HISTORY PH JOIN USE_PRODUCT UP ON (PH.UPNO = UP.UPNO) JOIN PRODUCT P ON(UP.PNO = P.PNO) JOIN COMPANY C ON(P.CNO = C.CNO) JOIN MEMBER M ON(C.CNO = M.MNO) WHERE PH.PAY_DIV = '결제' " + type + " AND APPROVAL_DATE BETWEEN TO_DATE("+startDate+") AND TO_DATE("+endDate+") GROUP BY TO_CHAR(APPROVAL_DATE,'DAY')) ORDER BY DAY_NUM ASC";
+		
+		
+		
+		
+		
+		
+		
+		
+		prop.setProperty(prop.getProperty("","saleStatsQuery"), query);
+		
+		FileOutputStream fos = null;
+		OutputStreamWriter osw = null;
+
+		try {
+
+			fos = new FileOutputStream(fileName);
+			osw = new OutputStreamWriter(fos, "UTF-8");
+
+			prop.store(osw, "");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				fos.close();
+				osw.close();
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			}
+
+		}
+		
+		
+		
+		
+	}
+
 
 }
