@@ -164,8 +164,10 @@ table {
 								</tr>
 							</thead>
 							<tbody>
+								
 							    <%  HashMap<String, Object> hmap = null;
 							    	String name[] = null;
+							    	if(blist != null){
 									for (int i = 0; i < blist.size()-1; i++) {
 									System.out.println("dd:" + blist);
 										hmap = blist.get(i);
@@ -180,12 +182,13 @@ table {
 								</tr>
 								<% 
 										}
-								} %>
+								}  }%>
 							</tbody>
 						</table>
 					<button onclick="location.href='<%=request.getContextPath() %>/views/member/m_ComQnaWrite.jsp?cno=<%=cno %>'">글쓰기</button>
 					</div>
 					<div style="width:100%; height:auto;">
+					<%if (hmap != null){ %>
 						<button type="button" class="test" onclick="location.href='<%=request.getContextPath() %>/selectDetailComQna.cq?currentPage=1&cno=<%= hmap.get("cno") %>'"><<</button>
 						<% if(currentPage <= 1){ %>
 						<button disabled><</button>
@@ -207,6 +210,7 @@ table {
 						<button onclick="location.href='<%=request.getContextPath() %>/selectDetailComQna.cq?currentPage=<%=currentPage + 1 %>&cno=<%= hmap.get("cno") %>'">></button>
 						<% } %>
 						<button onclick="location.href='<%=request.getContextPath() %>/selectDetailComQna.cq?currentPage=<%=maxPage %>&cno=<%= hmap.get("cno") %> '">>></button>
+					<%} %>
 					</div>
             
             <%---------------------------------------------------------------------------------------------------------------%>

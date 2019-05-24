@@ -1,7 +1,6 @@
 package com.kh.redding.member.model.dao;
 
 import static com.kh.redding.common.JDBCTemplate.close;
-import static com.kh.redding.common.JDBCTemplate.getConnection;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -16,9 +15,8 @@ import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.redding.attachment.model.vo.Attachment;
-import com.kh.redding.board.model.dao.BoardDao;
 import com.kh.redding.board.model.vo.Board;
-import com.kh.redding.board.model.vo.BoardPageInfo;
+import com.kh.redding.board.model.vo.Reply;
 import com.kh.redding.company.model.vo.Company;
 import com.kh.redding.member.model.vo.M_ComQnaListPageInfo;
 import com.kh.redding.member.model.vo.M_comListPageInfo;
@@ -936,39 +934,6 @@ public class MemberDao {
 		return listCount;
 	}
 
-	public Board selectComQnaDetail(Connection con, int bid) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		Board b = null;
-		
-		String query = prop.getProperty("selectComQnaDetail");
-		
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, bid);
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				b = new Board();
-				
-				b.setBid(bid);
-				b.setBtitle(rset.getString("BTITLE"));
-				b.setMemberName(rset.getString("MNAME"));
-				b.setBdate(rset.getDate("BDATE"));
-				b.setBmodify_date(rset.getDate("BMODIFY_DATE"));
-				b.setBcontent(rset.getString("BCONTENT"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-			close(rset);
-		}
-		
-		return b;
-	}
-
 	public int deleteQna(Connection con, int bid) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -987,6 +952,110 @@ public class MemberDao {
 		}
 		
 		return result;
+	}
+
+	//업체 문의 답글 조회(0524 광섭)
+	public ArrayList<Board> selectComQnaReplyList(Connection con, int bid) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> list = null;
+		
+		String query = prop.getProperty("selectComQnaReply");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, bid);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Board>();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	//업체 문의 답글 입력(0524 광섭)
+	/*public int insertComQnaReply(Connection con, int bid, int mno, String content) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertComQnaReply");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, content);
+			pstmt.setInt(2, mno);
+			pstmt.setInt(3, bid);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}*/
+
+	//업체 문의 상세페이지 조회(0524광섭)
+	public ArrayList<HashMap<String, Object>> SelectComQnaDetail(Connection con, int bid) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> ComQnaDetail = null;
+		
+		String query = prop.getProperty("selectComQnaDetail");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, bid);
+			
+			rset = pstmt.executeQuery();
+			
+			ComQnaDetail = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				HashMap<String, Object> hmap = new HashMap<String, Object>();
+				
+				Board comQnA = new Board();
+				
+				comQnA.setBid(rset.getInt("BID"));
+				comQnA.setBtitle(rset.getString("BTITLE"));
+				comQnA.setBwriter(rset.getInt("BWRITER"));
+				comQnA.setBdate(rset.getDate("BDATE"));
+				comQnA.setBcontent(rset.getString("BCONTENT"));
+				comQnA.setBdivision(rset.getString("BDIVISION"));
+				comQnA.setBcategory(rset.getString("BCATEGORY"));
+				comQnA.setBmodify_date(rset.getDate("BMODIFY_DATE"));
+			
+				hmap.put("comQnA", comQnA);
+				
+				String mname = rset.getString("MNAME");
+				
+				hmap.put("mname", mname);
+				
+				Reply comReply = new Reply();
+				
+				comReply.setReply_code(rset.getInt("reply_code"));
+				comReply.setReply_date(rset.getDate("reply_date"));
+				comReply.setReply_content(rset.getString("reply_content"));
+				comReply.setMno(rset.getInt("MNO"));
+				
+				hmap.put("reply", comReply);
+				
+				ComQnaDetail.add(hmap);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		return ComQnaDetail;
 	}	
 	
 }

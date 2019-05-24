@@ -316,24 +316,7 @@ public class MemberService {
 		return listCount;
 	}
 	
-	//Qna상세페이지조회
-	public Board selectComQnaDetail(int bid) {
-		Connection con = getConnection();
-		
-		Board b = new MemberDao().selectComQnaDetail(con, bid);
-		
-		
-		if(b != null) {
-			commit(con);
-		}else {
-			rollback(con);
-		}
-		
-		close(con);
-		
-		return b;
-	}
-
+	
 	//업체Qna삭제(광섭)
 	public int deleteQna(int bid) {
 		Connection con = getConnection();
@@ -349,6 +332,35 @@ public class MemberService {
 		close(con);
 		
 		return result;
+	}
+
+	//업체페이지 Qna답변작성(0524광섭)
+	/*public int insertComQnaReply(int bid, int mno, String content) {
+		Connection con = getConnection();
+		
+		int result = new BoardDao().insertComQnaReply(con, bid, mno, content);
+		
+		if (result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		
+		close(con);
+		
+		return result;
+	}*/
+
+	//Qna상세페이지조회
+	public ArrayList<HashMap<String, Object>> SelectComQnaDetail(int bid) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> ComQnaDetail = new MemberDao().SelectComQnaDetail(con, bid);
+		
+		close(con);
+		
+		return ComQnaDetail;
 	}
 
 }

@@ -1,6 +1,8 @@
 package com.kh.redding.member.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,12 +35,14 @@ public class MemberSelectComQnaDetailServlet extends HttpServlet {
 		int bid = Integer.parseInt(request.getParameter("bid"));
 		//System.out.println("bid넘어오냐 : " + bid);
 		
-		Board b = new MemberService().selectComQnaDetail(bid);
+		ArrayList<HashMap<String, Object>> ComQnaDetail = new MemberService().SelectComQnaDetail(bid);
+		
+		//Board b = new MemberService().selectComQnaDetail(bid);
 		
 		String page = "";
-		if(b != null) {
+		if(ComQnaDetail != null) {
 			page = "views/member/m_ComQnaDetailSelect.jsp";
-			request.setAttribute("b", b);
+			request.setAttribute("ComQnaDetail", ComQnaDetail);
 		}else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "게시판 상세 조회 실패!");

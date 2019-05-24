@@ -15,7 +15,12 @@
 	int maxPage = cqlpi.getMaxPage();
 	int startPage = cqlpi.getStartPage();
 	int endPage = cqlpi.getEndPage(); */
-	Board b = (Board)request.getAttribute("b");
+	//Board b = (Board)request.getAttribute("b");
+	ArrayList<HashMap<String, Object>> ComQnaDetail = (ArrayList<HashMap<String, Object>>)request.getAttribute("ComQnaDetail");
+	HashMap<String, Object> comQnA = ComQnaDetail.get(0);
+	String memberName = (String)comQnA.get("mname");
+	Board board = (Board)comQnA.get("comQnA");
+	Reply answer = (Reply)comQnA.get("reply");
 	int cno = (int) session.getAttribute("cno");
 %>
 <!DOCTYPE html>
@@ -119,29 +124,52 @@ table {
             <div class="container post post-show" style="width:100%; height:auto;">
             <h1>QnA상세페이지</h1>
 			   <div class="buttons">
-			    <form action="" method="post">
 			    <a class="btn btn-default" onclick="location.href='<%=request.getContextPath() %>/selectDetailComQna.cq?cno=<%=cno%>'">목록으로</a>
-			    <a class="btn btn-default" href="">수정하기</a>
-			     <a class="btn btn-default" onclick="location.href='<%=request.getContextPath() %>/DeleteQna.dq?bid=<%=b.getBid()%>'">삭제하기</a>
+			    <form action="<%=request.getContextPath() %>/DeleteQna.dq" method="post" id = "deleteForm">
+			    <input type="hidden" name="cno" id="cno" value=<%=cno %>>
+			    <input type="hidden" name="bid" id="bid" value=<%=board.getBid() %>>
+			    <a class="btn btn-default" id = "deleteQnA">삭제하기</a>
 			    </form>
 			   </div>
 			
-			   <div class="contentBox">
-			    <h3 class="contentBoxTop"><%=b.getBtitle() %></h3>
-			    <h1><%=b.getBid() %></h1>
+			   <div class="contentBox" style="width:100%">
+			    <h3 class="contentBoxTop"><%=board.getBtitle() %></h3>
 			    <div class="row">
 			     <div class="col-sm-4 col-sm-push-8">
 			      <div class="post-info">
-			       <div><span>작성자</span> : <%=b.getMemberName() %></div>
+			       <div><span>작성자</span> : <%=board.getMemberName() %></div>
 			       <%-- <% if(post.updatedAt) { %> --%>
-			        <div><span>수정날짜</span> : <%=b.getBmodify_date() %></div>
+			        <div><span>작성날짜</span> : <%=board.getBdate() %></div>
 			       <%-- <% } %> --%>
 			      </div> <!-- post-info end -->
 			     </div> <!-- col end-->
 			     <div class="col-sm-8 col-sm-pull-4">
-			      <br><br><br><br><div class="post-body" style="width:100%; height:auto;"><%=b.getBcontent() %></div>
+			      <br><br><br><br><div class="post-body" style="width:100%; height:auto;"><%=board.getBcontent() %></div>
 			     </div> <!-- col end-->
 			    </div> <!-- row end -->
+			    <hr style="border-color: black; width:100%;">
+			    	<h1 style="width:100%;">답변</h1>
+			    	<% if(answer.getReply_code() == 0) { %>
+			    	<form action = "<%=request.getContextPath() %>/insertComQnaReply.qr" method = "post" id ="ReplyForm">
+			    <div class="form-group">
+			    <input type = "hidden" name = "bid" value = "<%=board.getBid()%>">
+			    <input type = "hidden" name = "mno" value = "<%=loginUser.getMno()%>">
+					<textarea class="form-control" rows="3" id="comment" name = "content" style="width:92%; float:left;"></textarea>
+					<button type="button" id = "replySubmit" class="btn btn-default" style="width:8%; float:right;">등록</button>
+				</div>
+				</form>
+				<%} %>
+				<%
+					for(int i = 0; i < ComQnaDetail.size(); i++){
+						HashMap<String, Object> hmap = ComQnaDetail.get(i);
+						Reply Answer = (Reply)hmap.get("reply");
+						if(Answer.getReply_code() != 0){
+				%>
+				<div class="panel panel-default" style="width:100%;">
+				  <div class="panel-heading">업체 (<%=Answer.getReply_date()%>)</div>
+				  <div class="panel-body"><%=Answer.getReply_content() %></div>
+				</div>
+				<% } } %>
 			   </div> <!-- post-container end -->
 
   			</div> <!-- container end -->
@@ -161,6 +189,28 @@ table {
    <div class="footerArea">
       <jsp:include page="/views/common/footer.jsp"></jsp:include>
    </div>
+   
+   <script>
+   		$(function(){
+   			$("#deleteQnA").click(function(){
+   				$("#deleteForm").submit();
+   			});
+   		})
+   		
+   		$(function(){
+				
+				$("#replySubmit").click(function(){
+					if ($("#comment") == ""){
+						alert("답변내용을 작성해주세요");				
+					}else {
+						$("#ReplyForm").submit();
+					}
+				});
+				
+				
+			});
+   
+   </script>
 
 </body>
 </html>
