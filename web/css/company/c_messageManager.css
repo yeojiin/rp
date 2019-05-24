@@ -19,14 +19,14 @@
    margin-right: auto;
    margin-left: auto;
 }
-#RMTable tr:first-Child, #SMTable tr:first-Child{
+#RMTable thead tr:first-Child, #SMTable thead tr:first-Child{
    background: lightGray;
 }
 #RMTable tr, #SMTable tr{
    border-top: 1px solid lightgray;
    border-bottom: 1px solid lightgray;
 }
-#RMTable th, #SMTable th{
+#RMTable thead th, #SMTable th{
 	text-align: center;	
 }
 #topBtn{

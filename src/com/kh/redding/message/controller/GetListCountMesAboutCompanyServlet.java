@@ -10,27 +10,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.kh.redding.member.model.vo.Member;
 import com.kh.redding.message.model.service.MessageService;
 
-@WebServlet("/listCount.mes")
-public class GetListCountMesServlet extends HttpServlet {
+@WebServlet("/listCountComp.mes")
+public class GetListCountMesAboutCompanyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public GetListCountMesServlet() {
+    public GetListCountMesAboutCompanyServlet() {
         super();
     }
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("메세지 상태마다 listCount 조회 서블릿");
-		int wt = Integer.parseInt(request.getParameter("wt"));
-		System.out.println("wt : " + wt);
-		HashMap<String, Object> hmap = new MessageService().selectListCount(wt);
+		System.out.println("해당 업체가 가지고 있는 모든 쪽지의 listCount 조회 서블릿");
+		Member login = (Member)request.getSession().getAttribute("loginUser");
+		int cno = login.getMno();
+		System.out.println("cno : " + cno);
 		
-		System.out.println("hmap : " + hmap);
-		
-		//System.out.println("hmap : " + hmap);
-		//System.out.println("hmap ck : " + hmap.get("CK_COUNT"));
-		//System.out.println("hmap nock : " + hmap.get("NOCK_COUNT"));
+		HashMap<String, Object> hmap = new MessageService().getListCountCompMes(cno);
 		
 		response.setContentType("application/json");
 		

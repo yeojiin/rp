@@ -49,7 +49,7 @@
 
    <!-- 업체 나브 -->
    <div>
-      <jsp:include page="/views/company/c_nav.jsp"></jsp:include>
+      <%@include file="/views/company/c_nav.jsp"%>
    </div>
 
    <div class="container-fluid text-center">
@@ -64,24 +64,22 @@
          <%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
          
             <div class="contentsArea" id="sendMessageArea">
-            	<form method="post" id="sendMessage">
-	            	<div id="SMHeader">
-	            		<h3>관리자에게 쪽지 보내기</h3>
-	            	</div>
-	            	<div id="SMSection">
-	            		<div id="messageTitleArea">
-	            			<input type="text" name="messageTitleArea" id="messageTitleInputArea" placeholder="쪽지 제목을 입력해주세요.">
-	            		</div>
-	            		<div id="messageContentArea">
-	            			<textarea name="messageContent" id="messageContent" style="resize:none;" placeholder="쪽지 내용을 입력해주세요."></textarea>
-	            		</div>
-	            		<div id="btnsArea">
-		               		<span id="send">보내기</span>
-		               		<span id="reset">취소하기</span>
-	            		</div>
-                        
-	            	</div>
-            	</form>
+            	<div id="SMHeader">
+            		<h3>관리자에게 쪽지 보내기</h3>
+            	</div>
+            	<div id="SMSection">
+	            	<form method="post" id="sendMessage">
+		            		<div id="messageContentArea">
+		            			<textarea name="messageContent" id="messageContent" style="resize:none;" placeholder="쪽지 내용을 입력해주세요."></textarea>
+		            			<input type="hidden" name="cno" value="<%=loginUser.getMno()%>">
+		            		</div>
+		            		<div id="btnsArea">
+			               		<span id="send">보내기</span>
+			               		<span id="reset">취소하기</span>
+		            		</div>
+	                        
+	            	</form>
+            	</div>
               
             </div>
          
@@ -101,18 +99,8 @@
 			$("#send").click(function(){
 				var result = window.confirm("보내시겠습니까?");
 				if(result == true){
-					if($("#messageTitleInputArea").val()==""){
-						alert("제목을 입력해주세요.");
-					}else{
-						if($("#messageContent").text()==null){
-							alert("내용을 입력해주세요.");
-						}else{
-							$("#sendMessage").attr("action":"");
-							
-							alert('관리자에게 쪽지를 보내셨습니다.');
-						}
-					}
-					<%-- location.href="<%=request.getContextPath()%>/views/company/c_messageManager.jsp"; --%>
+					$("#sendMessage").attr("action","<%=request.getContextPath()%>/toAdmin.mes");
+					$("#sendMessage").submit();
 				}else{
 					alert("취소하셨습니다.");
 					location.href="<%=request.getContextPath()%>/views/company/c_messageManager.jsp";

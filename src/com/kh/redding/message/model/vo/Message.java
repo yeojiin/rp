@@ -12,11 +12,12 @@ public class Message implements Serializable{
 	private int mesWType;	//수신,발신 구분	//20:발신, 10:수신	//not null
 	private int mesRefCode;		//참조쪽지번호
 	private int cno;			//업체 번호
+	private String mname;
 	
 	public Message() {}
 
 	public Message(int messageCode, String mesContent, Date mesDisDate, Date mesCkDate, int mesLevel, int mesWType,
-			int mesRefCode, int cno) {
+			int mesRefCode, int cno, String mname) {
 		super();
 		this.messageCode = messageCode;
 		this.mesContent = mesContent;
@@ -26,6 +27,7 @@ public class Message implements Serializable{
 		this.mesWType = mesWType;
 		this.mesRefCode = mesRefCode;
 		this.cno = cno;
+		this.mname = mname;
 	}
 
 	public int getMessageCode() {
@@ -92,11 +94,19 @@ public class Message implements Serializable{
 		this.cno = cno;
 	}
 
+	public String getMname() {
+		return mname;
+	}
+
+	public void setMname(String mname) {
+		this.mname = mname;
+	}
+
 	@Override
 	public String toString() {
 		return "Message [messageCode=" + messageCode + ", mesContent=" + mesContent + ", mesDisDate=" + mesDisDate
 				+ ", mesCkDate=" + mesCkDate + ", mesLevel=" + mesLevel + ", mesWType=" + mesWType + ", mesRefCode="
-				+ mesRefCode + ", cno=" + cno + "]";
+				+ mesRefCode + ", cno=" + cno + ", mname=" + mname + "]";
 	}
 	
 	

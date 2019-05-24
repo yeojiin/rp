@@ -14,38 +14,41 @@ import com.kh.redding.member.model.vo.Member;
 import com.kh.redding.message.model.service.MessageService;
 import com.kh.redding.message.model.vo.Message;
 
-@WebServlet("/toCompany.mes")
-public class SendMessageToCompanyServlet extends HttpServlet {
+@WebServlet("/replycomp.mes")
+public class ReplyToCompanyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public SendMessageToCompanyServlet() {
+    public ReplyToCompanyServlet() {
         super();
     }
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//System.out.println("업체에게 쪽지 보내기 - 쪽지 insert 서블릿");
+		System.out.println("업체한테 답장 보내기 서블릿");
 		
-		int cno = Integer.parseInt(request.getParameter("smCno"));
+		int code = Integer.parseInt(request.getParameter("code"));
 		//System.out.println("cno : " + cno);
 		
 		String mesContent = request.getParameter("smContent");
 		//System.out.println("mesContent : " + mesContent);
 		
-		Date disDate = new Date(new GregorianCalendar().getTimeInMillis());
 		
-		Member comp = new MessageService().selectCompanyOne(cno);
+		Message originalMes = new MessageService().selectMesOne(code);
 		
 		int wtype = 20;
+		
+		int level = 2;
+		
 		Message mes = new Message();
 		mes.setMesContent(mesContent);
-		mes.setMesDisDate(disDate);
-		mes.setCno(cno);
+		mes.setMesDisDate(originalMes.getMesDisDate());
+		mes.setCno(originalMes.getCno());
+		mes.setMesLevel(level);
 		mes.setMesWType(wtype);
-		mes.setMname(comp.getMemberName());
+		mes.setMname(originalMes.getMname());
+		mes.setMesRefCode(code);
 		
 		System.out.println("mes : " + mes);
 		
-		int result = new MessageService().insertMesToCompany(mes);
+		int result = new MessageService().insertReplyMesToCompany(mes);
 		
 		String page = "";
 		
