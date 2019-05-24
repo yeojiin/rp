@@ -3,11 +3,13 @@
 	margin-left: auto;
 	margin-right: auto;
 	width: 100%;
+	padding : 5%;
 }
 
 .inquiryArea table th {
 	padding: 8px;
 	text-align: center;
+	background : salmon;
 }
 
 .inquiryArea table tr td {
@@ -85,4 +87,10 @@
 }
 .sideListnav2{
 	background:lightgray;
+}
+
+.prompt{
+	width: 200px;
+	height : 30px;
+	margin-bottom : 5%;
 }

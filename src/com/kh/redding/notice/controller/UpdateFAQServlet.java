@@ -1,4 +1,4 @@
-package com.kh.redding.board.controller;
+package com.kh.redding.notice.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -9,20 +9,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.redding.board.model.service.BoardService;
 
-
-@WebServlet("/deleteFAQ.no")
-public class DeleteFAQServlet extends HttpServlet {
+@WebServlet("/updateFAQ.no")
+public class UpdateFAQServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    
-    public DeleteFAQServlet() {
+    public UpdateFAQServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int bid = Integer.parseInt(request.getParameter("num"));
+		int bid = Integer.parseInt(request.getParameter("bid"));
+		String btitle = request.getParameter("noticeTitle");
+		String bcontent = request.getParameter("noticeContent");
 		
-		int result = new BoardService().deleteNoticeOne(bid);
+		
+		int result = new BoardService().UpdateNotice(bid, btitle , bcontent);
 		
 		String page = "";
 		if (result > 0) {
@@ -33,10 +34,12 @@ public class DeleteFAQServlet extends HttpServlet {
 		}else {
 			page = "/views/common/errorPage.jsp";
 			
-			request.setAttribute("msg", "공지사항 삭제 실패");
+			request.setAttribute("msg", "공지사항 업데이트 실패");
 			
 			request.getRequestDispatcher(page).forward(request, response);
 		}
+		
+		
 		
 	}
 

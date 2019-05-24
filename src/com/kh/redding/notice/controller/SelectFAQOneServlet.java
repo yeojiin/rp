@@ -1,56 +1,49 @@
-package com.kh.redding.board.controller;
+package com.kh.redding.notice.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.kh.redding.board.model.service.BoardService;
-import com.kh.redding.member.model.vo.Member;
+import com.kh.redding.board.model.vo.Board;
 
 
-@WebServlet("/delteQnA.no")
-public class DeleteQnAServlet extends HttpServlet {
+@WebServlet("/selectFAQone.no")
+public class SelectFAQOneServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
     
-    public DeleteQnAServlet() {
+    public SelectFAQOneServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//HttpSession session = request.getSession();
-		
-		//Member loginUser = (Member)request.getAttribute("loginUser");
-		
-		//System.out.println(loginUser);
-		
 		int bid = Integer.parseInt(request.getParameter("num"));
 		
-		int result = new BoardService().DeleteMemberQnA(bid);
+		Board selectFAQ = new BoardService().selectNoticeOne(bid);
 		
-		PrintWriter out = response.getWriter();
-		
-		if (result > 0) {
-			out.append("success");
-
-		}else {
+		String page = "";
+		if (selectFAQ != null) {
+			page = "/views/notice/FAQ_detail.jsp";
 			
-			out.append("fail");
+			request.setAttribute("selectFAQ", selectFAQ);
+		}else {
+			page = "/views/common/errorPage.jsp";
+			
+			request.setAttribute("msg", "공지사항 상세 조회 실패");
 		}
 		
-		out.flush();
+		request.getRequestDispatcher(page).forward(request, response);
 		
-		out.close();
 		
 	}
-
+	
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

@@ -1,4 +1,4 @@
-package com.kh.redding.board.controller;
+package com.kh.redding.notice.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
