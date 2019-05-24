@@ -54,9 +54,8 @@
 						<div class="sidenavArea">
 							<ul class="navList">
 								<li onclick="location.href='a_Sstats.jsp'" style="color:lightgray;">회원 통계</li>
-								<li onclick="location.href='a_Mstats.jsp'">사용자 통계</li>
-								<li onclick="location.href='a_Pstats.jsp'">상품 통계</li>
-								<li>게시글 통계</li>
+								<li onclick="location.href='a_Mstats.jsp'">업체 통계</li>
+								<li onclick="location.href='a_Pstats.jsp'">매출 통계</li>
 							</ul>
 						</div>
 					</div>
@@ -69,9 +68,8 @@
 						<div class="sidenavArea2">
 						<ul class="navList2">
 							<li onclick="location.href='a_Sstats.jsp'" style="color:white">회원 통계</li>
-							<li onclick="location.href='a_Mstats.jsp'">사용자 통계</li>
-							<li onclick="location.href='a_Pstats.jsp'">상품 통계</li>
-							<li>게시글 통계</li>
+							<li onclick="location.href='a_Mstats.jsp'">업체 통계</li>
+							<li onclick="location.href='a_Pstats.jsp'">매출 통계</li>
 						</ul>
 					</div>
 					</div>
@@ -97,11 +95,16 @@
 				</table>
 				<br><br>
 				
-				<div style="float:right">
-				<input type="date"> ~ <input type="date"> <button class="searchDate">조회</button>
+				<div style="float:right;">
+				<select class ="searchSelect" style="height:26px">
+				<option value="30">남성회원조회</option>
+				<option value="40">여성회원조회</option>
+				<option value="50">전체회원조회</option>
+				</select>&nbsp;&nbsp;
+				<input type="date" class="firstDate"> ~ <input type="date" class="lastDate"> <button class="searchDate" >조회</button>
 				</div>
-				
-				<div style="width:100%; height:300px">
+				<br><br><br><br>
+				<div style="width:100%; height:300px" class="chartArea">
 					<canvas id="canvas" class="hels"></canvas>					
 				</div>
 				<br><br><br>
@@ -116,20 +119,7 @@
 	<div class="footerArea">
 		<jsp:include page="/views/common/footer.jsp"></jsp:include>
 	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 	
 	<script>
 	var checkFlag = true;
@@ -140,36 +130,39 @@
 		//성별 통계 리턴
 		getGenderCount();
 		
-		
-		//getDateCount();
-		
-		getLineChart(MonthSetChart(/* data */));
+		getLineChart(MonthSetChart());
 		
 		
 		$("#canvas").css({"height":"300px"});
 		$(".hels").css({"height":"300px"});
 		
+		var getDate = new Date();
 		
+		if((getDate.getMonth()+1) < 9){
+			var month = '0' + (getDate.getMonth()+1);
+		}else{
+			var month = (getDate.getMonth()+1);
+		}
+		
+		if((getDate.getDate()) < 9){
+			var date = '0' + (getDate.getDate());
+		}else{
+			var date = (getDate.getDate());
+		}
+		
+		
+		$(".firstDate").val(getDate.getFullYear() + "-" + month + "-" + date);
+		$(".lastDate").val(getDate.getFullYear() + "-" + month + "-" + date);
 				
 	}
 	
 	$(".searchDate").click(function(){
 		var arr= $(this).siblings('input');
-		var startDate = arr[0].value.split("-")[0] +  arr[0].value.split("-")[1];
-		var endDate = arr[1].value.split("-")[0] +  arr[1].value.split("-")[1];
-		
-		$.ajax({
-			url:'<%=request.getContextPath()%>/getGenderCount.ad',
-			data:{startDate:startDate, endDate:endDate, value:30},
-			type:"get",
-			success:function(data){
-				console.log(data);
-			},
-			error:function(data){
+		var startDate = arr[0].value.split(" ")[0].split("-");
+		var endDate = arr[1].value.split(" ")[0].split("-");
+		var value = $(".searchSelect").val();
 				
-			}
-			
-		});
+		getDetailCount(startDate.join(""),endDate.join(""),value);
 		
 	});
 	
@@ -221,9 +214,7 @@
 			type:'get',
 			data:{value:10},
 			success: function(data){			
-				//viewPie(setConfig(data));
-				
-				vlewPie();				
+				viewPie(setConfig(data));				
 				getDateCount();
 			},
 			error: function(data){
@@ -242,11 +233,9 @@
 			url:'<%=request.getContextPath()%>/getGenderCount.ad',
 			type:'get',
 			data:{value:20},			
-			success: function(data){
-				console.log(data);				
+			success: function(data){			
 				var views = getChart(data);
 				viewBar(views);
-				//getYearCount();
 			},
 			error: function(data){
 				console.log("에러");
@@ -255,22 +244,30 @@
 		});
 	}
 	
-	//월별 가입수 리턴 라인 차트 출력
-	function getYearCount(){
+	//디테일 가입수 리턴 라인 차트 출력
+	function getDetailCount(startDate,endDate,value){
 		
 		$.ajax({
 			url:'<%=request.getContextPath()%>/getGenderCount.ad',
-			type:'get',
-			data:{value:30},			
-			success: function(data){
-				console.log(data);				
-				//getLineChart(MonthSetChart(data));
+			data:{startDate:startDate, endDate:endDate, value:value},
+			type:"get",
+			success:function(data){
+				console.log(data);
+				myLine.data.datasets[0].data = new Array();
+				myLine.data.labels = new Array();
+				 for(var i = 0; i<data.length; i++){
+					myLine.data.labels[i] = data[i].gNum.split(" ")[0];
+					myLine.data.datasets[0].data[i] = data[i].tNum;
+				} 
+
+				myLine.update();
 			},
-			error: function(data){
-				console.log("에러");
+			error:function(data){
+				
 			}
 			
-		});
+		})
+		
 	}
 	
 	
@@ -377,6 +374,8 @@
 		});
 		
 	}
+	
+	
 	//주별 로직
 	function setDateCount(maleArr){
 		var getDate = new Date();
@@ -403,25 +402,11 @@
 				
 			} 
 			
-			console.log(maleArr);
-			
-			/* var fnum = femaleArr.length;
-			
-			 if(femaleArr.length != 7){			
-				for(var i = 0; i < (7-fnum); i++){
-					femaleArr.push(0);
-				}
-				
-			} */  
-
-			
-			
 				var maleCount = new Array();
 				var femaleCount = new Array();
 				
 				 for(var i =0; i<7; i++){
 					maleCount.push(0);
-					/* femaleCount.push(0); */
 				} 
 				
 							
@@ -435,19 +420,6 @@
 				   }				
 				}  
 				
-				 /* for(var i=0; i<7; i++){
-					if(femaleArr[i] != 0){
-						for(var j=0; j<7; j++){
-							if(femaleArr[i].gNum.split(" ")[0] == getDate.getFullYear() + "-" + month + "-" + (date-j)){
-							femaleCount[j] = femaleArr[i].tNum;
-						}
-					}				
-				   }				
-				} */ 
-				
-				
-				 console.log(maleCount);
-				console.log(femaleCount); 
 				
 				return maleCount;
 	}
@@ -461,47 +433,27 @@
 
 	//라인 차트 세팅
 	function MonthSetChart(/* data */){
-		//var Date = new Date();
+
+		
 		var config = {
 			
 			type: 'line',
 			data: {
-				labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+				labels: [],
 				datasets: [{
-					label: '여성회원',
+					label: '조회수',
 					backgroundColor: window.chartColors.red,
 					borderColor: window.chartColors.red,
 					data: [
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor()
 					],
 					fill: false,
-				}, {
-					label: '남성회원',
-					fill: false,
-					backgroundColor: window.chartColors.blue,
-					borderColor: window.chartColors.blue,
-					data: [
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor()
-					],
 				}]
 			},
 			options: {
 				responsive: true,
 				title: {
 					display: true,
-					text: '월별 가입수'
+					text: '상세 조회'
 				},
 				tooltips: {
 					mode: 'index',
@@ -515,15 +467,13 @@
 					xAxes: [{
 						display: true,
 						scaleLabel: {
-							display: true,
-							labelString: 'Month'
+							display: true
 						}
 					}],
 					yAxes: [{
 						display: true,
 						scaleLabel: {
-							display: true,
-							labelString: 'Value'
+							display: true
 						}
 					}]
 				}
