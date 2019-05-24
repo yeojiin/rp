@@ -103,7 +103,7 @@ public class WishListDao {
 	}
 
 	
-	//위시리스트 담기용 메소드
+	//위시리스트 패키지 담기용 메소드
 	public int insertPackage(Connection con, int[] packList) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -228,6 +228,66 @@ public class WishListDao {
 		
 		
 		return list;
+	}
+	
+
+	//위시리스트 담기 
+	public int insertWishList(Connection con, int mno, int pno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertWishList");
+			
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			pstmt.setInt(2, pno);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
+
+	
+	//위시리스트 중복 체크
+	public int countEqualWishList(int mno, int pno, Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		
+		String query = prop.getProperty("countEqualWishList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			pstmt.setInt(2, pno);
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				count = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		
+		return count;
 	}
 
 }

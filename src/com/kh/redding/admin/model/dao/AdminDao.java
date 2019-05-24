@@ -1187,6 +1187,115 @@ public class AdminDao {
 		return result;
 	}
 
+	
+	//회원 환불 목록 조회용 메소드(정연)
+	public ArrayList<HashMap<String, Object>> showMemberRefund(Connection con, TotalMemberPageInfo pi) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String,Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+
+		String query = prop.getProperty("showRefund");
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+
+			
+			rset= pstmt.executeQuery();
+
+			list = new ArrayList<HashMap<String,Object>>();
+
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				hmap.put("rnum", rset.getInt("RNUM"));
+				hmap.put("mname", rset.getString("MNAME"));
+				hmap.put("price", rset.getInt("PRICE"));
+				hmap.put("pselect", rset.getString("PSELECT"));
+				hmap.put("pstatus", rset.getString("PSTATUS"));
+				hmap.put("payno", rset.getInt("PAYNO"));
+				hmap.put("mno", rset.getInt("MNO"));
+				hmap.put("upno", rset.getInt("UPNO"));
+				hmap.put("paydiv", rset.getString("PAYDIV"));
+				hmap.put("cno", rset.getInt("CNO"));
+				hmap.put("cname", rset.getString("CNAME"));
+				hmap.put("pname", rset.getString("PNAME"));
+				hmap.put("paycode", rset.getInt("PAYCODE"));
+				hmap.put("appdate", rset.getDate("APPDATE"));
+				hmap.put("pcompdate", rset.getDate("PCOMPDATE"));
+				hmap.put("cardcode", rset.getInt("CARDCODE"));
+				hmap.put("replaycode", rset.getInt("REPLAYCODE"));
+				hmap.put("fprice", rset.getInt("FPRICE"));
+				
+				list.add(hmap);
+			}
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return list;
+		
+	}
+
+	
+	//환불목록 갯수 조회용 메소드(정연)
+	public int getRefundCount(Connection con) {
+		Statement stmt = null;
+		int calcCount = 0;
+		ResultSet rset = null;
+
+		String query = prop.getProperty("allRefundCount");
+
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+
+			if(rset.next()) {
+				calcCount = rset.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+
+		return calcCount;
+	}
+
+	
+	//환불 승인 메소드(정연)
+	public int memberRefund(int payno, Connection con) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("memberRefund");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "승인");
+			pstmt.setInt(2, payno);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+  }
+		
 	public ArrayList<HashMap<String, Object>> getCompanyStats(Connection con, String localName) {
 		PreparedStatement pstmt = null;
 		ArrayList<HashMap<String, Object>> list = null;

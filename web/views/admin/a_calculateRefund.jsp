@@ -27,7 +27,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/admin/a_nav.css">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/admin/a_calculate.css">
+	href="${pageContext.request.contextPath}/css/admin/a_calculateRefund.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin/a_stats.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common/layout.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/semantic/semantic.min.css">
@@ -72,13 +72,15 @@
 			<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 		<br>
 				<div class="pselectArea">
-				<div class="memberPay">
+				<div class="memberRefund">
 				<h2>정산 대기 리스트</h2>
 				<br>
-					<table class="calcTable">
+					<table class="refundTable">
 						<tr>
 							<th>No.</th>
+							<th>결제번호</th>
 							<th>결제코드</th>
+							<th>이전 코드</th>
 							<th>업체</th>
 							<th>상품</th>
 							<th>판매액</th>
@@ -88,8 +90,8 @@
 							<th>최종금액</th>
 							<th>결제상태</th>
 							<th>승인상태</th>
-							<th>승인</th>
 							<th>환불</th>
+							<th>취소</th>
 						</tr>
 					<%
 						for (int i = 0; i < list.size(); i++) {
@@ -97,9 +99,10 @@
 					%>
 						<tr>
 							<td id="mno" hidden><%=hmap.get("mno") %></td>
-							<td id="payno" hidden><%=hmap.get("payno") %></td>
 							<td id="rnum"><%=hmap.get("rnum")%></td>
+							<td id="payno"><%=hmap.get("payno") %></td>
 							<td id="paycode"><%=hmap.get("paycode") %></td>
+							<td id="replaycode"><%=hmap.get("replaycode") %></td>
 							<td id="cname"><%=hmap.get("cname") %></td>
 							<td id="pname"><%=hmap.get("pname") %></td>
 							<td id="price"><%=hmap.get("price") %></td>
@@ -107,7 +110,18 @@
 							<td id="pselect"><%=hmap.get("pselect")%></td>
 							<td id="pcompdate"><%=hmap.get("pcompdate") %></td>
 							<td id="fprice"><%=hmap.get("fprice") %></td>
+					<%
+							if(hmap.get("paydiv").equals("환불")){
+					%>
 							<td id="paydiv" style="width:40px;"><%=hmap.get("paydiv") %></td>
+					<% 
+							}else{
+					%>		
+							<td id="paydiv" style="width:40px; color:green;"><%=hmap.get("paydiv") %></td>
+					<%
+							}
+					%>		
+							
 					<%
 							if(hmap.get("pstatus").equals("승인")){
 					%>
@@ -123,13 +137,13 @@
 					<%
 							if(hmap.get("pstatus").equals("승인")){
 					%>		
-							<td><button class="ui blue button" id="pay" disabled>승인</button></td>
-							<td><button class="ui red button" id="refund">환불</button></td>
+							<td><button class="ui green button" id="refund" style="width:70px;" disabled>환불</button></td>
+							<td><button class="ui red button" id="cancle" style="width:70px;" disabled>취소</button></td>
 					<% 
 							}else{
 					%>
-							<td><button class="ui blue button" id ="pay">승인</button></td>	
-							<td><button class="ui red button" id="refund">환불</button></td>
+							<td><button class="ui green button" id ="refund" style="width:70px;">환불</button></td>	
+							<td><button class="ui red button" id="cancle" style="width:70px;">취소</button></td>
 					<%
 							}
 					%>	
@@ -146,18 +160,18 @@
 					
 					
 					<div class="pagingArea" align="center">
-						<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showCalc.ad?currentPage=1'"><<</button>
+						<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showRefund.ad?currentPage=1'"><<</button>
 						<% if(currentPage <= 1) { %>
 						<button disabled class="ui button"><</button>
 						<% } else { %>
-						<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showCalc.ad?currentPage=<%= currentPage - 1 %>'"><</button>
+						<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showRefund.ad?currentPage=<%= currentPage - 1 %>'"><</button>
 						<% } %>
 						
 						<% for(int p = startPage; p <= endPage; p++) { 
 								if(p == currentPage) { %>
 									<button class="ui button" disabled><%= p %></button>
 						<% 		}else {%>
-									<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showCalc.ad?currentPage=<%= p %>'"><%= p %></button>
+									<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showRefund.ad?currentPage=<%= p %>'"><%= p %></button>
 						<%		} %>
 							
 						<% } %>
@@ -165,14 +179,13 @@
 						<% if(currentPage >= maxPage) { %>
 						<button class="ui button" disabled>></button>
 						<% } else { %>
-						<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showCalc.ad?currentPage=<%= currentPage + 1 %>'">></button>
+						<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showRefund.ad?currentPage=<%= currentPage + 1 %>'">></button>
 						<% } %>
-						<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showCalc.ad?currentPage=<%= maxPage %>'">>></button>
+						<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showRefund.ad?currentPage=<%= maxPage %>'">>></button>
 						<br>
 						</div>
 				</div>
 				<br><br>
-				
 				<div class="pselectArea">
 				<h2>정산 완료 리스트</h2>
 				<br>
@@ -273,35 +286,27 @@
 	});
 		
 	
-	/* $(document).ready(function(){
-		$.ajax
-		
-	});
-	 */
 	
-	
-	
-	//승인하기 버튼(계좌이체 확인)
-	$(document).on("click","#pay",function(){
+	//환불 메소드
+	$(document).on("click","#refund",function(){
 		var payno = $(this).closest("td").siblings('#payno').text();
 		
 		$.ajax({
-			url : "/redding/memberPay.ad",
+			url : "/redding/memberRefund.ad",
   			data : {payno:payno},
   			type : "post",
   			success : function(data){
   				if(data>0){
-  					alert("승인성공!");
-  					<%-- console.log(<%=currentPage%>); --%>
+  					alert("환불 성공!");
   					
-  					location.href="<%=request.getContextPath()%>/showCalc.ad?currentPage=<%= currentPage%>";
+  					location.href="<%=request.getContextPath()%>/showRefund.ad?currentPage=<%= currentPage%>";
   				}else{
-  					alert("승인실패!");
+  					alert("환불 실패!");
   				}
   				
   				
   			},error:function(){
-  				console.log("승인하기 실패!");
+  				console.log("환불하기 실패!");
   			}
 		});
 		

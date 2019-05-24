@@ -105,6 +105,41 @@ public class WishListService {
 	}
 
 
+	
+	//위시리스트 담기 
+	public int insertWishList(int mno, int pno) {
+		Connection con = getConnection();
+
+		int result = new WishListDao().insertWishList(con, mno, pno);
+
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+
+
+		return result;
+	}
+
+
+	
+	//위시리스트 중복 확인
+	public int countEqualWishList(int mno, int pno) {
+		Connection con = getConnection();
+		
+		int count = new WishListDao().countEqualWishList(mno, pno, con);
+		
+		close(con);
+		
+		return count;
+	}
+
+
+	
+
+
 
 
 }
