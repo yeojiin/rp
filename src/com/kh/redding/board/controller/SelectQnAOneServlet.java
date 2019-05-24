@@ -30,6 +30,7 @@ public class SelectQnAOneServlet extends HttpServlet {
 		
 		ArrayList<HashMap<String , Object>> QnADetail = new BoardService().SelectQnAOneDetail(bid);
 
+		
 		String page = "";
 		if (QnADetail != null) {
 			page = "/views/admin/a_MemberInquiryDetail.jsp";
