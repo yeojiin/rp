@@ -690,6 +690,8 @@ public class BoardDao {
 		return QnAcount;
 	}
 
+	
+	//전체 문의 수 조회
 	public int selectQnaAllCount(Connection con) {
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -719,6 +721,7 @@ public class BoardDao {
 		return count;
 	}
 
+	//지원 - 문의 전체리스트
 	public ArrayList<HashMap<String, Object>> selectQnAAllList(Connection con, BoardPageInfo pi) {
 		PreparedStatement pstmt = null;
 		ResultSet rset  = null;
@@ -780,7 +783,7 @@ public class BoardDao {
 				QnAList.add(Qhmap);
 			}
 			
-			System.out.println("문의 :"+ QnAList);
+			//System.out.println("문의 :"+ QnAList);
 			
 			
 		} catch (SQLException e) {
@@ -790,9 +793,6 @@ public class BoardDao {
 			close(rset);
 			close(pstmt);
 		}
-		
-		
-		
 		
 		
 		return QnAList;
@@ -859,6 +859,7 @@ public class BoardDao {
 		return count;
 	}
 
+	//지원 - 문의 상세 
 	public ArrayList<HashMap<String, Object>> selectQnAOneDetail(Connection con, int bid) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -952,6 +953,7 @@ public class BoardDao {
 		return result;
 	}
 
+	//지원 : 문의 - 삭제
 	public int deleteMemberQnA(Connection con, int bid) {
 		PreparedStatement pstmt = null;
 		int result = 0; 
@@ -976,5 +978,242 @@ public class BoardDao {
 		return result;
 	}
 
+	//지원 - 실행중인 문의
+	public ArrayList<HashMap<String, Object>> selectQnAProgressList(Connection con, BoardPageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset  = null;
+		
+		ArrayList<HashMap<String , Object>> QnAList = null;
+		
+		
+		String query = prop.getProperty("selectQnAProgress");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			QnAList = new ArrayList<HashMap<String , Object>>();
+			
+			while(rset.next()) {
+				HashMap<String , Object> Qhmap = new HashMap<String , Object>();
+				
+				int num = rset.getInt("ROWNUM");
+				
+				Qhmap.put("num", num);
+				
+				Board qna = new Board();
+				
+				qna.setBid(rset.getInt("BID"));
+				qna.setBtitle(rset.getString("BTITLE"));
+				qna.setBwriter(rset.getInt("BWRITER"));
+				qna.setBdate(rset.getDate("BDATE"));
+				qna.setBcategory(rset.getString("BCATEGORY"));
+				qna.setBcontent(rset.getString("BCONTENT"));
+				qna.setBdivision(rset.getString("BDIVISION"));
+				
+				Qhmap.put("QnA", qna);
+				
+				Qhmap.put("reply", null);
+				
+				String memberid = rset.getString("MNAME");
+				String nickname = rset.getString("NICK_NAME");
+				
+				Qhmap.put("memberId", memberid);
+				Qhmap.put("NickName", nickname);
+				
+				
+				QnAList.add(Qhmap);
+			}
+			
+			System.out.println("문의 :"+ QnAList);
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return QnAList;
+	}
 
+	//지원 - 진행 완료 문의
+	public ArrayList<HashMap<String, Object>> selectQnACompleteList(Connection con, BoardPageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset  = null;
+		
+		ArrayList<HashMap<String , Object>> QnAList = null;
+		
+		
+		String query = prop.getProperty("selectCompleteList");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			QnAList = new ArrayList<HashMap<String , Object>>();
+			
+			while(rset.next()) {
+				HashMap<String , Object> Qhmap = new HashMap<String , Object>();
+				
+				int num = rset.getInt("ROWNUM");
+				
+				Qhmap.put("num", num);
+				
+				Board qna = new Board();
+				
+				qna.setBid(rset.getInt("BID"));
+				qna.setBtitle(rset.getString("BTITLE"));
+				qna.setBwriter(rset.getInt("BWRITER"));
+				qna.setBdate(rset.getDate("BDATE"));
+				qna.setBcategory(rset.getString("BCATEGORY"));
+				qna.setBcontent(rset.getString("BCONTENT"));
+				qna.setBdivision(rset.getString("BDIVISION"));
+				
+				Qhmap.put("QnA", qna);
+				
+				Reply reply = new Reply();
+				reply.setReply_code(rset.getInt("REPLY_CODE"));
+				reply.setReply_date(rset.getDate("REPLY_DATE"));
+				reply.setReply_content(rset.getString("REPLY_CONTENT"));
+				reply.setMno(rset.getInt("MNO"));
+				
+				Qhmap.put("reply", reply);
+				
+				String memberid = rset.getString("MNAME");
+				String nickname = rset.getString("NICK_NAME");
+				
+				Qhmap.put("memberId", memberid);
+				Qhmap.put("NickName", nickname);
+				
+				
+				QnAList.add(Qhmap);
+			}
+			
+			//System.out.println("문의 :"+ QnAList);
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return QnAList;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectQnASearchList(Connection con, BoardPageInfo pi, String searchType,String searchText) {
+		PreparedStatement pstmt = null;
+		ResultSet rset  = null;
+		
+		ArrayList<HashMap<String , Object>> QnAList = null;
+		
+		String query = "";
+		if (searchType.equals("Code")) {
+			query = prop.getProperty("SearchQnACode");
+		}else if (searchType.equals("Name")) {
+			query = prop.getProperty("SearchQnAName");
+		}else if (searchType.equals("NickName")) {
+			query = prop.getProperty("SearchQnANickName");
+		}else {
+			query = prop.getProperty("SearchCategory");
+		}
+		
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		
+		try {
+			System.out.println("query :" + query);
+			pstmt = con.prepareStatement(query);
+			
+			if (searchType.equals("Code")) {
+				int num = Integer.parseInt(searchText);
+				pstmt.setInt(1, num);
+			}else {
+				pstmt.setString(1, searchText);
+			}
+			
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			QnAList = new ArrayList<HashMap<String , Object>>();
+			
+			while(rset.next()) {
+				HashMap<String , Object> Qhmap = new HashMap<String , Object>();
+				
+				int num = rset.getInt("ROWNUM");
+				
+				Qhmap.put("num", num);
+				
+				Board qna = new Board();
+				
+				qna.setBid(rset.getInt("BID"));
+				qna.setBtitle(rset.getString("BTITLE"));
+				qna.setBwriter(rset.getInt("BWRITER"));
+				qna.setBdate(rset.getDate("BDATE"));
+				qna.setBcategory(rset.getString("BCATEGORY"));
+				qna.setBcontent(rset.getString("BCONTENT"));
+				qna.setBdivision(rset.getString("BDIVISION"));
+				qna.setBmodify_date(rset.getDate("BMODIFY_DATE"));
+				
+				Qhmap.put("QnA", qna);
+				
+				Reply reply = new Reply();
+				reply.setReply_code(rset.getInt("REPLY_CODE"));
+				reply.setReply_date(rset.getDate("REPLY_DATE"));
+				reply.setReply_content(rset.getString("REPLY_CONTENT"));
+				reply.setMno(rset.getInt("MNO"));
+				
+				Qhmap.put("reply", reply);
+				
+				String memberid = rset.getString("MNAME");
+				String nickname = rset.getString("NICK_NAME");
+				
+				Qhmap.put("memberId", memberid);
+				Qhmap.put("NickName", nickname);
+				
+				
+				QnAList.add(Qhmap);
+			}
+			
+			//System.out.println("문의 :"+ QnAList);
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return QnAList;
+		
+	}
+
+	
 }

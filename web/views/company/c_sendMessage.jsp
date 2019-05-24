@@ -56,6 +56,10 @@
       <div class="row content">
       
          <div class="col-sm-2 sidenav1 visible-md visible-lg visible-sm">
+            <button id="sendMessageBtn" onclick="location.href='<%=request.getContextPath()%>/views/company/c_sendMessage.jsp'">쪽지 보내기</button><br><br>
+            <button id="receiveListMessageBtn" onclick="location.href='<%=request.getContextPath()%>/views/company/c_messageManager.jsp'">전체 쪽지</button><br><br>
+            <button id="receiveListMessageBtn" onclick="location.href='<%=request.getContextPath()%>/views/company/c_receiveListMessage.jsp'">받은 쪽지</button><br><br>
+            <button id="sendListMessageBtn" onclick="location.href='<%=request.getContextPath()%>/views/company/c_sendListMessage.jsp'">보낸 쪽지</button><br><br>
             
          </div>
          
@@ -64,22 +68,22 @@
          <%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
          
             <div class="contentsArea" id="sendMessageArea">
-            	<div id="SMHeader">
-            		<h3>관리자에게 쪽지 보내기</h3>
-            	</div>
-            	<div id="SMSection">
-	            	<form method="post" id="sendMessage">
-		            		<div id="messageContentArea">
-		            			<textarea name="messageContent" id="messageContent" style="resize:none;" placeholder="쪽지 내용을 입력해주세요."></textarea>
-		            			<input type="hidden" name="cno" value="<%=loginUser.getMno()%>">
-		            		</div>
-		            		<div id="btnsArea">
-			               		<span id="send">보내기</span>
-			               		<span id="reset">취소하기</span>
-		            		</div>
-	                        
-	            	</form>
-            	</div>
+               <div id="SMHeader">
+                  <h3>관리자에게 쪽지 보내기</h3>
+               </div>
+               <div id="SMSection">
+                  <form method="post" id="sendMessage">
+                        <div id="messageContentArea">
+                           <textarea name="messageContent" id="messageContent" style="resize:none;" placeholder="쪽지 내용을 입력해주세요."></textarea>
+                           <input type="hidden" name="cno" value="<%=loginUser.getMno()%>">
+                        </div>
+                        <div id="btnsArea">
+                              <span id="send">보내기</span>
+                              <span id="reset">취소하기</span>
+                        </div>
+                           
+                  </form>
+               </div>
               
             </div>
          
@@ -95,23 +99,17 @@
       <jsp:include page="/views/common/footer.jsp"></jsp:include>
    </div>
    <script>
-	   $(function(){
-			$("#send").click(function(){
-				var result = window.confirm("보내시겠습니까?");
-				if(result == true){
-					$("#sendMessage").attr("action","<%=request.getContextPath()%>/toAdmin.mes");
-					$("#sendMessage").submit();
-				}else{
-					alert("취소하셨습니다.");
-					location.href="<%=request.getContextPath()%>/views/company/c_messageManager.jsp";
-				}
-			});
-			$("#reset").click(function(){
-				alert("취소하셨습니다.");
-				location.href="<%=request.getContextPath()%>/views/company/c_messageManager.jsp";
-			});
-		   
-	   });
+      $(function(){
+         $("#send").click(function(){
+               $("#sendMessage").attr("action","<%=request.getContextPath()%>/toAdmin.mes");
+               $("#sendMessage").submit();
+         });
+         $("#reset").click(function(){
+            alert("취소하셨습니다.");
+            location.href="<%=request.getContextPath()%>/views/company/c_messageManager.jsp";
+         });
+         
+      });
 
    </script>
 </body>

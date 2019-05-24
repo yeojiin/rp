@@ -280,7 +280,8 @@ public class BoardService {
 			System.out.println("nnn");
 			rollback(con);
 		}
-    return result;
+		
+		return result;
 	}
     
 	public int getQnACompleteSelect() {
@@ -337,6 +338,39 @@ public class BoardService {
 		
 		
 		return result;
+	}
+
+	//지원 - 진행 중인 문의
+	public ArrayList<HashMap<String, Object>> selectQnAProgress(BoardPageInfo pi) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String , Object>> QnAlist = new BoardDao().selectQnAProgressList(con, pi);
+		
+		close(con);
+		
+		return QnAlist;
+	}
+
+	//지원 - 진행완료 문의
+	public ArrayList<HashMap<String, Object>> selectQnAComplete(BoardPageInfo pi) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String , Object>> QnAlist = new BoardDao().selectQnACompleteList(con, pi);
+		
+		close(con);
+		
+		return QnAlist;
+	}
+
+	//지원-문의 검색
+	public ArrayList<HashMap<String, Object>> selectQnASearch(BoardPageInfo pi, String searchType, String searchText) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String , Object>> QnAlist = new BoardDao().selectQnASearchList(con, pi , searchType , searchText);
+		
+		close(con);
+		
+		return QnAlist;
 	}
 
 

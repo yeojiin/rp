@@ -56,8 +56,11 @@
    <div class="container-fluid text-center">
       <div class="row content">
       
-         <div class="col-sm-2 sidenav1 visible-md visible-lg visible-sm">
-            <div id="sendMessageBtn">쪽지 보내기</div>
+         <div class="col-sm-2 sidenav1 visible-md visible-lg visible-sm mesBtns">
+            <button id="sendMessageBtn" onclick="location.href='<%=request.getContextPath()%>/views/company/c_sendMessage.jsp'">쪽지 보내기</button><br><br>
+            <button id="receiveListMessageBtn" onclick="location.href='<%=request.getContextPath()%>/views/company/c_messageManager.jsp'">전체 쪽지</button><br><br>
+            <button id="receiveListMessageBtn" onclick="location.href='<%=request.getContextPath()%>/views/company/c_receiveListMessage.jsp'">받은 쪽지</button><br><br>
+            <button id="sendListMessageBtn" onclick="location.href='<%=request.getContextPath()%>/views/company/c_sendListMessage.jsp'">보낸 쪽지</button><br><br>
          </div>
          
          <div class="col-sm-8 text-left">
@@ -68,143 +71,40 @@
                <div id="receiveMessageArea">
                   <!-- 받은 쪾지 관리 -->
                   <div id="RMHeader">
-                     <h3>받은 쪽지 목록</h3>
+                     <h3>전체 쪽지 목록</h3>
                      <div id="RMBtnsArea" style="float:right;">
                         <div id="RMDeleteBtn">삭제</div>
-                        <div id="RMReplyBtn">답장</div>
                      </div>
                   </div>
                   <table id="RMTable">
                      <thead>
-	                     <tr>
-	                        <th width="30"></th>
-	                        <th width="50">No.</th>
-	                        <th>내용</th>
-	                        <th width="120">받은날짜</th>
-	                        <th width="100">상태</th>                     
-	                     </tr>
+                        <tr>
+                           <th width="30"></th>
+                           <th width="50">No.</th>
+                           <th>내용</th>
+                           <th width="120">날짜</th>
+                           <th>상태</th>
+                           <th width="100">읽음상태</th>                     
+                        </tr>
                      </thead>
                      <tbody class="rmTbody" id="rmTbody">
-	                     <tr>
-	                     	<td>
-	                     		<input type="checkbox" name="receiveMeessage" id="receiveMeessage">
-	                     	</td>
-	                     	<td>2</td>
-	                     	<td>3</td>
-	                     	<td>
-	                     		<p id="messageContent"></p>
-	                     		<p></p>
-	                     	</td>
-	                     	<td>5</td>
-	                     	<td>6</td>
-	                     </tr>
-	                     <tr>
-	                     	<td>
-	                     		<input type="checkbox" name="receiveMeessage" id="receiveMeessage">
-	                     	</td>
-	                     	<td>2</td>
-	                     	<td>3</td>
-	                     	<td>4</td>
-	                     	<td>5</td>
-	                     	<td>6</td>
-	                     </tr>
+                        
                      </tbody>
                      <tfoot class="TfootPage" id="rmTF">
-                     	<tr>
-							<td colspan="6" class="pageBtnArea"><br>
-								<button class="paging"> << </button>
-								<button class="paging"> < </button>
-								<button class="paging"> 1 </button>
-								<button class="paging"> > </button>
-								<button class="paging"> >> </button>                     
-							</td>
-						</tr>
+                        <tr>
+		                     <td colspan="6" class="pageBtnArea"><br>
+		                        <button class="paging"> << </button>
+		                        <button class="paging"> < </button>
+		                        <button class="paging"> 1 </button>
+		                        <button class="paging"> > </button>
+		                        <button class="paging"> >> </button>                     
+		                     </td>
+		                 </tr>
                      </tfoot>
                   </table>
                </div>
                
-               <!-- <div id="myModal" class="modal">
- 
-				      Modal content
-				      <div class="modal-content">
-				        	<span class="close">&times;</span> 
-				        	<form action="" method="post">
-				        		<div id="receiveArea">
-							        <h3>받은 쪽지</h3>
-							        고객의 문의에 대한 답변
-							        <div class="modalContent">
-							        	<label>발신인 </label> <input type="text" class="receiveMessage" name="receiveId" id="receiveId" value="해당쪽지의 수신인을 getAttribute(admin)로 가져오시오"readonly>
-							        	<label>수신날짜 </label> <input type="text" class="receiveMessage" name="receiveDay" id="receiveDay" value="받은 쪽지 날짜"readonly>
-							        	<textarea class="receiveMessage" name="receiveContent" id="receiveContent"readonly>
-							        		관리자의 쪽지 내용을 ajax로 서블릿에서 가져온다
-							     
-							        	</textarea>
-							        </div>
-				        		</div>
-				        		<div id="sendArea">
-				        			<h3>답장 보내기</h3>
-				        			<input type="text" class="sendMessage" name="sendId" id="sendId" value="해당쪽지의 발신인을 '본인' 로 가져오시오"readonly>
-							        	<input type="text" class="receiveMessage" name="sendDay" id="sendDay" value="오늘 날짜"readonly>
-							        	<textarea class="sendMessage" name="sendContent" id="sendContent">
-							        		
-							        		쪽지 내용에 대한 답변 작성
-							     
-							        	</textarea>
-				        		</div>
-						        <div id="sendBtn" align="center">보내기</div>
-				        		
-				        	</form>                                                              
-				      </div>
-				 
-				  </div> -->
                
-               <div id="sendMessageArea">
-                  <!-- 예약자 정보 조회 -->   
-                  <div id="SMHeader">
-                     <h3>보낸 쪽지 목록</h3>
-                     <div id="SMDeleteBtn">삭제</div>
-                  </div>
-                  <div id="SMSelectListArea">
-                     <table id="SMTable">
-	                     <thead>
-	                        <tr>
-	                        	<th width="30"></th>
-		                        <th width="50">No.</th>
-		                        <th>내용</th>
-		                        <th width="120">보낸날짜</th>
-	                       		<th width="100">상태</th> 
-	                        </tr>
-	                     </thead>
-	                     <tbody>
-	                        <tr>
-	                     		<td>
-	                     			<input type="checkbox" name="sendMessage" id="sendMessage">
-		                     	</td>
-		                     	<td>2</td>
-		                     	<td>3</td>
-		                     	<td>4</td>
-		                     	<td>5</td>
-		                     	<td>6</td>
-		                     </tr>
-	                     </tbody>
-	                     <tfoot>
-		                     <tr>
-		                     	<td>
-		                     		<input type="checkbox" name="sendMessage" id="sendMessage">
-		                     	</td>
-		                     	<td>2</td>
-		                     	<td>3</td>
-		                     	<td>4</td>
-		                     	<td>5</td>
-		                     	<td>6</td>
-		                     </tr>
-	                     </tfoot>
-                     </table>
-                  </div>
-                  <div id="SMPagingArea">
-                  </div>
-               </div>
-               <div id="topBtn">▲</div>
             </div>
          
          </div>
@@ -219,197 +119,247 @@
       <jsp:include page="/views/common/footer.jsp"></jsp:include>
    </div>
    <script>
-   	$(function(){
-   		var ckCount = 0;
-   		var nockCount=0;
-   		var totalCount = 0;
-   		var cno = <%=loginUser.getMno()%>;
-   		$.ajax({
-   			url:"<%=request.getContextPath()%>/listCountComp.mes",
-   			type:"post",
-   			success:function(data){
-   				console.log('성공');
-   				ckCount = data.CK_COUNT;
-   				nockCount = data.NOCK_COUNT;
-   				totalCount = data.TOTAL_COUNT;
-   				totalView(1, totalCount);
-   				/* console.log("totalCount : " + totalCount); */
-   			},
-   			error:function(data){
-   				console.log('실패');
-   			}
-   			
-   		});
-   		
-   		function totalView(currentPage,totalCount){
-   			console.log('totalView까지 옴');
-   			$.ajax({
-   				url:"<%=request.getContextPath()%>/comMesList.mes",
-   				type:"post",
-   				data:{currentPage:currentPage,totalCount:totalCount},
-   				success:function(data){
-   					/* console.log('통신 성공'); */
-   					console.log(data);
-   					makeRmTable(data);
-   					
-   					
-   				},
-   				error:function(data){
-   					console.log('리스트 서블릿과 통신 실패');
-   				}
-   			});
-   		}
-   		//보낸쪽지 테이블 생성함수
-   		function makeSmTable(data, wtype){
-   			
-   		}
-   		
-   		//받은쪽지 테이블 생성함수
-   		function makeRmTable(data, wtype){
-   			$(".rmTbody").empty();
-   			/* console.log("data.compMesList.length : " + data.compMesList.length); */
-   			for(var i=0 ; i<data.compMesList.length ; i++){
-   				var list = data.compMesList[i];
-   				/* console.log("list : " + list); */
-   				var pi = data.pi;
-   				
-   				var $rmListTr = $("<tr>");
-   				
-   				//체크박스
-   				var $ckTd = $("<td>");
-   				var $ckIn = $("<input type='checkbox' class='ckBtns' name='ckBtns' style='cursor:pointer;'>");
-   				$ckTd.append($ckIn);
-   				
-   				//받은메세지startRow
-   				var $startRowTd = $("<td>").text(pi.startRow);
-   				
-   				//받은메세시코드
-   				var $codeIn = $("<input type='hidden'>");
-   				$codeIn.val(list.messageCode);
-   				$startRowTd.append($codeIn);
-   				
-   				//받은내용
-   				var $contentTd = $("<td>").text(list.mesContent.substr(0,10)+"....");
-   				
-   				//관리자가 발신한 날짜 업체는 받은날짜
-   				var $disDateTd = $("<td>").text(list.mesDisDate);
-   				
-   				//받은 쪽지 레벨
-   				var $levelIn =$("<inpyt type='hidden'>");
-   				$levelIn.val(list.mesLevel);
-   				$disDateTd.append($levelIn);
-   				
-   				//받은 메세지 발신, 수신 구분
-   				var $wtypeIn = $("<input type='hidden'>").text(list.mesType);
-   				$disDateTd.append($wtypeIn);
-   				
-   				//원글 참조 쪽지번호 
-   				var $refIn = $("<input type='hidden'>");
-   				$refIn.val(list.mesRefCode);
-   				$disDateTd.append($refIn);
-   				
-   				//받은 쪽지 확인날짜(클릭시 읽음으로 바뀜)
-   				var $ckDateTd = $("<td>");
-   				var $ckDateDiv = null;
-   				if(list.mesCkDate != null){
-   					$ckDateDiv = $("<div class='readTd' style='border-radius: 5px;background:white;border:1px solid salmon;color:salmon;'>").text(list.mesCkDate);
-   				}else{
-   					$ckDateDiv = $("<div class='noreadTd' style='border-radius: 5px;background:salmon;border:1px solid salmon;color:white;'>").text("읽지않음")
-   				}
-   				$ckDateTd.append($ckDateDiv);
-   				
-   				//업체 번호
-				var $cnoIn = $("<input type='hidden'>")
-				$cnoIn.val(list.cno);
-   				$ckTd.append($cnoIn);
-   				
-   				$rmListTr.append($ckTd);
-   				$rmListTr.append($startRowTd);
-   				$rmListTr.append($contentTd);
-   				$rmListTr.append($disDateTd);
-   				$rmListTr.append($ckDateTd);
-   				
-   				$(".rmTbody").append($rmListTr);
-   				pi.startRow++;
-   				
-   				$(".ckBtns").parent().siblings().click(function(){
-   					var code = $(this).parent().children().eq(1).children().eq(0).val();
-   					/* console.log(code); */
-   					location.href="<%=request.getContextPath()%>/replyToAdmin.mes?code="+code;
-   				});
-   			}
-   			
-   		}
-   		//페이징
-        function page(data, value){
-           var $page = $(".TfootPage");
-           
-           var pi = data.pi;
-           var currentPage = pi.currentPage;
-           var limit = pi.limit;
-           var maxPage = pi.maxPage;
-           var startPage = pi.startPage;
-           var endPage = pi.endPage;
-           
-           $page.empty();
-           
-           $page.append($("<button>").attr("class","paging").text("<<").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).click(function(){
-              totalView(1,value);
-          }));
-           
-           
-            if(currentPage <= 1) { 
-           		$page.append($("<button>").attr("class","paging").text("<").attr("disabled",true).css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}));
-            }else{ 
-               $page.append($("<button>").attr("class","paging").text("<").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).click(function(){
-                     totalView(currentPage - 1,value);
-               }));
-
-            } 
-            for(var p= startPage; p <= endPage; p++){
-               if(p == currentPage){
-                  $page.append($("<button>").attr("class","paging").text(p).attr("disabled",true).css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}));
-               }else{ 
-                  $page.append($("<button>").attr("class","paging").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).text(p).click(function(){
-                     totalView($(this).text(),value);
-                  }));
-               }
+      $(function(){
+         var ckCount = 0;
+         var nockCount=0;
+         var totalCount = 0;
+         var cno = <%=loginUser.getMno()%>;
+         var deleteCode =null;
+         $.ajax({
+            url:"<%=request.getContextPath()%>/listCountComp.mes",
+            type:"post",
+            success:function(data){
+               /* console.log('성공'); */
+               ckCount = data.CK_COUNT;
+               nockCount = data.NOCK_COUNT;
+               totalCount = data.TOTAL_COUNT;
+               totalView(1, totalCount);
+               /* console.log("totalCount : " + totalCount); */
+            },
+            error:function(data){
+               console.log('실패');
+            }
             
-            } 
-            if(currentPage >= maxPage){ 
-                $page.append($("<button>").attr("class","paging").text(">").attr("disabled",true).css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}));               
-            }else {
-                $page.append($("<button>").attr("class","paging").text(">").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).click(function(){
-                   totalView(currentPage + 1,value);
-                }));
-            } 
-            $page.append($("<button>").attr("class","paging").text(">>").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).click(function(){
-               totalView(maxPage,value);
-            }));
-        }
-		/* var totalContent = "우는 품고 끓는 거선의 있는 것은 바로 인류의 청춘이 운다. 뜨거운지라, 이상 하여도 곳으로 관현악이며, 가치를 그러므로 사막이다. 꾸며 풀이 얼마나 보는 보내는 청춘 것이다.천지는 노래하며 고행을 가는 피다. 뜨거운지라, 가슴이 않는 예가 칼이다. 공자는 따뜻한 새 간에 가치를 들어 피가 가장 설산에서 보라. 내는 같이, 싹이 아름다우냐? 얼음과 가지에 꽃이 그들의 인생을 광야에서 그리하였는가? 몸이 너의 때까지 이것을 뼈 그들의 천하를 약동하다. 산야에 심장은 거친 무엇을 끓는 구하지 것이다. 커다란 같이, 보는 못할 아름답고 보이는 영원히 너의 때문이다. 천고에 자신과 우리의 우리의 풀이 이것이다. 타오르고 고동을 그러므로 구하지 약동하다. 놀이 그것을 그들은 앞이 이상의 이상이 길지 부패뿐이다.";		
-		var sampleContent = totalContent.substr(0,30) + "...";
-		$("#messageContent").text(sampleContent);
-		
-		$("#RMDeleteBtn").click(function(){
-			var resultRM = window.confirm('해당 메세지들을 삭제하시겠습니까?');
-			
-			if(resultRM==true){
-				alert('삭제되었습니다');
-			}else{
-				alert('삭제가 취소되었습니다.');
-			}
-		});
-		$("#SMDeleteBtn").click(function(){
-			var resultSM = window.confirm('해당 메세지들을 삭제하시겠습니까?');
-			
-			if(resultSM==true){
-				alert('삭제되었습니다');
-			}else{
-				alert('삭제가 취소되었습니다.');
-			}
-		}); */
-   	});
+         });
+         
+         function totalView(currentPage,value){
+            /* console.log('totalView까지 옴'); */
+            $.ajax({
+               url:"<%=request.getContextPath()%>/comMesList.mes",
+               type:"post",
+               data:{currentPage:currentPage,value:value},
+               success:function(data){
+                  /* console.log('통신 성공'); */
+                  /* console.log(data); */
+                  makeRmTable(data, value);
+               },
+               error:function(data){
+                  console.log('리스트 서블릿과 통신 실패');
+               }
+            });
+         }
+         function makeRmTable(data,value){
+            $(".rmTbody").empty();
+            /* console.log("data.compMesList.length : " + data.compMesList.length); */
+            for(var i=0 ; i<data.compMesList.length ; i++){
+               var list = data.compMesList[i];
+               /* console.log("list : " + list); */
+               var pi = data.pi;
+               
+               var $rmListTr = $("<tr>");
+               
+               //체크박스
+               var $ckTd = $("<td>");
+               var $ckIn = $("<input type='checkbox' class='ckBtns' name='ckBtns' style='cursor:pointer;'>");
+               $ckTd.append($ckIn);
+               
+               //받은메세지startRow
+               var $startRowTd = $("<td>").text(pi.startRow);
+               
+               //받은메세시코드
+               var $codeIn = $("<input type='hidden'>");
+               $codeIn.val(list.messageCode);
+               $startRowTd.append($codeIn);
+               
+               //받은내용
+               var $contentTd = $("<td>").text(list.mesContent.substr(0,10)+"....");
+               
+               //관리자가 발신한 날짜 업체는 받은날짜
+               var $disDateTd = $("<td>").text(list.mesDisDate);
+               
+               //받은 쪽지 레벨
+               var $levelIn =$("<inpyt type='hidden'>");
+               $levelIn.val(list.mesLevel);
+               $disDateTd.append($levelIn);
+               
+               //받은 메세지 발신, 수신 구분
+               var $wtypeIn = $("<input type='hidden'>").text(list.mesWType);
+               $disDateTd.append($wtypeIn);
+               
+               //원글 참조 쪽지번호 
+               var $refIn = $("<input type='hidden'>");
+               $refIn.val(list.mesRefCode);
+               $disDateTd.append($refIn);
+               
+               //받았는지 보냈는지 확인
+               var $statusTd = $("<td>");
+               var $statusDiv = null;
+               /* console.log("list.mesWType : " + list.mesWType); */
+               if(list.mesWType==20){
+                  $statusDiv = $("<div class='receiveTd'  style='color:salmon;'>").text("받은 쪽지");
+               }else{
+                  $statusDiv = $("<div class='noreadTd' >").text("보낸 쪽지");
+               }
+               $statusTd.append($statusDiv);
+               
+               //받은 쪽지 확인날짜(클릭시 읽음으로 바뀜)
+               var $ckDateTd = $("<td>");
+               var $ckDateDiv = null;
+               if(list.mesCkDate != null){
+            	   if(list.mesWType==10){
+            		   
+	                  $ckDateDiv = $("<div class='readTd' style='border-radius: 5px;background:white;border:1px solid salmon;color:salmon;'>").text("읽음");
+            	   }else{
+            		   $ckDateDiv = $("<div class='readTd' style='border-radius: 5px;background:white;border:1px solid salmon;color:salmon;'>").text(list.mesCkDate);
+            	   }
+               }else{
+                  $ckDateDiv = $("<div class='noreadTd' style='border-radius: 5px;background:salmon;border:1px solid salmon;color:white;'>").text("읽지않음")
+               }
+               $ckDateTd.append($ckDateDiv);
+               
+               //업체 번호
+            var $cnoIn = $("<input type='hidden'>")
+            $cnoIn.val(list.cno);
+               $ckTd.append($cnoIn);
+               
+               $rmListTr.append($ckTd);
+               $rmListTr.append($startRowTd);
+               $rmListTr.append($contentTd);
+               $rmListTr.append($disDateTd);
+               $rmListTr.append($statusTd);
+               $rmListTr.append($ckDateTd);
+               
+               $(".rmTbody").append($rmListTr);
+               pi.startRow++;
+               
+               $(".ckBtns").parent().siblings().mouseenter(function(){
+            	   $(this).parent().css("background","salmon");
+               }).mouseout(function(){
+            	   $(this).parent().css("background","white");
+               }).click(function(){
+                  var code = $(this).parent().children().eq(1).children().eq(0).val();
+                  /* console.log(code); */
+                  //상세보기로 가기
+                  
+                  var wtp = $(this).parent().children().eq(3).children().eq(1).css("background", "red");
+                  /* console.log("wtp.val()  :" +wtp.text()); */
+                  
+                  if(wtp.text()==20){
+	                  location.href="<%=request.getContextPath()%>/replyToAdminDetail.mes?code="+code;
+                	  
+                  }else{
+                	  location.href="<%=request.getContextPath()%>/comMesOne.mes?code="+code;
+                  }
+                  
+                  
+               });
+               
+               $(".ckBtns").click(function(){
+            	   var code = $(this).parent().parent().children().eq(1).children().eq(0).css("background","red");
+            	   var code2 = code.val();
+            	   /* console.log("code : " + code2); */
+            	   
+            	   $("#RMDeleteBtn").click(function(){
+            		   /* console.log(code2); */
+            		   deleteCode += code2 + ", ";
+            		   
+            		   console.log("deleteCode : " + deleteCode);
+            	   });
+               });
+            }
+            
+            page(data, value);
+            
+         }
+       //페이징
+         function page(data, value){
+         	 /* console.log('value : ' + value); */
+         		/* console.log("Sdf : "+data.pi.currentPage); */
+ 	           var $page = $(".pageBtnArea");
+ 	           
+ 	           var pi = data.pi;
+ 	           var currentPage = pi.currentPage;
+ 	           var limit = pi.limit;
+ 	           var maxPage = pi.maxPage;
+ 	           var startPage = pi.startPage;
+ 	           var endPage = pi.endPage;
+ 	           /* console.log("currentPage : " + currentPage); */
+ 	           /* console.log("limit : " + limit);
+ 	           console.log("maxPage : " + maxPage);
+ 	           console.log("endPage : " + endPage);
+ 	           console.log("startPage : " + startPage); */
+ 	           
+ 	           
+ 	           $page.empty();
+ 	           
+ 	           $page.append($("<button>").attr("class","paging").text("<<").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).click(function(){
+ 	              totalView(1,value);
+ 	          }));
+ 	           
+ 	           
+ 	            if(currentPage <= 1) { 
+ 	                 $page.append($("<button>").attr("class","paging").text("<").attr("disabled",true).css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}));
+ 	            }else{ 
+ 	               $page.append($("<button>").attr("class","paging").text("<").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).click(function(){
+ 	                     totalView(currentPage - 1,value);
+ 	                     
+ 	               }));
+ 	
+ 	            } 
+ 	            for(var p= startPage; p <= endPage; p++){
+ 	            	if(p == currentPage){
+ 						$page.append($("<button>").attr("class","paging").text( p ).attr("disabled",true).css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid salmon"}));
+ 					}else{ 
+ 						$page.append($("<button>").attr("class","paging").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).text( p ).click(function(){
+ 							totalView($(this).text(),value);
+ 						}));
+ 					}
+ 	            
+ 	            } 
+ 	            if(currentPage >= maxPage){ 
+ 				 	$page.append($("<button>").attr("class","paging").text(" > ").attr("disabled",true).css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}));					
+ 				}else {
+ 				 	$page.append($("<button>").attr("class","paging").text(" > ").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).click(function(){
+ 				 		totalView(currentPage + 1,value);
+ 				 	}));
+ 				} 
+ 	            $page.append($("<button>").attr("class","paging").text(" >> ").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).click(function(){
+ 					   totalView(maxPage,value);
+ 				}));
+         }
+      /* var totalContent = "우는 품고 끓는 거선의 있는 것은 바로 인류의 청춘이 운다. 뜨거운지라, 이상 하여도 곳으로 관현악이며, 가치를 그러므로 사막이다. 꾸며 풀이 얼마나 보는 보내는 청춘 것이다.천지는 노래하며 고행을 가는 피다. 뜨거운지라, 가슴이 않는 예가 칼이다. 공자는 따뜻한 새 간에 가치를 들어 피가 가장 설산에서 보라. 내는 같이, 싹이 아름다우냐? 얼음과 가지에 꽃이 그들의 인생을 광야에서 그리하였는가? 몸이 너의 때까지 이것을 뼈 그들의 천하를 약동하다. 산야에 심장은 거친 무엇을 끓는 구하지 것이다. 커다란 같이, 보는 못할 아름답고 보이는 영원히 너의 때문이다. 천고에 자신과 우리의 우리의 풀이 이것이다. 타오르고 고동을 그러므로 구하지 약동하다. 놀이 그것을 그들은 앞이 이상의 이상이 길지 부패뿐이다.";      
+      var sampleContent = totalContent.substr(0,30) + "...";
+      $("#messageContent").text(sampleContent);
+      
+      $("#RMDeleteBtn").click(function(){
+         var resultRM = window.confirm('해당 메세지들을 삭제하시겠습니까?');
+         
+         if(resultRM==true){
+            alert('삭제되었습니다');
+         }else{
+            alert('삭제가 취소되었습니다.');
+         }
+      });
+      $("#SMDeleteBtn").click(function(){
+         var resultSM = window.confirm('해당 메세지들을 삭제하시겠습니까?');
+         
+         if(resultSM==true){
+            alert('삭제되었습니다');
+         }else{
+            alert('삭제가 취소되었습니다.');
+         }
+      }); */
+      });
    </script>
 </body>
 </html>

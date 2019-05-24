@@ -91,11 +91,11 @@ int endPage = pi.getEndPage();
 						<br>
 						<table id="inquiryNumt">
 							<tr>
-								<td width="250" style="background: lightgray;">문의내역</td>
+								<td width="250" style="background: salmon; color : white;" id = "QnAAllList">문의내역</td>
 								<td width="100"><%=Allcount %></td>
-								<td width="250" style="background: lightgray;">진행중</td>
+								<td width="250" style="background: salmon;color : white;" id = "QnAProgress">진행중</td>
 								<td width="100"><%=ProgressCount %></td>
-								<td width="250" style="background: lightgray;">진행완료</td>
+								<td width="250" style="background: salmon; color : white;" id = "QnAComplete">진행완료</td>
 								<td width="100"><%=CompleteCount %></td>
 							</tr>
 						</table>
@@ -105,31 +105,36 @@ int endPage = pi.getEndPage();
 					<h4 id="text1">문의 내역 조회</h4>
 					<br> <br> <br>
 					<div class="inquiryList">
-						
+						<form action = "<%=request.getContextPath()%>/searchQnA.no" method = "Post" id ="searchForm">
 							<div class="ui category search">
-								<div class="ui icon input">
-									<select></select> 
-									<input class="prompt" type="text"> 
-									<i class="search icon"></i>
+								<div class="ui icon input" style = "margin-bottom: 3%;">
+									<select name = "searchType" id = "searchType">
+										<option>-선택-</option>
+										<option value = "Code">문의번호</option>
+										<option value = "Name">작성자</option>
+										<option value = "NickName">닉네임</option>
+										<option value = "Category">카테고리</option>
+									</select> 
+									<input type = "text" style = "width: 120px" name = "searchText" id = "searchText">
+									<button type = "button" id = "searchBtn">검색</button>
 								</div>
 							</div>
-							
-						
-
+						</form>	
+					<div>
 						<table id="inquiryListt">
-							<tr style="background: lightgray;">
+							<tr style="background: salmon; color : white;">
+								<td>문의 접수번호</td>
 								<td>카테고리</td>
 								<td>문의제목</td>
-								<td>회원 아이디</td>
 								<td>회원이름</td>
+								<td>회원 닉네임</td>
 								<td>진행상태</td>
 								<!-- <td></td> -->
 							</tr>
 							<% if (QnAList == null || QnAList.size() == 0){ %>
 							<tr>
-								<td><input type="checkbox"></td>
 								<td></td>
-								<td colspan= "4">작성된 문의가 없습니다.</td>
+								<td colspan= "5">작성된 문의가 없습니다.</td>
 								<td></td>
 							</tr>
 							<%}else { 
@@ -145,11 +150,12 @@ int endPage = pi.getEndPage();
 							%>
 							<tr onclick = "location.href= '<%=request.getContextPath()%>/QnAOne.no?no='+<%=QnA.getBid()%>">
 									<% if (bid != QnA.getBid()){ %>
+									<td><%=QnA.getBid() %>
 									<td><%=QnA.getBcategory() %></td>
 									<td><%=QnA.getBtitle() %></td>
 									<td><%=memberid %></td>
 									<td><%=nickname %></td>
-									<%if(reply.getReply_code() == 0){%>
+									<%if(reply == null || reply.getReply_code() == 0){%>
 									<td><a class="ui red label">진행중</a></td>
 									<%}else { %>
 									<td><a class="ui blue label">진행완료</a></td>
@@ -161,6 +167,7 @@ int endPage = pi.getEndPage();
 						<%} %>
 							
 						</table>
+						</div>
 						<br>
 						<!-- 페이지 버튼 처리 -->
 						<div class="pagingArea" align="center">
@@ -197,12 +204,48 @@ int endPage = pi.getEndPage();
 		</div>
 		</div>
 				<div class="col-sm-2 sidenav2"></div>
-			</div>
+		</div>
 	
 
 		<!-- 커먼 풋터 -->
 		<div class="footerArea">
 			<jsp:include page="/views/common/footer.jsp"></jsp:include>
 		</div>
+		
+		
+		<script>
+		
+			$(function(){
+				
+				$("#QnAAllList").click(function(){
+					location.href= "<%=request.getContextPath()%>/AllQnA.no";
+				});
+				
+				$("#QnAProgress").click(function(){
+					location.href = "<%=request.getContextPath()%>/QnAProgress.no";
+				});
+				
+				$("#QnAComplete").click(function(){
+					location.href = "<%=request.getContextPath()%>/QnAComplete.no";
+				});
+				
+				
+				$("#searchBtn").click(function(){
+					var text = $("#searchText").val();
+					var type = $("#searchType").val();
+					
+					if (type == "-선택-"){
+						alert("검색할 내용을 선택해주세요");
+					}else if (text == ""){
+						alert("검색할 타입을 선택해주세요");
+					}else {
+						$("#searchForm").submit();
+					}
+					
+				});
+				
+			});
+		
+		</script>
 </body>
 </html>

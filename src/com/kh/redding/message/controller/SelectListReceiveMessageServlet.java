@@ -23,7 +23,7 @@ public class SelectListReceiveMessageServlet extends HttpServlet {
         super();
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("모든 업체들에게 받은 쪽지 전체 리스트 조회 서블릿");
+		//System.out.println("모든 업체들에게 받은 쪽지 전체 리스트 조회 서블릿");
 		
 		int wtype = 10;//수신
 

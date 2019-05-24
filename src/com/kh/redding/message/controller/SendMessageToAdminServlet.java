@@ -22,13 +22,13 @@ public class SendMessageToAdminServlet extends HttpServlet {
     }
 
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      System.out.println("관리자에게 메세지 보내기-쪽지 insert 서블릿");
+      //System.out.println("관리자에게 메세지 보내기-쪽지 insert 서블릿");
       Member loginUser = (Member)request.getSession().getAttribute("loginUser");
       int cno = loginUser.getMno();
-      System.out.println("cno : " + cno);
+      //System.out.println("cno : " + cno);
       
       String content = request.getParameter("messageContent");
-      System.out.println("messageContent : " + content);
+      //System.out.println("messageContent : " + content);
       
       Date disDate = new Date(new GregorianCalendar().getTimeInMillis());
       

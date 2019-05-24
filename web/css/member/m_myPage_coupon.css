@@ -62,3 +62,26 @@
 .couponTable tbody td{
 	height:100px;
 }
+
+.couponDiv {
+	width:32%; 
+	height:auto; 
+	display:inline-block; 
+	text-align:center;
+}
+.couponDownloadBtn {
+	background:salmon; 
+	color:white;
+	width:100%; 
+	height:100%; 
+	border:1px solid salmon;
+	font-size:20px;
+}
+.couponDownloadBtn:hover {
+	background:white; 
+	color:salmon;
+	width:100%; 
+	height:100%; 
+	border:1px solid salmon;
+	font-size:20px;
+}

@@ -20,10 +20,10 @@ public class GetListCountMesAboutCompanyServlet extends HttpServlet {
         super();
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("해당 업체가 가지고 있는 모든 쪽지의 listCount 조회 서블릿");
+		//System.out.println("해당 업체가 가지고 있는 모든 쪽지의 listCount 조회 서블릿");
 		Member login = (Member)request.getSession().getAttribute("loginUser");
 		int cno = login.getMno();
-		System.out.println("cno : " + cno);
+		//System.out.println("cno : " + cno);
 		
 		HashMap<String, Object> hmap = new MessageService().getListCountCompMes(cno);
 		

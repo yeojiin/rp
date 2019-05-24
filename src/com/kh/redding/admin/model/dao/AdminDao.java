@@ -1429,6 +1429,50 @@ public class AdminDao {
 	}
 
 	
+	public ArrayList<HashMap<String, Object>> saleStats(Connection con, String selectValue) {
+		
+		Properties prop = new Properties();
+		String fileName = MemberDao.class.getResource("/sql/admin/admin-query.properties").getPath();
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		Statement stmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("saleStatsQuery");
+		System.out.println(query);
+		
+		list = new ArrayList<HashMap<String, Object>>();
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				
+				if(selectValue.equals("일별")) {
+					hmap.put("date", rset.getString(2));
+					hmap.put("price", rset.getString(3));
+				}
+				list.add(hmap);
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		return list;
+	}
 	
 	////업체 정산 목록 갯수 리턴용 메소드 (정연)
 	public int getComCalcCount(Connection con) {

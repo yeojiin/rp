@@ -104,5 +104,20 @@ public class MessageService {
 		close(con);
 		return compMesList;
 	}
+	//wtype=20 , cno 일치하는 listCount 조회
+	public HashMap<String, Object> getlistCountCompMesWtype(int wt, int cno) {
+		Connection con = getConnection();
+		HashMap<String, Object> hmap = new MessageDao().getListCountCompMesWtype(con, cno, wt);
+		close(con);
+		return hmap;
+	}
+	//wtype=20, cno 일치하는 messsage들 조회
+	public ArrayList<Message> selectListCompReceiveMes(PageInfo pi, int cno, int wt) {
+		Connection con = getConnection();
+		ArrayList<Message> compMesList = new MessageDao().selectListCompReceiveMes(con, cno, wt, pi);
+		close(con);
+				
+		return compMesList;
+	}
 
 }

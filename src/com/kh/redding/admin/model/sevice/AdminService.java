@@ -186,6 +186,16 @@ public class AdminService {
 		return list;
 	}
 
+	public ArrayList<HashMap<String, Object>> saleStats(String selectValue) {
+		
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new AdminDao().saleStats(con,selectValue);
+		
+		close(con);
+		
+		return list;
+}
 	
 	//회원 환불 목록 조회용 메소드(정연)
 	public ArrayList<HashMap<String, Object>> showMemberRefund(TotalMemberPageInfo pi) {
