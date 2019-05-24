@@ -18,9 +18,58 @@
 	href="${pageContext.request.contextPath}/css/common/footer.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/admin/a_nav.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin/a_stats.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/company/c_main.css">
+
+<!-- 지도 -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/raphael_min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/raphael_path_s.korea.js"></script>
+
+
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common/layout.css">
+<!-- 차트js -->
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/dist/css/Chart.min.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin/a_stats.css">
+<script src="${pageContext.request.contextPath}/css/dist/js/Chart.min.js"></script>
+<script src="${pageContext.request.contextPath}/css/dist/js/utils.js"></script>
+<script>
+var sca = '01';
+</script>
 <title>Insert title here</title>
+<style>
+	#canvas {float:left; position:relative; width: 320px; height:400px; margin: 0}
+	#south {width: 320px; height:400px; position: absolute; top: 0px; left: 0;}
+
+	#canvas h2{ padding:0; margin:0; font-size:12px; }
+
+	#seoul, #gygg, #incheon, #gangwon, #chungbuk, #chungnam, #daejeon, #sejong, #jeonbuk, #jeonnam, #gwangju, #gyeongbuk, #gyeongnam, #daegu, #busan, #ulsan, #jeju { display: none; position: absolute; height:16px; background-color:#000; color:#fff; padding:2px 5px; text-align:center;}
+
+	#seoul{ left:80px; top:75px; background:white; width:0; height:0;}
+	#gygg{ left:80px; top:45px; background:white; width:0; height:0;}
+	#incheon{ left:60px; top:75px; background:white; width:0; height:0;}
+	#gangwon{ left:150px; top:45px; background:white; width:0; height:0;}
+	#chungbuk{ left:120px; top:145px; background:white; width:0; height:0;}
+	#chungnam{ left:60px; top:165px; background:white; width:0; height:0;}
+	#daejeon{ left:80px; top:165px; background:white; width:0; height:0;}
+	#sejong{ left:70px; top:145px; background:white; width:0; height:0;}
+	#jeonbuk{ left:60px; top:205px; background:white; width:0; height:0;}
+	#jeonnam{ left:60px; top:260px; background:white; width:0; height:0;}
+	#gwangju{ left:	60px; top:260px; background:white; width:0; height:0;}
+	#gyeongbuk{ left:150px; top:165px; background:white; width:0; height:0;}
+	#gyeongnam{ left:130px; top:240px; background:white; width:0; height:0;}
+	#daegu{ left:170px; top:210px; background:white; width:0; height:0;}
+	#busan{ left:190px; top:250px; background:white; width:0; height:0;}
+	#ulsan{ left:200px; top:225px; background:white; width:0; height:0;}
+	#jeju{ left:80px; top:340px; background:white; width:0; height:0;}
+	
+	h2{
+		color:black;
+		font-size:15px !important;
+		font-weight:bold;
+	}
+
+
+</style>
 </head>
 <body>
 
@@ -38,10 +87,9 @@
 					<div class="col-sm-2 sidenav1">
 						<div class="sidenavArea">
 							<ul class="navList">
-								<li onclick="location.href='a_Sstats.jsp'">매출 통계</li>
-								<li onclick="location.href='a_Mstats.jsp'" style="color:lightgray; padding-left:25px">사용자 통계</li>
-								<li onclick="location.href='a_Pstats.jsp'">상품 통계</li>
-								<li>게시글 통계</li>
+								<li onclick="location.href='a_Sstats.jsp'">회원 통계</li>
+								<li onclick="location.href='a_Mstats.jsp'" style="color:lightgray;">업체 통계</li>
+								<li onclick="location.href='a_Pstats.jsp'">매출 통계</li>
 							</ul>
 						</div>
 					</div>
@@ -53,10 +101,9 @@
 					<div class="col-sm-2 sidenav1">
 						<div class="sidenavArea2">
 						<ul class="navList2">
-							<li onclick="location.href='a_Sstats.jsp'">매출 통계</li>
-							<li onclick="location.href='a_Mstats.jsp'" style="color:white">사용자 통계</li>
-							<li onclick="location.href='a_Pstats.jsp'">상품 통계</li>
-							<li>게시글 통계</li>
+							<li onclick="location.href='a_Sstats.jsp'">회원 통계</li>
+							<li onclick="location.href='a_Mstats.jsp'" style="color:white">업체 통계</li>
+							<li onclick="location.href='a_Pstats.jsp'">매출 통계</li>
 						</ul>
 					</div>
 					</div>
@@ -66,193 +113,107 @@
 				
 			
 			
-			<div class="col-sm-8 text-left">
+			<div class="col-sm-10 text-left">
 			<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
-				<!-- 회원 통계 -->
-				<div class="mtotalStatsArea" align="center">
-				<br><br><br>
-				<h2>회원 통계</h2>
-					<table>
+				<div class="StatArea" style="width:100%; height:auto; float:left">
+					<br><br>
+					<table style="width:100%">
 						<tr>
-							<th>전체 회원수</th>
-							<th>활동중인 회원수</th>
-							<th>탈퇴한 회원수</th>
-							<th>오늘 가입한 회원수</th>
-							<th>오늘 탈퇴한 회원수</th>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>2</td>
-							<td>3</td>
-							<td>4</td>
-							<td>5</td>
-						</tr>
-					</table>
-				</div>
-				<br><br><br>
-				
-				<div class="mselectArea">
-					<table>
-						<tr>
-							<th>No.</th>
-							<th>날짜</th>
-							<th>가입한 회원수</th>
-							<th>탈퇴한 회원수</th>
-							<th>누적 가입 회원수</th>
-							<th>누적 탈퇴 회원수</th>
-						</tr>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
-					</tbody>		
-					</table>
-				</div>
-				<br><br>
-				<div class="mselectBtnArea" align="center">
-					<label><</label> &nbsp;
-					<label>1</label> &nbsp;
-					<label>2</label> &nbsp;
-					<label>3</label> &nbsp;
-					<label>4</label> &nbsp;
-					<label>></label>
-				</div>
-				
-				<!-- 업체 통계 -->
-				<div class="ctotalStatsArea" align="center">
-				<br><br><br>
-				<h2>업체 통계</h2>
-					<table>
-						<tr>
-							<th>전체 업체수</th>
-							<th>활동중인 업체수</th>
-							<th>탈퇴한 업체수</th>
-							<th>오늘 가입한 업체수</th>
-							<th>오늘 탈퇴한 업체수</th>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>2</td>
-							<td>3</td>
-							<td>4</td>
-							<td>5</td>
+							<td>
+								<div style="width:100%;height:400px; float:left">
+						<div id="canvas" style="width:100%">
+							<div id="south"></div>
+							<div id="seoul">
+								<h2>서울</h2>
+							</div>
+							<div id="gygg">
+								<h2>경기</h2>
+							</div>
+							<div id="incheon">
+								<h2>인천</h2>
+							</div>
+							<div id="gangwon">
+								<h2>강원</h2>
+							</div>
+							<div id="chungbuk">
+								<h2>충청북도</h2>
+							</div>
+							<div id="chungnam">
+								<h2>충청남도</h2>
+							</div>
+							<div id="daejeon">
+								<h2>대전</h2>
+							</div>
+							<div id="sejong">
+								<h2>세종</h2>
+							</div>
+							<div id="gwangju">
+								<h2>광주</h2>
+							</div>
+							<div id="jeonbuk">
+								<h2>전라북도</h2>
+							</div>
+							<div id="jeonnam">
+								<h2>전라남도</h2>
+							</div>
+							<div id="gyeongbuk">
+								<h2>경상북도</h2>
+							</div>
+							<div id="gyeongnam">
+								<h2>경상남도</h2>
+							</div>
+							<div id="daegu">
+								<h2>대구</h2>
+							</div>
+							<div id="busan">
+								<h2>부산</h2>
+							</div>
+							<div id="ulsan">
+								<h2>울산</h2>
+							</div>
+							<div id="jeju">
+								<h2>제주</h2>
+							</div>
+							
+						</div>							
+					</div>
+							</td>
+							<td>
+								<div class="chart-container" style="position: relative; height:40vh; width:60%; margin-left:400px; margin-top:0; margin-bottom:130px">
+								<canvas id="chart-area"></canvas>
+								</div>
+							</td>					
 						</tr>
 					</table>
-				</div>
-				<br><br><br>
-				
-				<div class="cselectArea">
-					<table>
-						<tr>
-							<th>No.</th>
-							<th>날짜</th>
-							<th>가입한 업체수</th>
-							<th>탈퇴한 업체수</th>
-							<th>누적 가입 업체수</th>
-							<th>누적 탈퇴 업체수</th>
-						</tr>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
-					</tbody>		
-					</table>
-				</div>
-				<br><br>
-				
-				<div class="cselectBtnArea" align="center">
-					<label><</label> &nbsp;
-					<label>1</label> &nbsp;
-					<label>2</label> &nbsp;
-					<label>3</label> &nbsp;
-					<label>4</label> &nbsp;
-					<label>></label>
+					
+					<br><br>
+					
+					<div style="float:right; margin-right:10%" class="chartArea">
+					<select class="searchOption" style="height:25px">
+						<option value="10">전체</option>
+						<option value="20">스튜디오</option>
+						<option value="30">드레스</option>
+						<option value="40">메이크업</option>
+					</select> &nbsp;&nbsp;
+					<input type ="date"> ~ <input type="date">&nbsp;&nbsp;&nbsp;&nbsp;<button class="searchBtn">조회</button>
+					
+					</div>
+					<br><br>
+					<div class="chart-container" style="position: relative; height:400px; width:90%;">
+					<canvas id="canvas"></canvas>
+					</div>
 				</div>
 				
-				<br><br><br>
-			</div>
-			<div class="col-sm-2 sidenav2"></div>
+				
 		</div>
-	</div>
-
+				
+		</div>
+		</div>
 	<!-- 커먼 풋터 -->
 	<div class="footerArea">
 		<jsp:include page="/views/common/footer.jsp"></jsp:include>
 	</div>
+	
 
 
 </body>

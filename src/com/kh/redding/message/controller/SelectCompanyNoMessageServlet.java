@@ -27,20 +27,21 @@ public class SelectCompanyNoMessageServlet extends HttpServlet {
     }
 
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      //System.out.println("쪽지-업체번호 조회 서블릿");
+      System.out.println("쪽지-업체번호 조회 서블릿");
       
       int cno = Integer.parseInt(request.getParameter("cno"));
       
-      //System.out.println("cno : " +cno);
+      System.out.println("cno : " +cno);
       
       Member company = new MessageService().selectCompanyOne(cno);
       
-      //System.out.println("company : " + company);
+      System.out.println("company : " + company);
       
       String page = "";
       
+      
       if(company != null) {
-    	  page = "views/admin/a_replyMessage.jsp";
+    	  page = "views/admin/a_insertMessage.jsp";
     	  request.setAttribute("company", company);
     	  
       }else {

@@ -115,6 +115,9 @@
                                     <button class="paging">>></button>                     
                                  </td>
                               </tr>
+                              <tr>
+                              	
+                              </tr>
                            </tfoot>
                         </table>
                      </div>
@@ -138,9 +141,11 @@
             var ckCount = 0;
             var nockCount = 0;
             var totalCount = 0;
+            var wt = 20;
             $.ajax({
                 url:"<%=request.getContextPath()%>/listCount.mes",
                type:"post",
+               data:{wt:wt},
                success:function(data){
                   //처음에 전체 리스트를 보여주는 함수를 호출해준다.
                   /* console.log(data); */
@@ -185,7 +190,6 @@
                for(var i=0 ; i<data.sendList.length ; i++){
                   var list = data.sendList[i];
                   var pi = data.pi;
-                  var cnames = data.cnames[i];
                   /* console.log(list);
                   console.log(list.messageCode);
                   console.log("--------------"); */
@@ -201,8 +205,8 @@
                   $numTd.append($codeIn);
                   
                   /* console.log(cnames.memberName); */
-                  var $nameTd = $("<td>").text(cnames.memberName);
-                  
+                  var $nameTd = $("<td>").text(list.mname);
+                  console.log(list.mname);
                   
                   var $contentTd = $("<td>").text(list.mesContent.substr(0,10)+"...");
                   var $disDateTd = $("<td>").text(list.mesDisDate);
@@ -215,7 +219,7 @@
                   var $ckDateDiv = null;
 
                   if(list.mesCkDate != null){
-                     $ckDateDiv = $("<div class='readTd' style='border-radius: 5px;background:white;border:1px solid salmon;color:salmon;'>").text(list.mesCkDate);
+                     $ckDateDiv = $("<div class='readTd' style='border-radius: 5px;background:white;border:1px solid salmon;color:salmon;'>").text("읽음");
                   }else{
                      $ckDateDiv = $("<div class='noreadTd' style='border-radius: 5px;background:salmon;border:1px solid salmon;color:white;'>").text("읽지않음");
                   }
@@ -261,37 +265,37 @@
             	
             	$page.empty();
             	
-            	$page.append($("<button>").attr("class","paging").text("<<").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).click(function(){
+            	$page.append($("<button>").attr("class","paging").text(" << ").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"1px solid white"}).click(function(){
             		totalView(1,value);
  			    }));
             	
             	
             	if(currentPage <= 1) { 
-					$page.append($("<button>").attr("class","paging").text("<").attr("disabled",true).css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}));
+					$page.append($("<button>").attr("class","paging").text(" < ").attr("disabled",true).css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"1px solid white"}));
 				}else{ 
-					$page.append($("<button>").attr("class","paging").text("<").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).click(function(){
+					$page.append($("<button>").attr("class","paging").text(" < ").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).click(function(){
 						   totalView(currentPage - 1,value);
 					}));
 
 				} 
 				for(var p= startPage; p <= endPage; p++){
 					if(p == currentPage){
-						$page.append($("<button>").attr("class","paging").text(p).attr("disabled",true).css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}));
+						$page.append($("<button>").attr("class","paging").text( p ).attr("disabled",true).css({"cursor":"pointer","color":"salmon","background":"white","border-radius":"5px","border":"1px solid salmon"}));
 					}else{ 
-						$page.append($("<button>").attr("class","paging").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).text(p).click(function(){
+						$page.append($("<button>").attr("class","paging").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).text( p ).click(function(){
 							totalView($(this).text(),value);
 						}));
 					}
 				
 				} 
 				if(currentPage >= maxPage){ 
-				 	$page.append($("<button>").attr("class","paging").text(">").attr("disabled",true).css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}));					
+				 	$page.append($("<button>").attr("class","paging").text(" > ").attr("disabled",true).css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}));					
 				}else {
-				 	$page.append($("<button>").attr("class","paging").text(">").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).click(function(){
+				 	$page.append($("<button>").attr("class","paging").text(" > ").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).click(function(){
 				 		totalView(currentPage + 1,value);
 				 	}));
 				} 
-				$page.append($("<button>").attr("class","paging").text(">>").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).click(function(){
+				$page.append($("<button>").attr("class","paging").text(" >> ").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).click(function(){
 				   totalView(maxPage,value);
 				}));
             }

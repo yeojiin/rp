@@ -22,6 +22,33 @@
 .couponListTable tbody tr {
 	height:100px;
 }
+.nonIssuableCoupon {
+	width:60%;
+	padding-top:5px;
+	padding-bottom:5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	background:gray;
+	color:white;
+	border:1px solid gray;
+}
+.issuableCoupon {
+	width:60%;
+	padding-top:5px;
+	padding-bottom:5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	background:salmon;
+	color:white;
+	border:1px solid salmon;
+}
+.issuableCoupon:hover {
+	width:60%;
+	padding-top:5px;
+	padding-bottom:5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	background:white;
+	color:salmon;
+	border:1px solid salmon;
+}
 .modal {
 	height:600px;
 }

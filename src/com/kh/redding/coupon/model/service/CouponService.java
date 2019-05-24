@@ -45,4 +45,30 @@ public class CouponService {
 		return result;
 	}
 
+	// 쿠폰 업데이트용 메소드 (발급가능상태 만들기)
+	public int updateCouponListY() {
+		Connection con = getConnection();
+		int result = new CouponDao().updateCouponY(con);
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		return result;
+	}
+	
+	// 쿠폰 업데이트용 메소드 (발급불가능상태 만들기)
+	public int updateCouponListN() {
+		Connection con = getConnection();
+		int result = new CouponDao().updateCouponN(con);
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		return result;
+	}
+
 }

@@ -924,5 +924,57 @@ public class BoardDao {
 		return QnAlist;
 	}
 
+	public int insertQnAReply(Connection con, int bid, int mno, String replyContent) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertQnAReply");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, replyContent);
+			pstmt.setInt(2, mno);
+			pstmt.setInt(3, bid);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		
+		
+		return result;
+	}
+
+	public int deleteMemberQnA(Connection con, int bid) {
+		PreparedStatement pstmt = null;
+		int result = 0; 
+		
+		String query = prop.getProperty("DeleteMemberQnA");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, bid);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
 
 }

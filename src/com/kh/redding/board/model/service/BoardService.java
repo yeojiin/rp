@@ -303,6 +303,42 @@ public class BoardService {
 		return QnAList;
 	}
 
+	public int insertQnAReply(int bid, int mno, String replyContent) {
+		Connection con = getConnection();
+		
+		int result = new BoardDao().insertQnAReply(con,bid,mno,replyContent);
+		
+		if (result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		
+		close(con);
+		
+		
+		return result;
+	}
+
+	//회원이 일대일 문의 내역을 삭제하는 메소드
+	public int DeleteMemberQnA(int bid) {
+		Connection con = getConnection();
+		
+		int result = new BoardDao().deleteMemberQnA(con, bid);
+		
+		if (result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		
+		return result;
+	}
+
 
 
 }
