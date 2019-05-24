@@ -254,7 +254,11 @@
                   
                   pi.startRow++;
                   
-                  $(".ckBtns").parent().siblings().click(function(){
+                  $(".ckBtns").parent().siblings().mouseenter(function(){
+                	  $(this).parent().css("background","mistyrose");
+                  }).mouseout(function(){
+                	  $(this).parent().css("background","white");
+                  }).click(function(){
                 	  var ck1 = $(this).parent().children().eq(0).children().eq(1);
                 	  /* console.log("ck1 : " + ck1); */
                 	  var ck2 = ck1.val();

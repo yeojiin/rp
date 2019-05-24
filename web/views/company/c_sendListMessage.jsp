@@ -24,7 +24,7 @@
 <link rel="stylesheet" type="text/css"
    href="${pageContext.request.contextPath}/css/company/c_main.css">
 <link rel="stylesheet" type="text/css"
-   href="${pageContext.request.contextPath}/css/company/c_messageManager.css"> 
+   href="${pageContext.request.contextPath}/css/company/c_sendListMessage.css"> 
 <style>
    .row.content {
    height: auto;
@@ -71,7 +71,7 @@
                <div id="receiveMessageArea">
                   <!-- 받은 쪾지 관리 -->
                   <div id="RMHeader">
-                     <h3>전체 쪽지 목록</h3>
+                     <h3>보낸 쪽지 목록</h3>
                      <div id="RMBtnsArea" style="float:right;">
                         <div id="RMDeleteBtn">삭제</div>
                      </div>
@@ -82,13 +82,13 @@
                            <th width="30"></th>
                            <th width="50">No.</th>
                            <th>내용</th>
-                           <th width="120">날짜</th>
-                           <th>상태</th>
-                           <th width="100">읽음상태</th>                     
+                           <th width="120">보낸날짜</th>
+                           <th width="100">상태</th>                     
                         </tr>
                      </thead>
                      <tbody class="rmTbody" id="rmTbody">
-                        
+                     
+                     
                      </tbody>
                      <tfoot class="TfootPage" id="rmTF">
                         <tr>
@@ -99,11 +99,10 @@
 		                        <button class="paging"> > </button>
 		                        <button class="paging"> >> </button>                     
 		                     </td>
-		                 </tr>
+	                  	</tr>
                      </tfoot>
                   </table>
                </div>
-               
                
             </div>
          
@@ -123,11 +122,11 @@
          var ckCount = 0;
          var nockCount=0;
          var totalCount = 0;
-         var cno = <%=loginUser.getMno()%>;
-         var deleteCode =null;
+         var wt = 10;
          $.ajax({
-            url:"<%=request.getContextPath()%>/listCountComp.mes",
+            url:"<%=request.getContextPath()%>/listCountComWtype.mes",
             type:"post",
+            data:{wt:wt},
             success:function(data){
                /* console.log('성공'); */
                ckCount = data.CK_COUNT;
@@ -143,11 +142,13 @@
          });
          
          function totalView(currentPage,value){
-            /* console.log('totalView까지 옴'); */
+            console.log('totalView까지 옴');
+            console.log("currentPage : " + currentPage);
+            console.log('========');
             $.ajax({
-               url:"<%=request.getContextPath()%>/comMesList.mes",
+               url:"<%=request.getContextPath()%>/comReceiveList.mes",
                type:"post",
-               data:{currentPage:currentPage,value:value},
+               data:{currentPage:currentPage,value:value,wt:wt},
                success:function(data){
                   /* console.log('통신 성공'); */
                   /* console.log(data); */
@@ -157,8 +158,8 @@
                   console.log('리스트 서블릿과 통신 실패');
                }
             });
-         }
-         function makeRmTable(data,value){
+         };
+         function makeRmTable(data, value){
             $(".rmTbody").empty();
             /* console.log("data.compMesList.length : " + data.compMesList.length); */
             for(var i=0 ; i<data.compMesList.length ; i++){
@@ -201,90 +202,58 @@
                $refIn.val(list.mesRefCode);
                $disDateTd.append($refIn);
                
-               //받았는지 보냈는지 확인
-               var $statusTd = $("<td>");
-               var $statusDiv = null;
-               /* console.log("list.mesWType : " + list.mesWType); */
-               if(list.mesWType==20){
-                  $statusDiv = $("<div class='receiveTd'  style='color:salmon;'>").text("받은 쪽지");
-               }else{
-                  $statusDiv = $("<div class='noreadTd' >").text("보낸 쪽지");
-               }
-               $statusTd.append($statusDiv);
-               
                //받은 쪽지 확인날짜(클릭시 읽음으로 바뀜)
                var $ckDateTd = $("<td>");
                var $ckDateDiv = null;
                if(list.mesCkDate != null){
-            	   if(list.mesWType==10){
-            		   
-	                  $ckDateDiv = $("<div class='readTd' style='border-radius: 5px;background:white;border:1px solid salmon;color:salmon;'>").text("읽음");
-            	   }else{
-            		   $ckDateDiv = $("<div class='readTd' style='border-radius: 5px;background:white;border:1px solid salmon;color:salmon;'>").text(list.mesCkDate);
-            	   }
+                  $ckDateDiv = $("<div class='readTd' style='border-radius: 5px;background:white;border:1px solid salmon;color:salmon;'>").text("읽음");
                }else{
                   $ckDateDiv = $("<div class='noreadTd' style='border-radius: 5px;background:salmon;border:1px solid salmon;color:white;'>").text("읽지않음")
                }
                $ckDateTd.append($ckDateDiv);
                
                //업체 번호
-            var $cnoIn = $("<input type='hidden'>")
-            $cnoIn.val(list.cno);
-               $ckTd.append($cnoIn);
-               
-               $rmListTr.append($ckTd);
-               $rmListTr.append($startRowTd);
-               $rmListTr.append($contentTd);
-               $rmListTr.append($disDateTd);
-               $rmListTr.append($statusTd);
-               $rmListTr.append($ckDateTd);
-               
-               $(".rmTbody").append($rmListTr);
-               pi.startRow++;
-               
-               $(".ckBtns").parent().siblings().mouseenter(function(){
-            	   $(this).parent().css("background","salmon");
-               }).mouseout(function(){
-            	   $(this).parent().css("background","white");
-               }).click(function(){
-                  var code = $(this).parent().children().eq(1).children().eq(0).val();
-                  /* console.log(code); */
-                  //상세보기로 가기
-                  
-                  var wtp = $(this).parent().children().eq(3).children().eq(1).css("background", "red");
-                  /* console.log("wtp.val()  :" +wtp.text()); */
-                  
-                  if(wtp.text()==20){
-	                  location.href="<%=request.getContextPath()%>/replyToAdminDetail.mes?code="+code;
-                	  
-                  }else{
-                	  location.href="<%=request.getContextPath()%>/comMesOne.mes?code="+code;
-                  }
-                  
-                  
-               });
-               
-               $(".ckBtns").click(function(){
-            	   var code = $(this).parent().parent().children().eq(1).children().eq(0).css("background","red");
-            	   var code2 = code.val();
-            	   /* console.log("code : " + code2); */
-            	   
-            	   $("#RMDeleteBtn").click(function(){
-            		   /* console.log(code2); */
-            		   deleteCode += code2 + ", ";
-            		   
-            		   console.log("deleteCode : " + deleteCode);
-            	   });
-               });
-            }
+	            var $cnoIn = $("<input type='hidden'>")
+	            $cnoIn.val(list.cno);
+	               $ckTd.append($cnoIn);
+	               
+	               $rmListTr.append($ckTd);
+	               $rmListTr.append($startRowTd);
+	               $rmListTr.append($contentTd);
+	               $rmListTr.append($disDateTd);
+	               $rmListTr.append($ckDateTd);
+	               
+	               $(".rmTbody").append($rmListTr);
+	               pi.startRow++;
+	               /* console.log("asdlkfj;lsjd"); */
+	               $(".ckBtns").parent().siblings().mouseenter(function(){
+	            	   $(this).parent().css("background","salmon");
+	               }).mouseout(function(){
+	            	   $(this).parent().css("background","white");
+	               }).click(function(){
+	            	   var code = $(this).parent().children().eq(1).children().eq(0).val();
+	                   /* console.log(code); */
+	                   //상세보기로 가기
+	                   
+	                   var wtp = $(this).parent().children().eq(3).children().eq(1).css("background", "red");
+	                   console.log("wtp.val()  :" +wtp.text());
+	                   
+	                   if(wtp.text()==20){
+	 	                  location.href="<%=request.getContextPath()%>/replyToAdmin.mes?code="+code;
+	                 	  
+	                   }else{
+	                 	  location.href="<%=request.getContextPath()%>/comMesOne.mes?code="+code;
+	                   }
+	               });
+	            }
+	            
+	            page(data, value);
             
-            page(data, value);
-            
-         }
+         };
        //페이징
          function page(data, value){
          	 /* console.log('value : ' + value); */
-         		/* console.log("Sdf : "+data.pi.currentPage); */
+         		console.log("Sdf : "+data.pi.currentPage);
  	           var $page = $(".pageBtnArea");
  	           
  	           var pi = data.pi;
@@ -293,7 +262,7 @@
  	           var maxPage = pi.maxPage;
  	           var startPage = pi.startPage;
  	           var endPage = pi.endPage;
- 	           /* console.log("currentPage : " + currentPage); */
+ 	           console.log("currentPage : " + currentPage);
  	           /* console.log("limit : " + limit);
  	           console.log("maxPage : " + maxPage);
  	           console.log("endPage : " + endPage);
@@ -337,28 +306,6 @@
  					   totalView(maxPage,value);
  				}));
          }
-      /* var totalContent = "우는 품고 끓는 거선의 있는 것은 바로 인류의 청춘이 운다. 뜨거운지라, 이상 하여도 곳으로 관현악이며, 가치를 그러므로 사막이다. 꾸며 풀이 얼마나 보는 보내는 청춘 것이다.천지는 노래하며 고행을 가는 피다. 뜨거운지라, 가슴이 않는 예가 칼이다. 공자는 따뜻한 새 간에 가치를 들어 피가 가장 설산에서 보라. 내는 같이, 싹이 아름다우냐? 얼음과 가지에 꽃이 그들의 인생을 광야에서 그리하였는가? 몸이 너의 때까지 이것을 뼈 그들의 천하를 약동하다. 산야에 심장은 거친 무엇을 끓는 구하지 것이다. 커다란 같이, 보는 못할 아름답고 보이는 영원히 너의 때문이다. 천고에 자신과 우리의 우리의 풀이 이것이다. 타오르고 고동을 그러므로 구하지 약동하다. 놀이 그것을 그들은 앞이 이상의 이상이 길지 부패뿐이다.";      
-      var sampleContent = totalContent.substr(0,30) + "...";
-      $("#messageContent").text(sampleContent);
-      
-      $("#RMDeleteBtn").click(function(){
-         var resultRM = window.confirm('해당 메세지들을 삭제하시겠습니까?');
-         
-         if(resultRM==true){
-            alert('삭제되었습니다');
-         }else{
-            alert('삭제가 취소되었습니다.');
-         }
-      });
-      $("#SMDeleteBtn").click(function(){
-         var resultSM = window.confirm('해당 메세지들을 삭제하시겠습니까?');
-         
-         if(resultSM==true){
-            alert('삭제되었습니다');
-         }else{
-            alert('삭제가 취소되었습니다.');
-         }
-      }); */
       });
    </script>
 </body>

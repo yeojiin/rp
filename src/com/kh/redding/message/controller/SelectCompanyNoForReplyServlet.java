@@ -20,11 +20,11 @@ public class SelectCompanyNoForReplyServlet extends HttpServlet {
         super();
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		  System.out.println("쪽지-업체번호 조회 서블릿");
+		  //System.out.println("쪽지-업체번호 조회 서블릿");
 	      
 	      int code = Integer.parseInt(request.getParameter("code"));
 	      
-	      System.out.println("code : " +code);
+	      //System.out.println("code : " +code);
 	      
 	      /*Member company = new MessageService().selectCompanyOne(cno);
 	      
