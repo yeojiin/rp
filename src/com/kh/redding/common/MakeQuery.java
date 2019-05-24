@@ -355,6 +355,113 @@ public class MakeQuery {
 		}
 		
 	}
+	
+	public void makeStatsQuery(int value, String startDate, String endDate) {
+		Properties prop = new Properties();
+		String fileName = MemberDao.class.getResource("/sql/admin/admin-query.properties").getPath();
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		String query = "SELECT GENDER,GNUM,TNUM FROM(SELECT GENDER GENDER, ENROLL_DATE GNUM ,COUNT(*) TNUM FROM MEMBER WHERE MTYPE = 10";
+		if(value == 30) {
+			query += " AND GENDER = 'M' AND ENROLL_DATE BETWEEN TO_DATE("+startDate+") AND TO_DATE("+endDate+") GROUP BY GENDER,ENROLL_DATE ORDER BY 2 ASC)";
+		}else if(value == 40) {
+			query += " AND GENDER = 'F' AND ENROLL_DATE BETWEEN TO_DATE("+startDate+") AND TO_DATE("+endDate+") GROUP BY GENDER,ENROLL_DATE ORDER BY 2 ASC)";
+		}else if (value == 50) {
+			query = "SELECT GNUM, TNUM FROM (SELECT ENROLL_DATE GNUM,COUNT(*) TNUM FROM MEMBER WHERE MTYPE = 10  AND ENROLL_DATE BETWEEN TO_DATE("+startDate+") AND TO_DATE("+endDate+") GROUP BY ENROLL_DATE ORDER BY 1 ASC)";
+		}
+		
+		
+		prop.setProperty(prop.getProperty("","makeStatsQuery"), query);
+		
+		FileOutputStream fos = null;
+		OutputStreamWriter osw = null;
+
+		try {
+
+			fos = new FileOutputStream(fileName);
+			osw = new OutputStreamWriter(fos, "UTF-8");
+
+			prop.store(osw, "");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				fos.close();
+				osw.close();
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			}
+
+		}
+		
+	}
+
+	public void CompanyDetailStats(int value, String startDate, String endDate) {
+		
+		Properties prop = new Properties();
+		String fileName = MemberDao.class.getResource("/sql/admin/admin-query.properties").getPath();
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		String type = "";
+		
+		
+		
+		if(value == 20) {
+			type = "스튜디오";
+		}else if(value == 30) {
+			type += "드레스";
+		}else if(value == 40) {
+			type += "메이크업";
+		}
+		
+		String query = "SELECT COM_TYPE, ENROLL_DATE, TNUM FROM(SELECT C.COM_TYPE COM_TYPE , M.ENROLL_DATE ENROLL_DATE ,COUNT(*) TNUM FROM MEMBER M JOIN COMPANY C ON(M.MNO = C.CNO) WHERE C.COM_TYPE = '" + type + "' AND ENROLL_DATE BETWEEN TO_DATE("+startDate+") AND TO_DATE("+endDate+") GROUP BY C.COM_TYPE, M.ENROLL_DATE ORDER BY ENROLL_DATE)";
+		
+		if(value == 10) {
+			query = "SELECT ENROLL_DATE, TNUM FROM(SELECT  M.ENROLL_DATE ENROLL_DATE ,COUNT(*) TNUM FROM MEMBER M JOIN COMPANY C ON(M.MNO = C.CNO) WHERE ENROLL_DATE BETWEEN TO_DATE("+startDate+") AND TO_DATE("+endDate+") GROUP BY M.ENROLL_DATE ORDER BY ENROLL_DATE)";
+		}
+		prop.setProperty(prop.getProperty("","CompanyDetailStats"), query);
+		
+		FileOutputStream fos = null;
+		OutputStreamWriter osw = null;
+
+		try {
+
+			fos = new FileOutputStream(fileName);
+			osw = new OutputStreamWriter(fos, "UTF-8");
+
+			prop.store(osw, "");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				fos.close();
+				osw.close();
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			}
+
+		}
+	
+		
+		
+	}
 
 
 }

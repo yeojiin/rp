@@ -162,6 +162,28 @@ public class AdminService {
 		
 		return result;
 	}
+	
+	
+	//업체 통계(욱)
+	public ArrayList<HashMap<String, Object>> getCompanyStats(String localName) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new AdminDao().getCompanyStats(con,localName);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> CompanyDetailStats(int value) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new AdminDao().CompanyDetailStats(con,value);
+		
+		close(con);
+		
+		return list;
+	}
 
 
 

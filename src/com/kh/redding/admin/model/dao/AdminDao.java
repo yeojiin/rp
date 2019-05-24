@@ -1112,14 +1112,12 @@ public class AdminDao {
 		String query = "";
 		if(value == 10) {
 			query = prop.getProperty("getGenderCount");
-			System.out.println(query);
 		}else if(value == 20){
 			query = prop.getProperty("getDateCount");
-			System.out.println(query);
-		}else if(value == 30) {
-			query = prop.getProperty("getYearCount");
-			System.out.println(query);
+		}else if(value == 30 || value == 40 || value == 50) {
+			query = prop.getProperty("makeStatsQuery");
 		}
+		System.out.println("query : " + query);
 		
 		
 		
@@ -1140,9 +1138,15 @@ public class AdminDao {
 			while(rset.next()) {
 				hmap = new HashMap<String, Object>();
 				
-				hmap.put("gender", rset.getString("GENDER"));
-				hmap.put("gNum", rset.getString("GNUM"));
-				hmap.put("tNum", rset.getString("TNUM"));
+				if(value == 50) {
+					hmap.put("gNum", rset.getString("GNUM"));
+					hmap.put("tNum", rset.getString("TNUM"));
+				}else {
+					hmap.put("gender", rset.getString("GENDER"));
+					hmap.put("gNum", rset.getString("GNUM"));
+					hmap.put("tNum", rset.getString("TNUM"));
+				}
+			
 				
 				list.add(hmap);
 			};
@@ -1181,6 +1185,95 @@ public class AdminDao {
 		}
 		
 		return result;
+	}
+
+	public ArrayList<HashMap<String, Object>> getCompanyStats(Connection con, String localName) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("getCompanyStats");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, localName);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				
+				hmap.put("comType", rset.getString("COM_TYPE"));
+				hmap.put("count",rset.getInt(2));
+				
+				list.add(hmap);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> CompanyDetailStats(Connection con, int value) {
+		
+		Properties prop = new Properties();
+		String fileName = MemberDao.class.getResource("/sql/admin/admin-query.properties").getPath();
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		Statement stmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		
+
+		String query = prop.getProperty("CompanyDetailStats");
+		System.out.println(query);
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				
+				if(value == 10) {
+					hmap.put("enrollDate", rset.getString("ENROLL_DATE"));
+					hmap.put("tNum", rset.getString("TNUM"));
+				}else {
+					hmap.put("comType", rset.getString("COM_TYPE"));
+					hmap.put("enrollDate", rset.getString("ENROLL_DATE"));
+					hmap.put("tNum", rset.getString("TNUM"));
+				}
+			
+				
+				list.add(hmap);
+			};
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		return list;
 	}
 	
 
