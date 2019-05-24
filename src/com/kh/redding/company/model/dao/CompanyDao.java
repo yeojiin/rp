@@ -609,6 +609,55 @@ public class CompanyDao {
 	}
 
 	
+	//업체 정산 목록 조회 (정연)
+	public ArrayList<HashMap<String, Object>> showMonCalc(Connection con, int mno) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String,Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+	
+		
+		String query = prop.getProperty("showMonCalc");
+		
+		try {
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			
+			rset= pstmt.executeQuery();
+
+			
+			list = new ArrayList<HashMap<String,Object>>();
+			
+			while(rset.next()) {
+				hmap =new HashMap<String, Object>();
+				
+				hmap.put("mno", rset.getInt("MNO"));
+				hmap.put("pno", rset.getInt("PNO"));
+				hmap.put("pname", rset.getString("PNAME"));
+				hmap.put("pcontent", rset.getString("PCONTENT"));
+				hmap.put("price", rset.getInt("PRICE"));
+				hmap.put("mname", rset.getString("MNAME"));
+				hmap.put("ctype", rset.getString("COM_TYPE"));
+				hmap.put("wishcode", rset.getInt("WISH_CODE"));
+				hmap.put("filepath", rset.getString("FILE_PATH"));
+				hmap.put("changename", rset.getString("CHANGE_NAME"));
+				
+				list.add(hmap);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
+	}
+
+	
 
 
 }

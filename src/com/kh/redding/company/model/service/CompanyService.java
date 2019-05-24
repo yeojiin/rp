@@ -13,6 +13,7 @@ import com.kh.redding.attachment.model.vo.Attachment;
 import com.kh.redding.company.model.dao.CompanyDao;
 import com.kh.redding.company.model.vo.Company;
 import com.kh.redding.member.model.vo.Member;
+import com.kh.redding.wishlist.model.dao.WishListDao;
 
 public class CompanyService {
 
@@ -239,6 +240,19 @@ public class CompanyService {
 		close(con);
 		
 		return resultHmap;
+	}
+
+	
+	
+	//업체 정산 목록 조회 (정연)
+	public ArrayList<HashMap<String, Object>> showMonCalc(int mno) {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String, Object>> list = new CompanyDao().showMonCalc(con, mno);
+
+		close(con);
+
+		return list;
 	}
 	
 }
