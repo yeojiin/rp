@@ -27,7 +27,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/admin/a_nav.css">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/admin/a_calculate.css">
+	href="${pageContext.request.contextPath}/css/admin/a_comCalculate.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin/a_stats.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common/layout.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/semantic/semantic.min.css">
@@ -49,8 +49,9 @@
 				<div class="col-sm-2 sidenav1">
 					<div class="sidenavArea">
 						<ul class="navList">
-							<li id="memCalc">회원 정산</li>
-							<li onclick="location.href='<%=request.getContextPath()%>/views/admin/a_comCalculate.jsp">업체 정산</li>
+							<li id="memCalc">회원 정산</li>	
+							<li id="memRefund">회원 환불 정산</li>	
+							<li id="comCalc">업체 정산</li>
 						</ul>
 					</div>
 				</div>
@@ -71,61 +72,50 @@
 			<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 		<br>
 				<div class="pselectArea">
+				<div class="memberRefund">
 				<h2>정산 대기 리스트</h2>
 				<br>
-					<table class="calcTable">
+					<table class="comCalcTable">
 						<tr>
 							<th>No.</th>
-							<th>업체</th>
-							<th>상품</th>
-							<th>판매액</th>
-							<th>주문자</th>
-							<th>결제수단</th>
-							<th>결제상태</th>
-							<th>결제코드</th>
-							<th>결제완료일</th>
-							<th>승인상태</th>
-							<th>최종금액</th>
-							<th>지급보류</th>
-							<th>지급하기</th>
+							<th>업체번호</th>
+							<th>업체명</th>
+							<th>정산금액</th>
+							<th></th>
 						</tr>
 					<%
 						for (int i = 0; i < list.size(); i++) {
 						HashMap<String, Object> hmap = list.get(i);
 					%>
 						<tr>
-							<td class="rnum"><%=hmap.get("rnum")%></td>
-							<td class="cname"><%=hmap.get("cname") %></td>
-							<td class="pname"><%=hmap.get("pname") %></td>
-							<td class="price"><%=hmap.get("price") %></td>
-							<td class="buyer"><%=hmap.get("mname") %></td>
-							<td class="pselect"><%=hmap.get("pselect")%></td>
-							<td class="paydiv"><%=hmap.get("paydiv") %></td>
-							<td class="paycode"><%=hmap.get("paycode") %></td>
-							<td class="pcompdate"><%=hmap.get("pcompdate") %></td>
-							<td class="pstatus"><%=hmap.get("pstatus") %></td>
-							<td class="fprice"><%=hmap.get("fprice") %></td>
-							<td><button class="ui button" class="hold">결제보류하기</button></td>
-							<td><button class="ui button" class="pay">결제승인하기</button></td>
+							<td id="rnum"><%=hmap.get("rnum")%></td>
+							<td id="cno"><%=hmap.get("cno") %></td>
+							<td id="cname"><%=hmap.get("cname") %></td>
+							<td id="final"><%=hmap.get("final") %></td>
+							<td><button class="ui blue button" id="confirm">확인요청</button></td>
 						</tr>
 					<%
 						}
-					%>	
+					%>
 					</table>
+					</div>
 					<br>
+					
+					
+					
 					<div class="pagingArea" align="center">
-						<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showCalc.ad?currentPage=1'"><<</button>
+						<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showRefund.ad?currentPage=1'"><<</button>
 						<% if(currentPage <= 1) { %>
 						<button disabled class="ui button"><</button>
 						<% } else { %>
-						<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showCalc.ad?currentPage=<%= currentPage - 1 %>'"><</button>
+						<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showRefund.ad?currentPage=<%= currentPage - 1 %>'"><</button>
 						<% } %>
 						
 						<% for(int p = startPage; p <= endPage; p++) { 
 								if(p == currentPage) { %>
 									<button class="ui button" disabled><%= p %></button>
 						<% 		}else {%>
-									<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showCalc.ad?currentPage=<%= p %>'"><%= p %></button>
+									<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showRefund.ad?currentPage=<%= p %>'"><%= p %></button>
 						<%		} %>
 							
 						<% } %>
@@ -133,79 +123,14 @@
 						<% if(currentPage >= maxPage) { %>
 						<button class="ui button" disabled>></button>
 						<% } else { %>
-						<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showCalc.ad?currentPage=<%= currentPage + 1 %>'">></button>
+						<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showRefund.ad?currentPage=<%= currentPage + 1 %>'">></button>
 						<% } %>
-						<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showCalc.ad?currentPage=<%= maxPage %>'">>></button>
+						<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showRefund.ad?currentPage=<%= maxPage %>'">>></button>
 						<br>
 						</div>
 				</div>
 				<br><br>
 				
-				<div class="pselectArea">
-				<h2>정산 완료 리스트</h2>
-				<br>
-					<table>
-						<tr>
-							<th>No.</th>
-							<th>업체</th>
-							<th>상품</th>
-							<th>판매액</th>
-							<th>지급완료액</th>
-							<th>지급완료날짜</th>
-						</tr>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
-					</tbody>		
-					</table>
-				</div>
-				<br><br>
-				<div class="pselectBtnArea" align="center">
-					<label><</label> &nbsp;
-					<label>1</label> &nbsp;
-					<label>2</label> &nbsp;
-					<label>3</label> &nbsp;
-					<label>4</label> &nbsp;
-					<label>></label>
-				</div>
 				
 			<div class="col-sm-2 sidenav2"></div>
 		</div>
@@ -229,15 +154,57 @@
 	});
 	
 	
+	//회원정산메뉴 클릭
 	$("#memCalc").click(function(){
-		location.href="<%=request.getContextPath()%>/showCalc.ad";
+		 location.href="<%=request.getContextPath()%>/showCalc.ad"; 
 		
 	});
+	
+	//회원 환불 메뉴 클릭
+	$("#memRefund").click(function(){
+		location.href="<%=request.getContextPath()%>/showRefund.ad"; 
+	});
+	
+	//업체 정산 메뉴 클릭
+	$("#comCalc").click(function(){
+		location.href="<%=request.getContextPath()%>/showComCalc.ad"; 
+	});
 		
+	
+	
+	//확인요청 메소드
+	$(document).on("click","#confirm",function(){
+		var cno = $(this).closest("td").siblings('#cno').text();
+		var price =$(this).closest("td").siblings("#final").text();
+		var but = $(this);
+		
+		
+		$.ajax({
+			url : "/redding/confirmComCalc.ad",
+  			data : {cno:cno, price:price},
+  			type : "post",
+  			success : function(data){
+  				if(data>0){
+  					alert("확인 요청 성공!");
+  					but.attr("disabled",true);
+  				}else{
+  					alert("이미 확인 요청 했습니다!");
+  				}
+  				
+  			},error:function(){
+  				console.log("확인 요청 실패!");
+  			}
+		});
+		
+		
+	});
+	
 	
 		
 	</script>
 
+	
+	
 
 </body>
 </html>

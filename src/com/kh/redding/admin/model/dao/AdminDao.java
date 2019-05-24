@@ -1384,7 +1384,135 @@ public class AdminDao {
 		
 		return list;
 	}
+
+	
+	
+	//업체 해당 월  정산 목록 조회용 메소드(정연)
+	public ArrayList<HashMap<String, Object>> showComcalc(TotalMemberPageInfo pi, Connection con) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String,Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("showComCalc");
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+
+
+			rset= pstmt.executeQuery();
+
+			list = new ArrayList<HashMap<String,Object>>();
+
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				hmap.put("rnum", rset.getInt("RNUM"));
+				hmap.put("cno", rset.getInt("CNO"));
+				hmap.put("final", rset.getInt("FINAL"));
+				hmap.put("cname", rset.getString("CNAME"));
+				
+				list.add(hmap);
+			}
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return list;
+	}
+
+	
+	
+	////업체 정산 목록 갯수 리턴용 메소드 (정연)
+	public int getComCalcCount(Connection con) {
+		Statement stmt = null;
+		int calcCount = 0;
+		ResultSet rset = null;
+
+		String query = prop.getProperty("allComCalcCount");
+
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+
+			if(rset.next()) {
+				calcCount = rset.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+
+		return calcCount;
+	}
+
+	
+	//업체 정산 확인 -> 테이블 삽입 메소드(정연)
+	public int confirmComCalc(Connection con, int cno, int price) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("confirmComCalc");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, price);
+			pstmt.setInt(2, cno);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	
+	//정산관리 테이블 중복 체크
+	public int countEqualCalc(int cno, int price, Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		
+		String query = prop.getProperty("countEqualCalc");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, price);
+			pstmt.setInt(2, cno);
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				count = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return count;
+	}
 	
 
+	
 
 }

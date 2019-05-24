@@ -70,7 +70,6 @@ public class WishListDao {
 			close(rset);
 		}
 		
-		System.out.println("위: " + list);
 		return list;
 	}
 
@@ -288,6 +287,16 @@ public class WishListDao {
 		
 		
 		return count;
+	}
+
+	
+	////정산관리 테이블 중복 체크
+	public int countEqualCalc(int cno, int price, Connection con) {
+		
+		
+		
+		
+		return 0;
 	}
 
 }

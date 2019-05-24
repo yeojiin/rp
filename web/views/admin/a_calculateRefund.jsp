@@ -51,7 +51,7 @@
 						<ul class="navList">
 							<li id="memCalc">회원 정산</li>	
 							<li id="memRefund">회원 환불 정산</li>	
-							<li onclick="location.href='<%=request.getContextPath()%>/views/admin/a_comCalculate.jsp">업체 정산</li>
+							<li id="comCalc">업체 정산</li>
 						</ul>
 					</div>
 				</div>
@@ -186,71 +186,7 @@
 						</div>
 				</div>
 				<br><br>
-				<div class="pselectArea">
-				<h2>정산 완료 리스트</h2>
-				<br>
-					<table>
-						<tr>
-							<th>No.</th>
-							<th>업체</th>
-							<th>상품</th>
-							<th>판매액</th>
-							<th>지급완료액</th>
-							<th>지급완료날짜</th>
-						</tr>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
-					</tbody>		
-					</table>
-				</div>
-				<br><br>
-				<div class="pselectBtnArea" align="center">
-					<label><</label> &nbsp;
-					<label>1</label> &nbsp;
-					<label>2</label> &nbsp;
-					<label>3</label> &nbsp;
-					<label>4</label> &nbsp;
-					<label>></label>
-				</div>
+				
 				
 			<div class="col-sm-2 sidenav2"></div>
 		</div>
@@ -283,6 +219,11 @@
 	//회원 환불 메뉴 클릭
 	$("#memRefund").click(function(){
 		location.href="<%=request.getContextPath()%>/showRefund.ad"; 
+	});
+	
+	//업체 정산 메뉴 클릭
+	$("#comCalc").click(function(){
+		location.href="<%=request.getContextPath()%>/showComCalc.ad"; 
 	});
 		
 	

@@ -10,6 +10,7 @@ import com.kh.redding.admin.model.dao.AdminDao;
 import com.kh.redding.admin.model.vo.TotalMemberPageInfo;
 import com.kh.redding.company.model.vo.Company;
 import com.kh.redding.member.model.vo.Member;
+import com.kh.redding.wishlist.model.dao.WishListDao;
 
 public class AdminService {
 
@@ -222,7 +223,61 @@ public class AdminService {
 		return result;
 	}
 
+	
+	//업체 정산 목록 조회용 메소드(정연)
+	public ArrayList<HashMap<String, Object>> showComcalc(TotalMemberPageInfo pi) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list =new AdminDao().showComcalc(pi, con);
+	
+		close(con);
+		
+		return list;
+	}
 
+	
+	//업체 정산 목록 갯수 리턴용 메소드 (정연)
+	public int getComCalcCount() {
+		Connection con = getConnection();
+		int calcCount = new AdminDao().getComCalcCount(con);
+		
+		close(con);
+		
+		return calcCount;
+	}
+
+	
+	//업체 정산 확인 -> 테이블 삽입 메소드(정연)
+	public int confirmComCalc(int cno, int price) {
+		Connection con = getConnection();
+
+		int result = new AdminDao().confirmComCalc(con, cno, price);
+
+		if(result>0) {
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		close(con);
+
+
+		return result;
+	}
+
+	
+	//정산관리 테이블 중복 체크
+	public int countEqualCalc(int cno, int price) {
+		Connection con = getConnection();
+
+		int count = new AdminDao().countEqualCalc(cno, price, con);
+
+		close(con);
+
+		return count;
+
+	}
+
+		
 
 
 
