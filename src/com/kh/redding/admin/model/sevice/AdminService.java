@@ -185,6 +185,17 @@ public class AdminService {
 		return list;
 	}
 
+	public ArrayList<HashMap<String, Object>> saleStats(String selectValue) {
+		
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new AdminDao().saleStats(con,selectValue);
+		
+		close(con);
+		
+		return list;
+	}
+
 
 
 

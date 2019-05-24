@@ -104,8 +104,8 @@
 				<input type="date" class="firstDate"> ~ <input type="date" class="lastDate"> <button class="searchDate" >조회</button>
 				</div>
 				<br><br><br><br>
-				<div style="width:100%; height:300px" class="chartArea">
-					<canvas id="canvas" class="hels"></canvas>					
+				<div class="chart-container" style="position: relative; height:300px; width:90%;">
+					<canvas id="canvas" class="hels"></canvas>				
 				</div>
 				<br><br><br>
 				</div>
@@ -233,7 +233,8 @@
 			url:'<%=request.getContextPath()%>/getGenderCount.ad',
 			type:'get',
 			data:{value:20},			
-			success: function(data){			
+			success: function(data){
+				console.log(data);
 				var views = getChart(data);
 				viewBar(views);
 			},
@@ -290,7 +291,7 @@
 		
 		
 		var dateArr = new Array();
-		var color = Chart.helpers.color;
+		
 		
 		var femaleArr = new Array();
 		var maleArr = new Array();				
@@ -308,13 +309,14 @@
 			}
 			
 		}
-		
+			
+
 		var maleCount = setDateCount(maleArr);
 		var femaleCount = setDateCount(femaleArr);
 				
-		
+		var color = Chart.helpers.color;
 		var barChartData = {	
-			labels: [dateArr[6],dateArr[5],dateArr[4],dateArr[3],dateArr[2],dateArr[1],dateArr[0]],
+			labels: [dateArr[0],dateArr[1],dateArr[2],dateArr[3],dateArr[4],dateArr[5],dateArr[6]],
 			datasets: [{
 				label: '여성회원',
 				backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
@@ -420,8 +422,10 @@
 				   }				
 				}  
 				
-				
+				console.log(maleCount);
 				return maleCount;
+				
+				
 	}
 	
 	
