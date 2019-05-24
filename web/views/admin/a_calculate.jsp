@@ -50,6 +50,7 @@
 					<div class="sidenavArea">
 						<ul class="navList">
 							<li id="memCalc">회원 정산</li>	
+							<li id="memRefund">회원 환불 정산</li>	
 							<li onclick="location.href='<%=request.getContextPath()%>/views/admin/a_comCalculate.jsp">업체 정산</li>
 						</ul>
 					</div>
@@ -71,23 +72,24 @@
 			<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 		<br>
 				<div class="pselectArea">
+				<div class="memberPay">
 				<h2>정산 대기 리스트</h2>
 				<br>
 					<table class="calcTable">
 						<tr>
 							<th>No.</th>
+							<th>결제코드</th>
 							<th>업체</th>
 							<th>상품</th>
 							<th>판매액</th>
 							<th>주문자</th>
 							<th>결제수단</th>
-							<th>결제상태</th>
-							<th>결제코드</th>
 							<th>결제완료일</th>
-							<th>승인상태</th>
 							<th>최종금액</th>
-							<th>지급보류</th>
-							<th>지급하기</th>
+							<th>결제상태</th>
+							<th>승인상태</th>
+							<th>승인</th>
+							<th>환불</th>
 						</tr>
 					<%
 						for (int i = 0; i < list.size(); i++) {
@@ -97,36 +99,37 @@
 							<td id="mno" hidden><%=hmap.get("mno") %></td>
 							<td id="payno" hidden><%=hmap.get("payno") %></td>
 							<td id="rnum"><%=hmap.get("rnum")%></td>
-							<td id="cname" style="width:70px;"><%=hmap.get("cname") %></td>
-							<td id="pname" style="width:60px;"><%=hmap.get("pname") %></td>
+							<td id="paycode"><%=hmap.get("paycode") %></td>
+							<td id="cname"><%=hmap.get("cname") %></td>
+							<td id="pname"><%=hmap.get("pname") %></td>
 							<td id="price"><%=hmap.get("price") %></td>
-							<td id="mname"><%=hmap.get("mname") %></td>
-							<td id="pselect"  style="width:40px;"><%=hmap.get("pselect")%></td>
-							<td id="paydiv" style="width:40px;"><%=hmap.get("paydiv") %></td>
-							<td id="paycode" style="width:50px;"><%=hmap.get("paycode") %></td>
+							<td id="mname" style="width:60px;"><%=hmap.get("mname") %></td>
+							<td id="pselect"><%=hmap.get("pselect")%></td>
 							<td id="pcompdate"><%=hmap.get("pcompdate") %></td>
+							<td id="fprice"><%=hmap.get("fprice") %></td>
+							<td id="paydiv" style="width:40px;"><%=hmap.get("paydiv") %></td>
 					<%
 							if(hmap.get("pstatus").equals("승인")){
 					%>
-							<td id="pstatus" class="pstatus" style="width:40px; color:blue;"><%=hmap.get("pstatus") %></td>
+							<td id="pstatus" class="pstatus" style="color:blue;"><%=hmap.get("pstatus") %></td>
 					<% 
 							}else{
 					%>		
-							<td id="pstatus" class="pstatus" style="width:40px; color:red;"><%=hmap.get("pstatus") %></td>
+							<td id="pstatus" class="pstatus" style="color:red;"><%=hmap.get("pstatus") %></td>
 					<%
 							}
 					%>		
-							<td id="fprice"><%=hmap.get("fprice") %></td>
+						
 					<%
 							if(hmap.get("pstatus").equals("승인")){
 					%>		
-							<td><button class="ui blue button" id="pay" disabled>승인하기</button></td>
-							<td><button class="ui red button" id="cancle">취소하기</button></td>
+							<td><button class="ui blue button" id="pay" disabled>승인</button></td>
+							<td><button class="ui red button" id="refund">환불</button></td>
 					<% 
 							}else{
 					%>
-							<td><button class="ui blue button" id ="pay">승인하기</button></td>	
-							<td><button class="ui green button" id="hold">보류하기</button></td>
+							<td><button class="ui blue button" id ="pay">승인</button></td>	
+							<td><button class="ui red button" id="refund">환불</button></td>
 					<%
 							}
 					%>	
@@ -137,7 +140,11 @@
 						}
 					%>	
 					</table>
+					</div>
 					<br>
+					
+					
+					
 					<div class="pagingArea" align="center">
 						<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showCalc.ad?currentPage=1'"><<</button>
 						<% if(currentPage <= 1) { %>
@@ -242,7 +249,6 @@
 		<jsp:include page="/views/common/footer.jsp"></jsp:include>
 	</div>
 	
-	
 	<script>	
 	
 	//배경 바꾸기
@@ -259,6 +265,11 @@
 	$("#memCalc").click(function(){
 		 location.href="<%=request.getContextPath()%>/showCalc.ad"; 
 		
+	});
+	
+	//회원 환불 메뉴 클릭
+	$("#memRefund").click(function(){
+		location.href="<%=request.getContextPath()%>/showRefund.ad"; 
 	});
 		
 	
@@ -281,8 +292,9 @@
   			success : function(data){
   				if(data>0){
   					alert("승인성공!");
+  					<%-- console.log(<%=currentPage%>); --%>
   					
-  					location.href="<%=request.getContextPath()%>/showCalc.ad";
+  					location.href="<%=request.getContextPath()%>/showCalc.ad?currentPage=<%= currentPage%>";
   				}else{
   					alert("승인실패!");
   				}
@@ -300,6 +312,8 @@
 		
 	</script>
 
+	
+	
 
 </body>
 </html>

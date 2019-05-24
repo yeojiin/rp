@@ -79,7 +79,7 @@
                   <br>
                   
                   <div class="sendMessage">
-                     <h3 id="text2">보낸 쪽지 목록</h3>
+                     <h3 id="text2">받은 쪽지 목록</h3>
                      <br>
                      <div class="ui category search">
                            <div class="ui icon input">
@@ -101,14 +101,14 @@
                               </tr>
                            </thead>
                            <tbody class="sendTBody">
-                           		<tr>
-                           			<td><input type='checkbox' class="ckBtns"style='cursor:pointer;'></td>
-                           			<td><input type="hidden"></td>
-                           			<td></td>
-                           			<td></td>
-                           			<td><input type="hidden"><input type="hidden"><input type="hidden"><input type="hidden"></td>
-                           			<td><div class="readTd"></div></td>
-                           		</tr>
+                                 <tr>
+                                    <td><input type='checkbox' class="ckBtns"style='cursor:pointer;'></td>
+                                    <td><input type="hidden"></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><input type="hidden"><input type="hidden"><input type="hidden"><input type="hidden"></td>
+                                    <td><div class="readTd"></div></td>
+                                 </tr>
       
                            </tbody>
                            
@@ -145,10 +145,12 @@
             var ckCount = 0;
             var nockCount = 0;
             var totalCount = 0;
+            var wt = 10;
             $.ajax({
                 url:"<%=request.getContextPath()%>/listCount.mes",
-               type:"post",
-               success:function(data){
+                data:{wt:wt},
+               	type:"post",
+               	success:function(data){
                   //처음에 전체 리스트를 보여주는 함수를 호출해준다.
                   /* console.log(data); */
                   ckCount = data.CK_COUNT;
@@ -189,16 +191,17 @@
                $(".sendTBody").empty();
                /* console.log(data.sendList.length); */
                /* console.log(data); */
-               for(var i=0 ; i<data.sendList.length ; i++){
-                  var list = data.sendList[i];
+               for(var i=0 ; i<data.receiveList.length ; i++){
+                  var list = data.receiveList[i];
                   var pi = data.pi;
-                  var cnames = data.cnames[i];
                   /* console.log(list);
                   console.log(list.messageCode);
                   console.log("--------------"); */
                   var $listTr = $("<tr>");
                   
-                  var $ckTd = $("<td><input type='checkbox' class='ckBtns' style='cursor:pointer;'>");
+                  var $ckTd = $("<td>");
+                  var $ckIn = $("<input type='checkbox' class='ckBtns' name='ckBtns' style='cursor:pointer;'>");
+                  $ckTd.append($ckIn);
                   
                   var $numTd = $("<td>").text(pi.startRow);
                   var $codeIn = $("<input type='hidden'>");
@@ -208,7 +211,7 @@
                   $numTd.append($codeIn);
                   
                   /* console.log(cnames.memberName); */
-                  var $nameTd = $("<td>").text(cnames.memberName);
+                  var $nameTd = $("<td>").text(list.mname);
                   
                   
                   var $contentTd = $("<td>").text(list.mesContent.substr(0,10)+"...");
@@ -237,7 +240,7 @@
                   
                   var $cnoIn = $("<input type='hidden'>");
                   $cnoIn.val(list.cno);
-                  $disDateTd.append($cnoIn);
+                  $ckTd.append($cnoIn);
                   
                   $listTr.append($ckTd);
                   $listTr.append($numTd);
@@ -251,9 +254,20 @@
                   
                   pi.startRow++;
                   
-                  $(".ckBtns").parent().siblings().click(function(){
-                	  $(this).css({"background":"red"});
-                	  location.href="a_replyMessage.jsp";
+                  $(".ckBtns").parent().siblings().mouseenter(function(){
+                	  $(this).parent().css("background","mistyrose");
+                  }).mouseout(function(){
+                	  $(this).parent().css("background","white");
+                  }).click(function(){
+                	  var ck1 = $(this).parent().children().eq(0).children().eq(1);
+                	  /* console.log("ck1 : " + ck1); */
+                	  var ck2 = ck1.val();
+                	  /* console.log("ck2 : " + ck2); */
+                	  
+                	  var code1 = $(this).parent().children().eq(1).children().eq(0);
+                	  var code2 = code1.val();
+                	  console.log(code2);
+                      location.href="<%=request.getContextPath()%>/replyToCno.mes?code="+code2;
                   });
                }
                
@@ -262,50 +276,50 @@
             };
             //페이징
             function page(data, value){
-            	var $page = $(".pageBtnArea");
-            	
-            	var pi = data.pi;
-            	var currentPage = pi.currentPage;
-            	var limit = pi.limit;
-            	var maxPage = pi.maxPage;
-            	var startPage = pi.startPage;
-            	var endPage = pi.endPage;
-            	
-            	$page.empty();
-            	
-            	$page.append($("<button>").attr("class","paging").text("<<").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).click(function(){
-            		totalView(1,value);
- 			    }));
-            	
-            	
-            	if(currentPage <= 1) { 
-					$page.append($("<button>").attr("class","paging").text("<").attr("disabled",true).css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}));
-				}else{ 
-					$page.append($("<button>").attr("class","paging").text("<").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).click(function(){
-						   totalView(currentPage - 1,value);
-					}));
-
-				} 
-				for(var p= startPage; p <= endPage; p++){
-					if(p == currentPage){
-						$page.append($("<button>").attr("class","paging").text(p).attr("disabled",true).css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}));
-					}else{ 
-						$page.append($("<button>").attr("class","paging").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).text(p).click(function(){
-							totalView($(this).text(),value);
-						}));
-					}
-				
-				} 
-				if(currentPage >= maxPage){ 
-				 	$page.append($("<button>").attr("class","paging").text(">").attr("disabled",true).css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}));					
-				}else {
-				 	$page.append($("<button>").attr("class","paging").text(">").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).click(function(){
-				 		totalView(currentPage + 1,value);
-				 	}));
-				} 
-				$page.append($("<button>").attr("class","paging").text(">>").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).click(function(){
-				   totalView(maxPage,value);
-				}));
+               var $page = $(".pageBtnArea");
+               
+               var pi = data.pi;
+               var currentPage = pi.currentPage;
+               var limit = pi.limit;
+               var maxPage = pi.maxPage;
+               var startPage = pi.startPage;
+               var endPage = pi.endPage;
+               
+               $page.empty();
+               
+               $page.append($("<button>").attr("class","paging").text("<<").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).click(function(){
+                  totalView(1,value);
+              }));
+               
+               
+                if(currentPage <= 1) { 
+               		$page.append($("<button>").attr("class","paging").text("<").attr("disabled",true).css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}));
+	            }else{ 
+	               $page.append($("<button>").attr("class","paging").text("<").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).click(function(){
+	                     totalView(currentPage - 1,value);
+	               }));
+	
+	            } 
+	            for(var p= startPage; p <= endPage; p++){
+	               if(p == currentPage){
+	                  $page.append($("<button>").attr("class","paging").text(p).attr("disabled",true).css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}));
+	               }else{ 
+	                  $page.append($("<button>").attr("class","paging").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).text(p).click(function(){
+	                     totalView($(this).text(),value);
+	                  }));
+	               }
+	            
+	            } 
+	            if(currentPage >= maxPage){ 
+	                $page.append($("<button>").attr("class","paging").text(">").attr("disabled",true).css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}));               
+	            }else {
+	                $page.append($("<button>").attr("class","paging").text(">").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).click(function(){
+	                   totalView(currentPage + 1,value);
+	                }));
+	            } 
+	            $page.append($("<button>").attr("class","paging").text(">>").css({"cursor":"pointer","color":"white","background":"salmon","border-radius":"5px","border":"2px solid white"}).click(function(){
+	               totalView(maxPage,value);
+	            }));
             }
          });
       </script>

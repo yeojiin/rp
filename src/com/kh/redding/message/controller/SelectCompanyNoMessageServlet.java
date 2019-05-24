@@ -39,8 +39,9 @@ public class SelectCompanyNoMessageServlet extends HttpServlet {
       
       String page = "";
       
+      
       if(company != null) {
-    	  page = "views/admin/a_replyMessage.jsp";
+    	  page = "views/admin/a_insertMessage.jsp";
     	  request.setAttribute("company", company);
     	  
       }else {

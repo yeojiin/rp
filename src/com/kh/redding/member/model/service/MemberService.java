@@ -315,5 +315,40 @@ public class MemberService {
 		
 		return listCount;
 	}
+	
+	//Qna상세페이지조회
+	public Board selectComQnaDetail(int bid) {
+		Connection con = getConnection();
+		
+		Board b = new MemberDao().selectComQnaDetail(con, bid);
+		
+		
+		if(b != null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return b;
+	}
+
+	//업체Qna삭제(광섭)
+	public int deleteQna(int bid) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().deleteQna(con, bid);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
 
 }

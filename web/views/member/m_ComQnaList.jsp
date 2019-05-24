@@ -171,7 +171,7 @@ table {
 										hmap = blist.get(i);
 										if (hmap != null){
 								%>
-								<tr class="detail">
+								<tr class="detail" onclick="location.href='<%=request.getContextPath()%>/selectComQnaDetail.qd?bid=<%=hmap.get("bid")%>'">
 									<td><%=hmap.get("bid") %>
 									<%-- <input type="hidden" name="cno" value="<%=cno%>"> --%></td>
 									<td><%=hmap.get("bcontent") %></td>

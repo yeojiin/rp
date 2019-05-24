@@ -14,11 +14,14 @@ public class Board implements java.io.Serializable{
 	private String bdivision;			//게시판구분
 	private Date bmodify_date;		//게시글수정일자
 	private int ref_cnum;			//업체회원번호
+	private String memberName;
 	
 	public Board () {}
 
-	public Board(int bid, String btitle, int bwriter, Date bdate, int bcount, String bcontent, String bcategory, int blike,
-			String bdivision, Date bmodify_date, int ref_cnum) {
+	
+
+	public Board(int bid, String btitle, int bwriter, Date bdate, int bcount, String bcontent, String bcategory,
+			int blike, String bdivision, Date bmodify_date, int ref_cnum, String memberName) {
 		super();
 		this.bid = bid;
 		this.btitle = btitle;
@@ -31,7 +34,34 @@ public class Board implements java.io.Serializable{
 		this.bdivision = bdivision;
 		this.bmodify_date = bmodify_date;
 		this.ref_cnum = ref_cnum;
+		this.memberName = memberName;
 	}
+
+	
+
+	public int getBwriter() {
+		return bwriter;
+	}
+
+
+
+	public void setBwriter(int bwriter) {
+		this.bwriter = bwriter;
+	}
+
+
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
+
 
 	public int getBid() {
 		return bid;
@@ -49,13 +79,6 @@ public class Board implements java.io.Serializable{
 		this.btitle = btitle;
 	}
 
-	public int getBwriter() {
-		return bwriter;
-	}
-
-	public void setBwriter(int bwriter) {
-		this.bwriter = bwriter;
-	}
 
 	public Date getBdate() {
 		return bdate;

@@ -1,19 +1,17 @@
 @charset "UTF-8";
-.calcTable{
+.calcTable, .refundTable{
 	width:100%;
 	text-align:center;
 	font-weight:bold;
 }
-.calcTable th, .calcTable td{
+.calcTable th, .calcTable td, refundTable th, refundTable td{
 	border-bottom: 1px solid gray;
 	text-align:center;
 }
-.calcTable th{
+.calcTable th, refundTable th{
 	background:lightgray;
 	height:40px;
 	width:20px;
 }
-.calcTable td{
-	height:40px; 
-}
+
 

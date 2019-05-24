@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.redding.member.model.vo.Member;
 import com.kh.redding.message.model.service.MessageService;
 import com.kh.redding.message.model.vo.Message;
 
@@ -32,10 +33,17 @@ public class SendMessageToCompanyServlet extends HttpServlet {
 		
 		Date disDate = new Date(new GregorianCalendar().getTimeInMillis());
 		
+		Member comp = new MessageService().selectCompanyOne(cno);
+		
+		int wtype = 20;
 		Message mes = new Message();
 		mes.setMesContent(mesContent);
 		mes.setMesDisDate(disDate);
 		mes.setCno(cno);
+		mes.setMesWType(wtype);
+		mes.setMname(comp.getMemberName());
+		
+		//System.out.println("mes : " + mes);
 		
 		int result = new MessageService().insertMesToCompany(mes);
 		

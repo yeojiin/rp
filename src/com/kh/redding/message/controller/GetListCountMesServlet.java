@@ -21,9 +21,12 @@ public class GetListCountMesServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("메세지 상태마다 listCount 조회 서블릿");
+		//System.out.println("관리자=메세지 상태마다 listCount 조회 서블릿");
+		int wt = Integer.parseInt(request.getParameter("wt"));
+		//System.out.println("wt : " + wt);
+		HashMap<String, Object> hmap = new MessageService().selectListCount(wt);
 		
-		HashMap<String, Object> hmap = new MessageService().selectListCount();
+		//System.out.println("hmap : " + hmap);
 		
 		//System.out.println("hmap : " + hmap);
 		//System.out.println("hmap ck : " + hmap.get("CK_COUNT"));

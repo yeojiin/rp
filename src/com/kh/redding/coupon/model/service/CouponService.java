@@ -13,7 +13,7 @@ import static com.kh.redding.common.JDBCTemplate.*;
 
 public class CouponService {
 	
-	// 쿠폰 목록 조회용 메소드
+	// 관리자 쿠폰 목록 조회용 메소드
 	public ArrayList<HashMap<String, Object>> selectCouponList() {
 		Connection con = getConnection();
 		ArrayList<HashMap<String, Object>> list = new CouponDao().selectCouponList(con);
@@ -21,7 +21,7 @@ public class CouponService {
 		return list;
 	}
 
-	// 쿠폰 생성용 메소드
+	// 관리자 쿠폰 생성용 메소드
 	public int insertCoupon(Coupon coupon, Attachment attachment) {
 		
 		Connection con = getConnection();
@@ -43,6 +43,40 @@ public class CouponService {
 		close(con);
 		
 		return result;
+	}
+
+	// 관리자 쿠폰 업데이트용 메소드 (발급가능상태 만들기)
+	public int updateCouponListY() {
+		Connection con = getConnection();
+		int result = new CouponDao().updateCouponY(con);
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		return result;
+	}
+	
+	// 관리자 쿠폰 업데이트용 메소드 (발급불가능상태 만들기)
+	public int updateCouponListN() {
+		Connection con = getConnection();
+		int result = new CouponDao().updateCouponN(con);
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		return result;
+	}
+
+	// 회원 발급가능 쿠폰 목록 조회용 메소드
+	public ArrayList<HashMap<String, Object>> selectIssuableCouponList(String mno) {
+		Connection con = getConnection();
+		ArrayList<HashMap<String, Object>> list = new CouponDao().selectIssuableCouponList(con, mno);
+		close(con);
+		return list;
 	}
 
 }

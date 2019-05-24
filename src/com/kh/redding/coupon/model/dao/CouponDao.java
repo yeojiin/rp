@@ -62,6 +62,8 @@ private Properties prop = new Properties();
 				hmap.put("discountAmount", rset.getString("DISCOUNT_AMOUNT"));
 				hmap.put("couponStartDate", rset.getDate("COUPON_STARTDATE"));
 				hmap.put("couponEndDate", rset.getDate("COUPON_ENDDATE"));
+				hmap.put("couponStatus", rset.getString("COUPON_STATUS"));
+				
 				hmap.put("originName", rset.getString("ORIGIN_NAME"));
 				hmap.put("changeName", rset.getString("CHANGE_NAME"));
 				hmap.put("filePath", rset.getString("FILE_PATH"));
@@ -75,7 +77,7 @@ private Properties prop = new Properties();
 			close(stmt);
 			close(rset);
 		}
-		
+
 		return list;
 			
 	}
@@ -163,6 +165,95 @@ private Properties prop = new Properties();
 		}
 		
 		return result;
+	}
+
+	// 쿠폰 업데이트용 메소드 (발급가능상태 만들기)
+	public int updateCouponY(Connection con) {
+		Statement stmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateCouponListY");
+		
+		try {
+			stmt = con.createStatement();
+			
+			result = stmt.executeUpdate(query);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+		}
+		
+		return result;
+	}
+	
+	// 쿠폰 업데이트용 메소드 (발급불가능상태 만들기)
+	public int updateCouponN(Connection con) {
+		Statement stmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateCouponListN");
+		
+		try {
+			stmt = con.createStatement();
+			
+			result = stmt.executeUpdate(query);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+		}
+		
+		return result;
+	}
+
+	// 회원 발급가능 쿠폰 목록 조회용 메소드
+	public ArrayList<HashMap<String, Object>> selectIssuableCouponList(Connection con, String mno) {
+		Statement stmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectIssuableCouponList");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				
+				hmap.put("couponCode", rset.getString("COUPON_CODE"));
+				hmap.put("couponName", rset.getString("COUPON_NAME"));
+				hmap.put("couponDescrition", rset.getString("COUPON_DESCRITION"));
+				hmap.put("couponCategory", rset.getString("COUPON_CATEGORY"));
+				hmap.put("discountType", rset.getString("DISCOUNT_TYPE"));
+				hmap.put("discountRate", rset.getString("DISCOUNT_RATE"));
+				hmap.put("discountAmount", rset.getString("DISCOUNT_AMOUNT"));
+				hmap.put("couponStartDate", rset.getDate("COUPON_STARTDATE"));
+				hmap.put("couponEndDate", rset.getDate("COUPON_ENDDATE"));
+				hmap.put("couponStatus", rset.getString("COUPON_STATUS"));
+				
+				hmap.put("originName", rset.getString("ORIGIN_NAME"));
+				hmap.put("changeName", rset.getString("CHANGE_NAME"));
+				hmap.put("filePath", rset.getString("FILE_PATH"));
+				
+				list.add(hmap);
+			}
+						
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+
+		return list;
 	}
 
 

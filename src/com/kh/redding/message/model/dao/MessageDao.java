@@ -3,6 +3,7 @@ package com.kh.redding.message.model.dao;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -78,7 +79,6 @@ public class MessageDao {
    public int insertMesToCompany(Connection con, Message mes) {
       PreparedStatement pstmt = null;
       int result = 0;
-      
       String query = prop.getProperty("insertMesToCompany");
       
       try {
@@ -86,7 +86,8 @@ public class MessageDao {
          
          pstmt.setString(1, mes.getMesContent());
          pstmt.setDate(2, mes.getMesDisDate());
-         pstmt.setInt(3, mes.getCno());
+         pstmt.setInt(3, mes.getMesWType());
+         pstmt.setInt(4, mes.getCno());
          
          result = pstmt.executeUpdate();
          
@@ -141,8 +142,11 @@ public class MessageDao {
             //System.out.println("rset.getIntMESSAGE_REFCODE) : " + rset.getInt("MESSAGE_REFCODE"));
             mes.setCno(rset.getInt("CNO"));
             //System.out.println("rset.getInt(CNO) : " + rset.getInt("CNO"));
+            mes.setMname(rset.getString("MNAME"));
             
             //System.out.println("mes : " + mes);
+            
+            
             mesList.add(mes);
          }
          
@@ -153,23 +157,30 @@ public class MessageDao {
       return mesList;
    }
    //listCount 확인용 메소드
-   public HashMap<String, Object> selectListCount(Connection con) {
-      Statement stmt = null;
+   public HashMap<String, Object> selectListCount(Connection con, int wt) {
+      PreparedStatement pstmt = null;
       ResultSet rset = null;
       HashMap<String, Object> hmap = null;
       
       String query = prop.getProperty("selectListCount");
       
       try {
-         stmt  = con.createStatement();
-         
-         rset = stmt.executeQuery(query);
+    	  pstmt = con.prepareStatement(query);
+    	  
+    	  pstmt.setInt(1, wt);
+    	  pstmt.setInt(2, wt);
+    	  pstmt.setInt(3, wt);
+    	  
+    	  rset = pstmt.executeQuery();
          
          while(rset.next()) {
             hmap = new HashMap<String, Object>();
             hmap.put("CK_COUNT", rset.getInt("CK_COUNT"));
+            //System.out.println("rset.getInt(\"CK_COUNT\") : " + rset.getInt("CK_COUNT"));
             hmap.put("NOCK_COUNT", rset.getInt("NOCK_COUNT"));
+            //System.out.println("rset.getInt(\"NOCK_COUNT\") : " + rset.getInt("NOCK_COUNT"));
             hmap.put("TOTAL_COUNT", rset.getInt("TOTAL_COUNT"));
+            //System.out.println("rset.getInt(TOTAL_COUNT) : " + rset.getInt("TOTAL_COUNT"));
          }
          
       } catch (SQLException e) {
@@ -215,9 +226,239 @@ public class MessageDao {
       } catch (SQLException e) {
          e.printStackTrace();
       }
-      System.out.println("cnames : " + cnames);
+      //System.out.println("cnames : " + cnames);
       
       return cnames;
    }
+   //업체가 보낸 쪽지 정보 확인용 메소드
+	public Message selectMesOne(Connection con, int code) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Message mes = null;
+		   
+		String query = prop.getProperty("selectMesOne");
+		   
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, code);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				mes = new Message();
+	            
+	            mes.setMessageCode(rset.getInt("MESSAGE_CODE"));
+	            mes.setMesContent(rset.getString("MESSAGE_CONTENT"));
+	            mes.setMesDisDate(rset.getDate("MESSAGE_DISDATE"));
+	            mes.setMesCkDate(rset.getDate("MESSAGE_CKDATE"));
+	            mes.setMesLevel(rset.getInt("MESSAGE_LEVEL"));
+	            mes.setMesWType(rset.getInt("MESSAGE_WTYPE"));
+	            mes.setCno(rset.getInt("CNO"));
+	            mes.setMname(rset.getString("MNAME"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return mes;
+	}
+	//확인날짜 업데이트용 메소드
+	public int updateMesCDate(Connection con, Date ckDate, int code) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateMesCDate");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setDate(1, ckDate);
+			pstmt.setInt(2, code);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+				
+		return result;
+	}
+	//답장보내기용 메소드
+	public int insertReplyMesToCompany(Connection con, Message mes) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+				
+		String query = prop.getProperty("insertReplyMesToCompany");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, mes.getMesContent());
+			pstmt.setDate(2, mes.getMesDisDate());
+			pstmt.setInt(3, mes.getMesLevel());
+			pstmt.setInt(4, mes.getMesWType());
+			pstmt.setInt(5, mes.getMesRefCode());
+			pstmt.setInt(6, mes.getCno());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	//업체의 listCount 조회용 메소드
+	public HashMap<String, Object> getListCountCompMes(Connection con, int cno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> hmap = null;
+		
+		String query = prop.getProperty("getListCountCompMes");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, cno);
+			pstmt.setInt(2, cno);
+			pstmt.setInt(3, cno);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				
+				hmap.put("CK_COUNT", rset.getInt("CK_COUNT"));
+				hmap.put("NOCK_COUNT", rset.getInt("NOCK_COUNT"));
+				hmap.put("TOTAL_COUNT", rset.getInt("TOTAL_COUNT"));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		//System.out.println("hmap : " + hmap);
+		return hmap;
+	}
+	//한 업체의 모든 쪽지 정보 메소드
+	public ArrayList<Message> selectListCompMes(Connection con, PageInfo pi, int cno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Message> compMesList = null;
+		Message mes = null;
+		
+		String query = prop.getProperty("selectListCompMes");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, cno);
+			pstmt.setInt(2, pi.getStartRow());
+			pstmt.setInt(3, pi.getEndRow());
+			
+			rset = pstmt.executeQuery();
+			
+			compMesList = new ArrayList<Message>();
+			
+			while(rset.next()) {
+				mes = new Message();
+				
+				mes.setMname(rset.getString("MNAME"));
+				mes.setMessageCode(rset.getInt("MESSAGE_CODE"));
+				mes.setMesContent(rset.getString("MESSAGE_CONTENT"));
+				mes.setMesDisDate(rset.getDate("MESSAGE_DISDATE"));
+				mes.setMesCkDate(rset.getDate("MESSAGE_CKDATE"));
+				mes.setMesLevel(rset.getInt("MESSAGE_LEVEL"));
+				mes.setMesWType(rset.getInt("MESSAGE_WTYPE"));
+				mes.setMesRefCode(rset.getInt("MESSAGE_REFCODE"));
+				mes.setCno(rset.getInt("CNO"));
+				
+				compMesList.add(mes);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		//System.out.println("compMesList : " + compMesList);
+		
+		return compMesList;
+	}
+	
+	//wtype=20 , cno 일치하는 listCount 조회
+	public HashMap<String, Object> getListCountCompMesWtype(Connection con, int cno, int wt) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> hmap = null;
+		
+		String query = prop.getProperty("getListCountCompMesWtype");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, wt);
+			pstmt.setInt(2, cno);
+			pstmt.setInt(3, wt);
+			pstmt.setInt(4, cno);
+			pstmt.setInt(5, wt);
+			pstmt.setInt(6, cno);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				
+				hmap.put("CK_COUNT", rset.getInt("CK_COUNT"));
+				hmap.put("NOCK_COUNT", rset.getInt("NOCK_COUNT"));
+				hmap.put("TOTAL_COUNT", rset.getInt("TOTAL_COUNT"));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		//System.out.println("hmap : " + hmap);
+		return hmap;
+	}
+	//wtype=20, cno 일치하는 messsage들 조회
+	public ArrayList<Message> selectListCompReceiveMes(Connection con, int cno, int wt, PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Message> compMesList = null;
+		Message mes = null;
+		
+		String query = prop.getProperty("selectListCompReceiveMes");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, cno);
+			pstmt.setInt(2, wt);
+			pstmt.setInt(3, pi.getStartRow());
+			pstmt.setInt(4, pi.getEndRow());
+			
+			rset = pstmt.executeQuery();
+			
+			compMesList = new ArrayList<Message>();
+			
+			while(rset.next()) {
+				mes = new Message();
+				
+				mes.setMname(rset.getString("MNAME"));
+				mes.setMessageCode(rset.getInt("MESSAGE_CODE"));
+				mes.setMesContent(rset.getString("MESSAGE_CONTENT"));
+				mes.setMesDisDate(rset.getDate("MESSAGE_DISDATE"));
+				mes.setMesCkDate(rset.getDate("MESSAGE_CKDATE"));
+				mes.setMesLevel(rset.getInt("MESSAGE_LEVEL"));
+				mes.setMesWType(rset.getInt("MESSAGE_WTYPE"));
+				mes.setMesRefCode(rset.getInt("MESSAGE_REFCODE"));
+				mes.setCno(rset.getInt("CNO"));
+				
+				compMesList.add(mes);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		//System.out.println("compMesList : " + compMesList);
+		
+		return compMesList;
+	}
 
 }
