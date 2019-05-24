@@ -934,6 +934,59 @@ public class MemberDao {
 			close(rset);
 		}
 		return listCount;
+	}
+
+	public Board selectComQnaDetail(Connection con, int bid) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Board b = null;
+		
+		String query = prop.getProperty("selectComQnaDetail");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, bid);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				b = new Board();
+				
+				b.setBid(bid);
+				b.setBtitle(rset.getString("BTITLE"));
+				b.setMemberName(rset.getString("MNAME"));
+				b.setBdate(rset.getDate("BDATE"));
+				b.setBmodify_date(rset.getDate("BMODIFY_DATE"));
+				b.setBcontent(rset.getString("BCONTENT"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return b;
+	}
+
+	public int deleteQna(Connection con, int bid) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteQna");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, bid);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}	
 	
 }
