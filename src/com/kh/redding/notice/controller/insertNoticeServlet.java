@@ -1,8 +1,6 @@
-package com.kh.redding.board.controller;
+package com.kh.redding.notice.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,38 +10,39 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.redding.board.model.service.BoardService;
 
-
-@WebServlet("/QnAOne.no")
-public class SelectQnAOneServlet extends HttpServlet {
+/**
+ * Servlet implementation class insertNoticeServlet
+ */
+@WebServlet("/insertNotice.no")
+public class insertNoticeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    
-    public SelectQnAOneServlet() {
+  
+    public insertNoticeServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String noticeTitle = request.getParameter("noticeTitle");
+		String noticeContent = request.getParameter("noticeContent");
+		int writer = Integer.parseInt(request.getParameter("writer"));
 		
-		int bid = Integer.parseInt(request.getParameter("no"));
+		System.out.println("writer : " + writer);
 		
-		System.out.println(bid);
+		int result = new BoardService().insertNotice(noticeTitle, noticeContent , writer);
 		
-		ArrayList<HashMap<String , Object>> QnADetail = new BoardService().SelectQnAOneDetail(bid);
-
 		String page = "";
-		if (QnADetail != null) {
-			page = "/views/admin/a_MemberInquiryDetail.jsp";
+		if (result > 0) {
+			page =  request.getContextPath() +"/selectnotice.no";
 			
-			request.setAttribute("QnADetail", QnADetail);
-			
+			response.sendRedirect(page);
 		}else {
 			page = "/views/common/errorPage.jsp";
 			
-			request.setAttribute("msg", "문의 상세 오류");
+			request.setAttribute("msg", "공지사항 등록 실패");
 			
+			request.getRequestDispatcher(page).forward(request, response);
 		}
-		
-		request.getRequestDispatcher(page).forward(request, response);
 		
 		
 		

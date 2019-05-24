@@ -1,4 +1,4 @@
-package com.kh.redding.board.controller;
+package com.kh.redding.notice.controller;
 
 import java.io.IOException;
 
@@ -10,49 +10,39 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.redding.board.model.service.BoardService;
 
-/**
- * Servlet implementation class insertNoticeServlet
- */
-@WebServlet("/insertNotice.no")
-public class insertNoticeServlet extends HttpServlet {
+
+@WebServlet("/deleteNotice.no" )
+public class DeletNoticeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-  
-    public insertNoticeServlet() {
+    
+    public DeletNoticeServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String noticeTitle = request.getParameter("noticeTitle");
-		String noticeContent = request.getParameter("noticeContent");
-		int writer = Integer.parseInt(request.getParameter("writer"));
+		int bid = Integer.parseInt(request.getParameter("num"));
 		
-		System.out.println("writer : " + writer);
-		
-		int result = new BoardService().insertNotice(noticeTitle, noticeContent , writer);
+		int result = new BoardService().deleteNoticeOne(bid);
 		
 		String page = "";
 		if (result > 0) {
-			page =  request.getContextPath() +"/selectnotice.no";
+			page = request.getContextPath() + "/selectnotice.no";
 			
 			response.sendRedirect(page);
+			
 		}else {
 			page = "/views/common/errorPage.jsp";
 			
-			request.setAttribute("msg", "공지사항 등록 실패");
+			request.setAttribute("msg", "공지사항 삭제 실패");
 			
 			request.getRequestDispatcher(page).forward(request, response);
 		}
 		
-		
-		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

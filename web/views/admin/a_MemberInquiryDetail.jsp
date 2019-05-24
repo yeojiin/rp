@@ -134,7 +134,7 @@
     					  <div class="panel panel-default">
     						<div class="panel-heading">관리자 (<%=Answer.getReply_date() %>)</div>
     						<div class="panel-body"><%=Answer.getReply_content() %></div>
-    						<button type = "button" id = "updateReply">수정</button>
+    						<!-- <button type = "button" id = "updateReply">수정</button> -->
   						  </div>
   						  <% }
   						  } %>
