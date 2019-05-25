@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import com.kh.redding.attachment.model.vo.Attachment;
@@ -763,17 +764,33 @@ public class MemberDao {
 			blist = new ArrayList<HashMap<String, Object>>();
 			
 			while(rset.next()) {
+				HashMap<String, Object> Rhmap = new HashMap<String, Object>();
+				
 				hmap = new HashMap<String, Object>();
 
 				hmap.put("rownum", rset.getInt("RNUM"));
 				hmap.put("bid", rset.getInt("BID"));
+				hmap.put("btitle", rset.getString("BTITLE"));
 				hmap.put("bcontent", rset.getString("BCONTENT"));
 				hmap.put("mname", rset.getString("MNAME"));
 				hmap.put("bdate", rset.getDate("BDATE"));
 				hmap.put("ref_cnum", rset.getInt("REF_CNUM"));
 				hmap.put("cno", rset.getInt("CNO"));
 				
-				blist.add(hmap);
+				Rhmap.put("blist", hmap);
+				
+				Reply reply = new Reply();
+				
+				reply.setReply_code(rset.getInt("REPLY_CODE"));
+				reply.setReply_date(rset.getDate("REPLY_DATE"));
+				reply.setReply_content(rset.getString("REPLY_CONTENT"));
+				reply.setMno(rset.getInt("MNO"));
+				reply.setBid(rset.getInt("RB"));
+
+				Rhmap.put("reply", reply);
+				
+				
+				blist.add(Rhmap);
 			}
 			System.out.println("blistDao : " + blist);
 		} catch (SQLException e) {
