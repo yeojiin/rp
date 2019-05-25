@@ -86,6 +86,11 @@
 										<textarea id="receiveContent" name="receiveContent"readonly><%=mes.getMesContent() %></textarea>
 									</td>
 								</tr>
+								<tr>
+									<td colspan="2">
+                            			<div id="reset">이전으로</div>
+									</td>
+								</tr>
 							</table>
 						</div>
 					</div>
@@ -113,6 +118,9 @@
 				});
 				$("#cancelBtn").click(function(){
 					location.href="<%=request.getContextPath()%>/selectList.co";
+				});
+				$("#reset").click(function(){
+					location.href="<%=request.getContextPath()%>/views/admin/a_SendMessage.jsp";
 				});
 			});
 		</script>

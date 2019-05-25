@@ -263,8 +263,103 @@
     		  }
     	  });
    		  
-   		  $("#searchBtn").click(function(){
+   		  
+   		  
+   		  $(".productDetail").click(function(){
+   			  var upno = $(this).parent().parent().children().eq(1).children().eq(1).val();
+   			  /* console.log(upno); */
+   			  location.href="<%=request.getContextPath()%>/uproDetail.pr?upno="+upno;
+   		  });
+   		  
+   		  $("#PIInsertBtn").click(function(){
+				$("#updatePro").submit();
+   		  });
+   		  
+   		  $("#PIResetBtn").click(function(){
+   			  location.href="<%=request.getContextPath()%>/selectProList.pr";
+    	  });
    			  
+   		  $("#productSellYesBtn").click(function(){
+   			var upnoArr = [];
+   			var answer = "Y";
+			  $("input[name=upCheck]").each(function(){
+				  var upno = $(this).parent().parent().children().eq(1).children().eq(1).val();
+				  if($(this).is(":checked")){
+					  console.log("upno : " + upno);
+					  upnoArr += upno +", ";
+				  }
+			  });
+			  console.log(upnoArr);
+			  
+			  $.ajax({
+				  url:"uproListUstatusY.pr",
+				  type:"post",
+				  data:{upnoArr:upnoArr,answer:answer},
+				  success:function(data){
+					  //alert("성공");
+					  location.href="proDetail.pr?pno=<%=pro.getpNo()%>";
+				  },
+				  error:function(){
+					  //alert("실패");
+				  }
+			  });
+   		  });
+   		  
+   		$("#productSellNoBtn").click(function(){
+ 			  var upnoArr = [];
+ 			  var answer = "N";
+ 			  $("input[name=upCheck]").each(function(){
+ 				  var upno = $(this).parent().parent().children().eq(1).children().eq(1).val();
+ 				  if($(this).is(":checked")){
+ 					  console.log("upno : " + upno);
+ 					  upnoArr += upno +", ";
+ 				  }
+ 			  });
+			  console.log(upnoArr);
+			  
+			  $.ajax({
+				  url:"uproListUstatusY.pr",
+				  type:"post",
+				  data:{upnoArr:upnoArr,answer:answer},
+				  success:function(data){
+					  //alert("성공");
+					  location.href="proDetail.pr?pno=<%=pro.getpNo()%>";
+				  },
+				  error:function(){
+					  //alert("실패");
+				  }
+			  });
+ 		  });
+   		$("#proResBtn").click(function(){
+       	 location.href="<%=request.getContextPath()%>/views/company/c_productReservation.jsp";
+        });
+        $("#productUploadBtn").click(function(){
+            //상품등록하기 버튼을 눌렀을 때 작동할 함수
+            //c_ProductUpload.jsp로 페이지 이동해주기
+            location.href="<%=request.getContextPath()%>/views/company/c_ProductInsert.jsp";
+         }); 	  
+        $("#searchBtn").click(function(){
+        	var pNo = $("input[name=pNo]").val();
+        	var ustatus = $("input[name=productSearchAbountSale]:checked").val();
+   			var startDate = $("input[name=startDate]").val();
+   			var endDate = $("input[name=endDate]").val();
+   			if(ustatus == null){
+   				alert("판매여부를 선택해 주세요.");
+   			}else{
+   				if(startDate==""){
+   	   				alert("검색 시작 날짜를 입력해주세요.");
+   	   			}else{
+   	   				if(endDate==""){
+   	   					alert('검색 종료 날짜를 입력해주세요.');
+   	   				}else{
+   	   					location.href="<%=request.getContextPath()%>/uproSearch.pr?ustatus="+ustatus+"&startDate="+startDate+"&endDate="+endDate+"&pNo="+pNo;
+   	   					
+   	   				}
+   	   			}
+   			}
+        });
+        <%-- $("#searchBtn").click(function(){
+ 			  
    			var pNo = $("input[name=pNo]").val();
    			console.log("pno : " + pNo);
    			var ustatus = $("input[name=productSearchAbountSale]:checked").val();
@@ -374,24 +469,6 @@
 	   								ctn = ctn + 1;
 	   							});
 	   							
-	   							
-	   							
-	   							
-	   							
-	   							
-	   							
-	   							
-	   							
-	   							
-	   							
-	   							
-	   							
-	   							
-	   							
-	   							
-	   							
-	   							
-	   							
    			   				},
    			   				error:function(data){
    			   					
@@ -403,82 +480,7 @@
    			}
    			
    			
-   		  });
-   		  
-   		  $(".productDetail").click(function(){
-   			  var upno = $(this).parent().parent().children().eq(1).children().eq(1).val();
-   			  /* console.log(upno); */
-   			  location.href="<%=request.getContextPath()%>/uproDetail.pr?upno="+upno;
-   		  });
-   		  
-   		  $("#PIInsertBtn").click(function(){
-				$("#updatePro").submit();
-   		  });
-   		  
-   		  $("#PIResetBtn").click(function(){
-   			  location.href="<%=request.getContextPath()%>/selectProList.pr";
-    	  });
-   			  
-   		  $("#productSellYesBtn").click(function(){
-   			var upnoArr = [];
-   			var answer = "Y";
-			  $("input[name=upCheck]").each(function(){
-				  var upno = $(this).parent().parent().children().eq(1).children().eq(1).val();
-				  if($(this).is(":checked")){
-					  console.log("upno : " + upno);
-					  upnoArr += upno +", ";
-				  }
-			  });
-			  console.log(upnoArr);
-			  
-			  $.ajax({
-				  url:"uproListUstatusY.pr",
-				  type:"post",
-				  data:{upnoArr:upnoArr,answer:answer},
-				  success:function(data){
-					  //alert("성공");
-					  location.href="proDetail.pr?pno=<%=pro.getpNo()%>";
-				  },
-				  error:function(){
-					  //alert("실패");
-				  }
-			  });
-   		  });
-   		  
-   		$("#productSellNoBtn").click(function(){
- 			  var upnoArr = [];
- 			  var answer = "N";
- 			  $("input[name=upCheck]").each(function(){
- 				  var upno = $(this).parent().parent().children().eq(1).children().eq(1).val();
- 				  if($(this).is(":checked")){
- 					  console.log("upno : " + upno);
- 					  upnoArr += upno +", ";
- 				  }
- 			  });
-			  console.log(upnoArr);
-			  
-			  $.ajax({
-				  url:"uproListUstatusY.pr",
-				  type:"post",
-				  data:{upnoArr:upnoArr,answer:answer},
-				  success:function(data){
-					  //alert("성공");
-					  location.href="proDetail.pr?pno=<%=pro.getpNo()%>";
-				  },
-				  error:function(){
-					  //alert("실패");
-				  }
-			  });
- 		  });
-   		$("#proResBtn").click(function(){
-       	 location.href="<%=request.getContextPath()%>/views/company/c_productReservation.jsp";
-        });
-        $("#productUploadBtn").click(function(){
-            //상품등록하기 버튼을 눌렀을 때 작동할 함수
-            //c_ProductUpload.jsp로 페이지 이동해주기
-            location.href="<%=request.getContextPath()%>/views/company/c_ProductInsert.jsp";
-         }); 	  
-        
+   		  }); --%>
       });
    </script>
 </body>

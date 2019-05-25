@@ -25,9 +25,7 @@ public class CompanyMessageOneServlet extends HttpServlet {
 		System.out.println("code : " + code);
 		
 		
-		Message mes = null;
-		
-		mes = new MessageService().selectMesOne(code);
+		Message mes = new MessageService().selectMesOne(code);
 		
 		
 		System.out.println("mes : " + mes);

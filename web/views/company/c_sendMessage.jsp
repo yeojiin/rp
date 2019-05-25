@@ -101,8 +101,12 @@
    <script>
       $(function(){
          $("#send").click(function(){
+        	 if($("#messageContent").val()==""){
+        		 alert('내용을 입력해주세요');
+        	 }else{
                $("#sendMessage").attr("action","<%=request.getContextPath()%>/toAdmin.mes");
                $("#sendMessage").submit();
+        	 }
          });
          $("#reset").click(function(){
             alert("취소하셨습니다.");

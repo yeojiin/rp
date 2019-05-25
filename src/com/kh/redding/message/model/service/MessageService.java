@@ -119,5 +119,31 @@ public class MessageService {
 				
 		return compMesList;
 	}
+	//업체의 전체 쪽지 목록페이지에서 체크된것들 삭제
+	public int deleteCompMes(int code) {
+		Connection con = getConnection();
+		int result = new MessageDao().deleteCompMes(con, code);
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		return result;
+	}
+	//업체명 검색후 전체 갯수 조회
+	public int getListCountSearchMes(String cname, int wt) {
+		Connection con = getConnection();
+		int listCount = new MessageDao().getListCountSearchMes(con, cname, wt);
+		close(con);
+		return listCount;
+	}
+	
+	//업체명 검색 후 전체리스트 리턴
+	public ArrayList<Message> searchMesList(String cname, int wt, PageInfo pi) {
+		Connection con = getConnection();
+		ArrayList<Message> searchList = new MessageDao().searchMesList(con, cname, wt, pi);
+		close(con);
+		return searchList;
+	}
 
 }

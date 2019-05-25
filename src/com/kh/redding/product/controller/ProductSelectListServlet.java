@@ -92,11 +92,11 @@ public class ProductSelectListServlet extends HttpServlet {
       pcount.setSaleProductCount(saleProductCount);
       pcount.setNoSaleProductCount(noSaleProductCount);
       
-      HashMap<String, Object> hmap = new HashMap<String, Object>();
+      /*HashMap<String, Object> hmap = new HashMap<String, Object>();
       
       hmap.put("pi", pi);
       hmap.put("proList", proList);
-      hmap.put("pcount", pcount);
+      hmap.put("pcount", pcount);*/
       
       /*String page = "";
       if(proList != null) {

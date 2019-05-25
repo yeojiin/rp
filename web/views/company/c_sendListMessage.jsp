@@ -235,7 +235,7 @@
 	                   /* console.log(code); */
 	                   //상세보기로 가기
 	                   
-	                   var wtp = $(this).parent().children().eq(3).children().eq(1).css("background", "red");
+	                   var wtp = $(this).parent().children().eq(3).children().eq(1);
 	                   console.log("wtp.val()  :" +wtp.text());
 	                   
 	                   if(wtp.text()==20){
@@ -250,6 +250,34 @@
 	            page(data, value);
             
          };
+         $(document).on('change', '#ckBtns', function(){
+        	 code = $(this).parent().parent().children().eq(1).children().eq(0);
+      	     code2 = code.val();
+        	 length =  checked.length;
+        	 if ($(this).is(":checked") == true){
+        		 /* console.log("length :" + length); */
+        		 checked[length]=code2;
+        		 console.log("checked["+length+"] : " + checked[length]);
+        	 }else{
+        		 for(var i=0 ; i<length; i++){
+        			 if(code2==checked[i]){
+        				 checked.splice(i,1);
+        			 }
+        		 }
+        	 }
+        	 console.log("checked : " + checked);
+        	 /* console.log("-----------------------------"); */
+        	 
+         });
+         
+         
+		$(document).on('click', '#RMDeleteBtn', function(){
+			if(checked == ""){
+				alert('체크된 메세지가 없습니다.');
+			}else{
+				location.href="<%=request.getContextPath()%>/deleteComMes?checked="+checked;
+			}
+		});
        //페이징
          function page(data, value){
          	 /* console.log('value : ' + value); */

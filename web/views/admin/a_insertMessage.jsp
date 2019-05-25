@@ -123,9 +123,13 @@
 		<script>
 			$(function(){
 				$("#sendBtn").click(function(){
-						$("#sendMesForm").attr("action","<%=request.getContextPath()%>/toCompany.mes");
-						$("#sendMesForm").submit();
-					
+						
+						if($("#smContent").val()==""){
+			        		 alert('내용을 입력해주세요');
+			        	 }else{
+			        		 $("#sendMesForm").attr("action","<%=request.getContextPath()%>/toCompany.mes");
+								$("#sendMesForm").submit();
+			        	 }
 				});
 				$("#cancelBtn").click(function(){
 					location.href="<%=request.getContextPath()%>/selectList.co";

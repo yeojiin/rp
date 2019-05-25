@@ -135,13 +135,22 @@
 		<script>
 			$(function(){
 				$("#sendBtn").click(function(){
-					var answer = window.confirm('<%=mes.getMname()%>에게 쪽지를 보내겠습니까?');
-					if(answer){
-						$("#sendMesForm").attr("action","<%=request.getContextPath()%>/replycomp.mes");
-						$("#sendMesForm").submit();
-					}else{
-						
-					}
+					if($("#smContent").val()==""){
+		        		 alert('내용을 입력해주세요');
+		        	 }else{
+		        		 var answer = window.confirm('<%=mes.getMname()%>에게 쪽지를 보내겠습니까?');
+							if(answer){
+								if($("#smContent").val()==""){
+					        		 alert('내용을 입력해주세요');
+					        	 }else{
+									$("#sendMesForm").attr("action","<%=request.getContextPath()%>/replycomp.mes");
+									$("#sendMesForm").submit();
+					        	 }
+							}else{
+								
+							}
+		        	 }
+					
 					
 				});
 				$("#cancelBtn").click(function(){
