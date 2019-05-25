@@ -11,21 +11,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.kh.redding.member.model.service.MemberService;
 import com.kh.redding.member.model.vo.M_ComQnaListPageInfo;
 
 /**
- * Servlet implementation class MemberSelectDetailComQnaServlet
+ * Servlet implementation class MemberSelectComReviewListServlet
  */
-@WebServlet("/selectDetailComQna.cq")
-public class MemberSelectDetailComQnaServlet extends HttpServlet {
+@WebServlet("/selectComReviewList.rl")
+public class MemberSelectComReviewListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberSelectDetailComQnaServlet() {
+    public MemberSelectComReviewListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,7 +34,6 @@ public class MemberSelectDetailComQnaServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int cno = Integer.parseInt(request.getParameter("cno"));
-		System.out.println("Cno :"+ cno);
 		
 		int currentPage;
 		int limit;
@@ -52,8 +50,6 @@ public class MemberSelectDetailComQnaServlet extends HttpServlet {
 		limit = 10;
 		
 		int listCount = new MemberService().getQnaListCount(cno);
-		
-		System.out.println("QnalistCount : " + listCount);
 		
 		maxPage = (int)((double) listCount / limit + 0.9);
 		
@@ -75,19 +71,16 @@ public class MemberSelectDetailComQnaServlet extends HttpServlet {
 		System.out.println(currentPage);
 		String page = "";
 		if(blist != null) {
-			page = "views/member/m_ComQnaList.jsp";
+			page = "views/member/m_ComReviewList.jsp";
 			request.setAttribute("blist", blist);
 			request.setAttribute("cqlpi", cqlpi);
 		}else {
 			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "업체 Qna 목록 조회 실패!");
+			request.setAttribute("msg", "업체 리뷰 목록 조회 실패!");
 		}
 		
 		RequestDispatcher view = request.getRequestDispatcher(page);
 		view.forward(request, response);
-		
-		/*response.setContentType("application/json");
-		new Gson().toJson(blist,response.getWriter());*/
 	}
 
 	/**
