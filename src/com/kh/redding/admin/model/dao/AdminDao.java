@@ -1555,6 +1555,96 @@ public class AdminDao {
 		
 		return count;
 	}
+
+	
+	
+	//업체 정산 상태 목록 조회용 메소드(정연) 
+	public ArrayList<HashMap<String, Object>> comCalcStatus(Connection con) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String,Object>> slist = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("comCalcStatus");
+		
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+
+			rset= pstmt.executeQuery();
+
+			slist = new ArrayList<HashMap<String,Object>>();
+
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				hmap.put("calccode", rset.getInt("CALCCODE"));
+				hmap.put("price", rset.getInt("FINAL"));
+				hmap.put("caldate", rset.getDate("CALCDATE"));
+				hmap.put("confirm", rset.getString("CONFIRM"));
+				hmap.put("answer", rset.getString("ANSWER"));
+				hmap.put("checkdate", rset.getDate("CHECKDATE"));
+				hmap.put("repcalc", rset.getInt("REPCALC"));
+				hmap.put("cno", rset.getInt("CNO"));
+				hmap.put("cname", rset.getString("CNAME"));
+				hmap.put("month", rset.getString("MON"));
+				
+				slist.add(hmap);
+			}
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+
+		return slist;
+	}
+
+	
+	//정산테이블 전체 조회 (정연)
+	public ArrayList<HashMap<String, Object>> allCalcList(Connection con) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String,Object>> clist = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+	
+		
+		String query = prop.getProperty("allCalcList");
+		
+		
+		try {
+			
+			pstmt = con.prepareStatement(query);
+			
+			rset= pstmt.executeQuery();
+
+			
+			clist = new ArrayList<HashMap<String,Object>>();
+			
+			while(rset.next()) {
+				hmap =new HashMap<String, Object>();
+				
+				hmap.put("price", rset.getInt("PRICE"));
+				hmap.put("cno", rset.getInt("CNO"));
+				
+				clist.add(hmap);
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return clist;
+	}
 	
 
 	

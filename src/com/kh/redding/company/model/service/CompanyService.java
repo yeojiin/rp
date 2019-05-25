@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.kh.redding.admin.model.dao.AdminDao;
 import com.kh.redding.attachment.model.vo.Attachment;
 import com.kh.redding.company.model.dao.CompanyDao;
 import com.kh.redding.company.model.vo.Company;
@@ -254,5 +255,49 @@ public class CompanyService {
 
 		return list;
 	}
+
 	
+	//업체가 관리자한테 정산금액 확인 답변 메소드(정연)
+	public int answerCalc(int calccode) {
+		Connection con = getConnection();
+
+		int result = new CompanyDao().answerCalc(con, calccode);
+
+		if(result>0) {
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		close(con);
+
+
+		return result;
+	}
+
+	
+	//업체 정산 내역 조회(정연)
+	public ArrayList<HashMap<String, Object>> calcComHistory(int mno) {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String, Object>> list = new CompanyDao().calcComHistory(con, mno);
+
+		close(con);
+
+		return list;
+		
+	}
+
+	
+	//업체 정산 월별 조건 조회(정연)
+	public ArrayList<HashMap<String, Object>> searchMonCalc(int mno, int month) {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String, Object>> list = new CompanyDao().searchMonCalc(con, mno, month);
+
+		close(con);
+
+		return list;
+
+	}
+
 }

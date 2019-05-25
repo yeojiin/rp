@@ -619,6 +619,7 @@ public class CompanyDao {
 		
 		String query = prop.getProperty("showMonCalc");
 		
+		
 		try {
 			
 			pstmt = con.prepareStatement(query);
@@ -632,19 +633,140 @@ public class CompanyDao {
 			while(rset.next()) {
 				hmap =new HashMap<String, Object>();
 				
-				hmap.put("mno", rset.getInt("MNO"));
-				hmap.put("pno", rset.getInt("PNO"));
-				hmap.put("pname", rset.getString("PNAME"));
-				hmap.put("pcontent", rset.getString("PCONTENT"));
-				hmap.put("price", rset.getInt("PRICE"));
-				hmap.put("mname", rset.getString("MNAME"));
-				hmap.put("ctype", rset.getString("COM_TYPE"));
-				hmap.put("wishcode", rset.getInt("WISH_CODE"));
-				hmap.put("filepath", rset.getString("FILE_PATH"));
-				hmap.put("changename", rset.getString("CHANGE_NAME"));
+				hmap.put("calccode", rset.getInt("CALCCODE"));
+				hmap.put("final", rset.getInt("FINAL"));
+				hmap.put("caldate", rset.getDate("CALCDATE"));
+				hmap.put("confirm", rset.getString("CONFIRM"));
+				hmap.put("answer", rset.getString("ANSWER"));
+				hmap.put("checkdate", rset.getDate("CHECKDATE"));
+				hmap.put("repcalc", rset.getInt("REPCALC"));
+				hmap.put("cno", rset.getInt("CNO"));
+				hmap.put("cname", rset.getString("CNAME"));
+				hmap.put("month", rset.getString("MON"));
 				
 				list.add(hmap);
 				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
+	}
+
+	
+	//업체가 관리자한테 정산금액 확인 답변 메소드(정연)
+	public int answerCalc(Connection con, int calccode) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("answerCalc");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, calccode);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	
+	//업체 정산 내역 조회(정연)
+	public ArrayList<HashMap<String, Object>> calcComHistory(Connection con, int mno) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String,Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+	
+		
+		String query = prop.getProperty("calcComHistory");
+		
+		
+		try {
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			
+			rset= pstmt.executeQuery();
+
+			
+			list = new ArrayList<HashMap<String,Object>>();
+			
+			while(rset.next()) {
+				hmap =new HashMap<String, Object>();
+				
+				hmap.put("calccode", rset.getInt("CALCCODE"));
+				hmap.put("final", rset.getInt("FINAL"));
+				hmap.put("caldate", rset.getDate("CALCDATE"));
+				hmap.put("confirm", rset.getString("CONFIRM"));
+				hmap.put("answer", rset.getString("ANSWER"));
+				hmap.put("checkdate", rset.getDate("CHECKDATE"));
+				hmap.put("repcalc", rset.getInt("REPCALC"));
+				hmap.put("cno", rset.getInt("CNO"));
+				hmap.put("cname", rset.getString("CNAME"));
+				hmap.put("month", rset.getString("MON"));
+				
+				list.add(hmap);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
+	}
+
+	
+	
+	//업체 정산 월별 조건 조회(정연)
+	public ArrayList<HashMap<String, Object>> searchMonCalc(Connection con, int mno, int month) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String,Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("searchMonCalc");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			pstmt.setInt(2, month);
+
+			rset= pstmt.executeQuery();
+
+			list = new ArrayList<HashMap<String,Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				
+				hmap.put("calccode", rset.getInt("CALCCODE"));
+				hmap.put("price", rset.getInt("FINAL"));
+				hmap.put("caldate", rset.getDate("CALCDATE"));
+				hmap.put("confirm", rset.getString("CONFIRM"));
+				hmap.put("answer", rset.getString("ANSWER"));
+				hmap.put("checkdate", rset.getDate("CHECKDATE"));
+				hmap.put("repcalc", rset.getInt("REPCALC"));
+				hmap.put("cno", rset.getInt("CNO"));
+				hmap.put("cname", rset.getString("CNAME"));
+				hmap.put("month", rset.getString("MON"));
+				
+				
+				list.add(hmap);
 			}
 			
 		} catch (SQLException e) {
