@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
+import com.kh.redding.attachment.model.vo.Attachment;
 import com.kh.redding.board.model.vo.Board;
 import com.kh.redding.board.model.vo.BoardPageInfo;
 import com.kh.redding.board.model.vo.Reply;
@@ -45,8 +46,10 @@ public class BoardDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			
+			pstmt.setString(1, "커뮤니티");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -76,15 +79,18 @@ public class BoardDao {
 
 	//게시물 수 조회용 메소드
 	public int getListCount(Connection con) {
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		int listCount = 0;
 		ResultSet rset = null;
 		
 		String query = prop.getProperty("listCount");
 		
 		try {
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(query);
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, "커뮤니티");
+			
+			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
 				listCount = rset.getInt(1);
@@ -93,17 +99,17 @@ public class BoardDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(stmt);
+			close(pstmt);
 			close(rset);
 		}
 		
 		return listCount;
 	}
 
-	public Board selectOne(Connection con, int num) {
+	public HashMap<String, Object> selectOne(Connection con, int num) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		Board b = null;
+		HashMap<String, Object> boardDetail = null;
 		
 		String query = prop.getProperty("selectOne");
 		
@@ -113,15 +119,29 @@ public class BoardDao {
 			
 			rset = pstmt.executeQuery();
 			
+			boardDetail= new HashMap<String , Object>();
+			
 			if(rset.next()) {
-				b = new Board();
+				Board board = new Board();
 				
-				b.setBid(rset.getInt("BID"));
-				b.setBtitle(rset.getString("BTITLE"));
-				b.setBwriter((rset.getInt("NICK_NAME")));
-				b.setBdate(rset.getDate("BDATE"));
-				b.setBcount(rset.getInt("BCOUNT"));
-				b.setBlike(rset.getInt("BLIKE"));
+				board.setBid(rset.getInt("BID"));
+				board.setBtitle(rset.getString("BTITLE"));
+				board.setBwriter((rset.getInt("BWRITER")));
+				board.setBdate(rset.getDate("BDATE"));
+				board.setBcount(rset.getInt("BCOUNT"));
+				board.setBlike(rset.getInt("BLIKE"));
+				board.setBcategory(rset.getString("BCATEGORY"));
+				board.setBcontent(rset.getString("BCONTENT"));
+				board.setBmodify_date(rset.getDate("BMODIFY_DETE"));
+				
+				boardDetail.put("board", board);
+				
+				String MID = rset.getString("MID");
+				String nick_name = rset.getString("NICK_NAME");
+				
+				boardDetail.put("mid", MID);
+				boardDetail.put("nickName", nick_name);
+				
 				
 			}
 		} catch (SQLException e) {
@@ -132,7 +152,7 @@ public class BoardDao {
 		}
 		
 		
-		return b;
+		return boardDetail;
 	}
 
 	public int updateCount(Connection con, int bid) {
@@ -1213,6 +1233,179 @@ public class BoardDao {
 		
 		return QnAList;
 		
+	}
+
+	public int insertBoard(Connection con, int mno, String title, String category, String content) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertBoard");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, title);
+			pstmt.setInt(2, mno);
+			pstmt.setString(3, content);
+			pstmt.setString(4, category);
+			pstmt.setString(5, "커뮤니티");
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int selectBid(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int bid = 0;
+		
+		String query = prop.getProperty("selectBid");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if (rset.next()) {
+				bid = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		
+		return bid;
+	}
+
+	public int insertBoardAttachment(Connection con, int bid, ArrayList<Attachment> fileList) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query  = prop.getProperty("insertBoardAttachment");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			for (int i = 0 ; i < fileList.size() ; i++) {
+				pstmt.setString(1, fileList.get(i).getOriginname());
+				pstmt.setString(2, fileList.get(i).getChangename());
+				pstmt.setString(3, fileList.get(i).getFilepath());
+				pstmt.setInt(4, bid);
+				
+				result += pstmt.executeUpdate();
+			}
+		
+			System.out.println("완료" + result);
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		
+		return result;
+	}
+
+	public ArrayList<Attachment> selectAttachment(Connection con, int bid) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Attachment> attachlist = null;
+		
+		String query  = prop.getProperty("insertBoardAttachment");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, bid);
+			
+			rset = pstmt.executeQuery();
+			
+			attachlist = new ArrayList<Attachment>();
+			
+			while (rset.next()) {
+				Attachment attach = new Attachment();
+				
+				attach.setAid(rset.getInt("AID"));
+				attach.setBid(rset.getInt("BID"));
+				attach.setChangename(rset.getString("CHANGE_NAME"));
+				attach.setOriginname(rset.getString("ORGIN_NAME"));
+				attach.setFilepath(rset.getString("FILE_PATH"));
+				attach.setAdivision(rset.getInt("ADIVISION"));
+				
+				attachlist.add(attach);
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		
+		return attachlist;
+	}
+
+	public ArrayList<Reply> selectReply(Connection con, int bid) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Reply> replylist = null;
+		
+		String query  = prop.getProperty("SelectCommuityReply");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+		
+			pstmt.setInt(1, bid);
+			
+			rset = pstmt.executeQuery();
+			
+			replylist = new ArrayList<Reply>();
+			
+			while(rset.next()) {
+				Reply reply = new Reply();
+				
+				reply.setReply_code(rset.getInt("REPLY_CODE"));
+				reply.setReply_date(rset.getDate("REPLY_DATE"));
+				reply.setReply_content(rset.getString("REPLY_CONTENT"));
+				reply.setMno(rset.getInt("MNO"));
+				reply.setBid(rset.getInt("BID"));
+				reply.setReply_modify_date(rset.getDate("REPLY_MODIFY_DATE"));
+				
+				replylist.add(reply);
+			}
+			
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return replylist;
 	}
 
 	

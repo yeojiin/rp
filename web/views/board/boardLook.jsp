@@ -74,7 +74,7 @@
 				<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 				<div class="b_title" style="width:100%; height:auto;">
 					<div style="width:50%; height:auto; float:left; font-size:30px; margin-top:18px;">
-						<i class="fas fa-edit">후기게시판</i>					
+						<i class="fas fa-edit">Community</i>					
 					</div>
 					<div style="width:50%; height:auto; float:right;">
 						<ul class="pager" style="float:right;">

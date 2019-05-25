@@ -9,9 +9,11 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.kh.redding.attachment.model.vo.Attachment;
 import com.kh.redding.board.model.dao.BoardDao;
 import com.kh.redding.board.model.vo.Board;
 import com.kh.redding.board.model.vo.BoardPageInfo;
+import com.kh.redding.board.model.vo.Reply;
 
 public class BoardService {
 	//게시물 수 조회용 메소드
@@ -36,14 +38,22 @@ public class BoardService {
 		return list;
 	}
 
-	public Board selectOne(int num) {
+	public HashMap<String, Object> selectOne(int num) {
 		Connection con = getConnection();
 		
-		Board b = new BoardDao().selectOne(con, num);
+		HashMap<String, Object> boardMap = new HashMap<String, Object>();
 		
+		HashMap<String, Object> boardDetail = new BoardDao().selectOne(con, num);
 		
-		if(b != null) {
-			int result = new BoardDao().updateCount(con, b.getBid());
+		int bid = 0;
+		
+		if(boardDetail != null && boardDetail.size() > 0) {
+			
+			Board board = (Board)boardDetail.get("board");
+			
+			bid = board.getBid();
+			
+			int result = new BoardDao().updateCount(con, bid);
 			
 			if(result > 0) {
 				commit(con);
@@ -51,12 +61,20 @@ public class BoardService {
 				rollback(con);
 			}
 			
+			boardMap.put("board", boardDetail);
+			
+			ArrayList<Attachment> attachlist = new BoardDao().selectAttachment(con, bid);
+			
+			boardMap.put("attachlist", attachlist);
+			
+			ArrayList<Reply> replylist = new BoardDao().selectReply(con, bid);
+			
+			boardMap.put("replylist", replylist);
 		}
-		
 		
 		close(con);
 		
-		return b;
+		return boardMap;
 	}
 
 	//공지사항 insert
@@ -371,6 +389,36 @@ public class BoardService {
 		close(con);
 		
 		return QnAlist;
+	}
+
+	
+	//지원 - 커뮤니티 insert
+	public int insertBoard(int mno, String content, String title, String category, ArrayList<Attachment> fileList) {
+		Connection con = getConnection();
+		
+		int result = new BoardDao().insertBoard(con, mno, title , category , content);
+		
+		int totalresult = 0;
+		if (result > 0) {
+			
+			int bid = new BoardDao().selectBid(con);
+			
+			totalresult += new BoardDao().insertBoardAttachment(con, bid , fileList);
+			
+			
+		}
+		
+		
+		if (totalresult == fileList.size()) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		
+		return totalresult;
 	}
 
 
