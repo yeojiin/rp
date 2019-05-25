@@ -119,45 +119,39 @@
 					
 					<div class="availableCoupon">
 						<div class="couponLabel1">사용가능한 쿠폰</div><br><br>
-						<label class="couponLabel2" style="cursor:pointer">1</label>
+						<label class="couponLabel21" style="cursor:pointer">1</label>
 						<label class="couponLabel3">개</label>
 					</div>
 					&nbsp;&nbsp;&nbsp;
 					<div class="imminentCoupon">
 						<div class="couponLabel1">마감임박 쿠폰</div><br><br>
-						<label class="couponLabel2" style="cursor:pointer">1</label>
+						<label class="couponLabel22" style="cursor:pointer">2</label>
 						<label class="couponLabel3">개</label>
 					</div>
 					&nbsp;&nbsp;&nbsp;
 					<div class="downAvailableCoupon">
 						<div class="couponLabel1">발급가능 쿠폰</div><br><br>
-						<label class="couponLabel2" style="cursor:pointer">1</label>
+						<label class="couponLabel23" style="cursor:pointer">3</label>
 						<label class="couponLabel3">개</label>
 					</div>
 					<br><br><br><br> 
 					
 					<div class="tableArea">
-						<button class="availableCouponList">사용가능</button>
-						<button class="usedCouponList">사용완료</button>
-						
-						<br><br>
 					
-						<table class="couponTable">
+						<!-- <table class="couponTable">
 							<thead>
 								<tr>
+									<td>선택</td>
+									<td>이미지</td>
+									<td>카테고리</td>
 									<td>쿠폰명</td>
-									<td>할인액(율)</td>
-									<td>사용조건</td>
-									<td>유효기간</td>
-									<td>적용 카테고리</td>
+									<td>종료날짜</td>
+									<td>사용가능상태</td>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td colspan="5">사용가능한 쿠폰이 없습니다.</td>
-								</tr>
 							</tbody>
-						</table>
+						</table> -->
 					</div>
 					
 				</div>
@@ -180,7 +174,7 @@
 	
 	$(function() {
 		
-		$(".couponLabel2").click(function() {
+		$(".couponLabel23").click(function() {
 			
 			$.ajax({
 								
@@ -189,46 +183,7 @@
 				data:{mno:$("#mno").val()},
 				success:function(data) {
 					
-					$(".tableArea").empty();
-					
-					//여기부터
-					
-					/* for(var i in data) {
-						console.log(data[i]); */
-						/* 
-						var fp = data[i].filePath;
-						var src = fp.substring(fp.length-15, fp.length) + data[i].changeName;
-						$couponDiv = $("<div class='couponDiv' style='width:32%; height:auto; border:1px solid salmon; display:inline-block; text-align:center;''>");
-						$couponImg = $("<img src='../../" +  src + "' style='width:100%'>") ;
-						$nbsp = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-						
-						$couponDiv.append($couponImg);
-						$couponDiv.after($nbsp);
-						
-						$(".tableArea").append($couponDiv); */
-						
-						/* for(var j = 1; j < ((i/3)+2); j++) {
-							
-							$rowDiv = $("<div class='row"+j+"' style='width:100%; height:50px; background:whitesmoke; margin-bottom:10px;'>");
-							$(".tableArea").append($rowDiv); */
-							
-							/* $couponDiv = $("<div class='coupon" + j + "div' style='width:32%; height:auto; border:1px solid salmon; display:inline-block; text-align:center;'>");
-							$(".tableArea").append($couponDiv);
-							
-							if(i < (j+(j*2)+1)) {
-								var fp = data[i].filePath;
-								var src = fp.substring(fp.length-15, fp.length) + data[i].changeName;
-								$couponImg = $("<img src='../../" + src + "' style='width:100%'>") ;
-								
-								$("'.couponDiv" + j +"div'").append($couponImg);
-							} */
-							
-						/* }
-						
-						
-					} */
-					
-					// 여기까지 주석 (4파트)
+					$(".tableArea").children().remove();
 					
 					for(var j = 1; j < (data.length/3) + 1 ; j++) {
 						$rowDiv = $("<div class='row"+j+"' style='width:100%; height:100%; margin-bottom:10px;'>");
@@ -236,7 +191,7 @@
 						
 						for(var i in data) {
 							
-							console.log(data[i]);
+							// console.log(data[i]);
 							
 							if((j-1)*3 <= i && i < (j*2)+j) {
 							
@@ -251,12 +206,10 @@
 								$couponCategory = $("<label style='font-size:20px;'>").text(data[i].couponCategory);
 								// $couponDescrition = $("<label style='color:gray;'>").text(data[i].couponDescrition);
 								$couponEndDate = $("<label style='color:gray;'>").text(data[i].couponEndDate);
-								$couponDownloadBtn = $("<button class='couponDownloadBtn'>").text("발급받기");
-								
-								
+								$couponDownloadBtn = $("<button class='couponDownloadBtn' id = 'couponDownloadBtn'>").text("발급받기");
+								$couponCodeLabel = $("<label class='couponCodeLabel'>").text(data[i].couponCode);
 								
 								$rowDiv.append($couponDiv);
-								$couponDiv.append($br);
 								$couponDiv.append($couponImg);
 								$couponDiv.append($br);
 								$couponDiv.append($br);
@@ -270,23 +223,110 @@
 								$couponDiv.append($br);
 								$couponDiv.append($couponDownloadBtn);
 								$couponDiv.after($nbsp);
+								$couponDiv.append($couponCodeLabel);
+								$couponCodeLabel.hide();
 								
 							}
+							
 						}
 						
-						
 					}
-					
-					
-				},
-				error:function() {
-					
+			
 				}
+
 			}); 
 			
 		});
 		
+		$(document).on("click","#couponDownloadBtn",function(){
+			
+			var btn = $(this);
+			
+			$.ajax({
+				
+				url:"../../insertCoupon.me",
+				data:{couponCode:$(this).parent().children().eq(10).text(), mno:$("#mno").val()},
+				type:"get",
+				success:function(data) {
+					// console.log(data+"쿠폰발급됨");
+					btn.css('background', 'gray');
+					btn.text('발급완료');
+					btn.attr('id', 'couponDownloadEndBtn');
+					// noDownLoad();
+				}
+				
+			});
+			
+		});
+		
+		$(".couponLabel21").click(function() {
+			$.ajax({
+				url:"../../selectAvailableCouponList.me",
+				data:{mno:$("#mno").val()},
+				type:"get",
+				success:function(data) {
+										
+					$(".tableArea").children().remove();
+					
+					$couponTable = $("<table class='couponTable'>");
+					$couponTableThead = $("<thead>");
+					$couponTableTr = $("<tr>");
+					$check = $("<td>").text("선택");
+					$img = $("<td>").text("이미지");
+					$category = $("<td>").text("카테고리");
+					$name = $("<td>").text("쿠폰명");
+					$endDate = $("<td>").text("종료날짜");
+					$status = $("<td>").text("사용가능상태");
+					
+					$couponTableTr.append($check);
+					$couponTableTr.append($img);
+					$couponTableTr.append($category);
+					$couponTableTr.append($name);
+					$couponTableTr.append($endDate);
+					$couponTableTr.append($status);
+					$couponTableThead.append($couponTableTr);
+					$couponTable.append($couponTableThead);
+					
+					for(var i in data) {
+						
+						var fp = data[i].filePath;
+						var src = fp.substring(fp.length-15, fp.length) + data[i].changeName;
+
+						$infoTbody = $("<tbody>");
+						$infoTr = $("<tr>");
+						$inputTd = $("<td>");
+						$checkbox = $("<input type='checkbox'>");
+						$imgTd = $("<td>");
+						$couponImg = $("<img src='../../" + src + "' style='height:80px;'>");
+						$couponCategory = $("<td>").text(data[i].couponCategory);
+						$couponName = $("<td>").text(data[i].couponName);
+						$couponEndDate = $("<td>").text(data[i].couponEndDate);
+						$couponStatus = $("<td>").text(data[i].chistoryStatus);
+						
+						$inputTd.append($checkbox);
+						$infoTr.append($inputTd);
+						$imgTd.append($couponImg);
+						$infoTr.append($imgTd);
+						$infoTr.append($couponCategory);
+						$infoTr.append($couponName);
+						$infoTr.append($couponEndDate);
+						$infoTr.append($couponStatus);
+						
+						$infoTbody.append($infoTr);
+						$couponTable.append($infoTbody);
+						
+						$(".tableArea").append($couponTable);
+						
+					}
+					
+				}
+				
+			});
+
+		});
+		
 	});
+		
 	
 	</script>
 

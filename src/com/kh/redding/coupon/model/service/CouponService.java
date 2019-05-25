@@ -79,4 +79,33 @@ public class CouponService {
 		return list;
 	}
 
+	// 쿠폰 발급용 메소드
+	public int insertCouponIntoMember(String couponCode, String mno) {
+		Connection con = getConnection();
+		int result = new CouponDao().insertCouponIntoMember(con, couponCode, mno);
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		return result;
+	}
+
+	// 마이페이지 발급 쿠폰 목록 조회용 메소드
+	public ArrayList<HashMap<String, Object>> selectAvailableCouponList(String mno) {
+		Connection con = getConnection();
+		ArrayList<HashMap<String, Object>> list = new CouponDao().selectAvailableCouponList(con, mno);
+		close(con);
+		return list;
+	}
+
+	// 중복 발급 방지용 메소드
+	public int checkInsertCouponIntoMember(String couponCode, String mno) {
+		Connection con = getConnection();
+		int result2 = new CouponDao().checkInsertCouponIntoMember(con, couponCode, mno);
+		close(con);
+		return result2;
+	}
+
 }

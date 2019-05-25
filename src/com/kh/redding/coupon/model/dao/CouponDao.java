@@ -256,5 +256,114 @@ private Properties prop = new Properties();
 		return list;
 	}
 
+	// 쿠폰 발급용 메소드
+	public int insertCouponIntoMember(Connection con, String couponCode, String mno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertCouponIntoMember");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, couponCode);
+			pstmt.setString(2, mno);
+			pstmt.setString(3, "사용전");
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	// 마이페이지 발급 쿠폰 목록 조회용 메소드
+	public ArrayList<HashMap<String, Object>> selectAvailableCouponList(Connection con, String mno) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectAvailableCouponList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, mno);
+			pstmt.setString(2, "사용전");
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				
+				hmap.put("couponCode", rset.getString("COUPON_CODE"));
+				hmap.put("couponName", rset.getString("COUPON_NAME"));
+				// hmap.put("couponDescrition", rset.getString("COUPON_DESCRITION"));
+				hmap.put("couponCategory", rset.getString("COUPON_CATEGORY"));
+				// hmap.put("discountType", rset.getString("DISCOUNT_TYPE"));
+				hmap.put("discountRate", rset.getString("DISCOUNT_RATE"));
+				hmap.put("discountAmount", rset.getString("DISCOUNT_AMOUNT"));
+				// hmap.put("couponStartDate", rset.getDate("COUPON_STARTDATE"));
+				hmap.put("couponEndDate", rset.getDate("COUPON_ENDDATE"));
+				// hmap.put("couponStatus", rset.getString("COUPON_STATUS"));
+				hmap.put("chistoryCode", rset.getString("CHISTOPY_CODE"));
+				hmap.put("chistoryStatus", rset.getString("COUPON_STATUS"));
+				hmap.put("couponPubDate", rset.getDate("COUPON_PUB_DATE"));
+				
+				hmap.put("originName", rset.getString("ORIGIN_NAME"));
+				hmap.put("changeName", rset.getString("CHANGE_NAME"));
+				hmap.put("filePath", rset.getString("FILE_PATH"));
+				
+				list.add(hmap);
+			}
+			
+			System.out.println("list : " + list);
+						
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
+	}
+
+	// 중복 발급 방지용 메소드
+	public int checkInsertCouponIntoMember(Connection con, String couponCode, String mno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Coupon> list = null;
+		Coupon coupon = null;
+		int result2 = 0;
+		
+		String query = prop.getProperty("checkInsertCouponIntoMember");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, mno);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				coupon.setCouponCode(rset.getInt("COUPON_CODE"));
+				
+				list.add(coupon);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result2;
+	}
+
 
 }
