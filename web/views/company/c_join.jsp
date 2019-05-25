@@ -139,37 +139,83 @@
 							</tr>
 							<tr>
 								<td>입금계좌<span id="star">*</span></td>
-								<td><select name="accountcode">
-										<option>-- 은행선택 --</option>
-										<option value="011">NH농협</option>
-										<option value="020">우리은행</option>
-										<option value="088">신한은행</option>
-										<option value="004">국민은행</option>
-										<option value="081">하나은행</option>
-										<option value="005">외한은행</option>
-										<option value="003">IBK기업은행</option>
-										<option value="045">새마을은행</option>
-										<option value="032">부산은행</option>
-										<option value="039">경남은행</option>
-										<option value="034">광주은행</option>
-										<option value="037">전북은행</option>
-										<option value="048">신협은행</option>
-										<option value="023">SC제일은행</option>
-										<option value="031">대구은행</option>
-										<option value="035">제주은행</option>
-										<option value="071">우체국은행</option>
-										<option value="007">수협은행</option>
-								</select></td>
+								<td>
+								<select name="bankcode" id="bankcode">
+									<option value=''>선택하세요
+									<option value='003'>기업은행
+									<option value='004'>국민은행
+									<option value='011'>농협중앙회
+									<option value='012'>단위농협
+									<option value='020'>우리은행
+									<option value='031'>대구은행
+									<option value='005'>외환은행
+									<option value='023'>SC제일은행
+									<option value='032'>부산은행
+									<option value='045'>새마을금고
+									<option value='027'>한국씨티은행
+									<option value='034'>광주은행
+									<option value='039'>경남은행
+									<option value='007'>수협
+									<option value='048'>신협
+									<option value='037'>전북은행
+									<option value='035'>제주은행
+									<option value='064'>산림조합
+									<option value='071'>우체국
+									<option value='081'>하나은행
+									<option value='088'>신한은행
+									<option value='209'>동양종금증권
+									<option value='243'>한국투자증권
+									<option value='240'>삼성증권
+									<option value='230'>미래에셋
+									<option value='247'>우리투자증권
+									<option value='218'>현대증권
+									<option value='266'>SK증권
+									<option value='278'>신한금융투자
+									<option value='262'>하이증권
+									<option value='263'>HMC증권
+									<option value='267'>대신증권
+									<option value='270'>하나대투증권
+									<option value='279'>동부증권
+									<option value='280'>유진증권
+									<option value='287'>메리츠증권
+									<option value='291'>신영증권
+									<option value='238'>대우증권
+							</select>
+							</td>
 							</tr>
 							<tr>
 								<td></td>
-								<td><input type="text" name="account_num" id="account_num"
+								<td><input type="text" name="accnum" id="accnum"
 									placeholder="계좌번호(-없이 적어주세요)"></td>
 							</tr>
 							<tr>
 								<td></td>
-								<td><input type="text" name="account_name"
-									id="account_name" placeholder="예금주"></td>
+								<td><input type="text" name="accpnm"
+									id="accpnm" placeholder="예금주">
+								</td>
+								<!-- <td>
+									<input type="checkbox" id="sbm-flag" name="checkacc" style="display:none">
+									<label id="sbm-no" style="background:red;color:white;border-radius:3px;padding:3px;">미인증</label>
+									<label id="sbm-ok" style="background:green;color:white;border-radius:3px;padding:3px;display:none">인증됨</label>
+									<button class="btn btn-primary btn-xs" id="confirmacc" onclick="fnSearchAccessToken()">확인하기</button>
+									<button class="btn btn-primary btn-xs" style="display:none" id="changeacc" onclick="">변경하기</button>
+								</td> -->
+							</tr>
+							<tr>
+								<td></td>
+								<td><input type = "text" placeholder = "생년월일(ex>971009)" id = "birth"></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>
+									<div style = "align:center margin-left : 30%">
+									<input type="checkbox" id="sbm-flag" name="checkacc" style="display:none">
+									<label id="sbm-no" style="background:red;color:white;border-radius:3px;padding:3px;">미인증</label>
+									<label id="sbm-ok" style="background:green;color:white;border-radius:3px;padding:3px;display:none">인증됨</label>
+									<button type = "button" class="btn btn-primary btn-xs" id="confirmacc" onclick="fnSearchAccessToken()">확인하기</button>
+									<button type = "button" class="btn btn-primary btn-xs" style="display:none" id="changeacc" onclick="">변경하기</button>
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<td class="col1">이메일&nbsp;&nbsp;<span id="star">*</span></td>
@@ -225,6 +271,75 @@
 							</tr>
 						</table>
 					</form>
+					<table>
+					<form name="authCodeFrm" id="authCodeFrm" method="GET"
+						action="https://testapi.open-platform.or.kr/oauth/2.0/authorize">
+					<tbody>
+					<tr>
+						<th>
+							<!-- <span class="ess">Client ID</span> -->
+						</th>
+						<td><span><input type="hidden" id="client_id"
+															name="client_id" style="width: 200px"
+															value="l7xx9051de32ac3d42d5a56d6b7c5b3b3f26"></span>
+					
+					</tr>
+					</form>
+				<tr>
+					<th>
+						<!-- <span>Client Secret</span> -->
+					</th>
+					<td><span><input type="hidden" id="client_secret"
+														name="client_secret" style="width: 200px"
+														value="28375a2caae8451e99764e43ad5928c5"></span></td>
+				</tr>
+				<tr>
+					<th>
+						<!-- <span>Access Token</span> -->
+					</th>
+					<td><span><input type="hidden" id="access_token"
+														name="access_token" style="background: #e0e0e0"></span> <!-- <button type="button" onclick="fnSearchAccessToken()">토큰발급</button> --></td>
+				</tr>
+				<tr>
+					<th>
+						<!-- <span>은행코드</span> -->
+					</th>
+					<td><span><input type="hidden" class="txt"
+														id="bank_code_std" name="bank_code_std"></span></td>
+				</tr>
+				<tr>
+					<th>
+						<!-- <span>계좌번호</span> -->
+					</th>
+					<td><span><input type="hidden" class="txt"
+														id="account_num" name="account_num"></span></td>
+				</tr>
+				<tr>
+					<th>
+						<!-- <span>예금주 생년월일</span> -->
+					</th>
+					<td><span><input type="hidden" class="txt"
+														id="account_holder_info" name="account_holder_info"
+														value="" /></span>
+				
+			`	</tr>
+				<tr>
+					<th>
+						<!-- <span>요청일시</span> -->
+					</th>
+					<td><span style="width: 200px"><input type="hidden"
+														class="txt" id="tran_dtime" title="요청일시 입력"
+														name="tran_dtime" /></span>
+						<!-- <button type="button" onclick="fnSearchRealName()">계좌실명조회</button> --></td>
+				</tr>
+				<!-- <tr> 		
+					<th><span>계좌실명조회결과</span></th>
+					<td> 				
+						<textarea style="height:220px;width:250px" id="real_name" name="real_name"></textarea>
+					</td>
+				</tr> -->
+			</tbody>
+		</table>
 					<br> <br>
 					<div class="com_term">
 						<input type="checkbox" id="terms_all"> <label
@@ -535,9 +650,9 @@ Redding
 							onclick="JoinEvent();">
 					</div>
 					<script>
-			    function execDaumPostcode() {
-			        new daum.Postcode({
-			            oncomplete: function(data) {
+			   		 function execDaumPostcode() {
+			       			 new daum.Postcode({
+			           		 oncomplete: function(data) {
 			                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 			
 			                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
@@ -651,11 +766,11 @@ Redding
 						var postcode = $("input[name=postcode]").val();			//인증코드
 						var address = $("#address").val();					//주소1
 						var detailAddress = $("input[name=detailAddress]").val();	//주소2
-						var accountcode = $("input[name=accountcode]").val();		//은행코드
-						var account_num = $("#account_num").val();			//계좌번호
-						var account_name = $("#account_name").val();					//예금주	
+						var accountcode = $("input[name=bankcode]").val();		//은행코드
+						var account_num = $("#accnum").val();			//계좌번호
+						var account_name = $("#accpnm").val();					//예금주	
+						var checkaccount = $("#sbm-no").is(':visible');
 						
-							
 						//회원가입 체크
 						if (reg_num == ""){
 							alert("사업자등록증을 넣어주세요");			
@@ -693,12 +808,14 @@ Redding
 							alert("주소 입력해주세요");
 						}else if (detailAddress == ""){
 							alert("주소 입력해주세요");
-						}else if (accountcode == "--은행선택--"){
+						}else if (accountcode == "--선택해주세요--"){
 							alert("은행 입력해주세요");
 						}else if (account_num == ""){
 							alert("은행 입력해주세요");
 						}else if (account_name == ""){
 							alert("은행 입력해주세요");
+						}else if (checkaccount == true){
+							alert("은행 인증해주세요");	
 						}else if ($("#condition1").is(":checked") == false ){
 							alert("약관의 동의해주세요");
 						}else if ($("#condition2").is(":checked") == false){
@@ -835,6 +952,119 @@ Redding
 			    var myWindow = window.open(url,"TestName",popupOption);
 			  //  myWindow.document.write("<h1>"+myWindow.name+"</h1>");
 			}
+			
+			//은행계좌
+				$.support.cors = true;
+				var reqDate = new Date();
+				var year = reqDate.getFullYear() +"";
+				var month = (reqDate.getMonth() + 1) > 10?reqDate.getMonth() + 1 + "":"0" + (reqDate.getMonth() + 1);
+				var date = (reqDate.getDate() > 10?reqDate.getDate() + "":"0" + reqDate.getDate());
+				var hour = reqDate.getHours() > 9?reqDate.getHours() + "":"0" + reqDate.getHours();
+				var min = reqDate.getMinutes() > 10?reqDate.getMinutes() + "":"0" + reqDate.getMinutes();
+				var sec = reqDate.getSeconds() > 10?reqDate.getSeconds() + "":"0" + reqDate.getSeconds();
+				
+				var currentTime = year + month + date + hour + min + sec;
+				console.log(currentTime)
+				$("#tran_dtime").val(currentTime);
+				/* 사용자인증 Access Token 획득 */
+				function fnSearchAccessToken() {
+					$("#bank_code_std").val($("#bankcode").val());
+					$("#account_num").val($("#accnum").val());
+					var client_id = $("#client_id").val();
+					var client_secret = $("#client_secret").val();
+					var grant_type = "client_credentials";
+					var scope = "oob";
+					$.ajax({
+						//url: "/tpt/test/getOauthToken",
+						url : "https://testapi.open-platform.or.kr/oauth/2.0/token",
+						type : "POST",
+						//cache: false,
+						contenType : "application/json",
+						data : {
+							"client_id" : client_id,
+							"client_secret" : client_secret,
+							"grant_type" : grant_type,
+							"scope" : scope
+						},
+						dataType : "json",
+						success : function(data, data2, data3) {
+							var list = JSON.parse(data3.responseText);
+							$("#access_token").val(list.access_token);
+							$("#user_seq_no").val(list.user_seq_no);
+							fnSearchRealName();
+						},
+						error : function(data, data2, data3) {
+							alert('error!!!');
+						}
+					});
+				}
+				/* 계좌실명조회API */
+				function fnSearchRealName() {
+					var bank_code_std = $("#bank_code_std").val();
+					var account_num = $("#account_num").val();
+					$("#account_holder_info").val($("#birth").val());
+					var account_holder_info = $("#account_holder_info").val();
+					var tran_dtime = $("#tran_dtime").val();
+					var access_token = "Bearer " + $("#access_token").val();
+					var resData = {
+						"bank_code_std" : bank_code_std,
+						"account_num" : account_num,
+						"account_holder_info" : account_holder_info,
+						"tran_dtime" : tran_dtime
+					};
+					$.ajax({
+								url : "https://testapi.open-platform.or.kr/v1.0/inquiry/real_name",
+								beforeSend : function(request) {
+									request.setRequestHeader("Authorization",
+											access_token);
+								},
+								type : "POST",
+								data : JSON.stringify(resData),
+								dataType : "json",
+								success : function(data, data2, data3) {
+									console.log(data)
+									if (data.account_holder_name == $("#accpnm").val()) {
+		
+										$("#sbm-flag").attr("checked", true);
+										$("#sbm-ok").show();
+										$("#sbm-no").hide();
+										var checkacc = "인증됨";
+										var pro_no = $
+										{
+											pro_no
+										}
+										;
+										var bankcode = $('[name=bankcode]').val();
+										var accpnm = $('[name=accpnm]').val();
+										var accnum = $('[name=accnum]').val();
+		
+										
+										alert('인증 성공!!!');
+										$("#confirmacc").hide();
+										$("#changeacc").show();
+										$("#sbm-flag").attr("checked", true);
+												$("#sbm-ok").show();
+										$("#sbm-no").hide();
+										$("[name=accpnm]").attr("readonly",
+														"readonly");
+										$("[name=accnum]").attr("readonly",
+														"readonly");
+										$("[name=bankcode]").not(":selected")
+														.attr("disabled", "disabled");
+										
+		
+									} else {
+										alert('인증 실패');
+										$("#sbm-flag").attr("checked", false);
+										$("#sbm-ok").hide();
+										$("#sbm-no").show();
+									}
+								},
+								error : function(data, data2, data3) {
+									alert('error!!!');
+								}
+							});
+				}
 
 
 			</script>
