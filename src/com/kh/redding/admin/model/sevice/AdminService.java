@@ -1,6 +1,9 @@
 package com.kh.redding.admin.model.sevice;
 
-import static com.kh.redding.common.JDBCTemplate.*;
+import static com.kh.redding.common.JDBCTemplate.close;
+import static com.kh.redding.common.JDBCTemplate.commit;
+import static com.kh.redding.common.JDBCTemplate.getConnection;
+import static com.kh.redding.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -8,9 +11,7 @@ import java.util.HashMap;
 
 import com.kh.redding.admin.model.dao.AdminDao;
 import com.kh.redding.admin.model.vo.TotalMemberPageInfo;
-import com.kh.redding.company.model.vo.Company;
 import com.kh.redding.member.model.vo.Member;
-import com.kh.redding.wishlist.model.dao.WishListDao;
 
 public class AdminService {
 
@@ -285,6 +286,17 @@ public class AdminService {
 
 		return count;
 
+	}
+
+	public ArrayList<String> getCalculateDate() {
+		Connection con = getConnection();
+		
+		ArrayList<String> list = new AdminDao().getCalculateDate(con);
+		
+		close(con);
+		
+		
+		return list;
 	}
 
 		

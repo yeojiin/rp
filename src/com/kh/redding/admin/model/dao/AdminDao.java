@@ -1458,6 +1458,12 @@ public class AdminDao {
 				if(selectValue.equals("일별")) {
 					hmap.put("date", rset.getString(2));
 					hmap.put("price", rset.getString(3));
+				}else if(selectValue.equals("주별")){
+					hmap.put("date", rset.getString("DAY_DATE"));
+					hmap.put("price", rset.getString("FINAL_PRICE"));
+				}else if(selectValue.equals("Top10")) {
+					hmap.put("date", rset.getString("CNAME"));
+					hmap.put("price", rset.getString("TOPM"));
 				}
 				list.add(hmap);
 				
@@ -1554,6 +1560,35 @@ public class AdminDao {
 		}
 		
 		return count;
+	}
+
+	public ArrayList<String> getCalculateDate(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<String> list = null;
+		
+		String query = prop.getProperty("getCalculateDate");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<String>();
+			while(rset.next()) {
+				list.add(rset.getString(1));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		return list;
 	}
 	
 

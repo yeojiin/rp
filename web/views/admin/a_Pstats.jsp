@@ -89,7 +89,9 @@
 						<option>주별</option>
 						<option>Top10</option>
 					</select>&nbsp;&nbsp;
-						<input type="date" class="firstDate"> ~ <input type="date" class="lastDate"> &nbsp; <button class="searchBtn">조회</button>		 	
+						<input type="date" class="firstDate"> <label class="labelContent">~</label> <input type="date" class="lastDate"> &nbsp;
+						<select style="display:none; height:25px" class="topNcontent"></select>
+						 <button class="searchBtn">조회</button>		 	
 				</div>
 				<div>
 				<br><br>
@@ -127,7 +129,7 @@
 			$(".firstDate").val(getDate.getFullYear() + "-" + month + "-" + date);
 			$(".lastDate").val(getDate.getFullYear() + "-" + month + "-" + date);
 			
-			viewBar(getBarChart);
+			viewBar(getBarChart(new Array(), new Array()));
 			
 		};
 		
@@ -138,12 +140,27 @@
 				var value = $(".serachRadio")[i].value;
 			}
 		}
+		console.log();
+		
+		if($(".topNcontent").css("display") == 'none'){
+			var arr= $(this).siblings('input');
+			var startDate = arr[0].value.split(" ")[0].split("-");
+			var endDate = arr[1].value.split(" ")[0].split("-");
+		}else{
+			startDate = $(".topNcontent").val();
+			endDate = 0;
+		}
 		var radioValue = value;
 		var selectValue = $(".searchSelect").val();
-		var arr= $(this).siblings('input');
-		var startDate = arr[0].value.split(" ")[0].split("-");
-		var endDate = arr[1].value.split(" ")[0].split("-");
-		getCategoryStats(radioValue,selectValue,startDate.join(""),endDate.join(""));
+		
+		
+		//console.log(startDate);
+		//console.log(endDate);
+		if(endDate != 0){
+		getCategoryStats(radioValue,selectValue,startDate.join(""),endDate.join(""));			
+		}else{
+			getCategoryStats(radioValue,selectValue,startDate,endDate);
+		}
 		
 	});
 		
@@ -157,21 +174,29 @@
 			success:function(data){
 				console.log(data);
 				
-				if(selectValue == '일별'){
-					
 
+					myBar.data.labels = new Array();
+					var labelArr = new Array();
+					myBar.data.datasets = new Array();
 					
-					console.log(myBar.config.data.datasets[0]);
-					//data[i].price.trim().split(",").join("")
+													
 					for(var i=0; i<data.length; i++){
-						myBar.config.data.labels[i] = data[i].date;
-						//myBar.config.data.datasets[0].data[i] = i;
-					}
-
+						//dataArr[i] = data[i].date;
+						labelArr[i] = Number(data[i].price.trim().split(",").join(""));
+						
+						myBar.data.labels.push(data[i].date);   					
+						}				
+						
+						myBar.data.datasets.push({
+						  label: '매출액',
+						  backgroundColor:color(window.chartColors.red).alpha(0.5).rgbString(),
+						  borderColor: window.chartColors.red,
+						  borderWidth: 1,
+						  data: labelArr
+						});
+						
 					myBar.update();
-				}else{
-					
-				}
+				
 				
 				//console.log(data[0].price.trim());
 				
@@ -186,18 +211,16 @@
 		
 	}
 	
-	function getBarChart(){
-	var color = Chart.helpers.color;
+	function getBarChart(dataArr, labelArr){
+	color = Chart.helpers.color;
 	var barChartData = {	
-		labels: [],
+		labels: dataArr,
 		datasets: [{
 			label: '매출액',
 			backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
 			borderColor: window.chartColors.red,
 			borderWidth: 1,
-			data: [	
-				
-			]   
+			data:labelArr,  
 		}]
 	
 	};
@@ -223,6 +246,37 @@
 		});
 		
 	}
+	$(".searchSelect").change(function(){
+		if($(this).val() == 'Top10'){
+			$(".topNcontent").css("display","inline");
+			$(".firstDate").css("display","none");
+			$(".lastDate").css("display","none");
+			$(".labelContent").css("display","none");
+			
+			$.ajax({
+				url:"../../getCalculateDate.ad",
+				type:"get",
+				success:function(data){
+					console.log(data);
+					var $topNcontent = $(".topNcontent");
+					$topNcontent.empty();
+					
+					for(var i=0; i<data.length; i++){
+					$topNcontent.append($("<option>").text(data[i]));
+					}
+					
+				},
+				error:function(data){
+					console.log(data);
+				}
+			});
+		}else{
+			$(".firstDate").css("display","inline");
+			$(".labelContent").css("display","inline");
+			$(".lastDate").css("display","inline");
+			$(".topNcontent").css("display","none");
+		}
+	});
 	
 	</script>
 	
