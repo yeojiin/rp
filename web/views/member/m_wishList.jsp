@@ -460,7 +460,7 @@
 							          			totalPrice += price; 
 					          				}
 					          				
-					          				console.log("삭제:" + totalPrice);
+					          				/* console.log("삭제:" + totalPrice); */
 					          				fPrice = '<h2 id="price">' + totalPrice + '</h2>';
 				          					
 				          					$(".finalPrice").append(fPrice); 

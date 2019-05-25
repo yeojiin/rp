@@ -7,6 +7,8 @@
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
+	ArrayList<HashMap<String, Object>> slist = (ArrayList<HashMap<String, Object>>) request.getAttribute("slist");
+	ArrayList<HashMap<String, Object>> clist = (ArrayList<HashMap<String, Object>>) request.getAttribute("clist");
 %>
 <!DOCTYPE html>
 <html>
@@ -73,7 +75,7 @@
 		<br>
 				<div class="pselectArea">
 				<div class="memberRefund">
-				<h2>정산 대기 리스트</h2>
+				<h2>정산 대기 리스트 확인</h2>
 				<br>
 					<table class="comCalcTable">
 						<tr>
@@ -84,38 +86,61 @@
 							<th></th>
 						</tr>
 					<%
+					if (list != null){
 						for (int i = 0; i < list.size(); i++) {
-						HashMap<String, Object> hmap = list.get(i);
+							HashMap<String, Object> hmap = list.get(i);
 					%>
 						<tr>
 							<td id="rnum"><%=hmap.get("rnum")%></td>
-							<td id="cno"><%=hmap.get("cno") %></td>
+							<td id="cno" class = "cno"><%=hmap.get("cno") %></td>
 							<td id="cname"><%=hmap.get("cname") %></td>
 							<td id="final"><%=hmap.get("final") %></td>
 							<td><button class="ui blue button" id="confirm">확인요청</button></td>
+					<%-- <%
+						for(int j=0; j<clist.size(); j++){
+							HashMap<String, Object> chmap = clist.get(j);
+							
+							if(hmap.get("final") == chmap.get("price") && hmap.get("cno") == chmap.get("cno")){
+					%>
+								
+					<% 			
+							}else{
+					%>
+								<td><button class="ui blue button" id="confirm" >확인요청</button></td>
+					<% 
+							}
+					%>	
+					
+					<%
+						}
+					%>	 --%>
+						
+						<%-- 	<% if (clist != null) { %>
+							<td><button class="ui blue button" id="confirm" >확인요청</button></td>
+							<%}else { %>
+							<td><button class="ui blue button" id="confirm" disabled>확인요청</button></td>
+							<%} %> --%>
 						</tr>
 					<%
 						}
+					}
 					%>
 					</table>
 					</div>
-					<br>
-					
-					
 					
 					<div class="pagingArea" align="center">
-						<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showRefund.ad?currentPage=1'"><<</button>
+						<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showComCalc.ad?currentPage=1'"><<</button>
 						<% if(currentPage <= 1) { %>
 						<button disabled class="ui button"><</button>
 						<% } else { %>
-						<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showRefund.ad?currentPage=<%= currentPage - 1 %>'"><</button>
+						<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showComCalc.ad?currentPage=<%= currentPage - 1 %>'"><</button>
 						<% } %>
 						
 						<% for(int p = startPage; p <= endPage; p++) { 
 								if(p == currentPage) { %>
 									<button class="ui button" disabled><%= p %></button>
 						<% 		}else {%>
-									<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showRefund.ad?currentPage=<%= p %>'"><%= p %></button>
+									<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showComCalc.ad?currentPage=<%= p %>'"><%= p %></button>
 						<%		} %>
 							
 						<% } %>
@@ -123,11 +148,41 @@
 						<% if(currentPage >= maxPage) { %>
 						<button class="ui button" disabled>></button>
 						<% } else { %>
-						<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showRefund.ad?currentPage=<%= currentPage + 1 %>'">></button>
+						<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showComCalc.ad?currentPage=<%= currentPage + 1 %>'">></button>
 						<% } %>
-						<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showRefund.ad?currentPage=<%= maxPage %>'">>></button>
+						<button class="ui button" onclick="location.href='<%= request.getContextPath() %>/showComCalc.ad?currentPage=<%= maxPage %>'">>></button>
 						<br>
 						</div>
+					
+					
+					
+					<br><br><br>
+
+					<div class="memberRefund">
+						<h2>정산 상태 리스트</h2>
+						<button class="ui green button" id="status">확인</button>
+						<br><br>
+						<table class="comCalcTable2" id="comCalcTable2" style="width:100%; text-align:center;">
+							<thead style="text-align:center; background:gray; color:white;">
+							<tr>
+								<th>월</th>
+								<th>결제코드</th>
+								<th>업체명</th>
+								<th>정산금액</th>
+								<th>정산예정날짜</th>
+								<th>승인날짜</th>
+								<th>답변상태</th>
+							</tr>
+							</thead>
+							<tbody></tbody>
+							
+							
+						</table>
+					
+					</div>
+
+
+
 				</div>
 				<br><br>
 				
@@ -151,6 +206,19 @@
 		}).mouseout(function() {
 			$(this).parent().css({"background":"white"});
 		}); 
+		
+		
+		<%for(int j=0; j<clist.size(); j++){
+				HashMap<String, Object> chmap = clist.get(j); 
+				int listcno = (int)chmap.get("cno"); %>
+			$(".cno").each(function(index){
+				console.log(index + ":" + $(this).text());
+				var cno = $(this).text();
+				
+				
+				
+			});
+		<% } %>	
 	});
 	
 	
@@ -200,6 +268,48 @@
 	});
 	
 	
+	$("#status").click(function(){
+		$.ajax({
+			url : "/redding/comCalcStatus.ad",
+  			type : "post",
+  			success : function(data){
+  				console.log(data);
+  				
+  				$comCalcTableBody = $("#comCalcTable2 tbody");
+  				$comCalcTableBody.html('');
+				
+  				for(var i in data){
+  					console.log(i);
+	  				var $tr = $("<tr>");
+	  				var $month = $("<td>").text(data[i].month);	
+	  				var $calccode = $("<td>").text(data[i].calccode);
+	  				var $cname = $("<td>").text(data[i].cname);
+	  				var $price= $("<td>").text(data[i].price);
+	  				var $caldate = $("<td>").text(data[i].caldate);
+	  				var $confirm = $("<td>").text(data[i].confirm);
+	  				var $answer = $("<td>").text(data[i].answer);
+	  				
+	  				$tr.append($month);
+	  				$tr.append($calccode);
+	  				$tr.append($cname);
+	  				$tr.append($price);
+	  				$tr.append($caldate);
+	  				$tr.append($confirm);
+	  				$tr.append($answer);
+	  				$comCalcTableBody.append($tr);
+  				
+  				}
+  			},error:function(){
+  				console.log("상태 조회 실패!");
+  			}
+			
+			
+		});
+		
+		
+		<%-- location.href="<%=request.getContextPath()%>/comCalcStatus.ad"; --%> 
+		
+	});
 		
 	</script>
 

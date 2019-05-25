@@ -12,22 +12,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.redding.company.model.service.CompanyService;
-import com.kh.redding.wishlist.model.service.WishListService;
 
 /**
- * Servlet implementation class ShowMonthCalcServlet
+ * Servlet implementation class ComCalcHistoryServlet
  */
-@WebServlet("/showMonCalc.co")
-public class ShowMonthCalcServlet extends HttpServlet {
+@WebServlet("/calcHistory.co")
+public class ComCalcHistoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public ShowMonthCalcServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public ComCalcHistoryServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -35,21 +34,22 @@ public class ShowMonthCalcServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int mno = Integer.parseInt(request.getParameter("mno"));
 
-		ArrayList<HashMap<String,Object>> list= new CompanyService().showMonCalc(mno);
+		ArrayList<HashMap<String,Object>> list= new CompanyService().calcComHistory(mno);
 
 		String page = "";
 		if(list != null) {
-			page = "views/company/c_calculateManager.jsp";
+			page = "views/company/c_calcComHistory.jsp";
 			request.setAttribute("list", list);
 		}else {
 			page="views/common/errorPage.jsp";
-			request.setAttribute("msg", "업체 정산 조회일이 아닙니다!");
+			request.setAttribute("msg", "업체 정산 내역 조회 실패!");
 		}
 
 		RequestDispatcher view = request.getRequestDispatcher(page);
 		view.forward(request, response);
 
-
+	
+	
 	}
 
 	/**

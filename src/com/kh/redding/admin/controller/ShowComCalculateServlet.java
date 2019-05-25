@@ -66,11 +66,14 @@ public class ShowComCalculateServlet extends HttpServlet {
 				
 				ArrayList<HashMap<String, Object>> list = new AdminService().showComcalc(pi);
 				
+				ArrayList<HashMap<String, Object>> clist = new AdminService().allCalcList();
+				
 				String page = "";
 				if(list != null ) {
 					page = "views/admin/a_comCalculate.jsp";
 					request.setAttribute("list", list);
 					request.setAttribute("pi", pi);
+					request.setAttribute("clist", clist);
 				}else {
 					page = "views/common/errorPage.jsp";
 					request.setAttribute("msg", "업체 정산목록 조회 실패!");

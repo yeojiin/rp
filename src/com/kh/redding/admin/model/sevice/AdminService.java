@@ -19,6 +19,7 @@ public class AdminService {
 	public ArrayList<HashMap<String, Object>> selectMemberList(TotalMemberPageInfo pi) {
 		Connection con = getConnection();
 		ArrayList<HashMap<String, Object>> list = new AdminDao().selectMemberList(con, pi);
+	
 		close(con);
 		return list;
 	}
@@ -276,7 +277,7 @@ public class AdminService {
 	}
 
 	
-	//정산관리 테이블 중복 체크
+	//정산관리 테이블 중복 체크(정연)
 	public int countEqualCalc(int cno, int price) {
 		Connection con = getConnection();
 
@@ -287,6 +288,33 @@ public class AdminService {
 		return count;
 
 	}
+
+	
+	//업체 정산 상태 목록 조회용 메소드(정연) 
+	public ArrayList<HashMap<String, Object>> comCalcStatus() {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String, Object>> slist =new AdminDao().comCalcStatus(con);
+
+		close(con);
+
+		return slist;
+	}
+
+
+	//정산테이블 전체 조회 (정연)
+	public ArrayList<HashMap<String, Object>> allCalcList() {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String, Object>> clist =new AdminDao().allCalcList(con);
+
+		close(con);
+
+		return clist;
+	}
+
+	
+	
 
 	public ArrayList<String> getCalculateDate() {
 		Connection con = getConnection();

@@ -79,49 +79,9 @@
             
             	<br><br><br>
 					
-				<label class="subSubTitle">정산 요청 리스트</label>
-				<br><br>
-				<table class="calculateStandByList">
-						<tr>
-							<th>월</th>
-							<th>업체명</th>
-							<th>정산금액</th>
-							<th>답변여부</th>
-							<th>승인</th>
-							<th>거절</th>
-						</tr>
-					<%
-						for (int i = 0; i < list.size(); i++) {
-						HashMap<String, Object> hmap = list.get(i);
-					%>
-						<tr>
-							<td id="mno" hidden><%=loginUser.getMno() %></td>
-							<td id="cno" hidden><%= hmap.get("cno") %></td>
-							<td id="calccode" hidden><%= hmap.get("calccode") %></td>
-							<td id="month"><%= hmap.get("month") %></td>
-							<td id="cname"><%=hmap.get("cname") %></td>
-							<td id="price"><%=hmap.get("final") %></td>
-							<td id="answer"><%=hmap.get("answer") %></td>
-							
-					<%
-						if(hmap.get("answer").equals("N")){
-					%>		
-							<td><button id="confirm" class="ui blue button" >승인</button></td>
-							<td><button id="refuse" class="ui red button" >거절</button></td>
-					<%
-						}
-					%>
-						</tr>
-					<%	
-						}
-					%>	
-				</table>
-				
-				<br><br><br>
-					
-				<label class="subSubTitle">정산 완료 리스트</label>
-				<br><br><br>
-				<select id="monthSelect"> 
+				<label class="subSubTitle">정산 내역</label>
+				<label style="float:right;">검색</label>
+				<select id="monthSelect"  style="float:right;"> 
 					<option>1</option>
 					<option>2</option>
 					<option>3</option>
@@ -135,81 +95,35 @@
 					<option>11</option>
 					<option>12</option>
 				</select>
-				
+				<br><br>
 				<table class="calculateStandByList">
-					<thead>
 						<tr>
-							<td>No</td>
-							<td>상품</td>
-							<td>판매액</td>
-							<td>지급완료액</td>
-							<td>지급완료날짜</td>
-							<td></td>
+							<th>월</th>
+							<th>업체명</th>
+							<th>정산금액</th>
+							<th>정산날짜</th>
+							<th>승인날짜</th>
 						</tr>
-					</thead>
-					<tbody>
+					<%
+						for (int i = 0; i < list.size(); i++) {
+						HashMap<String, Object> hmap = list.get(i);
+					%>
 						<tr>
-							<td>5</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
+							<td id="mno" hidden><%=loginUser.getMno() %></td>
+							<td id="cno" hidden><%= hmap.get("cno") %></td>
+							<td id="calccode" hidden><%= hmap.get("calccode") %></td>
+							<td id="month"><%= hmap.get("month") %></td>
+							<td id="cname"><%=hmap.get("cname") %></td>
+							<td id="price"><%=hmap.get("final") %></td>
+							<td id="caldate"><%=hmap.get("caldate") %></td>
+							<td id="confirm"><%=hmap.get("confirm") %></td>
 						</tr>
-						<tr>
-							<td>4</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="6"><br>
-								<button class="paging"><<</button>
-								<button class="paging"><</button>
-								<button class="paging">1</button>
-								<button class="paging">2</button>
-								<button class="paging">3</button>
-								<button class="paging">4</button>
-								<button class="paging">5</button>
-								<button class="paging">></button>
-								<button class="paging">>></button>
-							</td>
-						</tr>
-					</tfoot>
+					<%	
+						}
+					%>	
 				</table>
 				
-				<br><br><br>
-					
             </div>
-            
          </div>
          
          
@@ -218,51 +132,71 @@
    </div>
 
    <!-- 커먼 풋터 -->
-   <div class="footerArea">
-      <jsp:include page="/views/common/footer.jsp"></jsp:include>
-   </div>
+	<div class="footerArea">
+		<jsp:include page="/views/common/footer.jsp"></jsp:include>
+	</div>
 	<script>
- //업체 정산 메뉴
+ 	//업체 정산 메뉴
 	$("#requestCalc").click(function(){
 		 location.href="<%=request.getContextPath()%>/showMonCalc.co?mno=<%=loginUser.getMno()%>"; 
 	});
 	
 	//업체 정산 내역
 	$("#clacHistory").click(function(){
-		location.href="<%=request.getContextPath()%>/calcHistory.co?mno=<%=loginUser.getMno()%>"; 
+		location.href="<%=request.getContextPath()%>/calcHistory.co?mno=<%=loginUser.getMno()%>";
 	});
-   
-	
-	
-   //정산확인 버튼 클릭
-   $(document).on("click", "#confirm", function(){
-	   var calccode = $(this).closest("td").siblings("#calccode").text();
-	   
-	  $.ajax({
-		  	url : "/redding/answerCalc.co",
- 			data : {calccode:calccode},
+
+	//달 가져오기
+	$("#monthSelect").on("change", function() {
+		var month = $("#monthSelect option:selected").val();
+		var mno = <%=loginUser.getMno() %>;
+		
+		
+		$.ajax({
+			url : "/redding/searchMonCalc.co",
+ 			data : {month:month, mno:mno},
  			type : "post",
  			success : function(data){
- 				if(data>0){
- 				alert("정산 금액 승인 답변 완료!");
- 				location.href="<%=request.getContextPath()%>/showMonCalc.co?mno=<%=loginUser.getMno()%>";
-				} else {
-					alert("정산 금액 승인 답변 실패!");
-				}
- 			},error : function() {
-				console.log("정산 확인 실패!");
-			}
-
-			});
+ 				
+ 				$month = $("#month"); 
+  				$cname = $("#cname");
+  				$price = $("#price");
+  				$caldate = $("#caldate");
+  				$confirm = $("#confirm");
+  				
+  				$month.empty();
+  				$cname.empty();
+  				$price.empty();
+  				$caldate.empty();
+  				$confirm.empty();
+ 				
+  				
+  				for(var i in data){
+  					var month = data[i].month;
+  					var canme = data[i].cname;
+  					var price = data[i].price;
+  					var caldate = data[i].caldate;
+  					var confirm = data[i].confirm;
+  					
+  					$month.append(month);
+  					$cname.append(cname);
+  					$price.append(price);
+  					$caldate.append(caldate);
+  					$confirm.append(confirm);
+  					
+  				}
+ 				
+ 				
+ 			},error:function(){
+ 				console.log("월별 정산 내역 조회 실패!");
+ 			}
 		});
-
-   
-		//달 가져오기
-		$("#monthSelect").on("change", function() {
-			var month = $("#monthSelect option:selected").val();
-
-			console.log(month);
-		})
+		 
+		 
+		 
+		
+		
+	});
 	</script>
 </body>
 </html>
