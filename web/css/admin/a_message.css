@@ -4,6 +4,14 @@
 	margin-right: auto;
 	width: 100%;
 }
+.deleteMesBtn{
+	background: salmon;
+	color: white;
+	cursor: pointer;
+	border: 1px solid salmon;
+	border-radius: 5px;
+	
+}
 #sendMesTB *{
 	border: none;
 }

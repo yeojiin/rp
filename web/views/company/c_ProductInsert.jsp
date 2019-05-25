@@ -274,7 +274,6 @@
             //console.log(b);
             
             $("#insertPro").submit();
-            alert("상품을 등록하셨습니다.");
             
            
             /* 서블릿을 통해 전체상품의 수량을 증가 시켜준다. */
@@ -288,7 +287,6 @@
               /* submit, reset */
          });
          $("#PIResetBtn").click(function(){
-            alert("상품등록을 취소하셨습니다.");
             location.href="<%=request.getContextPath()%>/selectProList.pr";
          });
          $("#proResBtn").click(function(){
