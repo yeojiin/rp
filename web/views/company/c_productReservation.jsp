@@ -21,9 +21,8 @@
 <link rel="stylesheet" type="text/css"
    href="${pageContext.request.contextPath}/css/common/footer.css">
 <link rel="stylesheet" type="text/css"
-   href="${pageContext.request.contextPath}/css/company/c_main.css">
-<link rel="stylesheet" type="text/css"
-   href="${pageContext.request.contextPath}/css/company/c_ProductManagement.css">   
+   href="${pageContext.request.contextPath}/css/company/c_main.css"> 
+
 <style>
    .row.content {
    height: auto;
@@ -63,24 +62,15 @@
          
          <div class="col-sm-8 text-left">
          <%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
-            <div class="contentsArea" id="productListContentsArea">
+            <div class="contentsArea" id="productListContentsArea" style="width:100%">
                <!-- 상품목록 밑의 전체~ 상품등록하기 버튼까지 -->
-               <div id="PMTotalArea">
-                  <div id="productListTitle">
-                        <h2>예약 현황</h2>
-                     <div id="productListAll">
-                          
-                     </div>
-                  </div>
-               
-               <!-- 검색분류테이블 -->
-               
-               <div id="productSearchResultList">
-                     
-               </div>
-               </div>
-            </div>
-         
+ 				 <h2>예약 현황</h2>
+             		 <jsp:include page="../common/calendar.jsp"></jsp:include>
+					 <%-- <%@ include file="../common/calendar.jsp" %> --%>
+
+
+                    </div>
+                    <br><br>
          </div>
          
          

@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import com.kh.redding.attachment.model.vo.Attachment;
@@ -691,6 +692,7 @@ public class MemberDao {
             hmap.put("price", rset.getString("PRICE"));
             hmap.put("changeName", rset.getString("CHANGE_NAME"));
             hmap.put("filePath", rset.getString("FILE_PATH"));
+            hmap.put("comType", rset.getString("COM_TYPE"));
             
             list.add(hmap);
          }
@@ -763,17 +765,33 @@ public class MemberDao {
 			blist = new ArrayList<HashMap<String, Object>>();
 			
 			while(rset.next()) {
+				HashMap<String, Object> Rhmap = new HashMap<String, Object>();
+				
 				hmap = new HashMap<String, Object>();
 
 				hmap.put("rownum", rset.getInt("RNUM"));
 				hmap.put("bid", rset.getInt("BID"));
+				hmap.put("btitle", rset.getString("BTITLE"));
 				hmap.put("bcontent", rset.getString("BCONTENT"));
 				hmap.put("mname", rset.getString("MNAME"));
 				hmap.put("bdate", rset.getDate("BDATE"));
 				hmap.put("ref_cnum", rset.getInt("REF_CNUM"));
 				hmap.put("cno", rset.getInt("CNO"));
 				
-				blist.add(hmap);
+				Rhmap.put("blist", hmap);
+				
+				Reply reply = new Reply();
+				
+				reply.setReply_code(rset.getInt("REPLY_CODE"));
+				reply.setReply_date(rset.getDate("REPLY_DATE"));
+				reply.setReply_content(rset.getString("REPLY_CONTENT"));
+				reply.setMno(rset.getInt("MNO"));
+				reply.setBid(rset.getInt("RB"));
+
+				Rhmap.put("reply", reply);
+				
+				
+				blist.add(Rhmap);
 			}
 			System.out.println("blistDao : " + blist);
 		} catch (SQLException e) {
@@ -1044,6 +1062,49 @@ public class MemberDao {
 			close(rset);
 		}
 		return ComQnaDetail;
+	}
+
+	public ArrayList<HashMap<String, Object>> getCouponList(Connection con, int mno) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+			
+		String query = prop.getProperty("getCouponList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			
+			rset = pstmt.executeQuery();
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				hmap.put("cCode", rset.getInt("CHISTOPY_CODE"));
+				hmap.put("cName", rset.getString("COUPON_NAME"));
+				hmap.put("cCategory", rset.getString("COUPON_CATEGORY"));
+				hmap.put("cDiscount", rset.getString("DISCOUNT_TYPE"));
+				hmap.put("cAmount", rset.getInt("DISCOUNT_AMOUNT"));
+				hmap.put("cRate", rset.getInt("DISCOUNT_RATE"));
+				hmap.put("cStart", rset.getString("COUPON_STARTDATE"));
+				hmap.put("cEnd", rset.getString("COUPON_ENDDATE"));
+					
+				list.add(hmap);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		
+		return list;
 	}	
 	
 }

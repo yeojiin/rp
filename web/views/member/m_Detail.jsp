@@ -133,7 +133,7 @@
 						<tr>
 							<td align="center" style="width:25%; font-size:20px;" onclick="fnMove('1')">업체정보</td>
 							<td align="center" style="width:25%; font-size:20px;" onclick="fnMove('2')">상품정보</td>						
-							<td align="center" style="width:25%; font-size:20px;" onclick="fnMove('3')">후기</td>
+							<td align="center" style="width:25%; font-size:20px;" onclick="location.href='<%=request.getContextPath()%>/selectComReviewList.rl?cno=<%= cno %>'">후기</td>
 							<td align="center" style="width:25%; font-size:20px;" onclick="location.href='<%=request.getContextPath()%>/selectDetailComQna.cq?cno=<%= cno %>'">문의</td>				
 						</tr>
 					</table>
@@ -186,33 +186,6 @@
 					
 					<hr style="align: center; border-color: black; width: 100%;">
 					<a href="#" class="top" style="position:fixed; left:90%; bottom: 50px; display:none; font-size:30px;">Top</a>
-					<div id="div3">
-						<h1>후기</h1>
-						<p style="font-size: 30px; text-align: center;">
-							<br>★총 평점 3.98
-						</p>
-					</div>
-					<div id="detailsixth">
-						<br>
-						<div id="detail11" style="width:10%; float:left">
-							<i class="fas fa-user-circle" style="font-size: 100px;"></i>
-						</div>
-						<div id="detail12" style="width:90%; float:left">
-							<p style="font-size: 20px;">
-								닉네임<br> 2월 결혼 / 업체명<br> ★ 3.5
-							</p>
-						</div>
-					</div>
-					<div id="detailseventh">
-						<p>못할 있는 바이며, 무엇을 희망의 청춘은 것이다. 앞이 청춘 꾸며 뛰노는 동산에는 내려온 인간의 있으랴?
-							긴지라 방황하였으며, 타오르고 가는 길지 할지니, 현저하게 힘차게 풀이 봄바람이다. 없으면, 인도하겠다는 별과
-							같으며, 인생의 사라지지 교향악이다. 얼음 인생을 산야에 사는가 스며들어 그리하였는가? 무엇이 발휘하기 가지에 그들은
-							있는 되려니와, 것이다. 인생에 얼음이 같이 그러므로 크고 꽃이 것이다. 위하여서 돋고, 얼마나 찾아 피는
-							부패뿐이다. 주며, 안고, 꾸며 위하여서 사막이다. 청춘에서만 피가 하여도 유소년에게서 천지는 하는 이는 뜨고,
-							부패뿐이다.</p>
-					</div>
-					<hr style="align: center; border-color: black; width: 100%;">
-					
 					</form>
 				</div>
 				

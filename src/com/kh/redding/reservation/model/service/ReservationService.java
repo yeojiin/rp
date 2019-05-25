@@ -15,10 +15,10 @@ import com.kh.redding.reservation.model.vo.Reservation;
 public class ReservationService {
 
 	//업체 예약 조회
-	public ArrayList<Reservation> selectReservation() {
+	public ArrayList<Reservation> selectReservation(int cno) {
 		Connection con = getConnection();
 		
-		ArrayList<Reservation> list = new ReservationDao().selectReservation(con);
+		ArrayList<Reservation> list = new ReservationDao().selectReservation(con, cno);
 		
 		
 		close(con);
