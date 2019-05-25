@@ -33,7 +33,6 @@
    .row.content {
    height: auto;
    }
-
    .sidenav1 {
       padding-top: 20px;
       height: 100%;
@@ -116,102 +115,13 @@
 						}
 					%>	
 				</table>
-				
-				<br><br><br>
-					
-				<label class="subSubTitle">정산 완료 리스트</label>
-				<br><br><br>
-				<select id="monthSelect"> 
-					<option>1</option>
-					<option>2</option>
-					<option>3</option>
-					<option>4</option>
-					<option>5</option>
-					<option>6</option>
-					<option>7</option>
-					<option>8</option>
-					<option>9</option>
-					<option>10</option>
-					<option>11</option>
-					<option>12</option>
-				</select>
-				
-				<table class="calculateStandByList">
-					<thead>
-						<tr>
-							<td>No</td>
-							<td>상품</td>
-							<td>판매액</td>
-							<td>지급완료액</td>
-							<td>지급완료날짜</td>
-							<td></td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>5</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>4</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="6"><br>
-								<button class="paging"><<</button>
-								<button class="paging"><</button>
-								<button class="paging">1</button>
-								<button class="paging">2</button>
-								<button class="paging">3</button>
-								<button class="paging">4</button>
-								<button class="paging">5</button>
-								<button class="paging">></button>
-								<button class="paging">>></button>
-							</td>
-						</tr>
-					</tfoot>
-				</table>
-				
-				<br><br><br>
-					
-            </div>
+         
+      	 	  <br><br><br><br><br><br><br>
+       	    <br><br><br><br><br><br><br>
+              <br><br><br><br><br><br><br>
+            
             
          </div>
-         
          
          <div class="col-sm-2 sidenav2"></div>
       </div>
@@ -245,22 +155,19 @@
  			success : function(data){
  				if(data>0){
  				alert("정산 금액 승인 답변 완료!");
- 				location.href="<%=request.getContextPath()%>/showMonCalc.co?mno=<%=loginUser.getMno()%>";
+ 				location.href="<%=request.getContextPath()%>/calcHistory.co?mno=<%=loginUser.getMno()%>";
 				} else {
 					alert("정산 금액 승인 답변 실패!");
 				}
  			},error : function() {
 				console.log("정산 확인 실패!");
 			}
-
 			});
 		});
-
    
 		//달 가져오기
 		$("#monthSelect").on("change", function() {
 			var month = $("#monthSelect option:selected").val();
-
 			console.log(month);
 		})
 	</script>

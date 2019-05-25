@@ -96,30 +96,6 @@
 							<td id="cname"><%=hmap.get("cname") %></td>
 							<td id="final"><%=hmap.get("final") %></td>
 							<td><button class="ui blue button" id="confirm">확인요청</button></td>
-					<%-- <%
-						for(int j=0; j<clist.size(); j++){
-							HashMap<String, Object> chmap = clist.get(j);
-							
-							if(hmap.get("final") == chmap.get("price") && hmap.get("cno") == chmap.get("cno")){
-					%>
-								
-					<% 			
-							}else{
-					%>
-								<td><button class="ui blue button" id="confirm" >확인요청</button></td>
-					<% 
-							}
-					%>	
-					
-					<%
-						}
-					%>	 --%>
-						
-						<%-- 	<% if (clist != null) { %>
-							<td><button class="ui blue button" id="confirm" >확인요청</button></td>
-							<%}else { %>
-							<td><button class="ui blue button" id="confirm" disabled>확인요청</button></td>
-							<%} %> --%>
 						</tr>
 					<%
 						}
@@ -208,14 +184,27 @@
 		}); 
 		
 		
+		
+		//확인요청 disabled
 		<%for(int j=0; j<clist.size(); j++){
 				HashMap<String, Object> chmap = clist.get(j); 
-				int listcno = (int)chmap.get("cno"); %>
+				int listcno = (int)chmap.get("cno"); 
+				int price = (int)chmap.get("price");
+				%>
 			$(".cno").each(function(index){
-				console.log(index + ":" + $(this).text());
+				//console.log(index + ":" + $(this).text());
 				var cno = $(this).text();
+				var finalprice = $(this).parent().children().eq(3).text();
 				
-				
+				if (cno == <%=listcno%> ){
+					if (finalprice == <%=price%>){
+					var btn = $(this).parent().children().eq(4).children();
+					
+					console.log(btn);
+					
+					btn.attr("disabled", true);
+					}
+				}
 				
 			});
 		<% } %>	

@@ -1,0 +1,45 @@
+@charset "UTF-8";
+.calcHistoryTable{
+	width:100%;
+	font-weight:bold;
+}
+.calcHistoryTable th{
+	text-align:center;
+	background:salmon;
+	color:white;
+	border-bottom:2px solid salmon;
+	height:30px;
+}
+.calcHistoryTable td{
+	text-align:center;
+	height:40px;
+	border-bottom:1px solid salmon;
+}
+.subSubTitle {
+	font-size:20px;
+	font-family:'Noto Sans KR', sans-serif;
+}
+
+.calculateStandByList tr {
+	height:40px;
+}
+.calculateStandByList thead {
+	background:gray;
+	color:white;
+	border-bottom:2px solid gray;
+}
+.calculateStandByList tbody tr {
+	border-bottom:2px solid gray;
+}
+.calculateStandByList tfoot {
+}
+.hold, .normal {
+	border-style:none;
+	background:#ff7566;
+	color:white;
+}
+.paging {
+	border-style:none;
+	background:whitesmoke;
+	color:gray;
+}
