@@ -85,27 +85,6 @@ public class ProductInsertServlet extends HttpServlet {
          //System.out.println("com : " + com);
          
          //휴무일
-         String dayWeek = com.getHoliday();
-         String[] dayWeeks = dayWeek.split(",");
-         int[] dayOfWeek = new int[dayWeeks.length];
-         
-         for(int i=0 ; i<dayWeeks.length ; i++) {
-            
-            switch(dayWeeks[i]) {
-            case "일" : dayOfWeek[i] = 1 ; break;
-            case "월" : dayOfWeek[i] = 2 ; break;
-            case "화" : dayOfWeek[i] = 3 ; break;
-            case "수" : dayOfWeek[i] = 4 ; break;
-            case "목" : dayOfWeek[i] = 5 ; break;
-            case "금" : dayOfWeek[i] = 6 ; break;
-            case "토" : dayOfWeek[i] = 7 ; break;
-            
-            }
-         }
-         for(int i=0 ; i<dayOfWeek.length ; i++) {
-            
-            //System.out.println("int dayOfWeek["+i+"] = " + dayOfWeek[i]);
-         }
          
          
          
@@ -194,16 +173,45 @@ public class ProductInsertServlet extends HttpServlet {
             System.out.println("day2["+i+"] : " + days.get(i));
          }
          */
+         //휴무일
+         String dayWeek = com.getHoliday();
+         String[] dayWeeks = null;
+         int[] dayOfWeek=null;
+         /*int check = 99;*/
+         int[] checkList =new int[days.size()];
+         if(dayWeek==null) {
+        	 dayWeeks = new String[] {"하","하","하","하","하","하","하"};
+        	 dayOfWeek = new int[dayWeeks.length];
+         }else {
+        	 dayWeeks = dayWeek.split(",");
+        	 dayOfWeek = new int[dayWeeks.length];
+        	 
+        	 
+         }
+         for(int i=0 ; i<dayWeeks.length ; i++) {
+        	 
+        	 switch(dayWeeks[i]) {
+        	 case "일" : dayOfWeek[i] = 1 ; break;
+        	 case "월" : dayOfWeek[i] = 2 ; break;
+        	 case "화" : dayOfWeek[i] = 3 ; break;
+        	 case "수" : dayOfWeek[i] = 4 ; break;
+        	 case "목" : dayOfWeek[i] = 5 ; break;
+        	 case "금" : dayOfWeek[i] = 6 ; break;
+        	 case "토" : dayOfWeek[i] = 7 ; break;
+        	 default : dayOfWeek[i] = 99;break;
+        	 }
+         }
+         
          ArrayList<String> useDate = new ArrayList<String>();
-         int check = 99;
-         int[] checkList = new int[days.size()];
+         
+         checkList = new int[days.size()];
          for(int i=0 ; i<days.size() ; i++) {
             for(int j=0 ; j<dayOfWeek.length ; j++) {
                //System.out.println("j : " + j);
                if(Integer.parseInt(days.get(i)) == dayOfWeek[j]) {
 //                  System.out.println("Integer.parseInt(days.get("+j+")) : " + Integer.parseInt(days.get(j)));
 //                  System.out.println("인서트 ㄴㄴ");
-                  check = 0;
+                  /*check = 0;*/
                   checkList[i] = 0;
                   break;
                }else if(Integer.parseInt(days.get(i)) != dayOfWeek[j]) {
@@ -211,14 +219,13 @@ public class ProductInsertServlet extends HttpServlet {
 //                  System.out.println("인서트 ㅇㅇ");
 //                  System.out.println("휴무일이랑 일치하는 요일인덱스 : " + days);
 //                  System.out.println("휴무일인덱스 : "+dayOfWeek);
-                  check = 1;
+                  /*check = 1;*/
                   checkList[i] = 1;
                }
             }
          }
          for(int i=0 ; i<checkList.length; i++) {
             if(checkList[i]==1) {
-               //System.out.println("짜증나 ㅅㅂ");
                useDate.add(useDates.get(i));
                //System.out.println("useDates.get(i) : " + useDates.get(i));
             }else {

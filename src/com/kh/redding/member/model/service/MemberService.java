@@ -351,4 +351,14 @@ public class MemberService {
 		return result;
 	}
 
+	public ArrayList<HashMap<String, Object>> SelectComQnaDetail(int bid) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> ComQnaDetail = new MemberDao().SelectComQnaDetail(con, bid);
+		
+		close(con);
+		
+		return ComQnaDetail;
+	}
+
 }

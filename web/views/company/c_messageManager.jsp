@@ -124,7 +124,7 @@
          var nockCount=0;
          var totalCount = 0;
          var cno = <%=loginUser.getMno()%>;
-         var deleteCode =null;
+         var deleteCode ="";
          $.ajax({
             url:"<%=request.getContextPath()%>/listCountComp.mes",
             type:"post",
@@ -223,7 +223,7 @@
             		   $ckDateDiv = $("<div class='readTd' style='border-radius: 5px;background:white;border:1px solid salmon;color:salmon;'>").text(list.mesCkDate);
             	   }
                }else{
-                  $ckDateDiv = $("<div class='noreadTd' style='border-radius: 5px;background:salmon;border:1px solid salmon;color:white;'>").text("읽지않음")
+                  $ckDateDiv = $("<div class='noreadTd' style='border-radius: 5px;background:salmon;border:1px solid salmon;color:white;'>").text("읽지않음");
                }
                $ckDateTd.append($ckDateDiv);
                
@@ -269,12 +269,13 @@
             	   var code2 = code.val();
             	   /* console.log("code : " + code2); */
             	   
-            	   $("#RMDeleteBtn").click(function(){
+            	   <%-- $("#RMDeleteBtn").click(function(){
             		   /* console.log(code2); */
-            		   deleteCode += code2 + ", ";
             		   
+            		   deleteCode += code2 + ", ";
             		   console.log("deleteCode : " + deleteCode);
-            	   });
+            		   location.href="<%=request.getcontextPath()%>/deleteComMes?deleteCode="+deleteCode;
+            	   }); --%>
                });
             }
             
