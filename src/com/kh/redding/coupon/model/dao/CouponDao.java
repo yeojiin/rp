@@ -335,12 +335,15 @@ private Properties prop = new Properties();
 	}
 
 	// 중복 발급 방지용 메소드
-	public int checkInsertCouponIntoMember(Connection con, String couponCode, String mno) {
+	public ArrayList<HashMap<String, Object>> checkInsertCouponIntoMember(Connection con, String couponCode, String mno) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<Coupon> list = null;
+		//ArrayList<Coupon> list = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
 		Coupon coupon = null;
 		int result2 = 0;
+		//int couponCode2 = Integer.parseInt(couponCode);
 		
 		String query = prop.getProperty("checkInsertCouponIntoMember");
 		
@@ -350,19 +353,59 @@ private Properties prop = new Properties();
 			
 			rset = pstmt.executeQuery();
 			
+			list = new ArrayList<HashMap<String, Object>>();
+			
 			while(rset.next()) {
 				
-				coupon.setCouponCode(rset.getInt("COUPON_CODE"));
+				hmap = new HashMap<String, Object>();
 				
-				list.add(coupon);
+				hmap.put("couponCode", rset.getInt("COUPON_CODE"));
+				
+				list.add(hmap);
+				
 			}
+			
+			
+			if(list != null) {
+				
+				for(int i = 0; i < list.size(); i++) {
+					hmap = list.get(i);
+					String getCouponCode = hmap.get("couponCode") + "";
+					if(couponCode.equals(getCouponCode)) {
+						result2++;
+						//hmap.put("result2", result2);
+						//list.add(hmap);
+					}/*else {
+						result2=0;
+						hmap.put("result2", result2);
+						list.add(hmap);
+					}*/
+				}
+				
+				if(result2 > 0) {
+					result2 = 1;
+				}else {
+					result2 = 0;
+				}
+				
+				
+				
+				
+			}
+			hmap.put("result2", result2);
+			list.add(hmap);
 			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
 		}
 		
-		return result2;
+		System.out.println("list" + list);
+		
+		return list;
 	}
 
 

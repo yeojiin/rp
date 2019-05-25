@@ -101,11 +101,11 @@ public class CouponService {
 	}
 
 	// 중복 발급 방지용 메소드
-	public int checkInsertCouponIntoMember(String couponCode, String mno) {
+	public ArrayList<HashMap<String, Object>> checkInsertCouponIntoMember(String couponCode, String mno) {
 		Connection con = getConnection();
-		int result2 = new CouponDao().checkInsertCouponIntoMember(con, couponCode, mno);
+		ArrayList<HashMap<String, Object>> list = new CouponDao().checkInsertCouponIntoMember(con, couponCode, mno);
 		close(con);
-		return result2;
+		return list;
 	}
 
 }
