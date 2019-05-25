@@ -83,9 +83,12 @@
                      <br>
                      <div class="ui category search">
                            <div class="ui icon input">
-                              <select></select> <input class="prompt" type="text"> 
+                              <input class="prompt" type="text" id="searchCnameArea" class="searchCnameArea"> 
                               <i class="search icon"></i>
                            </div>
+                           <div id="RMBtnsArea" style="float:right;">
+		                        <div id="searchBtns" class="searchBtns" style="margin-left: 10%;">검색</div>
+		                   </div>
                         </div>
                      <div class="memberBaseInfo">
                         <br> <br>
@@ -142,6 +145,10 @@
             var nockCount = 0;
             var totalCount = 0;
             var wt = 20;
+            var code1;
+            var code2;
+            var cname;
+            var condition;
             $.ajax({
                 url:"<%=request.getContextPath()%>/listCount.mes",
                type:"post",
@@ -155,7 +162,7 @@
                   /* console.log("ckCount : " + ckCount);
                   console.log("nockCount : " + nockCount);
                   console.log(totalCount); */
-                  totalView(1, totalCount);
+                  totalView(1, totalCount, condition);
    
                },
                error:function(){
@@ -164,21 +171,35 @@
             });
             
             //전체 리스트 가져오는 함수
-            function totalView(currentPage,value){
+            function totalView(currentPage,value,condition){
                /* console.log('함수 호출');
                console.log("value : " + value); */
-               $.ajax({
-                  url:"<%=request.getContextPath()%>/sendList.mes",
-                  type:"post",
-                  data:{currentPage:currentPage, value:value},
-                  success:function(data){
-                     listTB(data, value);
-                     //console.log(data.cnames);
-                  },
-                  error:function(){
-                     alert('nnnnnnnn');
-                  }
-               });
+               if(condition==20){
+            	   $.ajax({
+		                  url:"<%=request.getContextPath()%>/searchSendList.mes",
+		                  type:"post",
+		                  data:{currentPage:currentPage, value:value, cname:cname},
+		                  success:function(data){
+		                     listTB(data, value);
+		                  },
+		                  error:function(){
+		                     alert('nnnnnnnn');
+		                  }
+		            });
+               }else{
+	               $.ajax({
+	                  url:"<%=request.getContextPath()%>/sendList.mes",
+	                  type:"post",
+	                  data:{currentPage:currentPage, value:value},
+	                  success:function(data){
+	                     listTB(data, value);
+	                     //console.log(data.cnames);
+	                  },
+	                  error:function(){
+	                     alert('nnnnnnnn');
+	                  }
+	               });
+               }
             };
             
 
@@ -187,6 +208,7 @@
                $(".sendTBody").empty();
                /* console.log(data.sendList.length); */
                /* console.log(data); */
+               
                for(var i=0 ; i<data.sendList.length ; i++){
                   var list = data.sendList[i];
                   var pi = data.pi;
@@ -195,7 +217,10 @@
                   console.log("--------------"); */
                   var $listTr = $("<tr>");
                   
-                  var $ckTd = $("<td><input type='checkbox' class='ckBtns' style='cursor:pointer;'>");
+                  var $ckTd = $("<td>");
+                  var $ckIn = $("<input type='hidden' class='ckBtns' name='ckBtns' style='cursor:pointer;'>");
+                  
+                  $ckTd.append($ckIn);
                   
                   var $numTd = $("<td>").text(pi.startRow);
                   var $codeIn = $("<input type='hidden'>");
@@ -206,7 +231,7 @@
                   
                   /* console.log(cnames.memberName); */
                   var $nameTd = $("<td>").text(list.mname);
-                  console.log(list.mname);
+                  /* console.log(list.mname); */
                   
                   var $contentTd = $("<td>").text(list.mesContent.substr(0,10)+"...");
                   var $disDateTd = $("<td>").text(list.mesDisDate);
@@ -245,23 +270,21 @@
                   
                   
                   $(".sendTBody").append($listTr);
+                  
+                  pi.startRow++;
+                  
                   $(".ckBtns").parent().siblings().mouseenter(function(){
                 	  $(this).parent().css("background","mistyrose");
                   }).mouseout(function(){
                 	  $(this).parent().css("background","white");
                   }).click(function(){
-                	  var ck1 = $(this).parent().children().eq(0).children().eq(1);
-                	  /* console.log("ck1 : " + ck1); */
-                	  var ck2 = ck1.val();
-                	  /* console.log("ck2 : " + ck2); */
                 	  
-                	  var code1 = $(this).parent().children().eq(1).children().eq(0);
-                	  var code2 = code1.val();
+                	  code1 = $(this).parent().children().eq(1).children().eq(0);
+                	  code2 = code1.val();
                 	  console.log(code2);
                       location.href="<%=request.getContextPath()%>/adminOne.mes?code="+code2;
                   });
                   
-                  pi.startRow++;
                }
                
                $(".sendTBody").append($("<br>"));
@@ -314,6 +337,18 @@
 				   totalView(maxPage,value);
 				}));
             }
+            $(document).on('click', '#searchBtns', function(){
+            	cname = $("#searchCnameArea").val();
+            	if(cname == ""){
+            		alert('검색하실 이름을 입력해주세요.');
+            	}else{
+	            	/* console.log(cname); */
+	            	condition = 20;
+	            	totalView(1,totalCount,20);
+            		
+            	}
+            	
+            });
          });
       </script>
 </body>

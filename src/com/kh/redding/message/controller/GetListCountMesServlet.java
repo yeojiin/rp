@@ -25,6 +25,9 @@ public class GetListCountMesServlet extends HttpServlet {
 		int wt = Integer.parseInt(request.getParameter("wt"));
 		//System.out.println("wt : " + wt);
 		HashMap<String, Object> hmap = new MessageService().selectListCount(wt);
+		/*int condition = Integer.parseInt(request.getParameter("condition"));
+		
+		System.out.println("condition");*/
 		
 		//System.out.println("hmap : " + hmap);
 		

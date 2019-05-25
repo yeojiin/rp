@@ -256,10 +256,12 @@ public class MessageDao {
 	            mes.setMesWType(rset.getInt("MESSAGE_WTYPE"));
 	            mes.setCno(rset.getInt("CNO"));
 	            mes.setMname(rset.getString("MNAME"));
+	            mes.setMesStatus(rset.getString("MESSAGE_STATUS"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		System.out.println("mesdao :" +mes);
 		return mes;
 	}
 	//확인날짜 업데이트용 메소드
@@ -370,6 +372,7 @@ public class MessageDao {
 				mes.setMesWType(rset.getInt("MESSAGE_WTYPE"));
 				mes.setMesRefCode(rset.getInt("MESSAGE_REFCODE"));
 				mes.setCno(rset.getInt("CNO"));
+				mes.setMesStatus(rset.getString("MESSAGE_STATUS"));
 				
 				compMesList.add(mes);
 				
@@ -449,6 +452,7 @@ public class MessageDao {
 				mes.setMesWType(rset.getInt("MESSAGE_WTYPE"));
 				mes.setMesRefCode(rset.getInt("MESSAGE_REFCODE"));
 				mes.setCno(rset.getInt("CNO"));
+				mes.setMesStatus(rset.getString("MESSAGE_STATUS"));
 				
 				compMesList.add(mes);
 				
@@ -459,6 +463,93 @@ public class MessageDao {
 		//System.out.println("compMesList : " + compMesList);
 		
 		return compMesList;
+	}
+	//업체의 전체 쪽지 목록페이지에서 체크된것들 삭제
+	public int deleteCompMes(Connection con, int code) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteCompMes");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, code);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	//업체명 검색후 전체 갯수 조회
+	public int getListCountSearchMes(Connection con, String cname, int wt) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("getListCountSearchMes");
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, wt);
+			pstmt.setString(2, cname);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listCount;
+	}
+	//업체명 검색 후 전체리스트 리턴
+	public ArrayList<Message> searchMesList(Connection con, String cname, int wt, PageInfo pi) {	
+		  PreparedStatement pstmt = null;
+	      ResultSet rset = null;
+	      ArrayList<Message> searchList = null;
+	      Message mes = null;
+	      
+	      String query = prop.getProperty("searchMesList");
+	      
+	      try {
+	         pstmt = con.prepareStatement(query);
+	         
+	         pstmt.setInt(1, wt);
+	         pstmt.setString(2, cname);
+	         pstmt.setInt(3, pi.getStartRow());
+	         pstmt.setInt(4, pi.getEndRow());
+	         
+	         rset = pstmt.executeQuery();
+	         
+	         
+	         searchList = new ArrayList<Message>();
+	         
+	         while(rset.next()) {
+	            mes = new Message();
+	            
+	            mes.setMessageCode(rset.getInt("MESSAGE_CODE"));
+	            mes.setMesContent(rset.getString("MESSAGE_CONTENT"));
+	            mes.setMesDisDate(rset.getDate("MESSAGE_DISDATE"));
+	            mes.setMesCkDate(rset.getDate("MESSAGE_CKDATE"));
+	            mes.setMesLevel(rset.getInt("MESSAGE_LEVEL"));
+	            mes.setMesWType(rset.getInt("MESSAGE_WTYPE"));
+	            mes.setMesRefCode(rset.getInt("MESSAGE_REFCODE"));
+	            mes.setCno(rset.getInt("CNO"));
+	            mes.setMname(rset.getString("MNAME"));
+				mes.setMesStatus(rset.getString("MESSAGE_STATUS"));
+	            
+	            
+				searchList.add(mes);
+	         }
+	         
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      }
+	      return searchList;
 	}
 
 }

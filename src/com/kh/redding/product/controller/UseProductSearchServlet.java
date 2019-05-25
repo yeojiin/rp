@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.kh.redding.product.model.service.ProductService;
 import com.kh.redding.product.model.vo.PageInfo;
+import com.kh.redding.product.model.vo.Product;
 import com.kh.redding.product.model.vo.UseProduct;
 
 @WebServlet("/uproSearch.pr")
@@ -47,6 +48,7 @@ public class UseProductSearchServlet extends HttpServlet {
 		
 		
 		int pNo = Integer.parseInt(request.getParameter("pNo"));
+		Product product = new ProductService().selectProductOne(pNo);
 		
 		//System.out.println("ustatus : " + ustatus);
 		//System.out.println("startDates : " + startDates);
@@ -92,40 +94,27 @@ public class UseProductSearchServlet extends HttpServlet {
 		//System.out.println("listCount : " + listCount);
 		//System.out.println("useProList : " + useProList);
 		
-		new Gson().toJson(useProList,response.getWriter());
+		/*new Gson().toJson(useProList,response.getWriter());*/
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		UseProduct upro = new UseProduct();
+		/*UseProduct upro = new UseProduct();
 		upro.setpNo(pNo);
-		upro.setUstatus(ustatus);
+		upro.setUstatus(ustatus);*/
+		String page = "";
 		
+		if(useProList != null) {
+	    	  //System.out.println("상품상세보기 서블릿조회 성공");
+			  page = "views/company/c_productDetail.jsp";
+	    	  request.setAttribute("pi", pi);
+	    	  request.setAttribute("pro", product);
+	    	  request.setAttribute("useProList", useProList);
+	    	  
+	    	  //System.out.println("상품상세jsp로 넘어갑니다");
+	      }else {
+	    	  page = "views/common/errorPage.jsp";
+	    	  request.setAttribute("msg", "상품상세 조회에 실패하셨습니다.");
+	      }
+	      request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

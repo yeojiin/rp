@@ -69,7 +69,7 @@ input[name = proName], input[name = proEnrollDate], input[name=proPrice], input[
     margin-left: auto;
 }
 #PIInsertBtn, #PIResetBtn, #searchBtn, #productDetailBtn, #productDeleteBtn, #productSellYesBtn, #productSellNoBtn{
-   width: 100px;
+    width: 100px;
     height: 26px;
     background: salmon;
     color: white;

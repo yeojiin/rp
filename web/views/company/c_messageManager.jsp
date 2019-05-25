@@ -124,7 +124,10 @@
          var nockCount=0;
          var totalCount = 0;
          var cno = <%=loginUser.getMno()%>;
-         var deleteCode ="";
+         var code=null;
+         var code2=0;
+         var checked = [];
+         var length;
          $.ajax({
             url:"<%=request.getContextPath()%>/listCountComp.mes",
             type:"post",
@@ -161,6 +164,7 @@
          function makeRmTable(data,value){
             $(".rmTbody").empty();
             /* console.log("data.compMesList.length : " + data.compMesList.length); */
+             
             for(var i=0 ; i<data.compMesList.length ; i++){
                var list = data.compMesList[i];
                /* console.log("list : " + list); */
@@ -170,7 +174,7 @@
                
                //체크박스
                var $ckTd = $("<td>");
-               var $ckIn = $("<input type='checkbox' class='ckBtns' name='ckBtns' style='cursor:pointer;'>");
+               var $ckIn = $("<input type='checkbox' class='ckBtns' id='ckBtns' name='ckBtns' style='cursor:pointer;'>");
                $ckTd.append($ckIn);
                
                //받은메세지startRow
@@ -251,7 +255,7 @@
                   /* console.log(code); */
                   //상세보기로 가기
                   
-                  var wtp = $(this).parent().children().eq(3).children().eq(1).css("background", "red");
+                  var wtp = $(this).parent().children().eq(3).children().eq(1);
                   /* console.log("wtp.val()  :" +wtp.text()); */
                   
                   if(wtp.text()==20){
@@ -260,28 +264,71 @@
                   }else{
                 	  location.href="<%=request.getContextPath()%>/comMesOne.mes?code="+code;
                   }
+               
                   
                   
                });
-               
-               $(".ckBtns").click(function(){
-            	   var code = $(this).parent().parent().children().eq(1).children().eq(0).css("background","red");
-            	   var code2 = code.val();
-            	   /* console.log("code : " + code2); */
+             <%--   $(".ckBtns").click(function(){
+            	   code = $(this).parent().parent().children().eq(1).children().eq(0).css("background","red");
+            	   code2 = code.val();
             	   
-            	   <%-- $("#RMDeleteBtn").click(function(){
+            	   
+            	  
+				
+            	   if ($(this).is(":checked") == true){
+            		  // for(var j=0; j<data.compMesList.length ; j++){
+            			   var lenght =  checked.length;
+            			   console.log("length :" + lenght);
+	            		   checked[lenght]=code2;
+	            		   console.log("checked["+lenght+"] : " + checked[lenght]);
+            		  // }
+            	   }else {
+            		   
+            	   }
+            	   /* console.log("code : " + code2); */
+           		   /* deleteCode += code2 + ", "; */
+            	   
+            	   /* $("#RMDeleteBtn").click(function(){ */
             		   /* console.log(code2); */
             		   
-            		   deleteCode += code2 + ", ";
-            		   console.log("deleteCode : " + deleteCode);
             		   location.href="<%=request.getcontextPath()%>/deleteComMes?deleteCode="+deleteCode;
-            	   }); --%>
-               });
+            	   /* }); */
+               }); --%>
             }
             
             page(data, value);
             
          }
+         
+         $(document).on('change', '#ckBtns', function(){
+        	 code = $(this).parent().parent().children().eq(1).children().eq(0);
+      	     code2 = code.val();
+        	 length =  checked.length;
+        	 if ($(this).is(":checked") == true){
+        		 /* console.log("length :" + length); */
+        		 checked[length]=code2;
+        		 console.log("checked["+length+"] : " + checked[length]);
+        	 }else{
+        		 for(var i=0 ; i<length; i++){
+        			 if(code2==checked[i]){
+        				 checked.splice(i,1);
+        			 }
+        		 }
+        	 }
+        	 console.log("checked : " + checked);
+        	 /* console.log("-----------------------------"); */
+        	 
+         });
+         
+         
+		$(document).on('click', '#RMDeleteBtn', function(){
+			if(checked == ""){
+				alert('체크된 메세지가 없습니다.');
+			}else{
+				location.href="<%=request.getContextPath()%>/deleteComMes?checked="+checked;
+			}
+		});
+         
        //페이징
          function page(data, value){
          	 /* console.log('value : ' + value); */
@@ -360,6 +407,8 @@
             alert('삭제가 취소되었습니다.');
          }
       }); */
+      
+      
       });
    </script>
 </body>

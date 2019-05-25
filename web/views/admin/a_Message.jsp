@@ -83,9 +83,12 @@
                      <br>
                      <div class="ui category search">
                            <div class="ui icon input">
-                              <select></select> <input class="prompt" type="text"> 
+                              <input class="prompt" type="text" id="searchCnameArea" class="searchCnameArea"> 
                               <i class="search icon"></i>
                            </div>
+                           <div id="RMBtnsArea" style="float:right;">
+		                        <div id="searchBtns" class="searchBtns" style="margin-left: 10%;">검색</div>
+		                   </div>
                         </div>
                      <div class="memberBaseInfo">
                         <br> <br>
@@ -146,6 +149,11 @@
             var nockCount = 0;
             var totalCount = 0;
             var wt = 10;
+            var code1;
+            var code2;
+            var cname;
+            var condition;
+            /* console.log("condition : " + condition); */
             $.ajax({
                 url:"<%=request.getContextPath()%>/listCount.mes",
                 data:{wt:wt},
@@ -159,7 +167,8 @@
                   /* console.log("ckCount : " + ckCount);
                   console.log("nockCount : " + nockCount);
                   console.log(totalCount); */
-                  totalView(1, totalCount);
+                  
+                  totalView(1, totalCount, condition);
    
                },
                error:function(){
@@ -168,21 +177,38 @@
             });
             
             //전체 리스트 가져오는 함수
-            function totalView(currentPage,value){
+            function totalView(currentPage,value,condition){
                /* console.log('함수 호출');
                console.log("value : " + value); */
-               $.ajax({
-                  url:"<%=request.getContextPath()%>/receiveList.mes",
-                  type:"post",
-                  data:{currentPage:currentPage, value:value},
-                  success:function(data){
-                     listTB(data, value);
-                     //console.log(data.cnames);
-                  },
-                  error:function(){
-                     alert('nnnnnnnn');
-                  }
-               });
+               /* console.log("condition : " + condition);
+               console.log("totalCount : " + totalCount);
+               console.log("currentPage : " + currentPage); */
+               /* console.log("cname : " + cname); */
+               if(condition==20){
+	               $.ajax({
+		                  url:"<%=request.getContextPath()%>/searchList.mes",
+		                  type:"post",
+		                  data:{currentPage:currentPage, value:value, cname:cname},
+		                  success:function(data){
+		                     listTB(data, value);
+		                  },
+		                  error:function(){
+		                     alert('nnnnnnnn');
+		                  }
+		            });
+               }else{
+	               $.ajax({
+	                  url:"<%=request.getContextPath()%>/receiveList.mes",
+	                  type:"post",
+	                  data:{currentPage:currentPage, value:value},
+	                  success:function(data){
+	                     listTB(data, value);
+	                  },
+	                  error:function(){
+	                     alert('nnnnnnnn');
+	                  }
+	               });
+               }
             };
             
 
@@ -191,6 +217,7 @@
                $(".sendTBody").empty();
                /* console.log(data.sendList.length); */
                /* console.log(data); */
+               
                for(var i=0 ; i<data.receiveList.length ; i++){
                   var list = data.receiveList[i];
                   var pi = data.pi;
@@ -200,7 +227,8 @@
                   var $listTr = $("<tr>");
                   
                   var $ckTd = $("<td>");
-                  var $ckIn = $("<input type='checkbox' class='ckBtns' name='ckBtns' style='cursor:pointer;'>");
+                  var $ckIn = $("<input type='hidden' class='ckBtns' name='ckBtns' style='cursor:pointer;'>");
+                  
                   $ckTd.append($ckIn);
                   
                   var $numTd = $("<td>").text(pi.startRow);
@@ -259,13 +287,9 @@
                   }).mouseout(function(){
                 	  $(this).parent().css("background","white");
                   }).click(function(){
-                	  var ck1 = $(this).parent().children().eq(0).children().eq(1);
-                	  /* console.log("ck1 : " + ck1); */
-                	  var ck2 = ck1.val();
-                	  /* console.log("ck2 : " + ck2); */
                 	  
-                	  var code1 = $(this).parent().children().eq(1).children().eq(0);
-                	  var code2 = code1.val();
+                	  code1 = $(this).parent().children().eq(1).children().eq(0);
+                	  code2 = code1.val();
                 	  console.log(code2);
                       location.href="<%=request.getContextPath()%>/replyToCno.mes?code="+code2;
                   });
@@ -274,6 +298,18 @@
                $(".sendRBody").append($("<br>"));
                page(data, value);
             };
+            $(document).on('click', '#searchBtns', function(){
+            	cname = $("#searchCnameArea").val();
+            	if(cname == ""){
+            		alert('검색하실 이름을 입력해주세요.');
+            	}else{
+	            	/* console.log(cname); */
+	            	condition = 20;
+	            	totalView(1,totalCount,20);
+            		
+            	}
+            	
+            });
             //페이징
             function page(data, value){
                var $page = $(".pageBtnArea");

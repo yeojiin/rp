@@ -117,8 +117,12 @@
 		<script>
 			$(function(){
 				$("#sendBtn").click(function(){
+					if($("#smContent").val()==""){
+		        		 alert('내용을 입력해주세요');
+		        	 }else{
 						$("#sendMesForm").attr("action","<%=request.getContextPath()%>/replyToAdmin.mes");
 						$("#sendMesForm").submit();
+		        	 }
 					
 				});
 				$("#cancelBtn").click(function(){

@@ -16,6 +16,7 @@ import com.kh.redding.member.model.vo.Member;
 import com.kh.redding.product.model.service.ProductService;
 import com.kh.redding.product.model.vo.PageInfo;
 import com.kh.redding.product.model.vo.Product;
+import com.kh.redding.product.model.vo.ProductCounts;
 @WebServlet("/searchPro.pr")
 public class ProductSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -45,10 +46,10 @@ public class ProductSearchServlet extends HttpServlet {
 		int listCount = 0;
 		
 		String searchProName = request.getParameter("proName");
-		//System.out.println("searchProName : " + searchProName);
+		System.out.println("searchProName : " + searchProName);
 		
 		String searchStatus = request.getParameter("prostatus");
-		//System.out.println("searchStatus : " + searchStatus);
+		System.out.println("searchStatus : " + searchStatus);
 		
 		
 		int value = 0;
@@ -109,7 +110,26 @@ public class ProductSearchServlet extends HttpServlet {
 		
 		//new Gson().toJson(pi, response.getWriter());
 		new Gson().toJson(hmap, response.getWriter());*/
-		new Gson().toJson(proList, response.getWriter());
+		int productTotalCount = new ProductService().productTotalCount(cno);
+		int saleProductCount = new ProductService().saleProductCount(cno, "판매");
+		int noSaleProductCount = new ProductService().saleProductCount(cno, "판매안함");
+		  
+		ProductCounts pcount = new ProductCounts();
+		pcount.setProductTotalCount(productTotalCount);
+		pcount.setSaleProductCount(saleProductCount);
+		pcount.setNoSaleProductCount(noSaleProductCount);
+		
+		String page = "";
+		if(proList != null) {
+		     page = "views/company/c_ProductManagement.jsp";
+		request.setAttribute("proList", proList);
+		request.setAttribute("pi", pi);
+		request.setAttribute("pcount", pcount);
+		}else {
+		     page = "views/common/errorPage.jsp";
+		request.setAttribute("msg", "상품목록 조회에 실패하셨습니다.");
+		}
+		request.getRequestDispatcher(page).forward(request, response);
 		
 		
 		

@@ -20,9 +20,9 @@
       
             //vo.상품에서 가져올 값  : 즉, 테이블에도 존재해야 함 아니면 count(*) 함수 사용하든가
    
-            int productTotalCount = pcount.getProductTotalCount();
-            int SaleProductCount = pcount.getSaleProductCount();
-            int NoSaleProductCount = pcount.getNoSaleProductCount();
+        int productTotalCount = pcount.getProductTotalCount();
+        int SaleProductCount = pcount.getSaleProductCount();
+        int NoSaleProductCount = pcount.getNoSaleProductCount();
          
 %>
 <!DOCTYPE html>
@@ -304,133 +304,23 @@
             }
          });
          $("#searchBtn").click(function(){
-            
-            
-            var proName = $("input[name=productSearchForName]").val();
-            console.log(proName);
-            var prostatus = $("input[name=productSearchAbountSale]:checked").val();
-            console.log(prostatus);
-            
-            $.ajax({
-               url:"searchPro.pr",
-               data:{proName:proName, prostatus:prostatus},
-               type:"post",
-               dataType:"json",
-               success:function(data){
-            	   
-					/* alert("성공");
-					alert(data); */
-					$tableBody = $("#productSearchResulTB tbody");
-					$tableBody.html('');
-					
-					/* ---------------------------------------------------------- */
-					var ctn = 1;
-                  
-					var $tr1 = $("<tr>");
-					var $ckTh = $("<th width='3%'>");
-					var $startTh = $("<th width='3%'>").text("No.");
-					/* var $noTh = $("<th width='5%'>").text("pno."); */
-					var $nameTh = $("<th width='15%'>").text("상품명");
-					var $priceTh = $("<th width='10%'>").text("가격(원)");
-					var $penrollTh = $("<th width='15%'>").text("상품등록일");
-					var $pmodifyTh = $("<th width='15%'>").text("상품수정일");
-					var $pstatusTh = $("<th width='10%'>").text("판매여부");
-					var $btnTh = $("<th width='10%'>");
-					
-					/* for(var i=0 ; i<data.length ; i++){
-						
-						console.log(data.pNo);
-					}
-					 */
-					$tr1.append($ckTh);
-					$tr1.append($startTh);
-					$tr1.append($nameTh);
-					$tr1.append($priceTh);
-					$tr1.append($penrollTh);
-					$tr1.append($pmodifyTh);
-					$tr1.append($pstatusTh);
-					$tr1.append($btnTh);
-					
-					$tableBody.append($tr1);
-					
-					/* var pno=0; */
-					
-					$.each(data,function(index, value){
-					   
-						var $tr = $("<tr>");
-						      
-						var $ckTd = $("<td>");
-						var $ckIn = $("<input type='checkbox' name='proCheck' id='proCheck'>");
-						
-						var $startTd = $("<td>");
-						var $startIn = $("<input type='number' name='startRows' id='startRows' readonly>");
-						$startIn.val(ctn); 
-						
-						
-						var $noIn = $("<input type='hidden' name='proNum' id='proNum'>").val(value.pNo);
-						console.log($noIn.val());
-						console.log("===================")
-						
-						var $nameTd = $("<td>").text(value.pName);
-						
-						var $priceTd = $("<td>").text(value.price);
-						
-						/* console.log(typeof(value.pEnrollDate)); */
-						
-						var $penrollDateTd = $("<td>").text(value.pEnrollDate);
-						
-						var $pmodifyDateTd = $("<td>").text(value.pModifyDate);
-						
-						var $proStatusTd = $("<td>").text(value.proStatus);
-						
-						var $btnTd = $("<td>");
-						var $btnIn = $("<div id='productDetailBtn' class='productDetail'>상세보기</div>");
-						
-						$btnTd.append($btnIn);
-						$startTd.append($noIn);
-						$startTd.append($startIn);
-						$ckTd.append($ckIn);
-						      
-						     
-						$tr.append($ckTd);
-						$tr.append($startTd);
-						$tr.append($nameTd);
-						$tr.append($priceTd);
-						$tr.append($penrollDateTd);
-						$tr.append($pmodifyDateTd);
-						$tr.append($proStatusTd);
-						$tr.append($btnTd);
-						
-						$tableBody.append($tr);
-						
-						$(".productDetail").click(function(){
-							
-							var pno = $(this).parent().parent().children().eq(1).children().eq(0).val();
-							console.log(pno);
-							/* pno = $(this).parent().parent().children().eq(1).children().eq(0).val();
-							console.log(pno); */
-							location.href="<%=request.getContextPath()%>/proDetail.pr?pno="+pno;
-						});
-						ctn = ctn + 1;
-						
-						var $lastTr = $("<tr>");
-						var $lastTd = $("<td colspan='8'>");
-						var $yesDiv = $("<div class='productSellYesBtn'>판매하기");
-						var $noDiv = $("<div class='productSellNoBtn'>판매취소");
-						
-						$yesDiv.append($noDiv);
-						$lastTd.append($yesDiv);
-						$lastTr.append($lastTd);
-						$tableBody.append($lastTr);
-						
-					});
-               },
-               error:function(data){
-                  alert("실패");
-               }
-            });
-            
+        	 var proName = $("input[name=productSearchForName]").val();
+             /* console.log(proName); */
+             var prostatus = $("input[name=productSearchAbountSale]:checked").val();
+             /* console.log(prostatus); */
+             
+             if(proName==""){
+            	 alert('상품명을 입력해주세요.');
+             }else{
+            	 if(prostatus){
+            		 location.href="<%=request.getContextPath()%>/searchPro.pr?proName="+proName+"&prostatus="+prostatus;
+            	 }else{
+            		 alert('상품구분을 입력해주세요.');
+            		 
+            	 }
+             }
          });
+         
          
          $("#productSellYesBtn").click(function(){
              var pnoString = [];
@@ -479,6 +369,134 @@
              //c_ProductUpload.jsp로 페이지 이동해주기
              location.href="<%=request.getContextPath()%>/views/company/c_ProductInsert.jsp";
           });   
+         <%-- $("#searchBtn").click(function(){
+             
+             
+             var proName = $("input[name=productSearchForName]").val();
+             console.log(proName);
+             var prostatus = $("input[name=productSearchAbountSale]:checked").val();
+             console.log(prostatus);
+             
+             $.ajax({
+                url:"searchPro.pr",
+                data:{proName:proName, prostatus:prostatus},
+                type:"post",
+                dataType:"json",
+                success:function(data){
+             	   
+ 					/* alert("성공");
+ 					alert(data); */
+ 					$tableBody = $("#productSearchResulTB tbody");
+ 					$tableBody.html('');
+ 					
+ 					/* ---------------------------------------------------------- */
+ 					var ctn = 1;
+                   
+ 					var $tr1 = $("<tr>");
+ 					var $ckTh = $("<th width='3%'>");
+ 					var $startTh = $("<th width='3%'>").text("No.");
+ 					/* var $noTh = $("<th width='5%'>").text("pno."); */
+ 					var $nameTh = $("<th width='15%'>").text("상품명");
+ 					var $priceTh = $("<th width='10%'>").text("가격(원)");
+ 					var $penrollTh = $("<th width='15%'>").text("상품등록일");
+ 					var $pmodifyTh = $("<th width='15%'>").text("상품수정일");
+ 					var $pstatusTh = $("<th width='10%'>").text("판매여부");
+ 					var $btnTh = $("<th width='10%'>");
+ 					
+ 					/* for(var i=0 ; i<data.length ; i++){
+ 						
+ 						console.log(data.pNo);
+ 					}
+ 					 */
+ 					$tr1.append($ckTh);
+ 					$tr1.append($startTh);
+ 					$tr1.append($nameTh);
+ 					$tr1.append($priceTh);
+ 					$tr1.append($penrollTh);
+ 					$tr1.append($pmodifyTh);
+ 					$tr1.append($pstatusTh);
+ 					$tr1.append($btnTh);
+ 					
+ 					$tableBody.append($tr1);
+ 					
+ 					/* var pno=0; */
+ 					
+ 					$.each(data,function(index, value){
+ 					   
+ 						var $tr = $("<tr>");
+ 						      
+ 						var $ckTd = $("<td>");
+ 						var $ckIn = $("<input type='checkbox' name='proCheck' id='proCheck'>");
+ 						
+ 						var $startTd = $("<td>");
+ 						var $startIn = $("<input type='number' name='startRows' id='startRows' readonly>");
+ 						$startIn.val(ctn); 
+ 						
+ 						
+ 						var $noIn = $("<input type='hidden' name='proNum' id='proNum'>").val(value.pNo);
+ 						console.log($noIn.val());
+ 						console.log("===================")
+ 						
+ 						var $nameTd = $("<td>").text(value.pName);
+ 						
+ 						var $priceTd = $("<td>").text(value.price);
+ 						
+ 						/* console.log(typeof(value.pEnrollDate)); */
+ 						
+ 						var $penrollDateTd = $("<td>").text(value.pEnrollDate);
+ 						
+ 						var $pmodifyDateTd = $("<td>").text(value.pModifyDate);
+ 						
+ 						var $proStatusTd = $("<td>").text(value.proStatus);
+ 						
+ 						var $btnTd = $("<td>");
+ 						var $btnIn = $("<div id='productDetailBtn' class='productDetail'>상세보기</div>");
+ 						
+ 						$btnTd.append($btnIn);
+ 						$startTd.append($noIn);
+ 						$startTd.append($startIn);
+ 						$ckTd.append($ckIn);
+ 						      
+ 						     
+ 						$tr.append($ckTd);
+ 						$tr.append($startTd);
+ 						$tr.append($nameTd);
+ 						$tr.append($priceTd);
+ 						$tr.append($penrollDateTd);
+ 						$tr.append($pmodifyDateTd);
+ 						$tr.append($proStatusTd);
+ 						$tr.append($btnTd);
+ 						
+ 						$tableBody.append($tr);
+ 						
+ 						$(".productDetail").click(function(){
+ 							
+ 							var pno = $(this).parent().parent().children().eq(1).children().eq(0).val();
+ 							console.log(pno);
+ 							/* pno = $(this).parent().parent().children().eq(1).children().eq(0).val();
+ 							console.log(pno); */
+ 							location.href="<%=request.getContextPath()%>/proDetail.pr?pno="+pno;
+ 						});
+ 						ctn = ctn + 1;
+ 						
+ 						var $lastTr = $("<tr>");
+ 						var $lastTd = $("<td colspan='8'>");
+ 						var $yesDiv = $("<div class='productSellYesBtn'>판매하기");
+ 						var $noDiv = $("<div class='productSellNoBtn'>판매취소");
+ 						
+ 						$yesDiv.append($noDiv);
+ 						$lastTd.append($yesDiv);
+ 						$lastTr.append($lastTd);
+ 						$tableBody.append($lastTr);
+ 						
+ 					});
+                },
+                error:function(data){
+                   alert("실패");
+                }
+             });
+             
+          }); --%>
 		
       });
    </script>
