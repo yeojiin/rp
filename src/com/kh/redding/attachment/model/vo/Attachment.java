@@ -8,7 +8,6 @@ public class Attachment implements java.io.Serializable{
 	private int adivision;
 	private int bid;
 	private int mno;
-	private String acontent;
 	private int couponCode;
 	private String cno_div;
 	
@@ -24,7 +23,6 @@ public class Attachment implements java.io.Serializable{
 		this.adivision = adivision;
 		this.bid = bid;
 		this.mno = mno;
-		this.acontent = acontent;
 		this.couponCode = couponCode;
 		this.cno_div = cno_div;
 	}
@@ -65,9 +63,6 @@ public class Attachment implements java.io.Serializable{
 		return mno;
 	}
 
-	public String getAcontent() {
-		return acontent;
-	}
 
 	public int getCouponCode() {
 		return couponCode;
@@ -101,9 +96,6 @@ public class Attachment implements java.io.Serializable{
 		this.mno = mno;
 	}
 
-	public void setAcontent(String acontent) {
-		this.acontent = acontent;
-	}
 
 	public void setCouponCode(int couponCode) {
 		this.couponCode = couponCode;
@@ -112,7 +104,7 @@ public class Attachment implements java.io.Serializable{
 	@Override
 	public String toString() {
 		return "Attachment [aid=" + aid + ", originname=" + originname + ", changename=" + changename + ", filepath="
-				+ filepath + ", adivision=" + adivision + ", bid=" + bid + ", mno=" + mno + ", acontent=" + acontent
+				+ filepath + ", adivision=" + adivision + ", bid=" + bid + ", mno=" + mno + ","
 				+ ", couponCode=" + couponCode + "]";
 	}
 

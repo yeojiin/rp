@@ -83,13 +83,13 @@
 				  <!-- Blog Entries Column -->
 					  <div class="col-md-12 my-order">
 						<div class="content-section">
-							<form name="w_form" action="/insert.bo" method="post" >
+							<form name="w_form" action="<%=request.getContextPath() %>/insert.bo" method="post"  encType= "multipart/form-data" id = "insertCommunity">
 								<fieldset class="form-group">
 									<legend class="border-bottom mb-4">New Post</legend>
 									<div class="form-group">
 											<label class="form-control-label">Category</label>
 											<br>
-											<select style = "color:black; width: 100%; height : 30px; border-radius : 3%;">
+											<select style = "color:black; width: 100%; height : 30px; border-radius : 3%;" name = "category" id = "category">
 												<option>선택하세요</option>
 												<option>수다쟁이 </option>
 												<option>질문있어요</option>
@@ -97,7 +97,7 @@
 									</div>
 									<div class="form-group">
 											<label class="form-control-label">Title</label>
-											<input class="form-control form-control-lg" type="text">
+											<input class="form-control form-control-lg" name = "title" id = "title" type="text">
 									</div>
 									<div class="form-group">
 											<label class="form-control-label">Writer</label>
@@ -106,7 +106,6 @@
 									</div>
 									<div class="form-group">
 											<label class="form-control-label">Content</label>
-											<!-- <textarea class="form-control" rows="10" cols="50" style="background-image:url('/Blog/img/background.png');"></textarea> -->
 									 		<textarea style="width: 100%; color: black;" rows="10" name="content" id="textAreaContent" cols="80"></textarea>
 									</div>
 									<div class="form-group">
@@ -117,7 +116,8 @@
 											<img src = "/redding/images/noimg.gif" style = "width : 100%; height : 100%; max-width: 120px; max-height:120px;" id = "img4">
 									</div>
 									<div class="form-group">
-											<button class="btn btn-outline-info" type="submit" style="background:salmon; color:white;" onclick="submitContents();">글등록</button>
+											<button class="btn btn-outline-info" type="button" style="background:salmon; color:white;">이전으로</button>
+											<button type = "button" id = "sendBoard" class="btn btn-outline-info"  style="background:salmon; color:white;">글등록</button>
 									</div>		
 								</fieldset>
 								<div id = "fileArea" align = "left">
@@ -192,6 +192,22 @@
 				reader.readAsDataURL(value.files[0]);
 			}
 		}
+		
+		$(function(){
+			$("#sendBoard").click(function(){
+				
+				if ($("#category").val() == "선택하세요"){
+					alert("카태고리 선택해주세요");
+				}else if ($("#title").val() == ""){
+					alert("제목 작성해주세요");
+				}else {
+					$("#insertCommunity").submit();			
+				}
+				
+			});
+			
+		});
+		
 		
 	</script>
 
