@@ -37,7 +37,7 @@
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<button class="logo" onclick="location.href='<%=request.getContextPath()%>/views/company/c_main.jsp'">REDDING&nbsp;&nbsp;&nbsp;&nbsp;</button>
+				<button class="logo" onclick="location.href='<%=request.getContextPath()%>'">REDDING&nbsp;&nbsp;&nbsp;&nbsp;</button>
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
