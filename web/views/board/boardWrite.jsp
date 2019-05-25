@@ -24,13 +24,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-<!-- Bootstrap core CSS -->
-<link href="../css/bootstrap.css" rel="stylesheet">
-<!-- Custom styles for this template -->
-<link href="../css/blog-home.css" rel="stylesheet">
-<!-- Smart Editor -->
-<script type="text/javascript" src="<%=request.getContextPath()%>/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/editor/photo_uploader/plugin/hp_SE2M_AttachQuickPhoto.js" charset="utf-8"></script>
 <style>
 .container {
 	width: 100%;
@@ -62,7 +55,8 @@
 
 	<!-- 멤버 헤더 (미니메뉴, 로고) -->
 	<div class="headerArea">
-		<jsp:include page="/views/member/m_header.jsp"></jsp:include>
+		<%-- <jsp:include page="/views/member/m_header.jsp"></jsp:include> --%>
+		<%@ include file="/views/member/m_header.jsp"%>
 	</div>
 	<br>
 
@@ -70,7 +64,8 @@
 	<div>
 		<jsp:include page="/views/member/m_nav.jsp"></jsp:include>
 	</div>
-
+	
+	<% if (loginUser != null){ %>
 	<!-- 섹션 -->
 	<div class="container-fluid text-center">
 		<div class="row content">
@@ -88,24 +83,49 @@
 				  <!-- Blog Entries Column -->
 					  <div class="col-md-12 my-order">
 						<div class="content-section">
-							<form name="w_form" action="/insert.bo" method="post">
-								<!-- filepath : 이미지업로드 경로 -->
-								<input type="hidden" name="filepath" value="/upImages/" />
+							<form name="w_form" action="/insert.bo" method="post" >
 								<fieldset class="form-group">
 									<legend class="border-bottom mb-4">New Post</legend>
+									<div class="form-group">
+											<label class="form-control-label">Category</label>
+											<br>
+											<select style = "color:black; width: 100%; height : 30px; border-radius : 3%;">
+												<option>선택하세요</option>
+												<option>수다쟁이 </option>
+												<option>질문있어요</option>
+											</select>
+									</div>
 									<div class="form-group">
 											<label class="form-control-label">Title</label>
 											<input class="form-control form-control-lg" type="text">
 									</div>
 									<div class="form-group">
+											<label class="form-control-label">Writer</label>
+											<input class="form-control form-control-lg" type="text" name = "nickname" value = "<%=loginUser.getNickName()%>" readonly>
+											<input type = "hidden" value = "<%=loginUser.getMno()%>" id = "mno" name = "mno">
+									</div>
+									<div class="form-group">
 											<label class="form-control-label">Content</label>
 											<!-- <textarea class="form-control" rows="10" cols="50" style="background-image:url('/Blog/img/background.png');"></textarea> -->
-									 		<textarea style="width: 100%" rows="10" name="content" id="textAreaContent" cols="80"></textarea>
+									 		<textarea style="width: 100%; color: black;" rows="10" name="content" id="textAreaContent" cols="80"></textarea>
+									</div>
+									<div class="form-group">
+											<label class="form-control-label">Images</label><br>
+											<img src = "/redding/images/noimg.gif" style = "width : 100%; height : 100%; max-width: 120px; max-height:120px;" id = "img1">
+											<img src = "/redding/images/noimg.gif" style = "width : 100%; height : 100%; max-width: 120px; max-height:120px;" id = "img2">
+											<img src = "/redding/images/noimg.gif" style = "width : 100%; height : 100%; max-width: 120px; max-height:120px;" id = "img3">
+											<img src = "/redding/images/noimg.gif" style = "width : 100%; height : 100%; max-width: 120px; max-height:120px;" id = "img4">
 									</div>
 									<div class="form-group">
 											<button class="btn btn-outline-info" type="submit" style="background:salmon; color:white;" onclick="submitContents();">글등록</button>
 									</div>		
 								</fieldset>
+								<div id = "fileArea" align = "left">
+									<input type = "file" id = "imgfile1" name = "imgfile1" onchange = "loadImg(this,1)">
+									<input type = "file" id = "imgfile2" name = "imgfile2" onchange = "loadImg(this,2)">
+									<input type = "file" id = "imgfile3" name = "imgfile3" onchange = "loadImg(this,3)">
+									<input type = "file" id = "imgfile4" name = "imgfile4" onchange = "loadImg(this,4)">
+								</div>
 							</form>
 						</div>
 						</div>
@@ -126,45 +146,58 @@
 	<div class="footerArea">
 		<jsp:include page="/views/common/footer.jsp"></jsp:include>
 	</div>
-<!-- ./container -->
+	
+	<%}else { 
+		request.setAttribute("msg", "잘못된 경로접근입니다.");
+		request.getRequestDispatcher("/views/common/errorPage.jsp").forward(request, response);
+	}%>
+	<script>
+		$("#fileArea").hide(); 
+	
+		$("#img1").click(function(){
+			$("#imgfile1").click();
+		});
+		
+		$("#img2").click(function(){
+			$("#imgfile2").click();
+		});
+		
+		$("#img3").click(function(){
+			$("#imgfile3").click();
+		});
+		
+		$("#img4").click(function(){
+			$("#imgfile4").click();
+		});
+		
+		function loadImg(value, num) {
+			if (value.files && value.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					switch (num) {
+					case 1:
+						$("#img1").attr("src", e.target.result);
+						break;
+					case 2 : 
+						$("#img2").attr("src" , e.target.result);
+						break;
+					case 3 : 
+						$("#img3").attr("src" , e.target.result);
+						break;
+					case 4 : 
+						$("#img4").attr("src" , e.target.result);
+						break;
+					}
+				}
+				reader.readAsDataURL(value.files[0]);
+			}
+		}
+		
+	</script>
 
-<!-- Naver Smart Editor 2 -->
-<script>
-  var oEditors = [];
-  nhn.husky.EZCreator.createInIFrame({
-      oAppRef: oEditors,
-      elPlaceHolder: "textAreaContent",
-      sSkinURI: "<%=request.getContextPath()%>/editor/SmartEditor2Skin.html",
-      fCreator: "createSEditor2"
-  });
-   
-  //‘저장’ 버튼을 누르는 등 저장을 위한 액션을 했을 때 submitContents가 호출된다고 가정한다.
-  function submitContents(elClickedObj) {
-      // 에디터의 내용이 textarea에 적용된다.
-      oEditors.getById["textAreaContent"].exec("UPDATE_CONTENTS_FIELD", [ ]);
-   
-      // 에디터의 내용에 대한 값 검증은 이곳에서
-      // document.getElementById("textAreaContent").value를 이용해서 처리한다.
-    
-      try {
-          elClickedObj.form.submit();
-      } catch(e) {
-       
-      }
-  }
-   
-  // textArea에 이미지 첨부
-  function pasteHTML(filepath){
-      var sHTML = '<img src="<%=request.getContextPath()%>/editor/upload/'+filepath+'">';
-      oEditors.getById["textAreaContent"].exec("PASTE_HTML", [sHTML]);
-  }
-</script>
 
-  
-<!-- Bootstrap core JavaScript -->
-<script src="../js/jquery.min.js"></script>
-<script src="../js/bootstrap.bundle.min.js"></script>
-<script src="../js/validation.js"></script>
-
+ 
+ 
+ 
 </body>
 </html>

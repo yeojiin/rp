@@ -65,7 +65,8 @@
 
 	<!-- 멤버 헤더 (미니메뉴, 로고) -->
 	<div class="headerArea">
-		<jsp:include page="/views/member/m_header.jsp"></jsp:include>
+		<%-- <jsp:include page="/views/member/m_header.jsp"></jsp:include> --%>
+		<%@ include file="/views/member/m_header.jsp"%>
 	</div>
 	<br>
 
@@ -129,9 +130,10 @@
 							</tbody>
 						</table>
 						<!-- <hr style="align:center; border-color:black; width:100%;" > -->
+						<% if (loginUser != null){ %>
 						<a class="btn btn-default" style="margin-left: 10%"
 							onclick="location.href='<%=request.getContextPath()%>/views/board/boardWrite.jsp'">글쓰기</a>
-
+						<% }%>
 						<div class="text-center">
 							<ul class="pagination">
 								<button onclick="location.href='<%=request.getContextPath() %>/selectBoardList.bo?currentPage=1'"><<</button>
@@ -187,6 +189,8 @@
 				
 				location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num;
 			});
+			
+			
 		})
 	</script>
 </body>
