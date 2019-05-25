@@ -32,14 +32,15 @@ public class ReservationDao {
 
 	}
 
-	public ArrayList<Reservation> selectReservation(Connection con) {
-		Statement stmt = null;
+	public ArrayList<Reservation> selectReservation(Connection con, int cno) {
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String query = prop.getProperty("selectReservation");
 		ArrayList<Reservation> list = null;
 		try {
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(query);
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, cno);
+			rset = pstmt.executeQuery();
 
 			list = new ArrayList<Reservation>();
 
@@ -62,7 +63,7 @@ public class ReservationDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			close(stmt);
+			close(pstmt);
 			close(rset);
 		}
 
