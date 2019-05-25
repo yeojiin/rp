@@ -53,7 +53,8 @@
 
 	<!-- 멤버 헤더 (미니메뉴, 로고) -->
 	<div class="headerArea">
-		<jsp:include page="/views/member/m_header.jsp"></jsp:include>
+		<%-- <jsp:include page="/views/member/m_header.jsp"></jsp:include> --%>
+		<%@ include file="/views/member/m_header.jsp"%>
 	</div>
 	<br>
 
