@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" %>
+    pageEncoding="UTF-8" import="com.kh.redding.member.model.vo.Member"%>
+<%
+	Member loginUser = (Member) session.getAttribute("loginUser");
+ %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,17 +18,10 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/common/calendar.css">
 
 
-
-<style>
-
-
-
-
-</style>
 </head>
 <body>
 	<br><br>
-	<div id="calendarEvent" style="width:80%; margin-left:auto; margin-right:auto;">
+	<div id="calendarEvent" style="width:100%; margin-left:auto; margin-right:auto;">
 	<table style="width:100%; margin-left:auto; margin-right:auto">
 		<tr>
   			<td width="60%" height="470px">
@@ -309,6 +305,7 @@
  		 $.ajax({
 				url: "<%=request.getContextPath() %>/calendar.po",  /*서블릿 요청*/
 				type:"post",
+				data:{cno:<%= loginUser.getMno() %>},
 				success:function(data){
 					  	  for(var key in data){
 					  		  var userName = data[key].userName;

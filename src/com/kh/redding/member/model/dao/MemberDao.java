@@ -691,6 +691,7 @@ public class MemberDao {
             hmap.put("price", rset.getString("PRICE"));
             hmap.put("changeName", rset.getString("CHANGE_NAME"));
             hmap.put("filePath", rset.getString("FILE_PATH"));
+            hmap.put("comType", rset.getString("COM_TYPE"));
             
             list.add(hmap);
          }
@@ -1044,6 +1045,49 @@ public class MemberDao {
 			close(rset);
 		}
 		return ComQnaDetail;
+	}
+
+	public ArrayList<HashMap<String, Object>> getCouponList(Connection con, int mno) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+			
+		String query = prop.getProperty("getCouponList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			
+			rset = pstmt.executeQuery();
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				hmap.put("cCode", rset.getInt("CHISTOPY_CODE"));
+				hmap.put("cName", rset.getString("COUPON_NAME"));
+				hmap.put("cCategory", rset.getString("COUPON_CATEGORY"));
+				hmap.put("cDiscount", rset.getString("DISCOUNT_TYPE"));
+				hmap.put("cAmount", rset.getInt("DISCOUNT_AMOUNT"));
+				hmap.put("cRate", rset.getInt("DISCOUNT_RATE"));
+				hmap.put("cStart", rset.getString("COUPON_STARTDATE"));
+				hmap.put("cEnd", rset.getString("COUPON_ENDDATE"));
+					
+				list.add(hmap);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		
+		return list;
 	}	
 	
 }

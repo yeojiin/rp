@@ -3,9 +3,8 @@
 
 <%
 	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
-	System.out.println("list : " + list);
 	HashMap<String, Object> hmap = null;
-	int price = 0;
+	int tprice = 0;
 	int discount = 0;
 	int totalPrice = 0;
 	String fullName = null;
@@ -77,9 +76,12 @@
                      </tr>
                      <% for(int i=0; i<list.size(); i++){
                     	 hmap = list.get(i);
-                    	 price += Integer.parseInt(hmap.get("price").toString());
+                    	 tprice += Integer.parseInt(hmap.get("price").toString());
                     	 fullName = hmap.get("pName").toString() + " 외 " + (list.size()-1) + "건";
                      %>
+                     <% if(list.size() == 1){ totalPrice = (tprice - tprice/100); discount = tprice/10;   %>                   	 
+                     <% }else if(list.size() == 2){ totalPrice = (tprice - (tprice/100)*3);  discount = (tprice/100)*3;   %>
+                     <% }else{ totalPrice = (tprice - (tprice/100)*3);  discount = (tprice/100)*5; } %>
                      
                      <tr height="80">
                         <td><%= i+1 %></td>
@@ -88,9 +90,9 @@
                         	<br>
                         	(<%= hmap.get("useDate").toString().split(" ")[0] %>)<br> <%= hmap.get("useStart")  %> ~ <%= hmap.get("useEnd") %>
                         </td>
-                        <td><%= hmap.get("price") %></td>
+                        <td><%= hmap.get("price")%>원</td>
                         <td>0</td>
-                        <td><%= hmap.get("price") %></td>
+                        <td><%= hmap.get("price") %>원</td>
                         <td><%= hmap.get("cName") %>
                         	<br>
                         	<%= hmap.get("cPhone") %>
@@ -100,8 +102,8 @@
                   </table>
                   <br>
                   
-                  <div style="width:100%; border-bottom:1px solid black; height:50px">
-                  	
+                  <div style="width:100%; border-bottom:1px solid black; height:50px; padding:3px;">
+                  	<label style="float:right">총 결제 금액 : <%=totalPrice%>원&nbsp;&nbsp;  할인가 : <%=discount %>원 </label>
                   </div>
  
                   <br> <br>
@@ -124,25 +126,23 @@
                      
                         <th width="300">총 주문 금액</th>
                         <th width="300">할인가</th>
-                        <th width="300">금액</th>
+                        <th width="300">총 결제 금액</th>
                      </tr>
                      <tr height="80">
-                     <% if(list.size() == 1){ totalPrice = (price - price/100); discount = price/10;   %>                   	 
-                     <% }else if(list.size() == 2){ totalPrice = (price - (price/100)*3);  discount = (price/100)*3;   %>
-                     <% }else{ price = (totalPrice - (price/100)*3);  discount = (price/100)*5; } %>
-                        <td><%= price %></td>
-                        <td><%= discount  %></td>
-                        <td><%= totalPrice %></td>
+                     
+                        <td><%= totalPrice %>원</td>
+                        <td><%= discount  %>원</td>
+                        <td><%= totalPrice %>원</td>
                      </tr>
                   </table>
                   <br>
                   <div class="selectcouponArea">
                      <label>쿠폰적용</label>
                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                     <select style="width: 40%">
+                     <select style="width: 40%; height:26px" class="couponSelect">
                         <option>--선택 해주세요--</option>
                      </select> &nbsp;&nbsp;
-                     <button>적용</button>
+                     <button>적용가능조회</button>
                   </div>
 
                   <br>
@@ -161,8 +161,8 @@
                      </tr>
                      <tr>
                         <td rowspan="3">
-                           <input type=radio name="paysel"id="paysel1"><label for="paysel1">카드결제</label><br>
-                              <input type=radio name="paysel" id="paysel2"><label for="paysel2">계좌이체</label><br>
+                           <input type=radio name="paysel"id="paysel1" checked><label for="paysel1">카드결제</label><br>
+                           <input type=radio name="paysel" id="paysel2"><label for="paysel2">계좌이체</label><br>
                         </td>
                         <td rowspan="3">1</td>
                      </tr>
@@ -201,16 +201,9 @@
 	      IMP.init('imp59683824'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 	      
 	      
-	      //
-	     
-	      
-	      
-	      
-	      
-	      
-	      
-	      
-	      
+	      //쿠폰리턴
+	      getCoupon();
+	       
 	      
 	   });
 	   
@@ -220,7 +213,7 @@
 	          pay_method :'card',
 	          merchant_uid : 'merchant_' + new Date().getTime(),
 	          name : '<%= fullName %>',
-	          amount : 1000,
+	          amount : 100,
 	          buyer_email : '<%= loginUser.getEmail() %>',
 	          buyer_name : '<%= loginUser.getMemberName() %>',
 	          buyer_tel : '<%= loginUser.getPhone() %>',
@@ -239,6 +232,35 @@
 	          alert(msg);
 	      });   
 	      
+	   }
+	   
+	   function getCoupon(){
+		   $.ajax({
+		    	url:"<%=request.getContextPath()%>/getCouponList.me",
+		    	type:"get",
+		    	data:{mno:<%=loginUser.getMno() %>},
+		    	success:function(data){
+		    		console.log(data);
+		    		var $couponSelect = $(".couponSelect");
+		    		$couponSelect.empty();
+		    		for(var i=0; i<data.length; i++){
+		    			if(data[i].cDiscount == '퍼센트 할인'){
+		    				$couponSelect.append($("<option>").text('[' + data[i].cCategory + ']'+ 
+		    						data[i].cName+ ' (' + data[i].cRate+'% 할인' +') '  + 
+		    						data[i].cStart.split(" ")[0]+ " ~ " + data[i].cEnd.split(" ")[0] ));
+		    			}else{
+		    				$couponSelect.append($("<option>").text('[' + data[i].cCategory + ']'+ 
+		    						data[i].cName+ ' (' + data[i].cAmount+'원 할인' +') ' +
+		    						data[i].cStart.split(" ")[0] + " ~ " + data[i].cEnd.split(" ")[0] ));
+		    			}
+		    			
+		    		}
+		    		
+		    	},
+		    	error:function(data){
+		    		console.log(data);
+		    	}
+		     }); 
 	   }
  
 	</script>

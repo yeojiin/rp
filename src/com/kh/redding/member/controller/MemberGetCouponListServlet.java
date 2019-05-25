@@ -1,4 +1,4 @@
-package com.kh.redding.reservation.controller;
+package com.kh.redding.member.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,42 +11,41 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.kh.redding.reservation.model.service.ReservationService;
-import com.kh.redding.reservation.model.vo.Reservation;
+import com.kh.redding.member.model.service.MemberService;
 
 /**
- * Servlet implementation class CalendarSelectProduct
+ * Servlet implementation class MemberGetCouponListServlet
  */
-@WebServlet("/calendar.po")
-public class ReservationSelectServlet extends HttpServlet {
+@WebServlet("/getCouponList.me")
+public class MemberGetCouponListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReservationSelectServlet() {
+    public MemberGetCouponListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int cno = Integer.parseInt(request.getParameter("cno"));
+		int mno = Integer.parseInt(request.getParameter("mno"));
 		
-		System.out.println("cno : " + cno);
+		System.out.println("mno : " + mno);
 		
-		ArrayList<Reservation> list = new ArrayList<Reservation>();
-		
-		list = new ReservationService().selectReservation(cno);
+		ArrayList<HashMap<String, Object>> list = new MemberService().getCouponList(mno);
 		
 		response.setContentType("application/json");
-		
-		new Gson().toJson(list, response.getWriter());
-		
+		new Gson().toJson(list,response.getWriter());
 		
 	}
 
-
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

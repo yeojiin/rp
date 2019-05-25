@@ -361,4 +361,14 @@ public class MemberService {
 		return ComQnaDetail;
 	}
 
+	public ArrayList<HashMap<String, Object>> getCouponList(int mno) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new MemberDao().getCouponList(con, mno);
+		
+		close(con);
+		
+		return list;
+	}
+
 }
