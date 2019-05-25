@@ -123,13 +123,8 @@
 		<script>
 			$(function(){
 				$("#sendBtn").click(function(){
-					var answer = window.confirm('<%=company.getMemberName()%>에게 쪽지를 보내겠습니까?');
-					if(answer){
 						$("#sendMesForm").attr("action","<%=request.getContextPath()%>/toCompany.mes");
 						$("#sendMesForm").submit();
-					}else{
-						
-					}
 					
 				});
 				$("#cancelBtn").click(function(){
