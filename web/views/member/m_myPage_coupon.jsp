@@ -236,7 +236,7 @@
 
 			}); 
 			
-		});
+		}); 
 		
 		$(document).on("click","#couponDownloadBtn",function(){
 			
@@ -248,11 +248,27 @@
 				data:{couponCode:$(this).parent().children().eq(10).text(), mno:$("#mno").val()},
 				type:"get",
 				success:function(data) {
-					// console.log(data+"쿠폰발급됨");
-					btn.css('background', 'gray');
-					btn.text('발급완료');
-					btn.attr('id', 'couponDownloadEndBtn');
-					// noDownLoad();
+					
+					for(var i in data) {
+						console.log(data[i].result2);
+					}
+					
+					if(data[i].result2 == 0) {
+						
+						btn.css('background', 'gray');
+						btn.css('color', 'white');
+						btn.text('이미 발급된 쿠폰입니다.');
+						btn.attr('id', 'couponDownloadEndBtn');
+						
+					}else if(data[i].result2 == 1) {
+					
+						btn.css('background', 'white');
+						btn.css('color', 'salmon');
+						btn.text('발급이 완료되었습니다.');
+						btn.attr('id', 'couponDownloadEndBtn');
+						
+					}
+					
 				}
 				
 			});

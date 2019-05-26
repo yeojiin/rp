@@ -28,7 +28,6 @@ public class UseProductDetailServlet extends HttpServlet {
 		String page = "";
 		
 		if(upro != null) {
-			//System.out.println("성공");
 			page = "views/company/c_useProductDetail.jsp";
 			request.setAttribute("upro", upro);
 		}else {

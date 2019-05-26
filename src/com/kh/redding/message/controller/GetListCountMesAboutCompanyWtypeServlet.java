@@ -25,6 +25,7 @@ public class GetListCountMesAboutCompanyWtypeServlet extends HttpServlet {
 		
 		int wt = Integer.parseInt(request.getParameter("wt"));
 		
+		
 		HashMap<String, Object> hmap = new MessageService().getlistCountCompMesWtype(wt, cno);
 		
 		response.setContentType("application/json");

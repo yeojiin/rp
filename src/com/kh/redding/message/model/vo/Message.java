@@ -12,8 +12,8 @@ public class Message implements Serializable{
 	private int mesWType;	//수신,발신 구분	//20:발신, 10:수신	//not null
 	private int mesRefCode;		//참조쪽지번호
 	private int cno;			//업체 번호
-	private String mname;
-	private String mesStatus;
+	private String mname;		//업체명
+	private String mesStatus;	//메세지 삭제여부
 	
 	public Message() {}
 

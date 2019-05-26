@@ -455,6 +455,16 @@
 			var accountCode = <%= company.getAccountCode() %>;
 			
 			
+			//업체 정보
+			$("input[name=company_type]").each(function(){
+				var comtype = "<%=company.getComType()%>";
+				
+				console.log(comtype)
+				if ($(this).val() == comtype){
+					$(this).attr("checked", true);
+				}
+			});
+			
 					
 			//은행 select 선택 - 조회시 기본으로 보여주는
 			$("#accountcode option").each(function(){

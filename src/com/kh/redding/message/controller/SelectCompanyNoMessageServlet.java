@@ -31,8 +31,6 @@ public class SelectCompanyNoMessageServlet extends HttpServlet {
       
       int cno = Integer.parseInt(request.getParameter("cno"));
       
-      //System.out.println("cno : " +cno);
-      
       Member company = new MessageService().selectCompanyOne(cno);
       
       //System.out.println("company : " + company);

@@ -13,8 +13,6 @@ import com.kh.redding.product.model.vo.Product;
 import com.kh.redding.product.model.vo.UseProduct;
 
 public class ProductService {
-      
-      
    //전체 상품 갯수 확인용 메소드 - 수민
    public int getListCount(int cno) {
       Connection con = getConnection();

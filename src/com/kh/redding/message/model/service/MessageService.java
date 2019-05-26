@@ -34,7 +34,6 @@ public class MessageService {
       
       return result;
    }
-   
    //보낸 쪽지 전체 리스트 조회용 메소드 - 수민
    public ArrayList<Message> selectListMes(PageInfo pi, int wtype) {
       Connection con = getConnection();

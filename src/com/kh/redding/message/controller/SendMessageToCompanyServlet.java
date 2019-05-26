@@ -29,7 +29,6 @@ public class SendMessageToCompanyServlet extends HttpServlet {
 		//System.out.println("cno : " + cno);
 		
 		String mesContent = request.getParameter("smContent");
-		//System.out.println("mesContent : " + mesContent);
 		
 		Date disDate = new Date(new GregorianCalendar().getTimeInMillis());
 		

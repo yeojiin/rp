@@ -80,9 +80,9 @@ public class JoinCompanyServlet extends HttpServlet {
 		
 		String totalAddress = postcode + "|" + address1 + "|" + address2 + "|" + address3;
 		
-		int accountcode = Integer.parseInt(multi.getParameter("accountcode"));
-		String account_num = multi.getParameter("account_num");
-		String account_name = multi.getParameter("account_name");
+		int accountcode = Integer.parseInt(multi.getParameter("bankcode"));
+		String account_num = multi.getParameter("accnum");
+		String account_name = multi.getParameter("accpnm");
 		String email1 = multi.getParameter("email1");
 		String email2 = multi.getParameter("email2");
 		String email_check = multi.getParameter("email_check");

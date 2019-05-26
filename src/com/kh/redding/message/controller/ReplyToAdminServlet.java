@@ -21,23 +21,24 @@ public class ReplyToAdminServlet extends HttpServlet {
         super();
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("관리자한테 답장 보냄 서블릿");
+		//System.out.println("관리자한테 답장 보냄 서블릿");
 		
 		Member login = (Member) request.getSession().getAttribute("loginUser");
 		
 		int cno = login.getMno();
 		
 		int refcode = Integer.parseInt(request.getParameter("code"));
-		System.out.println("refcode : " + refcode);
+		//System.out.println("refcode : " + refcode);
 		
 		String content = request.getParameter("smContent");
-		System.out.println("content : " + content);
+		//System.out.println("content : " + content);
 		
 		Date disDate = new Date(new GregorianCalendar().getTimeInMillis());
 		
 		int wtype = 10;
 		
 		int level =2;
+		
 		
 		Message mes = new Message();
 		mes.setMesContent(content);

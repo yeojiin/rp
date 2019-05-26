@@ -30,7 +30,6 @@ public class ReplyToCompanyServlet extends HttpServlet {
 		String mesContent = request.getParameter("smContent");
 		//System.out.println("mesContent : " + mesContent);
 		
-		
 		Message originalMes = new MessageService().selectMesOne(code);
 		
 		int wtype = 20;

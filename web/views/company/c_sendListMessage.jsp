@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,8 +81,8 @@
                            <th width="30"></th>
                            <th width="50">No.</th>
                            <th>내용</th>
-                           <th width="120">보낸날짜</th>
-                           <th width="100">상태</th>                     
+                           <th width="140">보낸날짜</th>
+                           <th width="120">상태</th>                     
                         </tr>
                      </thead>
                      <tbody class="rmTbody" id="rmTbody">
@@ -142,9 +141,9 @@
          });
          
          function totalView(currentPage,value){
-            console.log('totalView까지 옴');
+            /* console.log('totalView까지 옴');
             console.log("currentPage : " + currentPage);
-            console.log('========');
+            console.log('========'); */
             $.ajax({
                url:"<%=request.getContextPath()%>/comReceiveList.mes",
                type:"post",
@@ -183,7 +182,7 @@
                $startRowTd.append($codeIn);
                
                //받은내용
-               var $contentTd = $("<td>").text(list.mesContent.substr(0,10)+"....");
+               var $contentTd = $("<td>").text(list.mesContent.substr(0,30)+"....");
                
                //관리자가 발신한 날짜 업체는 받은날짜
                var $disDateTd = $("<td>").text(list.mesDisDate);
@@ -236,7 +235,7 @@
 	                   //상세보기로 가기
 	                   
 	                   var wtp = $(this).parent().children().eq(3).children().eq(1);
-	                   console.log("wtp.val()  :" +wtp.text());
+	                   /* console.log("wtp.val()  :" +wtp.text()); */
 	                   
 	                   if(wtp.text()==20){
 	 	                  location.href="<%=request.getContextPath()%>/replyToAdmin.mes?code="+code;
@@ -257,7 +256,7 @@
         	 if ($(this).is(":checked") == true){
         		 /* console.log("length :" + length); */
         		 checked[length]=code2;
-        		 console.log("checked["+length+"] : " + checked[length]);
+        		 /* console.log("checked["+length+"] : " + checked[length]); */
         	 }else{
         		 for(var i=0 ; i<length; i++){
         			 if(code2==checked[i]){
@@ -265,7 +264,7 @@
         			 }
         		 }
         	 }
-        	 console.log("checked : " + checked);
+        	 /* console.log("checked : " + checked); */
         	 /* console.log("-----------------------------"); */
         	 
          });
@@ -281,7 +280,7 @@
        //페이징
          function page(data, value){
          	 /* console.log('value : ' + value); */
-         		console.log("Sdf : "+data.pi.currentPage);
+         		/* console.log("Sdf : "+data.pi.currentPage); */
  	           var $page = $(".pageBtnArea");
  	           
  	           var pi = data.pi;
@@ -290,7 +289,7 @@
  	           var maxPage = pi.maxPage;
  	           var startPage = pi.startPage;
  	           var endPage = pi.endPage;
- 	           console.log("currentPage : " + currentPage);
+ 	           /* console.log("currentPage : " + currentPage); */
  	           /* console.log("limit : " + limit);
  	           console.log("maxPage : " + maxPage);
  	           console.log("endPage : " + endPage);

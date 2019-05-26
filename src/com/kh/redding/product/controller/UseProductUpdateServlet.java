@@ -27,8 +27,6 @@ public class UseProductUpdateServlet extends HttpServlet {
 		int uNum = Integer.parseInt(request.getParameter("uproNum"));
 		//System.out.println("unum : " + unum);
 		String ustatus = request.getParameter("uproStatus");
-		//System.out.println("ustatus : " + ustatus);
-		//System.out.println(ustatus);
 		
 		UseProduct upro = new UseProduct();
 		upro.setUpNo(upNo);
