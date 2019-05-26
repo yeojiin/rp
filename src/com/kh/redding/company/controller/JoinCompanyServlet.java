@@ -80,9 +80,22 @@ public class JoinCompanyServlet extends HttpServlet {
 		
 		String totalAddress = postcode + "|" + address1 + "|" + address2 + "|" + address3;
 		
+		String bankcode = multi.getParameter("bankcode");
+		
+		//System.out.println("?"+bankcode);
+		
+		//int accunt = Integer.parseInt(bankcode);
+		
+		
+		
 		int accountcode = Integer.parseInt(multi.getParameter("bankcode"));
+		
 		String account_num = multi.getParameter("accnum");
+		
 		String account_name = multi.getParameter("accpnm");
+		
+		System.out.println("?: erer:"+account_name);
+		
 		String email1 = multi.getParameter("email1");
 		String email2 = multi.getParameter("email2");
 		String email_check = multi.getParameter("email_check");
@@ -131,7 +144,7 @@ public class JoinCompanyServlet extends HttpServlet {
 			emailstatus = "Y";
 		}
 		
-		ArrayList<String> saveFiles = new ArrayList<String>();
+	/*	ArrayList<String> saveFiles = new ArrayList<String>();
 
 		ArrayList<String> originFiles = new ArrayList<String>();
 		
@@ -202,7 +215,7 @@ public class JoinCompanyServlet extends HttpServlet {
 			
 			request.getRequestDispatcher(page).forward(request, response);
 			
-		}
+		}*/
 				
 		
 		
