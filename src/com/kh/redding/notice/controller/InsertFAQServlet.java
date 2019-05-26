@@ -30,7 +30,7 @@ public class InsertFAQServlet extends HttpServlet {
 		String page = "";
 		if (result > 0) {
 			//page =  request.getContextPath() +"/selectnotice.no";
-			page = request.getContextPath() +"/views/notice/FAQ_main.jsp";
+			page = request.getContextPath() +"/selectFAQ.no";
 			
 			response.sendRedirect(page);
 		}else {

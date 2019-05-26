@@ -49,6 +49,12 @@
 	height: 100%;
 }
 
+.atag{
+	text-decoration : none;
+	color : black;
+	
+}
+
 /* On small screens, set height to 'auto' for sidenav and grid */
 @media screen and (max-width: 767px) {
 	.sidenav {
@@ -106,16 +112,16 @@
 						</div>
 						</form>
 s						<table class="table table-striped"
-							style="width: 80%; margin-left: 10%;">
+							style="width: 100%;">
 							<thead>
 								<tr>
 									<th>글번호</th>
 									<th>카테고리</th>
 									<th>제목</th>
 									<th>작성자</th>
-									<th><a href = "<%=request.getContextPath()%>/selectBoardList.bo">작성일</a></th>
-									<th><a href = "<%=request.getContextPath()%>/ManyLookUp.bo">조회수</a></th>
-									<th><a href = "<%=request.getContextPath()%>/ManyLike.bo">좋아요</a></th>
+									<th><a class= "atag" href = "<%=request.getContextPath()%>/selectBoardList.bo">작성일</a></th>
+									<th><a class= "atag" href = "<%=request.getContextPath()%>/ManyLookUp.bo">조회수</a></th>
+									<th><a class= "atag" href = "<%=request.getContextPath()%>/ManyLike.bo">좋아요</a></th>
 								</tr>
 							</thead>
 							<tbody>
