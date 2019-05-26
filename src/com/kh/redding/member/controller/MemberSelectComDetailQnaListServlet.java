@@ -19,13 +19,13 @@ import com.kh.redding.member.model.vo.M_ComQnaListPageInfo;
  * Servlet implementation class MemberSelectDetailComQnaServlet
  */
 @WebServlet("/selectDetailComQna.cq")
-public class MemberSelectDetailComQnaServlet extends HttpServlet {
+public class MemberSelectComDetailQnaListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberSelectDetailComQnaServlet() {
+    public MemberSelectComDetailQnaListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

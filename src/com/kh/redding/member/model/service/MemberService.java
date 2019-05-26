@@ -371,7 +371,21 @@ public class MemberService {
 		return list;
 	}
 
-	public int memberInsertPay(int mno, String[] upnoArr, String[] moneyArr, String rspUid, String rspApply, int couponCode) {
+	//업체후기리스트조회(0526광섭)
+	public ArrayList<HashMap<String, Object>> selectComReviewList(M_ComQnaListPageInfo cqlpi, int cno) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> rlist = new MemberDao().selectComReviewList(con, cqlpi, cno);
+	
+		
+		close(con);
+		
+		System.out.println("rlistService : " + rlist);
+		return rlist;
+}
+
+  
+  public int memberInsertPay(int mno, String[] upnoArr, String[] moneyArr, String rspUid, String rspApply, int couponCode) {
 		Connection con = getConnection();
 		
 		int payResult = new MemberDao().memberInsertPay(con,mno, upnoArr, moneyArr, rspUid, rspApply);

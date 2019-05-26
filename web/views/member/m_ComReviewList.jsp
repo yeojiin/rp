@@ -5,6 +5,7 @@
 	HashMap<String, Object> list = blist.get(blist.size()-1);
 	ArrayList<Product> prolist = (ArrayList<Product>)list.get("Product");
 	ArrayList<Attachment> attachlist = (ArrayList<Attachment>)list.get("Attachment");
+	ArrayList<HashMap<String, Object>> rlist = (ArrayList<HashMap<String, Object>>) request.getAttribute("rlist");
 	Company com = (Company)list.get("Company");
 	Member mem = (Member)list.get("Member");
 	String companyAddress = "";
@@ -151,30 +152,74 @@ table {
 							<td align="center" style="width:25%; font-size:20px;" onclick="location.href='<%=request.getContextPath()%>/selectDetailComQna.cq?cno=<%=cno%>'">문의</td>				
 						</tr>
 					</table>
+					
+					<div style="width:100%; height:auto;">
+						<h1>후기</h1>
+						<table class="table table-striped" id = "comTable"  style="width: 100%;">
+							<thead style = "border : none;">
+								<tr>
+									<th>번호</th>
+									<th>제목</th>
+									<th>작성자</th>
+									<th>작성일</th>
+									<th>조회수</th>
+									<th>추천수</th>
+								</tr>
+							</thead>
+							<tbody>
+								
+							    <% 
+							    if (rlist != null && rlist.size() > 0){
+							    	HashMap<String, Object> shmap = null;
+							    	String name[] = null;
+							    	if(rlist != null){
+									for (int i = 0; i < rlist.size(); i++) {
+									System.out.println("dd:" + rlist);
+									
+									shmap = rlist.get(i);
+									if (shmap != null){
+								%>
+								<tr class="detail" onclick="location.href='<%=request.getContextPath()%>/selectComQnaDetail.qd?bid=<%=shmap.get("bid")%>'">
+									<td><%=shmap.get("rnum") %>
+									<%-- <input type="hidden" name="cno" value="<%=cno%>"> --%></td>
+									<td><%=shmap.get("btitle") %></td>
+									<td><%=shmap.get("nickname") %></td>
+									<td><%=shmap.get("bdate") %></td>
+									<td><%=shmap.get("bcount") %></td>
+									<td><%=shmap.get("blike") %></td>
+								</tr>
+								<% }
+										
+										}
+								}  }%>
+							</tbody>
+						</table>
+				<%-- 	<button onclick="location.href='<%=request.getContextPath() %>/views/member/m_ComQnaWrite.jsp?cno=<%=cno %>'">글쓰기</button> --%>
+					</div>
             
-					<%-- <div style="width:100%; height:auto; margin-top:50%;">
-						<button type="button" class="test" onclick="location.href='<%=request.getContextPath() %>/listcomtype.mb?currentPage=1&comType=<%= hmap.get("comType") %>'"><<</button>
+				<%-- 	<div style="width:100%; height:auto; margin-top:50%;">
+						<button type="button" class="test" onclick="location.href='<%=request.getContextPath() %>/listcomtype.mb?currentPage=1&comType=<%= shmap.get("comType") %>'"><<</button>
 						<% if(currentPage <= 1){ %>
 						<button disabled><</button>
 						<% }else{ %>
-						<button onclick="location.href='<%=request.getContextPath() %>/listcomtype.mb?currentPage=<%=currentPage - 1 %>&comType=<%= hmap.get("comType") %>'"><</button>
+						<button onclick="location.href='<%=request.getContextPath() %>/listcomtype.mb?currentPage=<%=currentPage - 1 %>&comType=<%= shmap.get("comType") %>'"><</button>
 						<% } %>
 									
 						<% for(int p = startPage; p <= endPage; p++){
 						if(p == currentPage){%>
 						<button disabled><%= p %></button>
 						<% }else{ %>
-						<button onclick="location.href='<%=request.getContextPath() %>/listcomtype.mb?currentPage=<%= p %>&comType=<%= hmap.get("comType") %>'"><%= p %></button>
+						<button onclick="location.href='<%=request.getContextPath() %>/listcomtype.mb?currentPage=<%= p %>&comType=<%= shmap.get("comType") %>'"><%= p %></button>
 						<% } %>
 						<% } %>
 									
 						<% if(currentPage >= maxPage){ %>
 						<button disabled>></button>
 						<% }else{ %>
-						<button onclick="location.href='<%=request.getContextPath() %>/listcomtype.mb?currentPage=<%=currentPage + 1 %>&comType=<%= hmap.get("comType") %>'">></button>
+						<button onclick="location.href='<%=request.getContextPath() %>/listcomtype.mb?currentPage=<%=currentPage + 1 %>&comType=<%= shmap.get("comType") %>'">></button>
 						<% } %>
-						<button onclick="location.href='<%=request.getContextPath() %>/listcomtype.mb?currentPage=<%=maxPage %>&comType=<%= hmap.get("comType") %> '">>></button>
-					</div> --%>            
+						<button onclick="location.href='<%=request.getContextPath() %>/listcomtype.mb?currentPage=<%=maxPage %>&comType=<%=shmap.get("comType") %> '">>></button>
+					</div> --%>          
             <%---------------------------------------------------------------------------------------------------------------%>
          </div>
 
