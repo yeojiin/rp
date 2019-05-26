@@ -58,6 +58,7 @@ public class BoardDao {
 			while(rset.next()) {
 				hmap = new HashMap<String, Object>();
 				
+				hmap.put("no", rset.getInt("ROWNUM"));
 				hmap.put("bid", rset.getInt("BID"));
 				hmap.put("btitle", rset.getString("BTITLE"));
 				hmap.put("bwriter", rset.getString("NICK_NAME"));
@@ -132,7 +133,6 @@ public class BoardDao {
 				board.setBlike(rset.getInt("BLIKE"));
 				board.setBcategory(rset.getString("BCATEGORY"));
 				board.setBcontent(rset.getString("BCONTENT"));
-				board.setBmodify_date(rset.getDate("BMODIFY_DETE"));
 				
 				boardDetail.put("board", board);
 				
@@ -1328,7 +1328,7 @@ public class BoardDao {
 		ResultSet rset = null;
 		ArrayList<Attachment> attachlist = null;
 		
-		String query  = prop.getProperty("insertBoardAttachment");
+		String query  = prop.getProperty("SelectCommuityAttach");
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -1337,7 +1337,7 @@ public class BoardDao {
 			
 			rset = pstmt.executeQuery();
 			
-			attachlist = new ArrayList<Attachment>();
+			attachlist = new ArrayList<>();
 			
 			while (rset.next()) {
 				Attachment attach = new Attachment();
@@ -1345,7 +1345,7 @@ public class BoardDao {
 				attach.setAid(rset.getInt("AID"));
 				attach.setBid(rset.getInt("BID"));
 				attach.setChangename(rset.getString("CHANGE_NAME"));
-				attach.setOriginname(rset.getString("ORGIN_NAME"));
+				attach.setOriginname(rset.getString("ORIGIN_NAME"));
 				attach.setFilepath(rset.getString("FILE_PATH"));
 				attach.setAdivision(rset.getInt("ADIVISION"));
 				
@@ -1366,23 +1366,31 @@ public class BoardDao {
 		return attachlist;
 	}
 
-	public ArrayList<Reply> selectReply(Connection con, int bid) {
+	public ArrayList<HashMap<String, Object>> selectReply(Connection con, int bid, BoardPageInfo pi) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<Reply> replylist = null;
+		ArrayList<HashMap<String, Object>> replylist = null;
 		
 		String query  = prop.getProperty("SelectCommuityReply");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
 		
 		try {
 			pstmt = con.prepareStatement(query);
 		
 			pstmt.setInt(1, bid);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			
-			replylist = new ArrayList<Reply>();
+			replylist = new ArrayList<HashMap<String, Object>>();
+			
 			
 			while(rset.next()) {
+				HashMap<String , Object> replyMap = new HashMap<String , Object>();
+				
 				Reply reply = new Reply();
 				
 				reply.setReply_code(rset.getInt("REPLY_CODE"));
@@ -1392,7 +1400,19 @@ public class BoardDao {
 				reply.setBid(rset.getInt("BID"));
 				reply.setReply_modify_date(rset.getDate("REPLY_MODIFY_DATE"));
 				
-				replylist.add(reply);
+				replyMap.put("reply", reply);
+				
+				int num = rset.getInt("ROWNUM");
+				
+				replyMap.put("no", num);
+				
+				String nickname = rset.getString("NICK_NAME");
+				String mid = rset.getString("MID");
+				
+				replyMap.put("nickname", nickname);
+				replyMap.put("mid", mid);
+				
+				replylist.add(replyMap);
 			}
 			
 		
@@ -1408,5 +1428,213 @@ public class BoardDao {
 		return replylist;
 	}
 
+	public int getReplyCount(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("REPLYCOUNT");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, num);
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return result;
+	}
+
+	public int updateBoardLike(Connection con, int bid, int blike) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		blike = blike + 1; 
+		
+		String query = prop.getProperty("UPDATEBOARDLIKE");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, blike);
+			pstmt.setInt(2, bid);
+			
+			result = pstmt.executeUpdate();
+			
+						
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int selectBoardLike(Connection con, int bid) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int blike = 0;
+		
+		String query = prop.getProperty("SELECTBOARDLIKE");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, bid);
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				blike = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return blike;
+	}
+
+	public int updateBoardReply(Connection con, int replycode, String replycontent) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateBoardReply");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, replycontent);
+			pstmt.setInt(2, replycode);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteBoardReply(Connection con,int replycode) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteBoardReply");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, replycode);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteBoardAttachment(Connection con, int aid) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+	
+		String query = prop.getProperty("deleteBoardAttach");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, aid);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		
+		
+		return result;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectBoardManyLookup(Connection con, BoardPageInfo pi) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectManyLookup");
+//		System.out.println(query);
+		
+		//조회 시작할 행 번호와 마지막 행 번호 계산
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, "커뮤니티");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				
+				hmap.put("no", rset.getInt("ROWNUM"));
+				hmap.put("bid", rset.getInt("BID"));
+				hmap.put("btitle", rset.getString("BTITLE"));
+				hmap.put("bwriter", rset.getString("NICK_NAME"));
+				hmap.put("bdate", rset.getDate("BDATE"));
+				hmap.put("bcount", rset.getInt("BCOUNT"));
+				hmap.put("blike", rset.getInt("BLIKE"));
+				
+				list.add(hmap);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
+	}
+
+	
 	
 }

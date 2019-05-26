@@ -103,7 +103,7 @@
 									<th>제목</th>
 									<th>작성자</th>
 									<th>작성일</th>
-									<th>조회수</th>
+									<th><a href = "<%=request.getContextPath()%>/ManyLookUp.bo">조회수</a></th>
 									<th>좋아요</th>
 								</tr>
 							</thead>
@@ -114,8 +114,7 @@
 									for (int i = 0; i < list.size(); i++) {
 										hmap = list.get(i);
 								%>
-								<tr
-									>
+								<tr>
 									<td><%=hmap.get("bid")%></td>
 									<td><%=hmap.get("btitle")%></td>
 									<td><%=hmap.get("bwriter")%></td>
