@@ -35,9 +35,10 @@
 </head>
 <body>
 
-	<div>
+	<%-- <div>
 		<jsp:include page="/views/admin/a_nav.jsp"></jsp:include>
-	</div>
+	</div> --%>
+	<%@ include file="/views/admin/a_sideNav.jsp" %>
 	
 	<div class="container-fluid text-center">
 		<div class="row content">
@@ -47,13 +48,13 @@
 				<!-- 여기는 큰화면 -->
 				<div class="visible-md visible-lg visible-sm">
 				<div class="col-sm-2 sidenav1">
-					<div class="sidenavArea">
+					<!-- <div class="sidenavArea">
 						<ul class="navList">
 							<li id="memCalc">회원 정산</li>	
 							<li id="memRefund">회원 환불 정산</li>	
 							<li id="comCalc">업체 정산</li>
 						</ul>
-					</div>
+					</div> -->
 				</div>
 			</div>
 				
@@ -68,7 +69,7 @@
 				
 			
 			
-			<div class="col-sm-8 text-left">
+			<div class="col-sm-10 text-left">
 			<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 		<br>
 				<div class="pselectArea">

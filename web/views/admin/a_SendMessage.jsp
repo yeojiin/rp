@@ -38,38 +38,41 @@
 <title>Insert title here</title>
 </head>
 <body>
-   <div>
+   <%-- <div>
       <%@include file="/views/admin/a_nav.jsp"%>
-   </div>
+   </div> --%>
+   
+   <%@ include file="/views/admin/a_sideNav.jsp" %>
+   
    <div class="container-fluid text-center">
       <div class="row content">
 
       <div class="visible-md visible-lg visible-sm">
          <div class="col-sm-2 sidenav1">
-            <div class="sidenavArea">
+            <%-- <div class="sidenavArea">
                <ul class="navList">
                      <li onclick="location.href='<%=request.getContextPath()%>/selectList.co'">업체 목록</li>
                      <li onclick="location.href='<%=request.getContextPath()%>/views/admin/a_Message.jsp'">받은 쪽지 관리</li>
                      <li onclick="location.href='<%=request.getContextPath()%>/views/admin/a_SendMessage.jsp'">보낸 쪽지 관리</li>
                </ul>
-            </div>
+            </div> --%>
          </div>
       </div>
       
       <div class="visible-xs sideListnav2">
                <div class="col-sm-2 sidenav1">
-                  <div class="sidenavArea2">
+                  <%-- <div class="sidenavArea2">
                   <ul class="navList2">
                      <li onclick="location.href='<%=request.getContextPath()%>/selectList.co'">업체 목록</li>
                      <li onclick="location.href='<%=request.getContextPath()%>/views/admin/a_Message.jsp'">받은 쪽지 관리</li>
                      <li onclick="location.href='<%=request.getContextPath()%>/views/admin/a_SendMessage.jsp'">보낸 쪽지 관리</li>
                   </ul>
-               </div>
+               </div> --%>
                </div>
                
                <br><br>
             </div>
-         <div class="col-sm-8 text-left">
+         <div class="col-sm-10 text-left">
             <%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
             <div class="messageArea">
             

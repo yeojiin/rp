@@ -73,9 +73,10 @@ var sca = '01';
 </head>
 <body>
 
-	<div>
+	<%-- <div>
 		<jsp:include page="/views/admin/a_nav.jsp"></jsp:include>
-	</div>
+	</div> --%>
+	<%@ include file="/views/admin/a_sideNav.jsp" %>
 	
 	<div class="container-fluid text-center">
 		<div class="row content">
@@ -85,13 +86,13 @@ var sca = '01';
 				<!-- 여기는 큰화면 -->
 				<div class="visible-md visible-lg visible-sm">
 					<div class="col-sm-2 sidenav1">
-						<div class="sidenavArea">
+						<!-- <div class="sidenavArea">
 							<ul class="navList">
 								<li onclick="location.href='a_Sstats.jsp'">회원 통계</li>
 								<li onclick="location.href='a_Mstats.jsp'" style="color:lightgray;">업체 통계</li>
 								<li onclick="location.href='a_Pstats.jsp'">매출 통계</li>
 							</ul>
-						</div>
+						</div> -->
 					</div>
 				</div>
 				
@@ -99,16 +100,16 @@ var sca = '01';
 				<!-- 여기는 스마트폰 -->
 				<div class="visible-xs sideListnav2">
 					<div class="col-sm-2 sidenav1">
-						<div class="sidenavArea2">
+						<!-- <div class="sidenavArea2">
 						<ul class="navList2">
 							<li onclick="location.href='a_Sstats.jsp'">회원 통계</li>
 							<li onclick="location.href='a_Mstats.jsp'" style="color:white">업체 통계</li>
 							<li onclick="location.href='a_Pstats.jsp'">매출 통계</li>
 						</ul>
-					</div>
+					</div> -->
 					</div>
 					
-					<br><br>
+				
 				</div>
 				
 			
