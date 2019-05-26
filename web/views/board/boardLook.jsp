@@ -94,7 +94,7 @@ int endPage = pi.getEndPage();
 					</div>
 					<div style="width:50%; height:auto; float:right;">
 						<ul class="pager" style="float:right;">
-						<button type="button" class="btn" onclick="location.href='<%=request.getContextPath() %>/selectBoardList.bo'" style="background:salmon; color:white;">목록</button>
+						<li><button type="button" class="btn" onclick="location.href='<%=request.getContextPath() %>/selectBoardList.bo'" style="background:salmon; color:white;">목록</button></li>
   							<!-- <li><a href="#"><</a></li>
   							<li><a href="#">></a></li> -->
 						</ul>
@@ -104,10 +104,10 @@ int endPage = pi.getEndPage();
 						<h3 style="color:salmon"><%=board.getBcategory() %></h3>
 						<h3><%=board.getBtitle() %></h3>
 						<% if (loginUser.getMno() == board.getBwriter()){ %>
-							<button type= "button" id = "boardUpdate" style = "margin-left : 80%">수정</button>
+						<!-- 	<button type= "button" id = "boardUpdate" style = "margin-left : 80%">수정</button> -->
 						<% }%>
 						<% if (loginUser.getMno() == board.getBwriter() || loginUser.getMemberId() == "admin"){ %>
-							<button type= "button" id = "boardDel" >삭제</button>
+							<button type= "button" id = "boardDel" style = "margin-left : 90%">삭제</button>
 						<%} %>
 					</div>
 					<hr style="width:100%; border: solid 1px lightgray;">
@@ -138,7 +138,6 @@ int endPage = pi.getEndPage();
 								  
 								  String filePath = attach.getFilepath();
 								  String changename = attach.getChangename();
-								//  System.out.println("filePAth" + attach.getFilepath() + attach.getChangename());
 							  %>
 							 <div class="col-md-4">
 							    <div class="thumbnail">
@@ -343,6 +342,10 @@ int endPage = pi.getEndPage();
 			$("#boardDel").click(function(){
 				location.href = "<%=request.getContextPath()%>/boardDel.bo?num=<%=board.getBid()%>";
 			});
+			
+			$("#boardUpdate").click(function(){
+				location.href = "<%=request.getContextPath()%>/detail.bo?num=<%=board.getBid()%>";
+			})
 			
 		});
 		
