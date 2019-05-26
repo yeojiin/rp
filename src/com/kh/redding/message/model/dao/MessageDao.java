@@ -29,7 +29,6 @@ public class MessageDao {
          e.printStackTrace();
       }
    }
-   
    //쪽지 보내기를 위한 업체 번호 받아오기
    public Member selectCompanyOne(Connection con, int cno) {
       PreparedStatement pstmt = null;
@@ -261,7 +260,7 @@ public class MessageDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("mesdao :" +mes);
+		//System.out.println("mesdao :" +mes);
 		return mes;
 	}
 	//확인날짜 업데이트용 메소드

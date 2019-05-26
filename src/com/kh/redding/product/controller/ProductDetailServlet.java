@@ -32,8 +32,6 @@ public class ProductDetailServlet extends HttpServlet {
       //상품 1개의 대한 정보 들고 오기
       Product product = new ProductService().selectProductOne(pno);
       
-      //System.out.println(product.getcNo());
-      
       //해당 상품의 제품 전체 list 들고오기(페이징)
       //int cno = (((Member)request.getSession().getAttribute("loginUser")).getMno());
       int cno = product.getcNo();

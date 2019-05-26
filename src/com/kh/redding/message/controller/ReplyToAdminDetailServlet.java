@@ -33,6 +33,7 @@ public class ReplyToAdminDetailServlet extends HttpServlet {
 			mes = new MessageService().selectMesOne(code);
 		}
 		
+		
 		String page = "";
 		
 		if(mes != null) {

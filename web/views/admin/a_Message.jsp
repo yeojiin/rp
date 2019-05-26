@@ -33,9 +33,7 @@
    href="${pageContext.request.contextPath}/css/admin/a_message.css">
 <link rel="stylesheet"
    href="<%=request.getContextPath()%>/css/semantic/semantic.min.css">
-
 <style>
-
 </style>
 <title>Insert title here</title>
 </head>
@@ -242,7 +240,7 @@
                   var $nameTd = $("<td>").text(list.mname);
                   
                   
-                  var $contentTd = $("<td>").text(list.mesContent.substr(0,10)+"...");
+                  var $contentTd = $("<td>").text(list.mesContent.substr(0,30)+"...");
                   var $disDateTd = $("<td>").text(list.mesDisDate);
                   var $levelIn = $("<input type='hidden'>");
                   $levelIn.val(list.mesLevel);
@@ -290,7 +288,7 @@
                 	  
                 	  code1 = $(this).parent().children().eq(1).children().eq(0);
                 	  code2 = code1.val();
-                	  console.log(code2);
+                	  /* console.log(code2); */
                       location.href="<%=request.getContextPath()%>/replyToCno.mes?code="+code2;
                   });
                }

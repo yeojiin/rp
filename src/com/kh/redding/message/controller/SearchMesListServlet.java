@@ -25,7 +25,6 @@ public class SearchMesListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String cname = request.getParameter("cname");
 		
-		System.out.println("cname : " + cname);
 		int wtype = 10;//수신
 
 		int listCount;
@@ -63,7 +62,7 @@ public class SearchMesListServlet extends HttpServlet {
 		pi.setStartRow(startRow);
 		pi.setEndRow(endRow);
 		  
-		System.out.println("listCount : " + listCount);
+		//System.out.println("listCount : " + listCount);
 		  
 		ArrayList<Message> searchList = new MessageService().searchMesList(cname, wtype, pi);
 		  
@@ -72,7 +71,7 @@ public class SearchMesListServlet extends HttpServlet {
 		hmap.put("receiveList",searchList);
 		hmap.put("pi",pi);
 		  
-		System.out.println("hmap : " + hmap);
+		//System.out.println("hmap : " + hmap);
 		
 		response.setContentType("application/json");
 		new Gson().toJson(hmap, response.getWriter());

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -157,7 +156,7 @@
                   makeRmTable(data, value);
                },
                error:function(data){
-                  console.log('리스트 서블릿과 통신 실패');
+                  /* console.log('리스트 서블릿과 통신 실패'); */
                }
             });
          }
@@ -186,7 +185,7 @@
                $startRowTd.append($codeIn);
                
                //받은내용
-               var $contentTd = $("<td>").text(list.mesContent.substr(0,10)+"....");
+               var $contentTd = $("<td>").text(list.mesContent.substr(0,30)+"....");
                
                //관리자가 발신한 날짜 업체는 받은날짜
                var $disDateTd = $("<td>").text(list.mesDisDate);
@@ -307,7 +306,7 @@
         	 if ($(this).is(":checked") == true){
         		 /* console.log("length :" + length); */
         		 checked[length]=code2;
-        		 console.log("checked["+length+"] : " + checked[length]);
+        		 /* console.log("checked["+length+"] : " + checked[length]); */
         	 }else{
         		 for(var i=0 ; i<length; i++){
         			 if(code2==checked[i]){
@@ -315,7 +314,7 @@
         			 }
         		 }
         	 }
-        	 console.log("checked : " + checked);
+        	 /* console.log("checked : " + checked); */
         	 /* console.log("-----------------------------"); */
         	 
          });

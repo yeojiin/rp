@@ -36,9 +36,10 @@ public class ProductSearchServlet extends HttpServlet {
 		int startRow;
 		int endRow;
 		
-		currentPage = 1;
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}else {
+			currentPage = 1;
 		}
 		
 		limit = 10;
@@ -46,10 +47,10 @@ public class ProductSearchServlet extends HttpServlet {
 		int listCount = 0;
 		
 		String searchProName = request.getParameter("proName");
-		System.out.println("searchProName : " + searchProName);
+		//System.out.println("searchProName : " + searchProName);
 		
 		String searchStatus = request.getParameter("prostatus");
-		System.out.println("searchStatus : " + searchStatus);
+		//System.out.println("searchStatus : " + searchStatus);
 		
 		
 		int value = 0;
@@ -130,13 +131,6 @@ public class ProductSearchServlet extends HttpServlet {
 		request.setAttribute("msg", "상품목록 조회에 실패하셨습니다.");
 		}
 		request.getRequestDispatcher(page).forward(request, response);
-		
-		
-		
-		
-		
-		
-		
 		
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

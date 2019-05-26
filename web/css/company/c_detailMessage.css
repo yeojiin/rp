@@ -18,6 +18,7 @@
 #messageTitleInputArea, #messageContent{
    border: 1px solid lightgray;
    width: 100%;
+   
 }
 #messageContent{
    height: 400px;   

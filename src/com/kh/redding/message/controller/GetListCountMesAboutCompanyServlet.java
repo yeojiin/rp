@@ -25,6 +25,7 @@ public class GetListCountMesAboutCompanyServlet extends HttpServlet {
 		int cno = login.getMno();
 		//System.out.println("cno : " + cno);
 		
+		
 		HashMap<String, Object> hmap = new MessageService().getListCountCompMes(cno);
 		
 		response.setContentType("application/json");
