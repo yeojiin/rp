@@ -1687,7 +1687,7 @@ public class AdminDao {
 	public int memberRefuse(int payno, Connection con) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-
+    
 		String query = prop.getProperty("memberRefuse");
 		
 		try {
@@ -1766,8 +1766,5 @@ public class AdminDao {
 		
 	}
 	
-
-	
-
 }
 

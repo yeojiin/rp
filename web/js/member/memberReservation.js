@@ -402,7 +402,10 @@ $(function(){
 				
 				for(var i=0; i<$checkBtn.length; i++){
 					if($checkBtn[i].checked == true){
-						upnoArr[i] = $checkBtn[i].value;
+						if($checkBtn[i].value != null){
+							upnoArr.push($checkBtn[i].value);
+						}
+						
 					}
 				}
 				
