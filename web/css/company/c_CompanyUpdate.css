@@ -91,9 +91,9 @@
     font-family: 'Sunflower', sans-serif;
 }
 
-.sidenav1 li:hover{
+/* .sidenav1 li:hover{
 	background : mistyrose;
-}
+} */
 
 .con1{
 	font-family: 'Sunflower', sans-serif;
@@ -153,7 +153,7 @@
 	background: white;
 	color : #FB6E5F;
 	border : 1px solid #FB6E5F;
-}
+} 
 
 #delete {
     margin-left: 25%;

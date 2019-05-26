@@ -923,10 +923,9 @@ Redding
 			    var winHeight = 200;
 			    var popupOption= "width="+winWidth+", height="+winHeight;    //팝업창 옵션(optoin)
 			    var myWindow = window.open(url,"TestName",popupOption);
-			  //  myWindow.document.write("<h1>"+myWindow.name+"</h1>");
 			}
 			
-			//은행계좌
+				//은행계좌
 				$.support.cors = true;
 				var reqDate = new Date();
 				var year = reqDate.getFullYear() +"";

@@ -51,6 +51,23 @@
 	color: black;
 }
 
+.btnclass {
+ 	background-color: salmon;
+   color: white;
+   border: 1px solid salmon;
+   width : 150px;
+     border-radius: 5px;
+}
+
+.btnclass:hover{
+   background-color: white;
+   color: salmon;
+   border: 1px solid salmon;
+   cursor: pointer;
+   border-radius: 5px;
+}
+
+
 /* On small screens, set height to 'auto' for sidenav and grid */
 @media screen and (max-width: 767px) {
 	.sidenav {
@@ -76,12 +93,10 @@
 
 			<div class="col-sm-2 sidenav1">
 				<ul>
-					<li><a
-						href="<%=request.getContextPath()%>/photo.co">업체
-							사진 올리기</a></li>
-					<li><a
-						href="<%=request.getContextPath()%>/selectcom.me">업체
-							정보 수정 </a></li>
+					<li><button class = "btnclass"
+						onclick="location.href = '<%=request.getContextPath()%>/photo.co'">업체사진 </button></li>
+					<li><button class = "btnclass"
+					 onclick= "location.href= '<%=request.getContextPath()%>/selectcom.me'">업체 정보 수정 </button></li>
 				</ul>
 			</div>
 			<div class="col-sm-8 text-left">
