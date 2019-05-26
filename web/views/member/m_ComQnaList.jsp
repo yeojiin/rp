@@ -116,22 +116,33 @@ table {
          <div class="col-sm-8 text-left">
             <%---------------------------------------------------------------------------------------------------------------%>
             
-            <p style="font-size:40px; text-align:center"><%=mem.getMemberName() %></p>
-				<div id="titleimg" style="width:100%; height:auto;">
-					<div style="width:50%; height:auto; float:left;">
+            <br><br>
+            <div id="titleimg" style="width:100%; height:340px; border-bottom:2px solid lightgray;">
+					<div style="width:50%; height:100%; float:left;">
 						<% for (int i = 0; i < attachlist.size(); i++) {
 	            			Attachment att = attachlist.get(i); 
-	            			System.out.println("타입 :" + att.getCno_div());
 	            			String cnodiv = (String)att.getCno_div();
 	            			if(cnodiv != null && cnodiv.equals("대표")){%>
-								<img src="/redding/company_upload/<%=att.getChangename() %>" id="timg" style="max-width:100%;">
+								<img src="/redding/company_upload/<%=att.getChangename() %>" id="timg" style="width:100%; height:300px">
 							<%} %>
 						<%} %>
 					</div>
 					<div style="width:50%; height:auto; float:right;">
-					<br><br><br>
-						
-						<p style="font-size:20px; margin-left:25%;">상품이름 : <select>
+						<p style="font-size:39px; margin-left:20px; color:salmon; font-family: 'Noto Sans KR', sans-serif;"><%=mem.getMemberName() %></p>
+						<%
+						String address = com.getComAddress();
+						String[] addressArr = address.split("\\|");
+						if (addressArr.length > 2){
+							companyAddress = addressArr[1] + addressArr[2];
+						}else {
+							companyAddress = addressArr[1];
+						}
+						%>
+						<p style="font-size:17px; margin-left:20px; font-family: 'Noto Sans KR', sans-serif;">주소&nbsp;&nbsp;:&nbsp;&nbsp;<%=companyAddress %></p>
+						<p style="font-size:17px; margin-left:20px; font-family: 'Noto Sans KR', sans-serif;">영업시간&nbsp;&nbsp;:&nbsp;&nbsp;AM <%=com.getOpenTime() %> ~ PM <%=com.getEndTime() %></p>
+						<p style="font-size:17px; margin-left:20px; font-family: 'Noto Sans KR', sans-serif;">홈페이지 <a href="<%=com.getComUrl() %>">바로가기</a></p><br><br><br>
+						<p style="font-size:17px; margin-left:20px; font-family: 'Noto Sans KR', sans-serif;">상품 이름&nbsp;&nbsp;:&nbsp;&nbsp;
+						<select style="width:80%">
 						<%
 						if (prolist != null && prolist.size() > 0){
 						for (int i = 0; i < prolist.size(); i++) {
@@ -139,22 +150,24 @@ table {
 							<option><%=pro.getpName() %></option>
 						<%} } %>
 						</select></p>
-						<a class="btn btn-default" style="border-color:salmon; background:salmon; color:white; width:50%; height:auto; font-size:20px; margin-left:25%; margin-top:10%;">예약하기</a><br><br>
-						<a class="btn btn-default" style="border-color:salmon; background:salmon; color:white; width:50%; height:auto; font-size:20px; margin-left:25%">위시리스트에 담기</a>
+						<button style="border:2px solid salmon; border-radius:none; background:salmon; color:white; width:96%; height:auto; font-size:20px; margin-left:20px; font-family: 'Noto Sans KR', sans-serif;" id="wishList">위시리스트에 담기</button>
+							<h2 id="pnoRe" hidden><%=pro.getpNo() %></h2>
+							<h2 id="mnoRe" hidden><%=loginUser.getMno() %></h2>
 					</div>
 					<br><br><br><br><br><br><br><br><br><br>
-					<hr style="border-color: black; width:100%;">
-					<table border="1"; align="center"; style="width:100%; height:auto; background:salmon; color:white; border-color:white;">
+				</div>
+				<br><br>
+					<table border="1"; align="center"; style="width:100%; height:50px; background:mistyrose; border:1px solid white;">
 						<tr>
-							<td align="center" style="width:25%; font-size:20px;" onclick="location.href='<%=request.getContextPath()%>/selectDetailCom.dc?cno=<%= cno%>'">업체정보</td>
-							<td align="center" style="width:25%; font-size:20px;" onclick="location.href='<%=request.getContextPath()%>/selectDetailCom.dc?cno=<%= cno%>'">상품정보</td>						
-							<td align="center" style="width:25%; font-size:20px;" onclick="location.href='<%=request.getContextPath()%>/selectComReviewList.rl?cno=<%= cno %>'">후기</td>
-							<td align="center" style="width:25%; font-size:20px;" onclick="location.href='<%=request.getContextPath()%>/selectDetailComQna.cq?cno=<%=cno%>'">문의</td>				
+							<td align="center" style="width:25%; font-size:20px; font-family: 'Noto Sans KR', sans-serif;" onclick="location.href='<%=request.getContextPath()%>/selectDetailCom.dc?cno=<%= cno%>'">업체정보</td>
+							<td align="center" style="width:25%; font-size:20px; font-family: 'Noto Sans KR', sans-serif;" onclick="location.href='<%=request.getContextPath()%>/selectDetailCom.dc?cno=<%= cno%>'">상품정보</td>						
+							<td align="center" style="width:25%; font-size:20px; font-family: 'Noto Sans KR', sans-serif;" onclick="location.href='<%=request.getContextPath()%>/selectComReviewList.rl?cno=<%= cno %>'">후기</td>
+							<td align="center" style="width:25%; font-size:20px; font-family: 'Noto Sans KR', sans-serif;" onclick="location.href='<%=request.getContextPath()%>/selectDetailComQna.cq?cno=<%= cno %>'">문의</td>				
 						</tr>
 					</table>
+					<br>
             			<div style="width:100%; height:auto;">
-						<h1>문의</h1>
-						<table class="table table-striped" id = "comTable"  style="width: 100%;">
+						<table class="table table-striped" id = "comTable"  style="width: 100%; font-family: 'Noto Sans KR', sans-serif;">
 							<thead style = "border : none;">
 								<tr>
 									<th>번호</th>
@@ -179,7 +192,6 @@ table {
 								%>
 								<tr class="detail" onclick="location.href='<%=request.getContextPath()%>/selectComQnaDetail.qd?bid=<%=Qmap.get("bid")%>'">
 									<td><%=Qmap.get("rownum") %>
-									<%-- <input type="hidden" name="cno" value="<%=cno%>"> --%></td>
 									<td><%=Qmap.get("btitle") %></td>
 									<td><%=Qmap.get("mname") %></td>
 									<td><%=Qmap.get("bdate") %></td>
