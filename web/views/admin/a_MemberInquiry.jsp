@@ -51,38 +51,39 @@ int endPage = pi.getEndPage();
 <title>Insert title here</title>
 </head>
 <body>
-	<div>
+	<%-- <div>
 		<jsp:include page="/views/admin/a_nav.jsp"></jsp:include>
-	</div>
+	</div> --%>
+	<%@ include file="/views/admin/a_sideNav.jsp" %>
 	<div class="container-fluid text-center">
 		<div class="row content">
 
 		<div class="visible-md visible-lg visible-sm">
 			<div class="col-sm-2 sidenav1">
-				<div class="sidenavArea">
+				<%-- <div class="sidenavArea">
 					<ul class="navList">
 						<li onclick="location.href='<%=request.getContextPath() %>/selectList.me'">전체 회원</li>
 						<li onclick="location.href='<%=request.getContextPath()%>/AllQnA.no'" style="color:lightgray; padding-left:25px">문의</li>
 					</ul>
-				</div>
+				</div> --%>
 			</div>
 		</div>
 		
 		<div class="visible-xs sideListnav2">
 					<div class="col-sm-2 sidenav1">
-						<div class="sidenavArea2">
+						<%-- <div class="sidenavArea2">
 						<ul class="navList2">
 						<li onclick="location.href='a_TotalMember.jsp'" style="color:lightgray; padding-left:25px">전체 회원</li>
 						<li onclick="location.href='<%=request.getContextPath()%>/AllQnA.no'" style="color:lightgray; padding-left:25px">문의</li>
 						</ul>
-					</div>
+					</div> --%>
 					</div>
 					
 					<br><br>
 				</div>
 			
 
-			<div class="col-sm-8 text-left">
+			<div class="col-sm-10 text-left">
 				<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 				<div class="inquiryArea">
 					<div class="inquiryNum">

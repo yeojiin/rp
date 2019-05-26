@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import = "com.kh.redding.member.model.vo.*"%>
-<%
+<%-- <%
 	Member loginUser = (Member) session.getAttribute("loginUser");
-%>
+%> --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,9 +53,11 @@
 </head>
 <body>
 
-	<div>
+	<%-- <div>
 		<jsp:include page="/views/admin/a_nav.jsp"></jsp:include>
-	</div>
+	</div> --%>
+	<%@ include file="/views/admin/a_sideNav.jsp" %>
+	
 	<% if( loginUser == null || loginUser.getMemberType() != 90) {
 		request.setAttribute("msg","잘못된 경로 접근하셨습니다");
 		request.getRequestDispatcher("/views/common/errorPage.jsp").forward(request, response);
@@ -63,11 +65,11 @@
 	<div class="container-fluid text-center">
 		<div class="row content">
 		
-			<div class="col-sm-2 sidenav1">
-			</div>
+			<!-- <div class="col-sm-2 sidenav1">
+			</div> -->
 			
 			
-			<div class="col-sm-8 text-left">
+			<div class="col-sm-10 text-left">
 			<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 				<div class="contentsArea">
 												
