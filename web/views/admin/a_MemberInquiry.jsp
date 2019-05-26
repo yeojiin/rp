@@ -61,8 +61,7 @@ int endPage = pi.getEndPage();
 			<div class="col-sm-2 sidenav1">
 				<div class="sidenavArea">
 					<ul class="navList">
-						<li onclick="location.href='a_TotalMember.jsp'">전체 회원</li>
-						<li onclick="location.href='a_MemberOrder.jsp'">주문내역</li>
+						<li onclick="location.href='<%=request.getContextPath() %>/selectList.me'">전체 회원</li>
 						<li onclick="location.href='<%=request.getContextPath()%>/AllQnA.no'" style="color:lightgray; padding-left:25px">문의</li>
 					</ul>
 				</div>
@@ -74,7 +73,6 @@ int endPage = pi.getEndPage();
 						<div class="sidenavArea2">
 						<ul class="navList2">
 						<li onclick="location.href='a_TotalMember.jsp'" style="color:lightgray; padding-left:25px">전체 회원</li>
-						<li onclick="location.href='a_MemberOrder.jsp'">주문내역</li>
 						<li onclick="location.href='<%=request.getContextPath()%>/AllQnA.no'" style="color:lightgray; padding-left:25px">문의</li>
 						</ul>
 					</div>
@@ -205,7 +203,6 @@ int endPage = pi.getEndPage();
 		</div>
 				<div class="col-sm-2 sidenav2"></div>
 		</div>
-	
 
 		<!-- 커먼 풋터 -->
 		<div class="footerArea">

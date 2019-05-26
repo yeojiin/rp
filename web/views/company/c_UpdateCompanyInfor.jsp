@@ -210,10 +210,11 @@
 							</tr>
 							<tr>
 								<td></td>
+								<%  if (addresses.length >2 ){ %>
 								<td><input type="text" id="detailAddress"
 									placeholder="상세주소" name="detailAddress" value = "<%= addresses[2]%>"> 	
 									<input type="text" id="extraAddress" placeholder="참고항목" name="extraAddress">
-							
+								<%} %>
 							</tr>
 							<tr>
 								<th>입금계좌</th>

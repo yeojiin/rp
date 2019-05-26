@@ -143,9 +143,11 @@ s						<table class="table table-striped"
 						</table>
 						<!-- <hr style="align:center; border-color:black; width:100%;" > -->
 						<% if (loginUser != null){ %>
+						<% if (loginUser.getMemberType() == 10){ %>
 						<a class="btn btn-default" style="margin-left: 10%"
 							onclick="location.href='<%=request.getContextPath()%>/views/board/boardWrite.jsp'">글쓰기</a>
-						<% }%>
+						<%} 
+						}%>
 						<div class="text-center">
 							<ul class="pagination">
 								<button onclick="location.href='<%=request.getContextPath() %>/selectBoardList.bo?currentPage=1'"><<</button>

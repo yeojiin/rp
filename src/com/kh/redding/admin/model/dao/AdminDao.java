@@ -1705,7 +1705,6 @@ public class AdminDao {
 		
 		return result;
 	}
-
 	
 
 	//관리자 환불 요청 상태 변한 update(정연)
