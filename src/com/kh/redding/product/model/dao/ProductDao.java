@@ -754,7 +754,8 @@ public class ProductDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(con);
+			close(pstmt);
+			close(rset);
 		}
 		return listCount;
 	}
@@ -781,8 +782,9 @@ public class ProductDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(con);
-		}
+            close(rset);
+            close(pstmt);
+         }
 		return listCount;
 	}
 
@@ -807,8 +809,9 @@ public class ProductDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(con);
-		}
+            close(rset);
+            close(pstmt);
+         }
 		return listCount;
 	}
 
@@ -836,7 +839,10 @@ public class ProductDao {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		} finally {
+            close(rset);
+            close(pstmt);
+         }
 		return listCount;
 	}
 
@@ -878,7 +884,10 @@ public class ProductDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		} finally {
+            close(rset);
+            close(pstmt);
+         }
 		
 		return useProList;
 	}
@@ -905,7 +914,10 @@ public class ProductDao {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		} finally {
+            close(rset);
+            close(pstmt);
+         }
 		return listCount;
 	}
 
@@ -946,7 +958,10 @@ public class ProductDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		} finally {
+            close(rset);
+            close(pstmt);
+         }
 		
 		return useProList;
 	}

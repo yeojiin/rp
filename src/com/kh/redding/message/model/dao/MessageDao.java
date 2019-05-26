@@ -17,6 +17,8 @@ import com.kh.redding.message.model.vo.Message;
 import com.kh.redding.product.model.vo.PageInfo;
 import com.sun.corba.se.spi.orbutil.fsm.State;
 
+import static com.kh.redding.common.JDBCTemplate.*;
+
 public class MessageDao {
    private Properties prop = new Properties();
    
@@ -69,6 +71,9 @@ public class MessageDao {
           
        } catch (SQLException e) {
           e.printStackTrace();
+       } finally {
+    	   close(pstmt);
+    	   close(rset);
        }
        
        
@@ -92,6 +97,8 @@ public class MessageDao {
          
       } catch (SQLException e) {
          e.printStackTrace();
+      } finally {
+    	  close(pstmt);
       }
             
       return result;
@@ -151,6 +158,9 @@ public class MessageDao {
          
       } catch (SQLException e) {
          e.printStackTrace();
+      } finally {
+   	   close(pstmt);
+   	   close(rset);
       }
       //System.out.println("mesList Dao : " + mesList);
       return mesList;
@@ -184,6 +194,9 @@ public class MessageDao {
          
       } catch (SQLException e) {
          e.printStackTrace();
+      } finally {
+   	   close(pstmt);
+   	   close(rset);
       }
       
       return hmap;
@@ -224,6 +237,9 @@ public class MessageDao {
          }
       } catch (SQLException e) {
          e.printStackTrace();
+      } finally {
+   	   close(stmt);
+   	   close(rset);
       }
       //System.out.println("cnames : " + cnames);
       
@@ -259,7 +275,10 @@ public class MessageDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		} finally {
+	    	   close(pstmt);
+	    	   close(rset);
+	       }
 		//System.out.println("mesdao :" +mes);
 		return mes;
 	}
@@ -280,7 +299,9 @@ public class MessageDao {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		} finally {
+	    	   close(pstmt);
+	       }
 				
 		return result;
 	}
@@ -304,7 +325,9 @@ public class MessageDao {
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		} finally {
+	    	   close(pstmt);
+	       }
 		
 		return result;
 	}
@@ -335,7 +358,10 @@ public class MessageDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		} finally {
+	    	   close(pstmt);
+	    	   close(rset);
+	       }
 		//System.out.println("hmap : " + hmap);
 		return hmap;
 	}
@@ -378,7 +404,10 @@ public class MessageDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		} finally {
+	    	   close(pstmt);
+	    	   close(rset);
+	       }
 		//System.out.println("compMesList : " + compMesList);
 		
 		return compMesList;
@@ -414,7 +443,10 @@ public class MessageDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		} finally {
+	    	   close(pstmt);
+	    	   close(rset);
+	       }
 		//System.out.println("hmap : " + hmap);
 		return hmap;
 	}
@@ -458,7 +490,10 @@ public class MessageDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		} finally {
+	    	   close(pstmt);
+	    	   close(rset);
+	       }
 		//System.out.println("compMesList : " + compMesList);
 		
 		return compMesList;
@@ -478,7 +513,9 @@ public class MessageDao {
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		} finally {
+	    	   close(pstmt);
+	       }
 		return result;
 	}
 	//업체명 검색후 전체 갯수 조회
@@ -502,7 +539,10 @@ public class MessageDao {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		} finally {
+	    	   close(pstmt);
+	    	   close(rset);
+	       }
 		return listCount;
 	}
 	//업체명 검색 후 전체리스트 리턴
@@ -547,7 +587,10 @@ public class MessageDao {
 	         
 	      } catch (SQLException e) {
 	         e.printStackTrace();
-	      }
+	      } finally {
+	    	   close(pstmt);
+	    	   close(rset);
+	       }
 	      return searchList;
 	}
 
