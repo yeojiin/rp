@@ -17,16 +17,11 @@ public class AdminMessageOneServlet extends HttpServlet {
         super();
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("업체가 관리자한테 보낸 쪽지 상세보기 서블릿");
+		//System.out.println("업체가 관리자한테 보낸 쪽지 상세보기 서블릿");
 		int code = Integer.parseInt(request.getParameter("code"));
-		
-		System.out.println("code : " + code);
-		
+
 		
 		Message mes = new MessageService().selectMesOne(code);
-		
-		
-		System.out.println("mes : " + mes);
 		
 		String page = "";
 		

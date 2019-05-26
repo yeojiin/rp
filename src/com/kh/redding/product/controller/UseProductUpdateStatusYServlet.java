@@ -39,8 +39,6 @@ public class UseProductUpdateStatusYServlet extends HttpServlet {
 				ctn = ctn + 1 ;
 			}
 		}
-		//System.out.println("upnoIrr.length : " + upnoIrr.length);
-		//System.out.println("ctn : " + ctn);
 		String text = "";
 		if(ctn == upnoIrr.length) {
 			text = "성공";

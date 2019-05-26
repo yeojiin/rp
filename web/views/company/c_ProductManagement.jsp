@@ -2,10 +2,8 @@
     pageEncoding="UTF-8" import="java.util.*, com.kh.redding.product.model.vo.*"%>
 <%   
 	/* HashMap<String, Object> hmap = (HashMap<String, Object>)request.getAttribute("hmap");
-	
 	ArrayList<Product> proList = (ArrayList<Product>)hmap.get("proList");
 	PageInfo pi = (PageInfo) hmap.get("pi"); */
-			
    ArrayList<Product> proList = (ArrayList<Product>) request.getAttribute("proList"); 
    PageInfo pi = (PageInfo)request.getAttribute("pi");
    
@@ -17,9 +15,6 @@
       int endPage = pi.getEndPage();
       int startRow = pi.getStartRow();
       int endRow = pi.getEndRow();
-      
-            //vo.상품에서 가져올 값  : 즉, 테이블에도 존재해야 함 아니면 count(*) 함수 사용하든가
-   
         int productTotalCount = pcount.getProductTotalCount();
         int SaleProductCount = pcount.getSaleProductCount();
         int NoSaleProductCount = pcount.getNoSaleProductCount();
@@ -290,7 +285,7 @@
             //console.log($(this).val());
          });
          $("#productSearchDays").click(function(){
-            console.log($(this).val());
+            /* console.log($(this).val()); */
             $(".Day").attr("type","date");
          });
          

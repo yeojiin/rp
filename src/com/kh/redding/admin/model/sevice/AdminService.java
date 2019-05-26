@@ -327,6 +327,61 @@ public class AdminService {
 		return list;
 	}
 
+
+
+	//승인 취소(계좌)(정연)
+	public int memberRefuse(int payno) {
+		Connection con = getConnection();
+
+		int result = new AdminDao().memberRefuse(payno, con);
+
+		if(result>0) {
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		close(con);
+
+
+		return result;
+	}
+
+	
+	//관리자 환불 요청 상태 변한 update(정연)
+	public int adminRefundUpdate(int payno) {
+		Connection con = getConnection();
+
+		int updateRe= new AdminDao().adminRefundUpdate(payno, con);
+
+		if(updateRe>0) {
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		close(con);
+
+
+		return updateRe;
+	}
+
+	
+	//관리자 환불 요청 상태 변한 insert(정연)
+	public int adminRefundInsert(int payno, int mno, int upno, String pselect, int fprice, String cardcode) {
+		Connection con = getConnection();
+
+		int insertRe= new AdminDao().adminRefundInsert(payno, mno, upno, pselect, fprice, cardcode, con);
+
+		if(insertRe>0) {
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		close(con);
+
+
+		return insertRe;
+	}		
+
 		
 
 

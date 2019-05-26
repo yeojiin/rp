@@ -2,7 +2,6 @@
     pageEncoding="UTF-8" import="com.kh.redding.message.model.vo.*"%>
 <%
 	Message mes = (Message)request.getAttribute("mes");
-	
 %>
 <!DOCTYPE html>
 <html>

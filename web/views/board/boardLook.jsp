@@ -1,5 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import = "com.kh.redding.board.model.vo.*, java.util.* , com.kh.redding.attachment.model.vo.*"%>
+<% 
+HashMap<String , Object> boardMap = (HashMap<String,Object>)request.getAttribute("b"); 
+HashMap<String , Object> boardDetail = (HashMap<String, Object>)boardMap.get("board");
+ArrayList<Attachment> attachlist = (ArrayList<Attachment>)boardMap.get("attachlist");
+//if (boardMap.get("replylist") != null){
+ArrayList<HashMap<String , Object>> replylist = (ArrayList<HashMap<String , Object>>)boardMap.get("replylist");	
+//}
+Board board = (Board)boardDetail.get("board");
+BoardPageInfo pi = (BoardPageInfo) request.getAttribute("pi");
+int currentPage = pi.getCurrentPage();
+int maxPage = pi.getMaxPage();
+int startPage = pi.getStartPage();
+int endPage = pi.getEndPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,6 +36,8 @@
 	href="${pageContext.request.contextPath}/css/member/m_nav.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/common/footer.css">
+	<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/member/boardLook.css">
 <style>
 .container {
 	width: 100%;
@@ -78,101 +94,135 @@
 					</div>
 					<div style="width:50%; height:auto; float:right;">
 						<ul class="pager" style="float:right;">
-						<button type="button" class="btn" onclick="location.href='<%=request.getContextPath() %>/selectBoardList.bo'" style="background:salmon; color:white;">목록</button>
-  							<li><a href="#"><</a></li>
-  							<li><a href="#">></a></li>
+						<li><button type="button" class="btn" onclick="location.href='<%=request.getContextPath() %>/selectBoardList.bo'" style="background:salmon; color:white;">목록</button></li>
+  							<!-- <li><a href="#"><</a></li>
+  							<li><a href="#">></a></li> -->
 						</ul>
 					</div>
 					<hr style="width:100%; border: solid 3px black;">
 					<div style="width:100%; height:auto;">
-						<h3 style="color:salmon">['KH스튜디오 후기']</h3>
-						<h3>['KH스튜디오에 다녀 온 후기입니다.2019-05-14']</h3>
+						<h3 style="color:salmon"><%=board.getBcategory() %></h3>
+						<h3><%=board.getBtitle() %></h3>
+						<% if (loginUser != null){ %>
+						<% if (loginUser.getMno() == board.getBwriter()){ %>
+						<!-- 	<button type= "button" id = "boardUpdate" style = "margin-left : 80%">수정</button> -->
+						<% }%>
+						<% if (loginUser.getMno() == board.getBwriter() || loginUser.getMemberId() == "admin"){ %>
+							<button type= "button" id = "boardDel" style = "margin-left : 90%">삭제</button>
+						<%} %>
+						<% } %>
 					</div>
 					<hr style="width:100%; border: solid 1px lightgray;">
 					<div style="width:100%; height:auto;">
-						<h5>작성자 : 김수민 / 작성일자 : 2019-05-14 / 조회수 : 10 / 추천수 : 1</h5>
-					</div>
-					<div>
-						<p>뜨고, 길지 풀이 영원히 할지니, 청춘 얼마나 찾아다녀도, 말이다. 이것을 그들의 보이는 살았으며, 가치를 반짝이는 인생에 우는 앞이 아름다우냐? 두기 방지하는 하는 사막이다. 그것을 들어 그들의 얼음과 거친 부패뿐이다. 별과 얼음과 품고 따뜻한 것이다. 가슴에 트고, 두손을 가는 구하지 길지 스며들어 위하여서 운다.
-						 평화스러운 무엇을 끓는 풍부하게 할지라도 그들에게 많이 거선의 것이다. 피에 이것을 지혜는 것은 것이다. 이성은 이상은 뼈 청춘을 천자만홍이 안고, 동산에는 것이다. 천지는 인생의 방황하여도, 주는 없으면 때문이다. 품에 같은 있는 없는 앞이 유소년에게서 같이 예수는 것이다.
-
-						 시들어 끓는 청춘 교향악이다. 쓸쓸한 피고 군영과 간에 전인 것이 많이 속에 철환하였는가? 기쁘며, 하는 튼튼하며, 끓는다. 아니더면, 날카로우나 웅대한 말이다. 무엇을 이것을 우리 인생에 고행을 봄바람이다. 
-						 영락과 하는 위하여 무엇을 웅대한 찾아다녀도, 아름답고 소담스러운 황금시대다. 발휘하기 것이 생명을 봄바람이다. 이것이야말로 그것은 우리 찬미를 작고 보내는 것이다. 평화스러운 청춘에서만 든 못할 더운지라 곳으로 끓는 이상의 하였으며, 피다.
-
-						 미인을 있음으로써 낙원을 피가 피가 듣는다. 있는 곧 더운지라 있다. 풀이 하였으며, 오직 얼음과 있는 같이 붙잡아 쓸쓸하랴? 현저하게 찾아 노년에게서 튼튼하며, 있으랴? 피어나기 가진 어디 행복스럽고 영락과 하였으며, 듣는다.
- 						 바이며, 청춘은 방지하는 거선의 실로 뭇 뿐이다. 무엇을 이상이 그들은 같으며, 피어나기 아름답고 같이, 있으랴? 만물은 희망의 청춘의 그들의 되려니와, 것이다. 힘차게 품으며, 아니더면, 끝까지 방황하여도, 원대하고, 현저하게 만천하의 역사를 아니다. 
- 						 이상은 풀이 노년에게서 소담스러운 불어 얼마나 약동하다. 풍부하게 얼마나 군영과 공자는 아니다.</p>
-					</div>
-					<div>
-						 <div class="row">
-							  <div class="col-md-4">
-							    <div class="thumbnail">
-							      <a href="../../images/dressTest.jpg">
-							        <img src="../../images/dressTest.jpg" alt="Lights" style="width:100%">
-							        <div class="caption">
-							          <p>Lorem ipsum...</p>
-							        </div>
-							      </a>
-							    </div>
-							  </div>
-							  <div class="col-md-4">
-							    <div class="thumbnail">
-							      <a href="../../images/dressTest.jpg">
-							        <img src="../../images/dressTest.jpg" alt="Nature" style="width:100%">
-							        <div class="caption">
-							          <p>Lorem ipsum...</p>
-							        </div>
-							      </a>
-							    </div>
-							  </div>
-							  <div class="col-md-4">
-							    <div class="thumbnail">
-							      <a href="../../images/dressTest.jpg">
-							        <img src="../../images/dressTest.jpg" alt="Fjords" style="width:100%">
-							        <div class="caption">
-							          <p>Lorem ipsum...</p>
-							        </div>
-							      </a>
-							    </div>
-							  </div>
-						</div>
+						<table class = "boardTable">
+							<tr>
+								<th>작성자</th><td><%=boardDetail.get("nickName") %>(<%=boardDetail.get("mid")%>)</td>
+								<th>작성일자</th><td><%=board.getBdate() %> </td>
+							</tr>
+							<tr>
+								<th>조회수</th><td><%=board.getBcount() %></td>
+								<th><button id = "like" type= "button">추천</button></th><td id = "blike"><%=board.getBlike() %></td>
+								<th><button id = "hate" type= "button">신고</button></th>
+							</tr>
+						</table>
 					</div>
 					<hr style="width:100%; border: solid 1px lightgray;">
-					<!-- Left-aligned -->
-						<div class="media">
-						  <div class="media-left">
-						    <img src="../../images/logo.png" class="media-object" style="width:60px">
-						  </div>
-						  <div class="media-body">
-						    <h4 class="media-heading">김수민</h4>
-						    <p>좋아요와 구독 부탁드려요</p>
-						  </div>
+					<div>
+						<p><%=board.getBcontent() %></p>
+					</div>
+					<hr>
+					<h3>images</h3>
+					<div>
+						 <div class="row">
+							  <% if(attachlist.size() > 0 && attachlist != null){ %>
+							  <% for(int i = 0 ; i < attachlist.size() ; i++){ 
+								  Attachment attach = (Attachment)attachlist.get(i);
+								  
+								  String filePath = attach.getFilepath();
+								  String changename = attach.getChangename();
+							  %>
+							 <div class="col-md-4">
+							    <div class="thumbnail">
+							      <a href="/redding/board_upload/<%=changename%>">
+							        <img src="/redding/board_upload/<%=changename %>"  style="width:100%">
+							        <div class="caption">
+							        </div>
+							      </a>
+							    </div>
+							  </div>
+							  <%} %>
+							<%} %>
 						</div>
-						<hr style="width:100%; border: solid 1px lightgray;">
-						<!-- Right-aligned -->
-						<div class="media">
-						  <div class="media-body">
-						    <h4 class="media-heading">문지원</h4>
-						    <p>조용히하세요</p>
-						  </div>
-						  <div class="media-right">
-						    <img src="../../images/logo.png" class="media-object" style="width:60px">
-						  </div>
-						</div>
+					</div>
+					<% if (loginUser != null){ %>
+					<form action = "<%=request.getContextPath() %>/insertReply.bo" method = "post" id = "Replysubmit">
 						<div class="form-group" style="width:100%;">
-					<label for="comment">댓글</label><br>
-					<textarea class="form-control" rows="3" id="comment" style="width:90%; float:left;"></textarea>
-					<button type="button" class="btn btn-default" style="width:8%; float:right;">등록</button>
-				</div>
-               	<div class="text-center">
-                  <ul class="pagination">
-                     <li><a href="#">1</a></li>
-                     <li><a href="#">2</a></li>
-                     <li><a href="#">3</a></li>
-                     <li><a href="#">4</a></li>
-                     <li><a href="#">5</a></li>
-                  </ul>
-               </div>
+							<label for="comment">댓글</label><br>
+							<input type = "hidden" id = "mno" name = "mno" value = "<%=loginUser.getMno()%>">
+							<input type = "hidden" id = "bid" name = "bid" value = "<%=board.getBid()%>">
+							<textarea class="form-control" rows="3" id="comment" name = "comment" style="width:90%; float:left; resize : none;"></textarea>
+							<button type="button" class="btn btn-default" id = "replybtn" style="width:8%; height:75px; float:right;">등록</button>
+						</div>
+					</form>
+					<% if(replylist != null && replylist.size() > 0 ){%>
+					<% for(int i = 0 ; i < replylist.size() ; i++){ 
+						HashMap<String , Object> replyMap = (HashMap<String , Object>)replylist.get(i);
+						Reply reply = (Reply)replyMap.get("reply");
+						String nickname = (String)replyMap.get("nickname");
+						String mid = (String)replyMap.get("mid");
+					%>	
+						<% if (i != 0){ %>
+						<div class = "replyWrap" id = "replyWrap">
+						<hr style="width:100%; border: solid 1px lightgray;">
+						<%}else { %>
+						<br><br><br>
+						<%} %>
+							<div class="media">
+							
+						  		<div class="media-body">
+								  	<input type = "hidden" id = "replycode" value = "<%=reply.getReply_code() %>">
+								    <p class="media-heading"><%=nickname %> (<%=mid %>) </p>
+								    <h4>
+								    <textArea id = "replycontent" name = "replycontent" class = "replycontent" style = "border:none;width:100%;resize:none;height:auto;" readonly><%= reply.getReply_content() %></textArea>
+								    </h4>
+								    <% if(loginUser.getMemberId().equals(mid)){%>
+								    	<button type = "button" id = "replyUpdate">수정</button>
+								   		<button type = "button" id = "replyChange" class = "changebtn">변경</button>
+								    <%} %>
+								    <% if (loginUser.getMemberId().equals(mid) || loginUser.getMemberId().equals("admin")){ %>
+								    	<button type = "button" id = "replydelete" >삭제</button>
+								    <%} %>
+						  		</div>
+							</div>
+						</div>
+						<%} %>
+					<%} %>
+				<%} %>
+				<div class="text-center">
+							<ul class="pagination">
+								<button onclick="location.href='<%=request.getContextPath() %>/selectBoardList.bo?currentPage=1'"><<</button>
+								<% if(currentPage <= 1){ %>
+								<button disabled><</button>
+								<% }else{ %>
+								<button onclick="location.href='<%=request.getContextPath() %>/selectBoardList.bo?currentPage=<%=currentPage - 1%>'"><</button>
+								<% } %>
+								
+								<% for(int p = startPage; p <= endPage; p++){
+									if(p == currentPage){%>
+										<button disabled><%= p %></button>
+								<% }else{ %>
+									<button onclick="location.href='<%=request.getContextPath() %>/selectBoardList.bo?currentPage=<%= p %>'"><%= p %></button>
+								<% } %>
+								<% } %>
+								
+								<% if(currentPage >= maxPage){ %>
+								<button disabled>></button>
+								<% }else{ %>
+								<button onclick="location.href='<%=request.getContextPath() %>/selectBoardList.bo?currentPage=<%=currentPage + 1 %>'">></button>
+								<% } %>
+								<button onclick="location.href='<%=request.getContextPath() %>/selectBoardList.bo?currentPage=<%=maxPage %>'">>></button>
+							</ul>
+						</div>	
 			</div>
 			</div>
 
@@ -180,6 +230,11 @@
 			<div class="col-sm-2 sidenav"></div>
 
 		</div>
+		
+		
+		
+		
+		
 
 	</div>
 	<br>
@@ -188,6 +243,131 @@
 	<div class="footerArea">
 		<jsp:include page="/views/common/footer.jsp"></jsp:include>
 	</div>
+	
+	<script>
+		$(function(){
+			<% if (loginUser == null){ %>
+				alert("로그인해주세요");
+				location.href = "<%=request.getContextPath()%>/views/common/login.jsp"
+			<% } %>
+			
+			$(".changebtn").hide();
+			
+			
+			$("#replybtn").click(function(){
+				$("#Replysubmit").submit();
+			});
+			
+			$("#like").click(function(){
+				var bid = <%=board.getBid() %>
+				$.ajax({
+          			url : "/redding/likeBoard.bo",
+          			type : "post",
+          			data : {bid : bid},
+          			success : function(data){
+          				 $("#blike").text(data);
+          			}, 
+          			error : function(){
+          				console.log("실패!");
+          			}
+          		});
+			});
+			
+			
+			
+			$(document).on("click", "#replyUpdate", function(){
+				var replycode = $(this).parent().children().eq(0).val();
+				var replycontent = $(this).parent().children().eq(2).children();
+				
+				replycontent.attr("readonly", false);
+				replycontent.css("border" , "1px solid lightgray");
+				
+				console.log("code:" + replycode);
+				
+				var changeBtn = $(this).parent().children().eq(4);
+				var deleteBtn = $(this).parent().children().eq(5);
+				
+				$(this).hide();
+				deleteBtn.hide();
+				changeBtn.show();
+			
+			});
+			
+		
+			
+			
+			$(document).on("click", "#replyChange", function(){
+				var replycode = $(this).parent().children().eq(0).val();
+				
+				var replycontent = $(this).parent().children().eq(2).children().val();
+				
+				console.log(replycode + ":" + replycontent);
+				
+				var changeBtn = $(this).parent().children().eq(3);
+				var deleteBtn = $(this).parent().children().eq(5);
+				
+				$.ajax({
+          			url : "/redding/upreply.bo",
+          			type : "post",
+          			data : {replycode : replycode, replycontent : replycontent},
+          			success : function(data){
+          				if (data != "fail"){
+          					$(this).parent().children().eq(2).children().text(replycontent);
+          				}else {
+          					alert("변경 실패했습니다. ㅜㅜ")
+          				}
+          			
+          			}, 
+          			error : function(){
+          				console.log("실패!");
+          			}
+          		});
+				
+				$(this).hide();
+				deleteBtn.show();
+				changeBtn.show();
+				
+			});
+			
+			$(document).on("click", "#replydelete", function(){
+				var replycode = $(this).parent().children().eq(0).val();
+				var media = $(this).parent().parent();
+				
+				$.ajax({
+          			url : "/redding/delreply.bo",
+          			type : "post",
+          			data : {replycode : replycode},
+          			success : function(data){
+          				if (data != "fail"){
+          					media.remove();
+          				}else {
+          					alert("변경 실패했습니다. ㅜㅜ")
+          				}
+          			
+          			}, 
+          			error : function(){
+          				console.log("실패!");
+          			}
+          		});
+				
+			});
+			
+			
+			$("#boardDel").click(function(){
+				location.href = "<%=request.getContextPath()%>/boardDel.bo?num=<%=board.getBid()%>";
+			});
+			
+			$("#boardUpdate").click(function(){
+				location.href = "<%=request.getContextPath()%>/detail.bo?num=<%=board.getBid()%>";
+			})
+			
+		});
+		
+	
+		
+		
+	
+	</script>
 
 </body>
 </html>

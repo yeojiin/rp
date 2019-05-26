@@ -5,6 +5,7 @@ import static com.kh.redding.common.JDBCTemplate.commit;
 import static com.kh.redding.common.JDBCTemplate.getConnection;
 import static com.kh.redding.common.JDBCTemplate.rollback;
 
+import java.io.File;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,20 +29,24 @@ public class BoardService {
 		Connection con = getConnection();
 		
 		ArrayList<HashMap<String, Object>> list = new BoardDao().selectBoardList(con, pi);
-		for(int i=0; i<list.size();i++) {
-			
-//			System.out.println(list.get(i));
-		}
 		
 		close(con);
 		
 		return list;
 	}
 
-	public HashMap<String, Object> selectOne(int num) {
+	public HashMap<String, Object> selectOne(int num, BoardPageInfo pi) {
 		Connection con = getConnection();
 		
 		HashMap<String, Object> boardMap = new HashMap<String, Object>();
+		
+		int result = new BoardDao().updateCount(con, num);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
 		
 		HashMap<String, Object> boardDetail = new BoardDao().selectOne(con, num);
 		
@@ -53,21 +58,13 @@ public class BoardService {
 			
 			bid = board.getBid();
 			
-			int result = new BoardDao().updateCount(con, bid);
-			
-			if(result > 0) {
-				commit(con);
-			}else {
-				rollback(con);
-			}
-			
 			boardMap.put("board", boardDetail);
 			
 			ArrayList<Attachment> attachlist = new BoardDao().selectAttachment(con, bid);
 			
 			boardMap.put("attachlist", attachlist);
 			
-			ArrayList<Reply> replylist = new BoardDao().selectReply(con, bid);
+			ArrayList<HashMap<String, Object>> replylist = new BoardDao().selectReply(con, bid , pi);
 			
 			boardMap.put("replylist", replylist);
 		}
@@ -419,6 +416,193 @@ public class BoardService {
 		
 		
 		return totalresult;
+	}
+
+	//지원 - 게시판 댓글 총 갯수
+	public int getReplyCount(int num) {
+		Connection con = getConnection();
+		
+		int result = new BoardDao().getReplyCount(con, num);
+		
+		close(con);
+		
+		return result;
+	}
+
+	public int UpdateBoardLike(int bid) {
+		Connection con = getConnection();
+		
+		int blike = new BoardDao().selectBoardLike(con, bid);
+	
+		int result = new BoardDao().updateBoardLike(con, bid, blike);
+		
+		int likecount  = 0 ;
+		if (result > 0) {
+			commit(con);
+			
+			likecount = new BoardDao().selectBoardLike(con , bid);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return likecount;
+	}
+
+	public int updateBoardReply(int replycode, String replycontent) {
+		Connection con = getConnection();
+		
+		int result = new BoardDao().updateBoardReply(con , replycode , replycontent);
+		
+		if (result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+	public int deleteBoardReply(int replycode) {
+		Connection con = getConnection(); 
+		
+		int result = new BoardDao().deleteBoardReply(con,replycode);
+		
+		if (result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		
+		return result;
+	}
+
+	//커뮤니티 글 삭제 
+	public int deleteBoard(int bid) {
+		Connection con = getConnection();
+
+		ArrayList<Attachment> attach = null;
+		
+		attach = new BoardDao().selectAttachment(con, bid);
+		
+		int result = new BoardDao().deleteMemberQnA(con, bid);
+		
+		if (result > 0) {
+			
+			for (int i = 0 ; i < attach.size() ; i++) {
+				Attachment at = new Attachment();
+				System.out.println("at :" + at);
+						
+				File failedFile = new File(at.getFilepath() + at.getChangename());
+						
+				failedFile.delete();
+			}
+					
+			commit(con);
+			
+		}else {
+			rollback(con);
+		}
+			
+		
+	
+		return result;
+		
+	}
+
+	public ArrayList<HashMap<String, Object>> selectManyLookUp(BoardPageInfo pi) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new BoardDao().selectBoardManyLookup(con, pi);
+		
+		close(con);
+		
+		return list;
+		
+		
+	}
+
+	public ArrayList<HashMap<String, Object>> selectManyLike(BoardPageInfo pi) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new BoardDao().selectBoardManyLike(con, pi);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public int getBoardchatterbox(String bcategory) {
+		Connection con = getConnection();
+		
+		int count = new BoardDao().getBoardChatterBox(con ,bcategory);
+		
+		close(con);
+		
+		return count;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectBoardchatterbox(BoardPageInfo pi, String bcategory) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new BoardDao().selectBoardChatterBox(con, pi , bcategory);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public HashMap<String, Object> boardDetail(int bid) {
+		Connection con = getConnection();
+		
+		HashMap<String, Object> boardMap = new HashMap<String, Object>();
+		
+		HashMap<String, Object> boardDetail = new BoardDao().selectOne(con, bid);
+				
+		if(boardDetail != null && boardDetail.size() > 0) {
+			
+			Board board = (Board)boardDetail.get("board");
+			
+			bid = board.getBid();
+			
+			boardMap.put("board", boardDetail);
+			
+			ArrayList<Attachment> attachlist = new BoardDao().selectAttachment(con, bid);
+			
+			boardMap.put("attachlist", attachlist);
+		}
+		
+		close(con);
+		
+		return boardMap;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectBoardSearch(BoardPageInfo pi, String selectType,
+			String serachText) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = null;
+		
+		if (selectType.equals("Title")) {
+			list = new BoardDao().selectBoardTitleList(con, pi , serachText);			
+		}else if (selectType.equals("Writer")) {
+			list = new BoardDao().selectBoardWriterList(con, pi , serachText);		
+		}else if (selectType.equals("Content")) {
+			list = new BoardDao().selectBoardContentList(con, pi ,serachText);		
+		}
+		
+		close(con);
+		
+		return list;
+		
+		
+		
 	}
 
 

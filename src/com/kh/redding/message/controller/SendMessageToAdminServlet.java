@@ -28,8 +28,7 @@ public class SendMessageToAdminServlet extends HttpServlet {
       //System.out.println("cno : " + cno);
       
       String content = request.getParameter("messageContent");
-      //System.out.println("messageContent : " + content);
-      
+
       Date disDate = new Date(new GregorianCalendar().getTimeInMillis());
       
       int wtype = 10;

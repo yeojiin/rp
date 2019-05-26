@@ -74,9 +74,9 @@
 								<td class="pName"><%=hmap.get("pname")%></td>
 								<td class="price"><%=hmap.get("price")%></td>
 								<td><input name="check" type="checkbox" id="checkbox" class="checkbox"></td>
-								<td class="pno"><%=hmap.get("pno")%></td>
-								<td class="cType"><%=hmap.get("ctype")%></td>
-								<td class="wishCode"><%=hmap.get("wishcode")%></td>
+								<td class="pno" hidden><%=hmap.get("pno")%></td>
+								<td class="cType" hidden><%=hmap.get("ctype")%></td>
+								<td class="wishCode" hidden><%=hmap.get("wishcode")%></td>
 							</tr>
 							<%
 								}

@@ -29,7 +29,6 @@ public class ProductSelectListServlet extends HttpServlet {
       //로그인 유저의 MNO를 받아옴
       Member member = (Member)request.getSession().getAttribute("loginUser");
       int cno = member.getMno();
-      //int cno = Integer.parseInt(request.getParameter("mno"));
 
       int currentPage;      
       int limit;            
@@ -39,13 +38,11 @@ public class ProductSelectListServlet extends HttpServlet {
       int startRow;
       int endRow;
       
-      
-      
-      //페이지 수 처리용 변수
-      currentPage = 1;
-      
       if(request.getParameter("currentPage") != null) {
          currentPage = Integer.parseInt(request.getParameter("currentPage"));
+      }else {
+    	  //페이지 수 처리용 변수
+    	  currentPage = 1;
       }
       
       //한 페이지에 보여질 목록 갯수

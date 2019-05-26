@@ -35,15 +35,15 @@ public class MemberLoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
 			
-			if (loginUser.getMemberType() == 10) {	
+			//if (loginUser.getMemberType() == 10) {	
 				page = "index.jsp";
 				
-			}else if (loginUser.getMemberType() == 20 ) {
-				page = request.getContextPath() +"/views/company/c_main.jsp";
+			//}else if (loginUser.getMemberType() == 20 ) {
+				//page = request.getContextPath() +"/views/company/c_main.jsp";
 				
-			}else if (loginUser.getMemberType() == 90) {
-				page = request.getContextPath() +"/views/admin/a_main.jsp";
-			}
+			//}else if (loginUser.getMemberType() == 90) {
+				//page = request.getContextPath() +"/views/admin/a_main.jsp";
+			//}
 			
 			response.sendRedirect(page);
 			

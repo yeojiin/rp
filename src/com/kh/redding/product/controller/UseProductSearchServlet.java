@@ -26,7 +26,6 @@ public class UseProductSearchServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//System.out.println("제품 검색 서블릿");
-		
 		int currentPage;
 		int limit;
 		int maxPage;

@@ -252,6 +252,7 @@ private Properties prop = new Properties();
 			close(stmt);
 			close(rset);
 		}
+		
 
 		return list;
 	}
@@ -311,7 +312,7 @@ private Properties prop = new Properties();
 				// hmap.put("couponStartDate", rset.getDate("COUPON_STARTDATE"));
 				hmap.put("couponEndDate", rset.getDate("COUPON_ENDDATE"));
 				// hmap.put("couponStatus", rset.getString("COUPON_STATUS"));
-				hmap.put("chistoryCode", rset.getString("CHISTOPY_CODE"));
+				hmap.put("chistoryCode", rset.getString("CHISTORY_CODE"));
 				hmap.put("chistoryStatus", rset.getString("COUPON_STATUS"));
 				hmap.put("couponPubDate", rset.getDate("COUPON_PUB_DATE"));
 				
@@ -336,6 +337,7 @@ private Properties prop = new Properties();
 
 	// 중복 발급 방지용 메소드
 	public ArrayList<HashMap<String, Object>> checkInsertCouponIntoMember(Connection con, String couponCode, String mno) {
+		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		//ArrayList<Coupon> list = null;
@@ -364,8 +366,7 @@ private Properties prop = new Properties();
 				list.add(hmap);
 				
 			}
-			
-			
+						
 			if(list != null) {
 				
 				for(int i = 0; i < list.size(); i++) {
@@ -373,25 +374,17 @@ private Properties prop = new Properties();
 					String getCouponCode = hmap.get("couponCode") + "";
 					if(couponCode.equals(getCouponCode)) {
 						result2++;
-						//hmap.put("result2", result2);
-						//list.add(hmap);
-					}/*else {
-						result2=0;
-						hmap.put("result2", result2);
-						list.add(hmap);
-					}*/
+					}
 				}
-				
-				if(result2 > 0) {
-					result2 = 1;
-				}else {
-					result2 = 0;
-				}
-				
-				
-				
-				
+
 			}
+			
+			if(result2 > 0) {
+				result2 = 1;
+			}else {
+				result2 = 0;
+			}
+			
 			hmap.put("result2", result2);
 			list.add(hmap);
 			
@@ -402,9 +395,7 @@ private Properties prop = new Properties();
 			close(pstmt);
 			close(rset);
 		}
-		
-		System.out.println("list" + list);
-		
+				
 		return list;
 	}
 

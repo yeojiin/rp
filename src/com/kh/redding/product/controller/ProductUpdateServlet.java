@@ -30,8 +30,7 @@ public class ProductUpdateServlet extends HttpServlet {
     	
     	Member member = (Member)request.getSession().getAttribute("loginUser");
     	int cNo = member.getMno();
-    	//System.out.println("pNo : " +cNo);
-    	
+
     	int pNo = Integer.parseInt(request.getParameter("pNo"));
     	//System.out.println("pNo : " + pNo);
     	
