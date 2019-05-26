@@ -815,7 +815,7 @@ Redding
 						}else if (account_name == ""){
 							alert("은행 입력해주세요");
 						}else if (checkaccount == true){
-							alert("은행 인증해주세요");	
+							alert("은행 인증해주세요");	 
 						}else if ($("#condition1").is(":checked") == false ){
 							alert("약관의 동의해주세요");
 						}else if ($("#condition2").is(":checked") == false){
