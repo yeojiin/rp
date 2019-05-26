@@ -496,10 +496,10 @@ public class AdminDao {
 				hmap.put("cno", rset.getInt("CNO"));
 				hmap.put("cname", rset.getString("CNAME"));
 				hmap.put("pname", rset.getString("PNAME"));
-				hmap.put("paycode", rset.getInt("PAYCODE"));
+				hmap.put("paycode", rset.getString("PAYCODE"));
 				hmap.put("appdate", rset.getDate("APPDATE"));
 				hmap.put("pcompdate", rset.getDate("PCOMPDATE"));
-				hmap.put("cardcode", rset.getInt("CARDCODE"));
+				hmap.put("cardcode", rset.getString("CARDCODE"));
 				hmap.put("replaycode", rset.getInt("REPLAYCODE"));
 				hmap.put("fprice", rset.getInt("FPRICE"));
 				
@@ -1224,10 +1224,10 @@ public class AdminDao {
 				hmap.put("cno", rset.getInt("CNO"));
 				hmap.put("cname", rset.getString("CNAME"));
 				hmap.put("pname", rset.getString("PNAME"));
-				hmap.put("paycode", rset.getInt("PAYCODE"));
+				hmap.put("paycode", rset.getString("PAYCODE"));
 				hmap.put("appdate", rset.getDate("APPDATE"));
 				hmap.put("pcompdate", rset.getDate("PCOMPDATE"));
-				hmap.put("cardcode", rset.getInt("CARDCODE"));
+				hmap.put("cardcode", rset.getString("CARDCODE"));
 				hmap.put("replaycode", rset.getInt("REPLAYCODE"));
 				hmap.put("fprice", rset.getInt("FPRICE"));
 				
@@ -1737,7 +1737,7 @@ public class AdminDao {
 	
 	
 	//관리자 환불 요청 상태 변한 insert(정연)
-	public int adminRefundInsert(int payno, int mno, int upno, String pselect, int fprice, int cardcode, Connection con) {
+	public int adminRefundInsert(int payno, int mno, int upno, String pselect, int fprice, String cardcode, Connection con) {
 		PreparedStatement pstmt = null;
 		int insertRe = 0;
 		
@@ -1751,7 +1751,7 @@ public class AdminDao {
 			pstmt.setString(3, pselect);
 			pstmt.setString(4, "승인대기");
 			pstmt.setString(5, "환불");
-			pstmt.setInt(6, cardcode);
+			pstmt.setString(6, cardcode);
 			pstmt.setInt(7, payno);
 			pstmt.setInt(8, fprice);
 			
