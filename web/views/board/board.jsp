@@ -111,8 +111,7 @@
 							</button>
 						</div>
 						</form>
-s						<table class="table table-striped"
-							style="width: 100%;">
+						<table class="table table-striped" style="width: 100%;">
 							<thead>
 								<tr>
 									<th>글번호</th>
