@@ -76,7 +76,7 @@
 		<br>
 				<div class="pselectArea">
 				<div class="memberRefund">
-				<h2>정산 대기 리스트 확인</h2>
+				<h2 style="margin-left:20px;">정산 대기 리스트 확인</h2>
 				<br>
 					<table class="comCalcTable">
 						<tr>
@@ -133,11 +133,11 @@
 					
 					
 					
-					<br><br><br>
+					<br><br><br><br><br>
 
 					<div class="memberRefund">
-						<h2>정산 상태 리스트</h2>
-						<button class="ui green button" id="status">확인</button>
+						<h2 style="margin-left:20px;">정산 상태 리스트</h2>
+						<button class="ui button" id="status" style="margin-left:20px; background:salmon; color:white">확인</button>
 						<br><br>
 						<table class="comCalcTable2" id="comCalcTable2">
 							<thead>

@@ -1,7 +1,8 @@
 @charset "UTF-8";
 .refundTable{
 	font-size:12px;
-	width:100%;
+	width:95%;
+	margin-left:20px;
 }
 .refundTable th, .refundTable td{
 	border-bottom: 1px solid gray;

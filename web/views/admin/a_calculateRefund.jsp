@@ -74,7 +74,7 @@
 		<br>
 				<div class="pselectArea">
 				<div class="memberRefund">
-				<h2>정산 대기 리스트</h2>
+				<h2 style="margin-left:20px;">정산 대기 리스트</h2>
 				<br>
 					<table class="refundTable">
 						<tr>

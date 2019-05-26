@@ -74,7 +74,7 @@
 		<br>
 				<div class="pselectArea">
 				<div class="memberPay" style="height:350px">
-				<h2>정산 대기 리스트</h2>
+				<h2 style="margin-left:20px;">정산 대기 리스트</h2>
 				
 					<table class="calcTable" style="height:90%;">
 						<tr>
@@ -154,7 +154,7 @@
 					%>	
 					</table>
 					</div>
-					<br>
+					<br><br><br><br><br><br><br><br>
 					
 					
 					

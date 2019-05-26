@@ -2,7 +2,8 @@
 
 .calcTable, .refundTable {
 	font-size:12px;
-	width:100%;
+	width:95%;
+	margin-left:20px;
 }
 
 .calcTable tr, .refundTable tr{
