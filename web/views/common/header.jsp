@@ -9,7 +9,7 @@
 <body>
 	<div class="header">
 		<div class="logo">
-			<img src="<%=request.getContextPath()%>/images/redding.png" onclick="location.href='<%=request.getContextPath()%>'" class="logoImg">
+			<img src="<%=request.getContextPath()%>/images/headerLogo.png" onclick="location.href='<%=request.getContextPath()%>'" class="logoImg">
 		</div>
 	</div>
 </body>

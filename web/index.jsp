@@ -29,7 +29,7 @@
 }
 
 .row.content {
-	height: 450px;
+	height:100%;
 }
 
 .sidenav {
@@ -43,8 +43,32 @@
 		padding: 15px;
 	}
 	.row.content {
-		height: auto;
+		height:100%;
 	}
+}
+
+.con1 {
+	width:100%; 
+	height:100%; 
+	border-top:1px solid lightgray; 
+	border-bottom:1px solid lightgray; 
+	text-align:center; 
+}
+.con1label {
+	font-size:35px;
+	color:salmon;
+	font-family:Elephant;
+}
+.con1Table {
+	width:100%;
+	height:100%;
+}
+.conImg {
+	width:70%;
+}
+.com1label2 {
+	font-family:'Noto Sans KR', sans-serif;
+	color:gray;
 }
 </style>
 </head>
@@ -56,7 +80,7 @@
 	</div><br>
 
 	<!-- 멤버 나브 -->
-	<div>
+	<div class="memberNavArea">
 		<jsp:include page="/views/member/m_nav.jsp"></jsp:include>
 	</div>
 
@@ -65,13 +89,12 @@
 		<div class="row content">
 			
 			<!-- 왼쪽 빈공간 -->
-			<div class="col-sm-2 sidenav"></div>
+			<div class="col-sm-1 sidenav"></div>
 
-			<div class="col-sm-8 text-left">
+			<div class="col-sm-10 text-left">
 			<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
-
+				<br>
 				<div class="container">
-					<h2>EVENT</h2>
 					<div id="myCarousel" class="carousel slide" data-ride="carousel">
 						<!-- Indicators -->
 						<ol class="carousel-indicators">
@@ -81,15 +104,15 @@
 						</ol>
 
 						<!-- Wrapper for slides -->
-						<div class="carousel-inner">
+						<div class="carousel-inner" style="height:300px;">
 							<div class="item active">
-								<img src="<%=request.getContextPath()%>/images/dressTest.jpg" class="carouselImg">
+								<img src="<%=request.getContextPath()%>/images/1.png" class="carouselImg" style="width:100%; height:300px;">
 							</div>
 							<div class="item">
-								<img src="<%=request.getContextPath()%>/images/dressTest.jpg" class="carouselImg">
+								<img src="<%=request.getContextPath()%>/images/2.png" class="carouselImg" style="width:100%; height:300px;">
 							</div>
 							<div class="item">
-								<img src="<%=request.getContextPath()%>/images/dressTest.jpg" class="carouselImg">
+								<img src="<%=request.getContextPath()%>/images/3.png" class="carouselImg" style="width:100%; height:300px;">
 							</div>
 						</div>
 
@@ -105,12 +128,30 @@
 						</a>
 					</div>
 				</div>
-				<br>
+				<br><br>
+				<div class="con1">
+					<br>
+					<label class="con1label">Plan Your Special Day</label>
+					<br><br><br>
+					<table class="con1Table">
+						<tr>
+							<td><img src="<%=request.getContextPath()%>/images/conImg1.png" class="conImg"></td>
+							<td><img src="<%=request.getContextPath()%>/images/conImg2.png" class="conImg"></td>
+							<td><img src="<%=request.getContextPath()%>/images/conImg3.png" class="conImg"></td>
+						</tr>
+						<tr>
+							<td><label class="com1label2"><br>내가 고른 스드메 업체 견적을 한눈에</label></td>
+							<td><label class="com1label2"><br>간편하게 위시리스트에서 결제까지 한번에</label></td>
+							<td><label class="com1label2"><br>커뮤니티 공간에서 정보 공유까지</label></td>
+						</tr>
+					</table>
+					<br>
+				</div>
 
 			</div>
 			
 			<!-- 오른쪽 빈공간 -->
-			<div class="col-sm-2 sidenav"></div>
+			<div class="col-sm-1 sidenav"></div>
 			
 		</div>
 
@@ -121,6 +162,8 @@
 	<div class="footerArea">
 		<jsp:include page="/views/common/footer.jsp"></jsp:include>
 	</div>
+	
 
 </body>
+
 </html>

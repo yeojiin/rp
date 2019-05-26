@@ -11,6 +11,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common/header.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/member/m_header.css">
 </head>
+
 <body>
 	<div class="headerArea">
 		<div class="miniMenu">
@@ -76,6 +77,8 @@
 			<%} %>
 			location.href='<%=request.getContextPath()%>/showList.wh?num='+num;
 		} --%>
+		
+		
 	</script>
 
 </body>
