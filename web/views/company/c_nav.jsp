@@ -47,7 +47,7 @@
 					<li><a href="<%=request.getContextPath()%>/showMonCalc.co?mno=<%=loginUser.getMno()%>">정산관리</a></li>
 					<li><a href="<%=request.getContextPath()%>/views/company/c_messageManager.jsp">쪽지관리</a></li><!-- *** -->
 					<li><a href="<%=request.getContextPath()%>/views/company/c_statistics.jsp">통계관리</a></li>
-					<li><a href="#">커뮤니티</a></li>
+					<li><a href="<%=request.getContextPath()%>/selectBoardList.bo">커뮤니티</a></li>
 					
 				</ul>
 				<ul class="nav navbar-nav navbar-right">

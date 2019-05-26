@@ -103,12 +103,14 @@ int endPage = pi.getEndPage();
 					<div style="width:100%; height:auto;">
 						<h3 style="color:salmon"><%=board.getBcategory() %></h3>
 						<h3><%=board.getBtitle() %></h3>
+						<% if (loginUser != null){ %>
 						<% if (loginUser.getMno() == board.getBwriter()){ %>
 						<!-- 	<button type= "button" id = "boardUpdate" style = "margin-left : 80%">수정</button> -->
 						<% }%>
 						<% if (loginUser.getMno() == board.getBwriter() || loginUser.getMemberId() == "admin"){ %>
 							<button type= "button" id = "boardDel" style = "margin-left : 90%">삭제</button>
 						<%} %>
+						<% } %>
 					</div>
 					<hr style="width:100%; border: solid 1px lightgray;">
 					<div style="width:100%; height:auto;">
@@ -152,6 +154,7 @@ int endPage = pi.getEndPage();
 							<%} %>
 						</div>
 					</div>
+					<% if (loginUser != null){ %>
 					<form action = "<%=request.getContextPath() %>/insertReply.bo" method = "post" id = "Replysubmit">
 						<div class="form-group" style="width:100%;">
 							<label for="comment">댓글</label><br>
@@ -175,6 +178,7 @@ int endPage = pi.getEndPage();
 						<br><br><br>
 						<%} %>
 							<div class="media">
+							
 						  		<div class="media-body">
 								  	<input type = "hidden" id = "replycode" value = "<%=reply.getReply_code() %>">
 								    <p class="media-heading"><%=nickname %> (<%=mid %>) </p>
@@ -191,6 +195,7 @@ int endPage = pi.getEndPage();
 						  		</div>
 							</div>
 						</div>
+						<%} %>
 					<%} %>
 				<%} %>
 				<div class="text-center">
@@ -225,6 +230,11 @@ int endPage = pi.getEndPage();
 			<div class="col-sm-2 sidenav"></div>
 
 		</div>
+		
+		
+		
+		
+		
 
 	</div>
 	<br>
@@ -236,6 +246,10 @@ int endPage = pi.getEndPage();
 	
 	<script>
 		$(function(){
+			<% if (loginUser == null){ %>
+				alert("로그인해주세요");
+				location.href = "<%=request.getContextPath()%>/views/common/login.jsp"
+			<% } %>
 			
 			$(".changebtn").hide();
 			
