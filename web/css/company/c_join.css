@@ -83,7 +83,7 @@ input[type="checkbox"]{
 	width : 70px;
 	height  : 25px;
 	border-radius : 6%;
-	font-family: 'Nanum Pen Script', cursive;
+	font-family: 'Noto Sans KR', sans-serif;
 	font-size : 15px;
 }
 
@@ -126,12 +126,27 @@ input[type="checkbox"]{
 	width : 100px;
 	height  : 35px;
 	border-radius : 6%;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 #com_btn input:hover{
 	background: white;
 	color : #FB6E5F;
 	border : 1px solid #FB6E5F;
+}
+
+
+#confirmacc {
+	background: #FB6E5F;
+	color : white;
+	border : 1px solid #FB6E5F;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+#confirmacc:hover{
+	background: white;
+	color : #FB6E5F;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 #star{
