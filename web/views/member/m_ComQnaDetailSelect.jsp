@@ -122,19 +122,19 @@ table {
 
          <div class="col-sm-8 text-left">
             <%---------------------------------------------------------------------------------------------------------------%>
-            <div class="container post post-show" style="width:100%; height:auto;">
-            <h1>QnA상세페이지</h1>
-			   <div class="buttons">
-			    <a class="btn btn-default" onclick="location.href='<%=request.getContextPath() %>/selectDetailComQna.cq?cno=<%=cno%>'">목록으로</a>
+            <div class="container post post-show" style="width:100%; height:auto;"><br><br>
+			   <div class="buttons" style="width:100%">
+			    <a class="btn btn-default" onclick="location.href='<%=request.getContextPath() %>/selectDetailComQna.cq?cno=<%=cno%>'" style="float:left">목록으로</a>
 			    <form action="<%=request.getContextPath() %>/DeleteQna.dq" method="post" id = "deleteForm">
 			    <input type="hidden" name="cno" id="cno" value=<%=cno %>>
 			    <input type="hidden" name="bid" id="bid" value=<%=board.getBid() %>>
-			    <a class="btn btn-default" id = "deleteQnA">삭제하기</a>
+			    <a class="btn btn-default" id = "deleteQnA" style="float:left">삭제하기</a>
 			    </form>
 			   </div>
-			
-			   <div class="contentBox" style="width:100%">
-			    <h3 class="contentBoxTop"><%=board.getBtitle() %></h3>
+			<br><br>
+            <h1 style="font-family: 'Noto Sans KR', sans-serif;">"무엇이든 물어보세요"</h1>
+			   <div class="contentBox" style="width:100%"><br>
+			    <h3 class="contentBoxTop">제목: <%=board.getBtitle() %></h3><br><br>
 			    <div class="row">
 			     <div class="col-sm-4 col-sm-push-8">
 			      <div class="post-info">
@@ -144,8 +144,8 @@ table {
 			       <%-- <% } %> --%>
 			      </div> <!-- post-info end -->
 			     </div> <!-- col end-->
-			     <div class="col-sm-8 col-sm-pull-4">
-			      <br><br><br><br><div class="post-body" style="width:100%; height:auto;"><%=board.getBcontent() %></div>
+			     <div class="col-sm-8 col-sm-pull-4" style="width:100%;"><br><br>
+			      <%=board.getBcontent() %>
 			     </div> <!-- col end-->
 			    </div> <!-- row end -->
 			    <hr style="border-color: black; width:100%;">

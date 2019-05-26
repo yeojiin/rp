@@ -195,7 +195,7 @@ table {
 									shmap = rlist.get(i);
 									if (shmap != null){
 								%>
-								<tr class="detail" onclick="location.href='<%=request.getContextPath()%>/selectComQnaDetail.qd?bid=<%=shmap.get("bid")%>'">
+								<tr class="detail" onclick="#">
 									<td><%=shmap.get("rnum") %>
 									<input type="hidden" name="cno" value="<%=cno%>"></td>
 									<td><%=shmap.get("btitle") %></td>
