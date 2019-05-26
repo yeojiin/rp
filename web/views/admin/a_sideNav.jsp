@@ -384,6 +384,9 @@ body {
     height:140px;   
 
 	}
+body{
+      font-family: 'Noto Sans KR', sans-serif;
+   }	
 </style>
 </head>
 <body>
