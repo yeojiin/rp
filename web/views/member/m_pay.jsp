@@ -34,7 +34,7 @@
 	href="${pageContext.request.contextPath}/css/common/footer.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/member/m_pay.css">
-	
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/semantic/semantic.min.css">
 <!-- 모달 -->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/semantic/modal.min.css">
 <script src="<%=request.getContextPath()%>/js/modal.min.js"></script>
@@ -162,7 +162,7 @@
                         <th width="700"><label>결제수단</label></th>
                         <th width="400"><label>금액</label></th>
                         <th rowspan="3" width="300px">
-                           <button style="width: 100%; height: 150px" onclick="requestPay();">결제하기</button>
+                           <button class="ui button" style="width: 100%; height: 150px" onclick="requestPay();">결제하기</button>
                         </th>
 
                      </tr>
@@ -228,7 +228,7 @@
         </table>
       </div>
       <div class="modal-footer">
-      	<button type="button" class="btn btn-default searchCondition" data-dismiss="modal" style="background:salmon; color:white; border:1px solid salmon;">적용</button>
+      	<button type="button" class="btn btn-default searchCondition" data-dismiss="modal" style="background:salmon; border:1px solid salmon;">적용</button>
         <button type="button" class="btn btn-default" data-dismiss="modal" style="background:salmon; color:white; border:1px solid salmon;">닫기</button>
       </div>
     </div>
@@ -250,7 +250,7 @@
 	      
 	      //쿠폰리턴
 	      getCoupon();
-	       
+	      $(".ui.button").css({"background":"salmon","color":"white"}); 
 	      
 	   });
 	   
