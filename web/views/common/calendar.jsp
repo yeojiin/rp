@@ -111,6 +111,7 @@
 						<td>
 						<label>예약승인</label>
 						<label id="revStatus" class="revStatus" style="display:none; width:100%; color:red;"><br><br>고객의 요청에 취소된 예약입니다.</label>
+						<label class="ress" style="display:none; width:100%; color:blue;"><br><br>결제가 완료된 상품입니다.</label>
 						<br>
 							<div class="ui toggle checkbox">
   							<input type="checkbox" name="public" id="changeStatusXs" class="changeStatus">
@@ -209,9 +210,13 @@
     		$(".revStatus").css("display","none");
     		$(".changeStatus").attr("disabled",false);
     		$(".changeStatus").attr("checked",false);
-    	}else{
+    	}else if(info.event.backgroundColor === "red"){
     		$(".checkbox").css("visibility","hidden");
     		$(".revStatus").css("display","inline");
+    		$(".changeStatus").attr("checked",false);
+    	}else{
+    		$(".checkbox").css("visibility","hidden");
+    		$(".ress").css("display","inline");
     		$(".changeStatus").attr("checked",false);
     	}
     	
@@ -338,12 +343,21 @@
 											id: resNo[key]
 											
 										};
-							  }else{
+							  }else if(status == 20){
 								  var event = {
 											title:productName,	
 											start:rapplyDate + "T" + startDate,
 											end: rapplyDate + "T" + endDate, 
 											color:"red",
+											allow: userName + "(" + userPhone + ")",
+											id: resNo[key]
+										};
+							  }else{
+								  var event = {
+											title:productName,	
+											start:rapplyDate + "T" + startDate,
+											end: rapplyDate + "T" + endDate, 
+											color:"blue",
 											allow: userName + "(" + userPhone + ")",
 											id: resNo[key]
 										};
