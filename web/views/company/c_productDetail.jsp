@@ -5,14 +5,12 @@
 	ArrayList<UseProduct> useProList = (ArrayList<UseProduct>)request.getAttribute("useProList"); 
 	Product pro = (Product) request.getAttribute("pro");
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
-	
 	int currentPage = pi.getCurrentPage();
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
 	int startRow = pi.getStartRow();
 	int endRow = pi.getEndRow();
-
 %>
 <!DOCTYPE html>
 <html>
@@ -285,11 +283,11 @@
 			  $("input[name=upCheck]").each(function(){
 				  var upno = $(this).parent().parent().children().eq(1).children().eq(1).val();
 				  if($(this).is(":checked")){
-					  console.log("upno : " + upno);
+					  /* console.log("upno : " + upno); */
 					  upnoArr += upno +", ";
 				  }
 			  });
-			  console.log(upnoArr);
+			  /* console.log(upnoArr); */
 			  
 			  $.ajax({
 				  url:"uproListUstatusY.pr",
@@ -311,11 +309,11 @@
  			  $("input[name=upCheck]").each(function(){
  				  var upno = $(this).parent().parent().children().eq(1).children().eq(1).val();
  				  if($(this).is(":checked")){
- 					  console.log("upno : " + upno);
+ 					  /* console.log("upno : " + upno); */
  					  upnoArr += upno +", ";
  				  }
  			  });
-			  console.log(upnoArr);
+			  /* console.log(upnoArr); */
 			  
 			  $.ajax({
 				  url:"uproListUstatusY.pr",

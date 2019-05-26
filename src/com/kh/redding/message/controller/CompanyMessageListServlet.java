@@ -26,9 +26,10 @@ public class CompanyMessageListServlet extends HttpServlet {
       //System.out.println("업체의 모든 쪽지 리스트 보여주기 서블릿");
       Member login = (Member)request.getSession().getAttribute("loginUser");
       int cno = login.getMno();
-      System.out.println("cno : " + cno);
+      //System.out.println("cno : " + cno);
       int listCount = Integer.parseInt(request.getParameter("value"));
       //System.out.println("listCount : " + listCount);
+      
       
       int currentPage;
       int limit;
@@ -64,15 +65,15 @@ public class CompanyMessageListServlet extends HttpServlet {
       
       ArrayList<Message> compMesList = new MessageService().selectListCompMes(pi, cno);
       
-      System.out.println("startRow : " + pi.getStartRow());
-      System.out.println("endRow : " + pi.getEndRow());
+      //System.out.println("startRow : " + pi.getStartRow());
+      //System.out.println("endRow : " + pi.getEndRow());
       
       HashMap<String, Object> hmap = new HashMap<String, Object>();
       
       hmap.put("pi", pi);
       hmap.put("compMesList", compMesList);
       
-      System.out.println("compMesList.size : " + compMesList.size());
+      //System.out.println("compMesList.size : " + compMesList.size());
       
       response.setContentType("application/json");
       new Gson().toJson(hmap, response.getWriter());

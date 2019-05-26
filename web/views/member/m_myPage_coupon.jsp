@@ -87,7 +87,7 @@
 		<table class="div1Table2">
 			<tr>
 				<td><button class="div1Table2Btn">HOME</button></td>
-				<td><button class="div1Table2Btn" onclick="location.href='<%=request.getContextPath() %>/views/member/m_myPage_checkList.jsp'">CHECK LIST</button></td>
+				<%-- <td><button class="div1Table2Btn" onclick="location.href='<%=request.getContextPath() %>/views/member/m_myPage_checkList.jsp'">CHECK LIST</button></td> --%>
 				<td><button class="div1Table2Btn" onclick="location.href='<%=request.getContextPath() %>/views/member/m_myPage_payment.jsp'">결제 내역</button></td>
 				<td><button class="div1Table2Btn1" onclick="location.href='<%=request.getContextPath() %>/views/member/m_myPage_coupon.jsp'">쿠폰함</button></td>
 				<td><button class="div1Table2Btn" onclick="location.href='<%=request.getContextPath() %>/views/member/m_myPage_myWriting.jsp'">내 글 관리</button></td>
@@ -236,7 +236,7 @@
 
 			}); 
 			
-		});
+		}); 
 		
 		$(document).on("click","#couponDownloadBtn",function(){
 			
@@ -248,11 +248,27 @@
 				data:{couponCode:$(this).parent().children().eq(10).text(), mno:$("#mno").val()},
 				type:"get",
 				success:function(data) {
-					// console.log(data+"쿠폰발급됨");
-					btn.css('background', 'gray');
-					btn.text('발급완료');
-					btn.attr('id', 'couponDownloadEndBtn');
-					// noDownLoad();
+					
+					for(var i in data) {
+						console.log(data[i].result2);
+					}
+					
+					if(data[i].result2 == 0) {
+						
+						btn.css('background', 'gray');
+						btn.css('color', 'white');
+						btn.text('이미 발급된 쿠폰입니다.');
+						btn.attr('id', 'couponDownloadEndBtn');
+						
+					}else if(data[i].result2 == 1) {
+					
+						btn.css('background', 'white');
+						btn.css('color', 'salmon');
+						btn.text('발급이 완료되었습니다.');
+						btn.attr('id', 'couponDownloadEndBtn');
+						
+					}
+					
 				}
 				
 			});

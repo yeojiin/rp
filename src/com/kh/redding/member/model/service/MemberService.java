@@ -382,6 +382,46 @@ public class MemberService {
 		
 		System.out.println("rlistService : " + rlist);
 		return rlist;
+}
+
+  
+  public int memberInsertPay(int mno, String[] upnoArr, String[] moneyArr, String rspUid, String rspApply, int couponCode) {
+		Connection con = getConnection();
+		
+		int payResult = new MemberDao().memberInsertPay(con,mno, upnoArr, moneyArr, rspUid, rspApply);
+		int resResult = 0;
+		int couResult = 0;
+		int finalResult = 0;
+		if(payResult == upnoArr.length) {
+			resResult = new MemberDao().resUpdatePay(con,mno,upnoArr);
+		}
+		
+		if(couponCode == 0) {
+			if(resResult == upnoArr.length) {
+				finalResult = 1;			
+			}
+
+			
+		}else {
+			if(resResult == upnoArr.length) {
+				couResult = new MemberDao().couUpdatePay(con,mno,couponCode);
+				finalResult = 1;
+			}
+		}
+		
+		if(finalResult > 0) {
+			commit(con);
+			finalResult=1;
+		}else {
+			rollback(con);
+			finalResult=0;
+		}		
+			
+		
+		
+		close(con);
+		
+		return finalResult;
 	}
 
 }

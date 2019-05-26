@@ -32,7 +32,6 @@ public class ProductUpdateStatusServlet extends HttpServlet {
 		//System.out.println("status : " + status);
 		
 		Date modifyDate = new Date(new GregorianCalendar().getTimeInMillis());
-	      
 		
 		Member member = ((Member)request.getSession().getAttribute("loginUser"));
 		

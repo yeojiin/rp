@@ -4,7 +4,6 @@ public class ProductCounts {
 	private int productTotalCount;
 	private int saleProductCount;
 	private int noSaleProductCount;
-	
 	public ProductCounts() {}
 
 	public ProductCounts(int productTotalCount, int saleProductCount, int noSaleProductCount) {

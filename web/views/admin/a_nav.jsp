@@ -31,13 +31,10 @@
 					<li><a onclick="goTotalMember()">회원관리</a>
 						<ul class="nav navbar-nav" id = "noticemenu">
 							<li><a class = "navBtn" onclick="location.href='<%=request.getContextPath() %>/selectList.me'">&nbsp;&nbsp;&nbsp;전체 회원&nbsp;&nbsp;&nbsp;</a></li>
-							<li><a class = "navBtn" >&nbsp;&nbsp;&nbsp;주문내역&nbsp;&nbsp;&nbsp;</a></li>
 							<li><a class = "navBtn" onclick="location.href='<%=request.getContextPath() %>/AllQnA.no'">&nbsp;&nbsp;&nbsp;회원 문의 내역&nbsp;&nbsp;&nbsp;</a></li>
 						</ul>
 					</li>
-					<li><a href="a_BlackList.jsp">블랙리스트 관리</a></li>
 					<li><a onclick="goCoupon()">쿠폰 관리</a></li>
-					<li><a href="a_Survey.jsp">설문조사 관리</a></li>
 					<li><a class = "navBtn" id = "noticebtn">&nbsp;&nbsp;&nbsp;고객센터</a>
 						<ul class="nav navbar-nav" id = "noticemenu">
 							<li><a class = "navBtn" onclick= "location.href='<%=request.getContextPath() %>/selectnotice.no'" >&nbsp;&nbsp;&nbsp;공지사항&nbsp;&nbsp;&nbsp;</a></li>

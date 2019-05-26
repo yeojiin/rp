@@ -58,8 +58,7 @@
 				<div class="sidenavArea">
 					<ul class="navList">
 						<li onclick="location.href='a_TotalMember.jsp'" style="color:lightgray; padding-left:25px">전체 회원</li>
-						<li onclick="location.href='<%=request.getContextPath()%>/views/admin/a_MemberOrder.jsp'">주문내역</li>
-						<li onclick="location.href='<%=request.getContextPath()%>/views/admin/a_MemberInquiry.jsp'">문의</li>
+						<li onclick="location.href='<%=request.getContextPath()%>/AllQnA.no'">문의</li>
 					</ul>
 				</div>
 			</div>
@@ -70,8 +69,7 @@
 						<div class="sidenavArea2">
 						<ul class="navList2">
 						<li onclick="location.href='a_TotalMember.jsp'" style="color:lightgray; padding-left:25px">전체 회원</li>
-						<li onclick="location.href='<%=request.getContextPath()%>/views/admin/a_MemberOrder.jsp'">주문내역</li>
-						<li onclick="location.href='a_MemberInquiry.jsp'">문의</li>
+						<li onclick="location.href='<%=request.getContextPath()%>/AllQnA.no'">문의</li>
 						</ul>
 					</div>
 					</div>

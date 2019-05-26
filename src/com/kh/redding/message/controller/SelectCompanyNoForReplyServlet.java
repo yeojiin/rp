@@ -24,8 +24,6 @@ public class SelectCompanyNoForReplyServlet extends HttpServlet {
 	      
 	      int code = Integer.parseInt(request.getParameter("code"));
 	      
-	      System.out.println("code : " +code);
-	      
 	      /*Member company = new MessageService().selectCompanyOne(cno);
 	      
 	      System.out.println("company : " + company);*/
@@ -36,14 +34,14 @@ public class SelectCompanyNoForReplyServlet extends HttpServlet {
 	      
 	      int result = new MessageService().updateMesCDate(ckDate, code);
 	      
-	      System.out.println("result : " + result);
+	      //System.out.println("result : " + result);
 	      
 	      Message mes = null;
 	      
 	      if(result>0) {
 	    	  mes = new MessageService().selectMesOne(code);
 	    	  
-	    	  System.out.println("mes : " + mes);
+	    	  //System.out.println("mes : " + mes);
 	      }	      
 	      
 	      String page = "";

@@ -84,27 +84,38 @@
 
 			<div class="col-sm-8 text-left">
 				<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
-				<form action="<%=request.getContextPath()%>/selectBoardList.bo">
+			<%-- 	<form action="<%=request.getContextPath()%>/selectBoardList.bo"> --%>
 					<br> <br>
 					<div id="board">
+						<form action = "<%=request.getContextPath()%>/searchBoard.bo" method = "post" id = "searchBoardform">
 						<div class="input-append span12" align="right">
-							<button type="button" class="btn btn-outline-success slideright">수다쟁이</button>
-							<button type="button" class="btn btn-outline-success slideright">후기</button>
-							<input type="text" class="search-query" placeholder="Search">
-							<button type="submit" class="btn">
+							<button type="button" id = "StoryBtn" 
+							class="btn btn-outline-success slideright">수다쟁이</button>
+							<button type="button" id = "QuestionBtn" 
+							class="btn btn-outline-success slideright">질문있어요</button>
+							<select name = "selectType"  style="height:32px;border:1px solid gray;">
+								<option>-선택-</option>
+								<option value ="Title">제목</option>
+								<option value = "Writer">작성자</option>
+								<option value = "Content">내용</option>
+							</select>
+							<input name = "serachText" type="text" class="search-query" placeholder="Search" style="height:32px; border:1px solid gray;">
+							<button type="button" class="btn" id = "SearchBtn">
 								<i class="fas fa-search"></i>
 							</button>
 						</div>
-						<table class="table table-striped"
+						</form>
+s						<table class="table table-striped"
 							style="width: 80%; margin-left: 10%;">
 							<thead>
 								<tr>
 									<th>글번호</th>
+									<th>카테고리</th>
 									<th>제목</th>
 									<th>작성자</th>
-									<th>작성일</th>
-									<th>조회수</th>
-									<th>좋아요</th>
+									<th><a href = "<%=request.getContextPath()%>/selectBoardList.bo">작성일</a></th>
+									<th><a href = "<%=request.getContextPath()%>/ManyLookUp.bo">조회수</a></th>
+									<th><a href = "<%=request.getContextPath()%>/ManyLike.bo">좋아요</a></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -114,9 +125,10 @@
 									for (int i = 0; i < list.size(); i++) {
 										hmap = list.get(i);
 								%>
-								<tr
-									>
-									<td><%=hmap.get("bid")%></td>
+								<tr>
+									<td><input type = "hidden" value = "<%=hmap.get("bid")%>" id = "bid" name= "bid">
+									<%=hmap.get("no")%></td>
+									<td><%=hmap.get("bcategory") %></td>
 									<td><%=hmap.get("btitle")%></td>
 									<td><%=hmap.get("bwriter")%></td>
 									<td><%=hmap.get("bdate")%></td>
@@ -131,9 +143,11 @@
 						</table>
 						<!-- <hr style="align:center; border-color:black; width:100%;" > -->
 						<% if (loginUser != null){ %>
+						<% if (loginUser.getMemberType() == 10){ %>
 						<a class="btn btn-default" style="margin-left: 10%"
 							onclick="location.href='<%=request.getContextPath()%>/views/board/boardWrite.jsp'">글쓰기</a>
-						<% }%>
+						<%} 
+						}%>
 						<div class="text-center">
 							<ul class="pagination">
 								<button onclick="location.href='<%=request.getContextPath() %>/selectBoardList.bo?currentPage=1'"><<</button>
@@ -160,7 +174,7 @@
 							</ul>
 						</div>
 					</div>
-				</form>
+				<!-- </form> -->
 			</div>
 
 			<!-- 오른쪽 빈공간 -->
@@ -177,18 +191,38 @@
 	</div>
 	<script>
 		$(function(){
+			//$("#BoardSearch").hide();
+			
 			$(".table-striped td").mouseenter(function(){
 				$(this).parent().css({"background":"salmon", 
 									"cursor":"pointer"});
 			}).mouseout(function(){
 				$(this).parent().css({"background":"none"});
 			}).click(function(){
-				var num = $(this).parent().children().eq(0).text();
+				var num = $(this).parent().children().eq(0).children().val();
 				
 				console.log(num);
 				
-				location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num;
+				location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num; 
 			});
+			
+			$("#StoryBtn").click(function(){
+				var category = "수다쟁이";
+				
+				location.href = "<%=request.getContextPath()%>/BoardStory.bo?category=" + category
+			});
+			
+			$("#QuestionBtn").click(function(){
+				var category = "질문있어요";
+				
+				location.href = "<%=request.getContextPath()%>/BoardStory.bo?category=" + category
+			});
+			
+			$("#SearchBtn").click(function(){
+				$("#searchBoardform").submit();
+			});
+			
+			
 			
 			
 		})

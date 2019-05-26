@@ -210,10 +210,11 @@
 							</tr>
 							<tr>
 								<td></td>
+								<%  if (addresses.length >2 ){ %>
 								<td><input type="text" id="detailAddress"
 									placeholder="상세주소" name="detailAddress" value = "<%= addresses[2]%>"> 	
 									<input type="text" id="extraAddress" placeholder="참고항목" name="extraAddress">
-							
+								<%} %>
 							</tr>
 							<tr>
 								<th>입금계좌</th>
@@ -453,6 +454,16 @@
 			
 			var accountCode = <%= company.getAccountCode() %>;
 			
+			
+			//업체 정보
+			$("input[name=company_type]").each(function(){
+				var comtype = "<%=company.getComType()%>";
+				
+				console.log(comtype)
+				if ($(this).val() == comtype){
+					$(this).attr("checked", true);
+				}
+			});
 			
 					
 			//은행 select 선택 - 조회시 기본으로 보여주는

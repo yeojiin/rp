@@ -24,13 +24,14 @@ public class InsertCouponIntoMemberServlet extends HttpServlet {
         super();
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String couponCode = request.getParameter("couponCode");
 		String mno = request.getParameter("mno");
 				
 		//System.out.println(couponCode);
 		//System.out.println(mno);
+		
 		
 		ArrayList<HashMap<String, Object>> list = new CouponService().checkInsertCouponIntoMember(couponCode, mno);
 		
@@ -49,14 +50,16 @@ public class InsertCouponIntoMemberServlet extends HttpServlet {
 		}
 		
 		int result2 = (int) jObj.get("result2");
-		System.out.println(result2);
+		System.out.println("result2 : " + result2);
 	
 		if(result2 > 0) {
 			int result = new CouponService().insertCouponIntoMember(couponCode, mno);
 			response.setContentType("application/json");
-			new Gson().toJson(couponCode, response.getWriter());
+			new Gson().toJson(jList, response.getWriter());
 		}else {
 			System.out.println("이미 발급이 완료된 쿠폰입니다.");
+			response.setContentType("application/json");
+			new Gson().toJson(jList, response.getWriter());
 		}
 		
 	}

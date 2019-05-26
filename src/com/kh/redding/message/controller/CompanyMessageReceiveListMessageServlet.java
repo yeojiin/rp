@@ -31,6 +31,7 @@ public class CompanyMessageReceiveListMessageServlet extends HttpServlet {
 	      int listCount = Integer.parseInt(request.getParameter("value"));
 	      //System.out.println("listCount : " + listCount);
 	      
+	      
 	      int currentPage;
 	      int limit;
 	      int maxPage;
@@ -73,7 +74,7 @@ public class CompanyMessageReceiveListMessageServlet extends HttpServlet {
 	      hmap.put("pi", pi);
 	      hmap.put("compMesList", compMesList);
 	      
-	      System.out.println("compMesList.size : " + compMesList.size());
+	      //System.out.println("compMesList.size : " + compMesList.size());
 	      
 	      response.setContentType("application/json");
 	      new Gson().toJson(hmap, response.getWriter());
