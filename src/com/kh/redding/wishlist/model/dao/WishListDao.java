@@ -251,6 +251,7 @@ public class WishListDao {
 			close(pstmt);
 		}
 		
+		System.out.println("다오:" + result);
 		return result;
 		
 	}

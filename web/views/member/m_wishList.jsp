@@ -430,7 +430,6 @@
 					var result = confirm('패키지에서 삭제 하시겠습니까?'); 
 					
 					if(result){
-						condole.log()
 						$.ajax({
 							url : "/redding/deletePack.wi",
 			      			traditional:true,

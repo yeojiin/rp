@@ -33,6 +33,7 @@ public class InsertWishList extends HttpServlet {
 		/*HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");*/
 		
+		
 		int mno = Integer.parseInt(request.getParameter("mno"));
 		int pno = Integer.parseInt(request.getParameter("pno"));
 		int result = 0;
@@ -40,11 +41,15 @@ public class InsertWishList extends HttpServlet {
 		
 		count = new WishListService().countEqualWishList(mno, pno);
 		
+		System.out.println("카운트" + count);
+		
 		if(count != 1) {
 			result = new WishListService(). insertWishList(mno, pno);
 		}
 		
 		
+		System.out.println("result" + result);
+
 		if(result>0) {
 			response.getWriter().print(result);
 		}
