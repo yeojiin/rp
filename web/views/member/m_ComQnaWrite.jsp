@@ -111,9 +111,9 @@ table {
       <div class="row content">
 
          <!-- 왼쪽 빈공간 -->
-         <div class="col-sm-2 sidenav"></div>
+         <div class="col-sm-1 sidenav"></div>
 
-         <div class="col-sm-8 text-left">
+         <div class="col-sm-10 text-left">
             <%---------------------------------------------------------------------------------------------------------------%>
             <br>
             <form action="<%=request.getContextPath() %>/comQnaWrite.qw" method="post">
@@ -128,7 +128,7 @@ table {
          </div>
 
          <!-- 오른쪽 빈공간 -->
-         <div class="col-sm-2 sidenav"></div>
+         <div class="col-sm-1 sidenav"></div>
 
       </div>
 	</div>
