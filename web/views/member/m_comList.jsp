@@ -57,7 +57,7 @@
    font-size: 30px;
    border: 1px solid salmon;
 }
-
+/* 
 table {
    border-collapse: collapse;
    width: 100%;
@@ -65,7 +65,7 @@ table {
 
 td {
    border: 1px solid salmon;
-}
+} */
 
 .result {
    text-align: center;
@@ -103,9 +103,9 @@ td {
       <div class="row content">
 
          <!-- 왼쪽 빈공간 -->
-         <div class="col-sm-2 sidenav"></div>
+         <div class="col-sm-1 sidenav"></div>
 
-         <div class="col-sm-8 text-left">
+         <div class="col-sm-10 text-left">
             <%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
             
             <div class="list1">
@@ -117,7 +117,7 @@ td {
             		for (int i = 0; i < list.size(); i++) {
             			hmap = list.get(i);
             	%>
-            		<div style="width:31%; height:40%; display:inline-block; margin:10px;">
+            		<div style="width:30%; height:40%; display:inline-block; margin:10px;">
             			<div>
             				<div style="width:100%; height:100%">
 		                  	<img src="/redding/company_upload/<%=hmap.get("changename") %>" style="width:100%; height:270px"; onclick="location.href='<%=request.getContextPath() %>/selectDetailCom.dc?cno=<%=hmap.get("mno") %>'"><br>
@@ -158,7 +158,7 @@ td {
          </div>
 
          <!-- 오른쪽 빈공간 -->
-         <div class="col-sm-2 sidenav"></div>
+         <div class="col-sm-1 sidenav"></div>
 
       </div>
 

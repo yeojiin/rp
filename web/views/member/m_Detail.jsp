@@ -90,9 +90,9 @@
 		<div class="row content">
 
 			<!-- 왼쪽 빈공간 -->
-			<div class="col-sm-2 sidenav"></div>
+			<div class="col-sm-1 sidenav"></div>
 
-			<div class="col-sm-8 text-left">
+			<div class="col-sm-10 text-left">
 				<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 				<form action="<%=request.getContextPath()%>/selectDetailCom.dc">
 				<br><br>
@@ -109,7 +109,7 @@
 						<%} %>
 					</div>
 					<div style="width:50%; height:auto; float:right;">
-						<p style="font-size:39px; margin-left:20px; color:salmon; font-family: 'Noto Sans KR', sans-serif;"><%=mem.getMemberName() %></p>
+						<p style="font-size:40px; margin-left:20px; color:salmon; font-family: 'Noto Sans KR', sans-serif;"><%=mem.getMemberName() %></p>
 						<%
 						String address = com.getComAddress();
 						String[] addressArr = address.split("\\|");
@@ -119,11 +119,11 @@
 							companyAddress = addressArr[1];
 						}
 						%>
-						<p style="font-size:17px; margin-left:20px; font-family: 'Noto Sans KR', sans-serif;">주소&nbsp;&nbsp;:&nbsp;&nbsp;<%=companyAddress %></p>
-						<p style="font-size:17px; margin-left:20px; font-family: 'Noto Sans KR', sans-serif;">영업시간&nbsp;&nbsp;:&nbsp;&nbsp;AM <%=com.getOpenTime() %> ~ PM <%=com.getEndTime() %></p>
-						<p style="font-size:17px; margin-left:20px; font-family: 'Noto Sans KR', sans-serif;">홈페이지 <a href="<%=com.getComUrl() %>">바로가기</a></p><br><br><br>
-						<p style="font-size:17px; margin-left:20px; font-family: 'Noto Sans KR', sans-serif;">상품 이름&nbsp;&nbsp;:&nbsp;&nbsp;
-						<select style="width:80%">
+						<p style="font-size:15px; margin-left:20px; font-family: 'Noto Sans KR', sans-serif;">주소&nbsp;&nbsp;:&nbsp;&nbsp;<%=companyAddress %></p>
+						<p style="font-size:15px; margin-left:20px; font-family: 'Noto Sans KR', sans-serif;">영업시간&nbsp;&nbsp;:&nbsp;&nbsp;AM <%=com.getOpenTime() %> ~ PM <%=com.getEndTime() %></p>
+						<p style="font-size:15px; margin-left:20px; font-family: 'Noto Sans KR', sans-serif;">홈페이지 <a href="<%=com.getComUrl() %>">바로가기</a></p><br><br><br>
+						<p style="font-size:15px; margin-left:20px; font-family: 'Noto Sans KR', sans-serif;">상품 이름&nbsp;&nbsp;:&nbsp;&nbsp;
+						<select style="width:78%; height:35px;">
 						<%
 						if (prolist != null && prolist.size() > 0){
 						for (int i = 0; i < prolist.size(); i++) {
@@ -132,7 +132,7 @@
 						<%} } %>
 						</select></p>
 						<!-- <a class="btn btn-default" style="border-color:salmon; background:salmon; color:white; width:50%; height:auto; font-size:20px; margin-left:25%; margin-top:10%; font-family: 'Noto Sans KR', sans-serif;">예약하기</a><br><br> -->
-						<button style="border:2px solid salmon; border-radius:none; background:salmon; color:white; width:96%; height:auto; font-size:20px; margin-left:20px; font-family: 'Noto Sans KR', sans-serif;" id="wishList">위시리스트에 담기</button>
+						<button style="border:2px solid salmon; border-radius:none; background:salmon; color:white; width:95%; height:35px; font-size:20px; margin-left:20px; font-family: 'Noto Sans KR', sans-serif;" id="wishList">위시리스트에 담기</button>
 							<h2 id="pnoRe" hidden><%=pro.getpNo() %></h2>
 							<h2 id="mnoRe" hidden><%=loginUser.getMno() %></h2>
 					</div>
@@ -180,7 +180,7 @@
 				
 
 				<!-- 오른쪽 빈공간 -->
-				<div class="col-sm-2 sidenav"></div>
+				<div class="col-sm-1 sidenav"></div>
 
 			</div>
 
