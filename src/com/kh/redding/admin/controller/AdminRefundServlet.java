@@ -33,7 +33,7 @@ public class AdminRefundServlet extends HttpServlet {
     	int upno = Integer.parseInt(request.getParameter("upno"));
     	String pselect = request.getParameter("pselect");
     	int fprice = Integer.parseInt(request.getParameter("fprice"));
-    	int cardcode = Integer.parseInt(request.getParameter("cardcode"));
+    	String cardcode = request.getParameter("cardcode");
     	
     	
     	int updateRe = 0;

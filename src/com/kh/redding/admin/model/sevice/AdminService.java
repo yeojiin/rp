@@ -366,7 +366,7 @@ public class AdminService {
 
 	
 	//관리자 환불 요청 상태 변한 insert(정연)
-	public int adminRefundInsert(int payno, int mno, int upno, String pselect, int fprice, int cardcode) {
+	public int adminRefundInsert(int payno, int mno, int upno, String pselect, int fprice, String cardcode) {
 		Connection con = getConnection();
 
 		int insertRe= new AdminDao().adminRefundInsert(payno, mno, upno, pselect, fprice, cardcode, con);
