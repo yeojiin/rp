@@ -24,7 +24,7 @@ public class InsertCouponIntoMemberServlet extends HttpServlet {
         super();
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String couponCode = request.getParameter("couponCode");
 		String mno = request.getParameter("mno");

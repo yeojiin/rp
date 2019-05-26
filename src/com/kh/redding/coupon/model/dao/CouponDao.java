@@ -364,8 +364,7 @@ private Properties prop = new Properties();
 				list.add(hmap);
 				
 			}
-			
-			
+						
 			if(list != null) {
 				
 				for(int i = 0; i < list.size(); i++) {
@@ -394,9 +393,7 @@ private Properties prop = new Properties();
 			close(pstmt);
 			close(rset);
 		}
-		
-		//System.out.println("list" + list);
-		
+				
 		return list;
 	}
 
