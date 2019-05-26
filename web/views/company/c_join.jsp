@@ -140,47 +140,47 @@
 							<tr>
 								<td>입금계좌<span id="star">*</span></td>
 								<td>
-								<select name="bankcode" id="bankcode">
-									<option value=''>선택하세요
-									<option value='003'>기업은행
-									<option value='004'>국민은행
-									<option value='011'>농협중앙회
-									<option value='012'>단위농협
-									<option value='020'>우리은행
-									<option value='031'>대구은행
-									<option value='005'>외환은행
-									<option value='023'>SC제일은행
-									<option value='032'>부산은행
-									<option value='045'>새마을금고
-									<option value='027'>한국씨티은행
-									<option value='034'>광주은행
-									<option value='039'>경남은행
-									<option value='007'>수협
-									<option value='048'>신협
-									<option value='037'>전북은행
-									<option value='035'>제주은행
-									<option value='064'>산림조합
-									<option value='071'>우체국
-									<option value='081'>하나은행
-									<option value='088'>신한은행
-									<option value='209'>동양종금증권
-									<option value='243'>한국투자증권
-									<option value='240'>삼성증권
-									<option value='230'>미래에셋
-									<option value='247'>우리투자증권
-									<option value='218'>현대증권
-									<option value='266'>SK증권
-									<option value='278'>신한금융투자
-									<option value='262'>하이증권
-									<option value='263'>HMC증권
-									<option value='267'>대신증권
-									<option value='270'>하나대투증권
-									<option value='279'>동부증권
-									<option value='280'>유진증권
-									<option value='287'>메리츠증권
-									<option value='291'>신영증권
-									<option value='238'>대우증권
-							</select>
+									<select name="bankcode" id="bankcode">
+										<option value=''>선택하세요</option>
+										<option value="003">기업은행</option>
+										<option value="004"'>국민은행</option>
+										<option value="011">농협중앙회</option>
+										<option value='012'>단위농협</option>
+										<option value='020'>우리은행</option>
+										<option value='031'>대구은행</option>
+										<option value='005'>외환은행</option>
+										<option value='023'>SC제일은행</option>
+										<option value='032'>부산은행</option>
+										<option value='045'>새마을금고</option>
+										<option value='027'>한국씨티은행</option>
+										<option value='034'>광주은행</option>
+										<option value='039'>경남은행</option>
+										<option value='007'>수협</option>
+										<option value='048'>신협</option>
+										<option value='037'>전북은행</option>
+										<option value='035'>제주은행</option>
+										<option value='064'>산림조합</option>
+										<option value='071'>우체국</option>
+										<option value='081'>하나은행</option>
+										<option value='088'>신한은행</option>
+										<option value='209'>동양종금증권</option>
+										<option value='243'>한국투자증권</option>
+										<option value='240'>삼성증권</option>
+										<option value='230'>미래에셋</option>
+										<option value='247'>우리투자증권</option>
+										<option value='218'>현대증권</option>
+										<option value='266'>SK증권</option>
+										<option value='278'>신한금융투자</option>
+										<option value='262'>하이증권</option>
+										<option value='263'>HMC증권</option>
+										<option value='267'>대신증권</option>
+										<option value='270'>하나대투증권</option>
+										<option value='279'>동부증권</option>
+										<option value='280'>유진증권</option>
+										<option value='287'>메리츠증권</option>
+										<option value='291'>신영증권</option>
+										<option value='238'>대우증권</option>
+								</select>
 							</td>
 							</tr>
 							<tr>
@@ -646,8 +646,7 @@ Redding
 					<br> <br>
 					<div id="com_btn">
 						<input type="reset" id="reset" value="뒤로가기">&nbsp;&nbsp;&nbsp;&nbsp;
-						<input type="button" id="submit" value="회원가입"
-							onclick="JoinEvent();">
+						<input type="submit" id="submit" value="회원가입" onclick = "JoinEvent();">
 					</div>
 					<script>
 			   		 function execDaumPostcode() {
@@ -748,7 +747,7 @@ Redding
 			 
 			  function JoinEvent(){
 						//전송 클릭
-						var Sidcheck = $("#idcheck").text();
+					 	var Sidcheck = $("#idcheck").text();
 						var Spwd1 = $("#Spwd1").text();
 						var Spwd2 = $("#Spwd2").text();
 						
@@ -820,13 +819,13 @@ Redding
 							alert("약관의 동의해주세요");
 						}else if ($("#condition2").is(":checked") == false){
 							alert("약관의 동의해주세요");
-						}else{
+						}else{  
+						//	console.log(account_num + account_name + accountcode);
 							console.log("넘어감");
 							$("#CompanyJoin").submit();
-						}
+						} 
 						
 					
-
 			  }
 			  
 		 
@@ -1049,9 +1048,20 @@ Redding
 														"readonly");
 										$("[name=accnum]").attr("readonly",
 														"readonly");
-										$("[name=bankcode]").not(":selected")
-														.attr("disabled", "disabled");
+										/* $("[name=bankcode]").not(":selected")
+														.attr("disabled", "disabled"); */
 										
+										$("#bankcode").each(function(index){
+
+											if($(this).val()==bankcode){
+
+												$(this).attr("selected","selected"); // attr적용안될경우 prop으로 
+											}
+										})
+														
+														
+										$("#accpnm").val(accpnm);
+									    $("#accnum").val(accnum);
 		
 									} else {
 										alert('인증 실패');
