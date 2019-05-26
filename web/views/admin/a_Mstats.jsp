@@ -117,8 +117,9 @@ var sca = '01';
 			<div class="col-sm-10 text-left">
 			<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 				<div class="StatArea" style="width:100%; height:auto; float:left">
-					<br><br>
-					<table style="width:100%">
+					<h2 style="text-align:center; font-size:30px !important">업체 지역별 조회</h2>
+					<br><br>					
+					<table style="width:100%; border-bottom:1px solid gray">
 						<tr>
 							<td>
 								<div style="width:100%;height:400px; float:left">
@@ -180,16 +181,17 @@ var sca = '01';
 					</div>
 							</td>
 							<td>
-								<div class="chart-container" style="position: relative; height:40vh; width:60%; margin-left:400px; margin-top:0; margin-bottom:130px">
+								<div class="chart-container" style="position: relative; height:auto; width:60%; margin-left:400px; margin-top:0; margin-bottom:130px">
 								<canvas id="chart-area"></canvas>
 								</div>
 							</td>					
 						</tr>
 					</table>
-					
 					<br><br>
+					<h2 style="text-align:center; font-size:30px !important">업체 상세 조회</h2>
 					
-					<div style="float:right; margin-right:10%" class="chartArea">
+					<br>
+					<div style="text-align:center">
 					<select class="searchOption" style="height:25px">
 						<option value="10">전체</option>
 						<option value="20">스튜디오</option>
@@ -197,12 +199,12 @@ var sca = '01';
 						<option value="40">메이크업</option>
 					</select> &nbsp;&nbsp;
 					<input type ="date"> ~ <input type="date">&nbsp;&nbsp;&nbsp;&nbsp;<button class="searchBtn">조회</button>
-					
+					</div>
+					<div class="chart-container" style="position: relative; height:400px; width:100%;">
+					<canvas id="canvas"></canvas>				
 					</div>
 					<br><br>
-					<div class="chart-container" style="position: relative; height:400px; width:90%;">
-					<canvas id="canvas"></canvas>
-					</div>
+					<br><br>					
 				</div>
 				
 				

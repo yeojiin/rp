@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+
 <style>
 	
 	
@@ -160,7 +161,7 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #292c2f;
+  background-color:salmon;  /* #292c2f */
   width: 180px;
   height: 100%;
   padding: 20px 0;
@@ -191,9 +192,9 @@ body {
   text-decoration: none;
   margin: 0 auto 5px auto;
   padding: 10px 0 10px 5px;
-  background-color: #35393e;
+  background-color: white;   /* #35393e */
   text-align: left;
-  color: #b3bcc5;
+  color: salmon;                    /* #b3bcc5 */
   font-size: 12px;
   font-weight: bold;
   line-height: 2;
@@ -386,14 +387,25 @@ body {
 	}
 body{
       font-family: 'Noto Sans KR', sans-serif;
-   }	
+   }
+   .sidebar-links div .sub-links a{
+   	color:white !important;
+   }
+   
+   .selected > a{
+   	color:salmon !important;
+   }
+   
+   
 </style>
 </head>
 <body>
 
 
 <aside class="sidebar-left-collapse">
-  <a href="#" class="company-logo" onclick="location.href='<%=request.getContextPath()%>'">Logo</a>
+  <a href="#" class="company-logo" onclick="location.href='<%=request.getContextPath()%>'">
+   <img src = "<%=request.getContextPath()%>/images/logo.png" style="max-width:100%; background:salmon"> 
+  </a>
   <div class="sidebar-links">
     <div class="link-blue selected">
       <a href="#">
