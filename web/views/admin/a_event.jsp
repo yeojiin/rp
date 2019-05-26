@@ -161,11 +161,9 @@
 						<td>
 							<select name="couponCategory">
 								<option>-- 카테고리 선택 --</option>
-								<option>전체</option>
 								<option>스튜디오</option>
 								<option>드레스</option>
 								<option>메이크업</option>
-								<option>패키지</option>
 							</select>
 						</td>
 						<td class="modalTableTd">쿠폰명</td>

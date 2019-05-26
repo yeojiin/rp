@@ -236,7 +236,7 @@
 
 			}); 
 			
-		});
+		}); 
 		
 		$(document).on("click","#couponDownloadBtn",function(){
 			
