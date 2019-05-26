@@ -373,25 +373,17 @@ private Properties prop = new Properties();
 					String getCouponCode = hmap.get("couponCode") + "";
 					if(couponCode.equals(getCouponCode)) {
 						result2++;
-						//hmap.put("result2", result2);
-						//list.add(hmap);
-					}/*else {
-						result2=0;
-						hmap.put("result2", result2);
-						list.add(hmap);
-					}*/
+					}
 				}
-				
-				if(result2 > 0) {
-					result2 = 1;
-				}else {
-					result2 = 0;
-				}
-				
-				
-				
-				
+
 			}
+			
+			if(result2 > 0) {
+				result2 = 1;
+			}else {
+				result2 = 0;
+			}
+			
 			hmap.put("result2", result2);
 			list.add(hmap);
 			
@@ -403,7 +395,7 @@ private Properties prop = new Properties();
 			close(rset);
 		}
 		
-		System.out.println("list" + list);
+		//System.out.println("list" + list);
 		
 		return list;
 	}
