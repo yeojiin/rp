@@ -60,6 +60,7 @@ public class BoardDao {
 				
 				hmap.put("no", rset.getInt("ROWNUM"));
 				hmap.put("bid", rset.getInt("BID"));
+				hmap.put("bcategory", rset.getString("BCATEGORY"));
 				hmap.put("btitle", rset.getString("BTITLE"));
 				hmap.put("bwriter", rset.getString("NICK_NAME"));
 				hmap.put("bdate", rset.getDate("BDATE"));
@@ -1617,6 +1618,281 @@ public class BoardDao {
 				
 				hmap.put("no", rset.getInt("ROWNUM"));
 				hmap.put("bid", rset.getInt("BID"));
+				hmap.put("btitle", rset.getString("BTITLE"));
+				hmap.put("bwriter", rset.getString("NICK_NAME"));
+				hmap.put("bdate", rset.getDate("BDATE"));
+				hmap.put("bcount", rset.getInt("BCOUNT"));
+				hmap.put("blike", rset.getInt("BLIKE"));
+				
+				list.add(hmap);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectBoardManyLike(Connection con, BoardPageInfo pi) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectManyLike");
+//		System.out.println(query);
+		
+		//조회 시작할 행 번호와 마지막 행 번호 계산
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, "커뮤니티");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				
+				hmap.put("no", rset.getInt("ROWNUM"));
+				hmap.put("bid", rset.getInt("BID"));
+				hmap.put("btitle", rset.getString("BTITLE"));
+				hmap.put("bwriter", rset.getString("NICK_NAME"));
+				hmap.put("bdate", rset.getDate("BDATE"));
+				hmap.put("bcount", rset.getInt("BCOUNT"));
+				hmap.put("blike", rset.getInt("BLIKE"));
+				
+				list.add(hmap);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
+	}
+
+	public int getBoardChatterBox(Connection con , String bcategory) {
+		PreparedStatement pstmt = null;
+		ResultSet rset= null;
+		int result = 0;
+		
+		String query = prop.getProperty("selectBoardChatter");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, bcategory);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			
+			close(pstmt);
+		
+		}
+		
+		
+		return result;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectBoardChatterBox(Connection con, BoardPageInfo pi, String bcategory) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectBoardChatterList");
+//		System.out.println(query);
+		
+		//조회 시작할 행 번호와 마지막 행 번호 계산
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, "커뮤니티");
+			pstmt.setString(2, bcategory);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				
+				hmap.put("no", rset.getInt("ROWNUM"));
+				hmap.put("bid", rset.getInt("BID"));
+				hmap.put("bcategory", rset.getString("BCATEGORY"));
+				hmap.put("btitle", rset.getString("BTITLE"));
+				hmap.put("bwriter", rset.getString("NICK_NAME"));
+				hmap.put("bdate", rset.getDate("BDATE"));
+				hmap.put("bcount", rset.getInt("BCOUNT"));
+				hmap.put("blike", rset.getInt("BLIKE"));
+				
+				list.add(hmap);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectBoardTitleList(Connection con, BoardPageInfo pi, String serachText) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectBoardTitleList");
+//		System.out.println(query);
+		
+		//조회 시작할 행 번호와 마지막 행 번호 계산
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, "커뮤니티");
+			pstmt.setString(2, serachText);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				
+				hmap.put("no", rset.getInt("ROWNUM"));
+				hmap.put("bid", rset.getInt("BID"));
+				hmap.put("bcategory", rset.getString("BCATEGORY"));
+				hmap.put("btitle", rset.getString("BTITLE"));
+				hmap.put("bwriter", rset.getString("NICK_NAME"));
+				hmap.put("bdate", rset.getDate("BDATE"));
+				hmap.put("bcount", rset.getInt("BCOUNT"));
+				hmap.put("blike", rset.getInt("BLIKE"));
+				
+				list.add(hmap);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectBoardWriterList(Connection con, BoardPageInfo pi, String serachText) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectBoardWriterList");
+//		System.out.println(query);
+		
+		//조회 시작할 행 번호와 마지막 행 번호 계산
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, "커뮤니티");
+			pstmt.setString(2, serachText);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				
+				hmap.put("no", rset.getInt("ROWNUM"));
+				hmap.put("bid", rset.getInt("BID"));
+				hmap.put("bcategory", rset.getString("BCATEGORY"));
+				hmap.put("btitle", rset.getString("BTITLE"));
+				hmap.put("bwriter", rset.getString("NICK_NAME"));
+				hmap.put("bdate", rset.getDate("BDATE"));
+				hmap.put("bcount", rset.getInt("BCOUNT"));
+				hmap.put("blike", rset.getInt("BLIKE"));
+				
+				list.add(hmap);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectBoardContentList(Connection con, BoardPageInfo pi, String serachText) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectBoardContentList");
+//		System.out.println(query);
+		
+		//조회 시작할 행 번호와 마지막 행 번호 계산
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, "커뮤니티");
+			pstmt.setString(2, serachText);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				
+				hmap.put("no", rset.getInt("ROWNUM"));
+				hmap.put("bid", rset.getInt("BID"));
+				hmap.put("bcategory", rset.getString("BCATEGORY"));
 				hmap.put("btitle", rset.getString("BTITLE"));
 				hmap.put("bwriter", rset.getString("NICK_NAME"));
 				hmap.put("bdate", rset.getDate("BDATE"));

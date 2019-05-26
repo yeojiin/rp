@@ -15,17 +15,18 @@ import com.kh.redding.board.model.service.BoardService;
 import com.kh.redding.board.model.vo.BoardPageInfo;
 
 
-@WebServlet("/ManyLookUp.bo")
-public class ManyLookUpBoardServlet extends HttpServlet {
+@WebServlet("/BoardStory.bo")
+public class SelectBoardStoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     
-    public ManyLookUpBoardServlet() {
-        super();
-    }
+			    public SelectBoardStoryServlet() {
+			        super();
+			    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+			protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+				String bcategory = request.getParameter("category");
+		
 				//페이징 추가
 				int currentPage;		//현재 페이지를 표시할 변수
 				int limit;				//한 페이지에서 게시글이 몇 개 보여질 것인지 표시
@@ -44,7 +45,7 @@ public class ManyLookUpBoardServlet extends HttpServlet {
 				limit = 10;
 				
 				//전체 목록 갯수 리턴
-				int listCount = new BoardService().getListCount();
+				int listCount = new BoardService().getBoardchatterbox(bcategory);					
 				
 				System.out.println("listCount : " + listCount);
 				
@@ -65,7 +66,7 @@ public class ManyLookUpBoardServlet extends HttpServlet {
 				BoardPageInfo pi = new BoardPageInfo(currentPage, limit, maxPage, startPage, endPage);
 				
 				//페이징 처리 후
-				ArrayList<HashMap<String, Object>> list = new BoardService().selectManyLookUp(pi);
+				ArrayList<HashMap<String, Object>> list = new BoardService().selectBoardchatterbox(pi, bcategory);
 				
 				String page = "";
 				if(list != null) {
@@ -79,18 +80,14 @@ public class ManyLookUpBoardServlet extends HttpServlet {
 				
 				RequestDispatcher view = request.getRequestDispatcher(page);
 				view.forward(request, response);
-	
-	
-	
-	
-	
-	
-	
+		
+		
+		
+		
+		
+		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

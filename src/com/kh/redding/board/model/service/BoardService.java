@@ -528,6 +528,83 @@ public class BoardService {
 		
 	}
 
+	public ArrayList<HashMap<String, Object>> selectManyLike(BoardPageInfo pi) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new BoardDao().selectBoardManyLike(con, pi);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public int getBoardchatterbox(String bcategory) {
+		Connection con = getConnection();
+		
+		int count = new BoardDao().getBoardChatterBox(con ,bcategory);
+		
+		close(con);
+		
+		return count;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectBoardchatterbox(BoardPageInfo pi, String bcategory) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new BoardDao().selectBoardChatterBox(con, pi , bcategory);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public HashMap<String, Object> boardDetail(int bid) {
+		Connection con = getConnection();
+		
+		HashMap<String, Object> boardMap = new HashMap<String, Object>();
+		
+		HashMap<String, Object> boardDetail = new BoardDao().selectOne(con, bid);
+				
+		if(boardDetail != null && boardDetail.size() > 0) {
+			
+			Board board = (Board)boardDetail.get("board");
+			
+			bid = board.getBid();
+			
+			boardMap.put("board", boardDetail);
+			
+			ArrayList<Attachment> attachlist = new BoardDao().selectAttachment(con, bid);
+			
+			boardMap.put("attachlist", attachlist);
+		}
+		
+		close(con);
+		
+		return boardMap;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectBoardSearch(BoardPageInfo pi, String selectType,
+			String serachText) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = null;
+		
+		if (selectType.equals("Title")) {
+			list = new BoardDao().selectBoardTitleList(con, pi , serachText);			
+		}else if (selectType.equals("Writer")) {
+			list = new BoardDao().selectBoardWriterList(con, pi , serachText);		
+		}else if (selectType.equals("Content")) {
+			list = new BoardDao().selectBoardContentList(con, pi ,serachText);		
+		}
+		
+		close(con);
+		
+		return list;
+		
+		
+		
+	}
+
 
 
 }
