@@ -178,7 +178,7 @@ table {
 										if (hmap != null){
 								%>
 								<tr class="detail" onclick="location.href='<%=request.getContextPath()%>/selectComQnaDetail.qd?bid=<%=Qmap.get("bid")%>'">
-									<td><%=Qmap.get("bid") %>
+									<td><%=Qmap.get("rownum") %>
 									<%-- <input type="hidden" name="cno" value="<%=cno%>"> --%></td>
 									<td><%=Qmap.get("btitle") %></td>
 									<td><%=Qmap.get("mname") %></td>
