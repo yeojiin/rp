@@ -311,7 +311,7 @@ private Properties prop = new Properties();
 				// hmap.put("couponStartDate", rset.getDate("COUPON_STARTDATE"));
 				hmap.put("couponEndDate", rset.getDate("COUPON_ENDDATE"));
 				// hmap.put("couponStatus", rset.getString("COUPON_STATUS"));
-				hmap.put("chistoryCode", rset.getString("CHISTOPY_CODE"));
+				hmap.put("chistoryCode", rset.getString("CHISTORY_CODE"));
 				hmap.put("chistoryStatus", rset.getString("COUPON_STATUS"));
 				hmap.put("couponPubDate", rset.getDate("COUPON_PUB_DATE"));
 				
