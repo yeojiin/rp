@@ -34,8 +34,11 @@ $(function(){
 						 }else if($statusTd == 20){
 							 $statusTd = $("<td>").text("예약승인").css("color","green");
 							 var $checkBox = $("<input>").attr("type","checkbox").attr("class","checkBtn").val(list.upno);
-						 }else{
+						 }else if($statusTd == 30){
 							 $statusTd = $("<td>").text("예약실패").css("color","red");
+							 var $checkBox = $("<input>").attr("type","checkbox").attr("class","checkBtn").val(list.upno).attr("disabled","true");
+						 }else if($statusTd == 40){
+							 $statusTd = $("<td>").text("결제완료").css("color","salmon");
 							 var $checkBox = $("<input>").attr("type","checkbox").attr("class","checkBtn").val(list.upno).attr("disabled","true");
 						 }
 						 

@@ -382,7 +382,8 @@
 					  $discountTd = $("<td>").text((<%= hmap.get("price")%>/100*coupon.cRate));
 					  $resultTd = $("<td>").text((<%= hmap.get("price")%> - (<%= hmap.get("price")%>/100*coupon.cRate)));
 				  }else{
-					  //어마운트작성요망
+					  $discountTd = $("<td>").text(coupon.cAmount);
+					  $resultTd = $("<td>").text((<%= hmap.get("price")%> - (coupon.cAmount)));
 				  }
 				  $typeTd = $("<td>").text('<%=hmap.get("comType")%>');
 				 
