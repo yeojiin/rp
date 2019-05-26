@@ -371,4 +371,17 @@ public class MemberService {
 		return list;
 	}
 
+	//업체후기리스트조회(0526광섭)
+	public ArrayList<HashMap<String, Object>> selectComReviewList(M_ComQnaListPageInfo cqlpi, int cno) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> rlist = new MemberDao().selectComReviewList(con, cqlpi, cno);
+	
+		
+		close(con);
+		
+		System.out.println("rlistService : " + rlist);
+		return rlist;
+	}
+
 }

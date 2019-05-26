@@ -1105,6 +1105,52 @@ public class MemberDao {
 		
 		
 		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectComReviewList(Connection con, M_ComQnaListPageInfo cqlpi, int cno) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String, Object>> rlist = null;
+		HashMap<String, Object> shmap = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectComReviewList");
+		
+		int startRow = (cqlpi.getCurrentPage() - 1) * cqlpi.getLimit() + 1;
+		int endRow = startRow + cqlpi.getLimit() - 1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, cno);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			rlist = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				shmap = new HashMap<String, Object>();
+				
+				shmap.put("rnum", rset.getInt("RNUM"));
+				shmap.put("bid", rset.getInt("BID"));
+				shmap.put("btitle", rset.getString("BTITLE"));
+				shmap.put("nickname", rset.getString("NICK_NAME"));
+				shmap.put("bdate", rset.getDate("BDATE"));
+				shmap.put("bcount", rset.getInt("BCOUNT"));
+				shmap.put("blike", rset.getInt("BLIKE"));
+				shmap.put("cno", rset.getInt("cno"));
+				
+				rlist.add(shmap);
+				System.out.println("rlistDao : " + rlist);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return rlist;
 	}	
 	
 }

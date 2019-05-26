@@ -64,14 +64,16 @@ public class MemberSelectComReviewListServlet extends HttpServlet {
 		M_ComQnaListPageInfo cqlpi = new M_ComQnaListPageInfo(currentPage, limit, maxPage, startPage, endPage);
 		
 		ArrayList<HashMap<String, Object>> blist = new MemberService().selectDetailComQna(cqlpi, cno);
+		ArrayList<HashMap<String, Object>> rlist = new MemberService().selectComReviewList(cqlpi, cno);
 		
-		System.out.println("blist :" + blist);
 		System.out.println(cno);
-		
+		System.out.println("rlistSevlet :" + rlist);
 		System.out.println(currentPage);
+		
 		String page = "";
-		if(blist != null) {
+		if(rlist != null) {
 			page = "views/member/m_ComReviewList.jsp";
+			request.setAttribute("rlist", rlist);
 			request.setAttribute("blist", blist);
 			request.setAttribute("cqlpi", cqlpi);
 		}else {
