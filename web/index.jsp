@@ -106,13 +106,13 @@
 						<!-- Wrapper for slides -->
 						<div class="carousel-inner" style="height:300px;">
 							<div class="item active">
-								<img src="<%=request.getContextPath()%>/images/1.png" class="carouselImg" style="width:100%; height:300px;">
+								<img src="<%=request.getContextPath()%>/images/Reddingmain.png" class="carouselImg" style="width:100%; height:300px;">
 							</div>
 							<div class="item">
-								<img src="<%=request.getContextPath()%>/images/2.png" class="carouselImg" style="width:100%; height:300px;">
+								<img src="<%=request.getContextPath()%>/images/main2.png" class="carouselImg" style="width:100%; height:300px;">
 							</div>
 							<div class="item">
-								<img src="<%=request.getContextPath()%>/images/3.png" class="carouselImg" style="width:100%; height:300px;">
+								<img src="<%=request.getContextPath()%>/images/main3.png" class="carouselImg" style="width:100%; height:300px;">
 							</div>
 						</div>
 
