@@ -46,32 +46,33 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div>
+	<%-- <div>
 		<jsp:include page="/views/admin/a_nav.jsp"></jsp:include>
-	</div>
+	</div> --%>
+	<%@ include file="/views/admin/a_sideNav.jsp" %>
 	
 	<div class="container-fluid text-center">
 		<div class="row content">
 
 		<div class="visible-md visible-lg visible-sm">
 			<div class="col-sm-2 sidenav1">
-				<div class="sidenavArea">
+				<%-- <div class="sidenavArea">
 					<ul class="navList">
 						<li onclick="location.href='a_TotalMember.jsp'" style="color:lightgray; padding-left:25px">전체 회원</li>
 						<li onclick="location.href='<%=request.getContextPath()%>/AllQnA.no'">문의</li>
 					</ul>
-				</div>
+				</div> --%>
 			</div>
 		</div>
 		
 		<div class="visible-xs sideListnav2">
 					<div class="col-sm-2 sidenav1">
-						<div class="sidenavArea2">
+						<%-- <div class="sidenavArea2">
 						<ul class="navList2">
 						<li onclick="location.href='a_TotalMember.jsp'" style="color:lightgray; padding-left:25px">전체 회원</li>
 						<li onclick="location.href='<%=request.getContextPath()%>/AllQnA.no'">문의</li>
 						</ul>
-					</div>
+					</div> --%>
 					</div>
 					
 					<br><br>

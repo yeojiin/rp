@@ -46,9 +46,10 @@
 </head>
 <body>
 
-	<div>
+	<%-- <div>
 		<jsp:include page="/views/admin/a_nav.jsp"></jsp:include>
-	</div>
+	</div> --%>
+	<%@ include file="/views/admin/a_sideNav.jsp" %>
 
 	<div class="container-fluid text-center">
 		<div class="row content">
@@ -56,19 +57,19 @@
 			<!-- 여기는 큰화면 -->
 			<div class="visible-md visible-lg visible-sm">
 				<div class="col-sm-2 sidenav1">
-					<div class="esidenavArea">
+					<!-- <div class="esidenavArea">
 						<br><br><br><br>
-						<button class="ui button createBtn">쿠폰 생성</button>
-					</div>
+						
+					</div> -->
 				</div>
 			</div>
 
 			<!-- 여기는 스마트폰 -->
 			<div class="visible-xs sideListnav2">
-				<div class="col-sm-2 sidenav1"></div>
+				<!-- <div class="col-sm-2 sidenav1"></div>
 					<br><br><br><br>
 					<button class="ui button createBtn">쿠폰 생성</button>
-				<br> <br>
+				<br> <br> -->
 			</div>
 
 			<div class="col-sm-10 text-left">
@@ -76,7 +77,7 @@
 				
 				<div class="couponArea">
 					<br><br><br>
-					<label class="subTitle">쿠폰 리스트</label>
+					<label class="subTitle">쿠폰 리스트</label> <button class="ui button createBtn" style="float:right">쿠폰 생성</button>
 					<br><br>
 					<div class="couponList" align="center">
 						<table class="couponListTable">

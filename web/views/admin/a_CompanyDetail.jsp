@@ -62,7 +62,7 @@
 		
 
 
-			<div class="col-sm-8 text-left">
+			<div class="col-sm-10 text-left">
 				<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 				<div class="comapnyArea">
 					<div class="comapnyNum">
