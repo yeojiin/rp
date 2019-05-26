@@ -186,7 +186,7 @@
 				<br><br>
 				
 				
-			<div class="col-sm-2 sidenav2"></div>
+			<!-- <div class="col-sm-2 sidenav2"></div> -->
 		</div>
 	</div>
 	</div>

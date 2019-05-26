@@ -1,28 +1,27 @@
 @charset "UTF-8";
 #comCalcTable2{
-	text-align:center;
-	border:1px solid gray;
-}
-#comCalcTable2 tbody{
+	font-size:12px;
 	width:100%;
 }
+#comCalcTable2 tbody{
+	text-align:center;
+}
 #comCalcTable2 thead{
+	border-bottom: 1px solid gray;
 	text-align:center;
 }
 .calculateStandByList{
+	font-size:12px;
 	width:100%;
-	text-align:center;
-	font-weight:bold;
 }
 .calculateStandByList td{
 	border-bottom: 1px solid gray;
 	text-align:center;
 }
 .calculateStandByList th{
-	background:gray;
-	color:white;
-	border-bottom:2px solid gray;
+	border-bottom: 1px solid gray;
 	text-align:center;
+	background:mistyrose;
 }
 .subSubTitle {
 	font-size:20px;
@@ -33,9 +32,8 @@
 	height:40px;
 }
 .calculateStandByList thead {
-	background:gray;
-	color:white;
-	border-bottom:2px solid gray;
+	background:mistyrose;
+	text-align:center;
 }
 .calculateStandByList tbody tr {
 	border-bottom:2px solid gray;
@@ -51,4 +49,9 @@
 	border-style:none;
 	background:whitesmoke;
 	color:gray;
+}
+.button{
+	font-size:20px;
+	height:30px;
+	weight:70px;
 }

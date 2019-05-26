@@ -69,11 +69,14 @@
 							%>
 							<tr>
 								<td class="cName"><%=hmap.get("mname")%></td>
-								<td class="imagetd"><img id="image" style=" max-width:100%; height:200px;" src="<%= request.getContextPath() %>/company_upload/<%=hmap.get("changename").toString()%>">
+								<td class="imagetd"><img id="image"
+									style="max-width: 80%; height: 100px;"
+									src="<%= request.getContextPath() %>/company_upload/<%=hmap.get("changename").toString()%>">
 								</td>
 								<td class="pName"><%=hmap.get("pname")%></td>
 								<td class="price"><%=hmap.get("price")%></td>
-								<td><input name="check" type="checkbox" id="checkbox" class="checkbox"></td>
+								<td><input name="check" type="checkbox" id="checkbox"
+									class="checkbox"></td>
 								<td class="pno" hidden><%=hmap.get("pno")%></td>
 								<td class="cType" hidden><%=hmap.get("ctype")%></td>
 								<td class="wishCode" hidden><%=hmap.get("wishcode")%></td>
@@ -85,41 +88,52 @@
 					</div>
 					<br>
 					<div class="button">
-						<button class="ui gray button" id="eachReserve" style="display:inline-block">개별 예약</button>
-						<button class="ui gray button" id="package" style="display:inline-block">패키지에 담기</button>
-						<button class="ui gray button" id="delete" style="display:inline-block">삭제</button>
-						<form action="<%=request.getContextPath()%>/delete.wi" method="post" id="deleteWishForm">
-						<input type="hidden" name="deleteList" id="deleteList">
-						<input type="hidden" name="deleteListMno">
+						<button class="ui gray button" id="eachReserve"
+							style="display: inline-block">개별 예약</button>
+						<button class="ui gray button" id="package"
+							style="display: inline-block">패키지에 담기</button>
+						<button class="ui gray button" id="delete"
+							style="display: inline-block">삭제</button>
+						<form action="<%=request.getContextPath()%>/delete.wi"
+							method="post" id="deleteWishForm">
+							<input type="hidden" name="deleteList" id="deleteList"> <input
+								type="hidden" name="deleteListMno">
 						</form>
 					</div>
 
 				</div>
-				<br><br><br>
+				<br>
+				<br>
+				<br>
 				<div class="pResult">
-					<div class = "wishpackage">
-					<h2>패키지 구성</h2>
-					<div class="pack">
-					<div class="packageArea" id="packageArea" style="display:inline-block">
-						<div class="firstStudio" style="display:inline-block;">
-						</div>
-						<div class="packImg" style="display:inline-block">
-							<img src="<%=request.getContextPath()%>/images/plus.png">
-							<p></p>
-						</div>
-						<div class="firstDress" style="display:inline-block;">
-							<p></p>
-						</div>
-						<div class="packImg" style="display:inline-block">
-							<img src="<%=request.getContextPath()%>/images/plus.png">
-							<p></p>
-						</div>
-						<div class="firstMakeup" style="display:inline-block;">
-							<p></p>
-						</div>
-					</div>
-					<div class="packageArea2" id="packageArea2" style="display:inline-block">
-						<div class="secondStudio" style="display:inline-block">
+					<div class="wishpackage">
+						<h2>패키지 구성</h2>
+						<hr style="border-color: salmon; width:100%;">
+						<div class="pack">
+							<div class="packageArea" id="packageArea"
+								style="display: inline-block">
+								<div class="firstStudio" style="display: inline-block;"></div>
+								<div class="packImg" style="display: inline-block">
+									<img id="plus"
+										src="<%=request.getContextPath()%>/images/plus.png">
+									<p></p>
+								</div>
+								<div class="firstDress" style="display: inline-block;">
+									<p></p>
+								</div>
+								<div class="packImg" style="display: inline-block">
+									<img id="plus"
+										src="<%=request.getContextPath()%>/images/plus.png">
+									<p></p>
+								</div>
+								<div class="firstMakeup" style="display: inline-block;">
+									<p></p>
+								</div>
+							</div>
+						<hr style="border-color: salmon; width:100%;">
+							<div class="packageArea2" id="packageArea2"
+								style="display: inline-block">
+								<!-- <div class="secondStudio" style="display:inline-block">
 						</div>
 						<div class="packImg" style="display:inline-block">
 						</div>
@@ -129,25 +143,53 @@
 						</div>
 						<div class="secondMakeup" style="display:inline-block">
 						</div>
-						<div class="packImg" style="display:inline-block">
+						<div class="packImg" style="display:inline-block"> -->
+								<table class="secondTable"
+									style="text-align: center; background: lightgray;">
+									<thead></thead>
+								</table>
+							</div>
+						</div>
+						
+						<div>
+							<table style="width:100%; height:100px; border-top:2px solid salmon;">
+								<tr>
+								<td>
+									<%-- <img style="float: left;" src="<%=request.getContextPath()%>/images/equal.png"> --%>
+									<label style="font-size:40px; color:gray;">=</label>
+								</td>
+								<td>
+									<div class="finalPrice">	
+									</div>
+								</td>
+								<td>
+									<div class="button">
+									<button class="ui pink button" style="background: salmon; float: left;" id="packReserve">패키지 예약하기</button>
+									</div>
+								</td>
+								</tr>
+							</table>
+						</div>
+						
+						
+						
+						<%-- <div class="priceWrap">
+							<img style="float: left;" src="<%=request.getContextPath()%>/images/equal.png">
+							<div class="finalPrice">
+							</div>
+							<div class="button">
+								<button class="ui pink button" style="background: salmon; float: left;" id="packReserve">패키지 예약하기</button>
+							</div>
+							<div class="totalPrice" style="float: left"></div>
+						</div> --%>
 					</div>
 				</div>
-				</div>
-				<div class= "priceWrap">
-					<div class="totalPrice" style="float:left">
-						<img  src="<%=request.getContextPath()%>/images/equal.png">
-					</div>
-					<div class="finalPrice">
-					</div>
-				</div>
-				</div>
+			</div>
+
+		</div>
 				
-				</div>
 				<br><br><br><br>
 					
-					<div class="button">
-						<button class="ui pink button" style="background: salmon;" id="packReserve">패키지 예약하기</button>
-					</div>
 
 				</div>
 
@@ -232,7 +274,6 @@
 		          				if(data>0){
 								alert("패키지 담기에 성공했습니다!");
 								
-								
 								$.ajax({
 		      						url : "/redding/showPack.wi",
 				          			data : {mno:mno},
@@ -245,6 +286,8 @@
 				          				$secondDress = $(".secondDress");
 				          				$secondMakeup = $(".secondMakeup");
 				          				$finalPrice = $(".finalPrice");
+				          				$packageArea2 = $(".packageArea2");
+				          				
 				          				var sctn = 0;
 				          				var dctn = 0;
 				          				var mctn = 0;
@@ -259,6 +302,7 @@
 				          				$secondDress.empty();
 				          				$secondMakeup.empty();
 				          				$finalPrice.empty();
+				          				$packageArea2.empty();
 				          				
 				          				for(var i in data){
 					          				var cname = data[i].cname;
@@ -267,30 +311,30 @@
 					          				var ctype = data[i].comType;
 					          				var pno = data[i].pno;
 					          				var changename = data[i].changename;
-					          				src = '<img src="' + "<%=request.getContextPath() %>/company_upload/" + changename + '" style="max-width:100%; height:200px;">';
 					          				
-					        				
+					          				src = '<img src="' + "<%=request.getContextPath() %>/company_upload/" + changename + '" style="width:200px; height:200px;">';
+					          				
+					          				
 					          				if(ctype == "스튜디오" && sctn==0){
-					          					$firstStudio.append("<p class=" + pno + ">" + src + "<br>" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+					          					$firstStudio.append("<p class=" + pno + ">" + src + "<br>" + cname + "<br>" + pname + "<br>" + price + "<br>" + "</p>"+"<br>")
 					          					sctn++;
 					          				}else if(ctype == "드레스" && dctn==0 ){
-				    	      					$firstDress.append("<p class=" + pno + ">" + src + "<br>" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+				    	      					$firstDress.append("<p class=" + pno + ">" + src + "<br>" + cname + "<br>" + pname + "<br>" + price + "<br>" + "</p>"+"<br>")
 				        	  					dctn++;
 				        	  				}else if(ctype == "메이크업" && mctn==0){
-				          						$firstMakeup.append("<p class=" + pno + ">" + src + "<br>" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+				          						$firstMakeup.append("<p class=" + pno + ">" + src + "<br>" + cname + "<br>" + pname + "<br>" + price + "<br>" +"</p>"+"<br>")
 				          						mctn++;
-				          					}else if(ctype == "스튜디오"){
-				          						$secondStudio.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
-				          					}else if(ctype == "드레스") {
-				          						$secondDress.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
-				          					}else if(ctype == "메이크업"){
-				          						$secondMakeup.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
-				          					}
+				          					}else{
+				          						$packageArea2.append("<p class=" + pno + ">" + src + "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" +cname + 
+	          											"&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" + pname  + 
+	          											"&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" + price  +  "</p>"+"<br>");
+	          								}
+					          				
 					          				
 						          			totalPrice += price; 
 						          			
 				          				}
-				          					fPrice = '<h2 id="price">' + totalPrice + '</h2>';
+				          					fPrice = '<label id="price">' + totalPrice + '</label>';
 				          					
 				          					$(".finalPrice").append(fPrice); 
 					          				//$("#price").html(totalPrice);
@@ -328,10 +372,8 @@
 		          				$firstStudio = $(".firstStudio"); 
 		          				$firstDress = $(".firstDress");
 		          				$firstMakeup = $(".firstMakeup");
-		          				$secondStudio = $(".secondStudio");
-		          				$secondDress = $(".secondDress");
-		          				$secondMakeup = $(".secondMakeup");
-		          				$finalPrice = $(".finalPrice");
+		          				$packageArea2 = $(".packageArea2");
+		          			
 		          				var sctn = 0;
 		          				var dctn = 0;
 		          				var mctn = 0;
@@ -341,37 +383,34 @@
 		          				
 		          				for(var i in data){
 		          				var cname = data[i].cname;
-		          				var pname = data[i].pname;
-		          				var price = data[i].price;
-		          				var ctype = data[i].comType;
-		          				var pno = data[i].pno;
+			          			var pname = data[i].pname;
+			          			var price = data[i].price;
+			          			var ctype = data[i].comType;
+			         			var pno = data[i].pno;
 		          				var changename = data[i].changename;
-		          				src = '<img src="' + "<%=request.getContextPath() %>/company_upload/" + changename + '" style="max-width:100%; height:200px;">';
+		          				src = '<img id="imgT" src="' + "<%=request.getContextPath() %>/company_upload/" + changename + '" style="width:200px; height:150px;">';
 		        				
-		          				//console.log(changename);
-		        				
+		          				
 		        				
 		          				if(ctype == "스튜디오" && sctn==0){
-		          					$firstStudio.append("<p class=" + pno + ">" + src + "<br>" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+		          					$firstStudio.append("<p class=" + pno + ">" + src + "<br>" + cname + "<br>" + pname + "<br>" + price + "<br>" +"</p>"+"<br><br>");
 		          					sctn++;
 		          				}else if(ctype == "드레스" && dctn==0 ){
-	    	      					$firstDress.append("<p class=" + pno + ">" + src + "<br>" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+	    	      					$firstDress.append("<p class=" + pno + ">" + src + "<br>" + cname + "<br>" + pname + "<br>" + price + "<br>" +"</p>"+"<br><br>");
 	        	  					dctn++;
 	        	  				}else if(ctype == "메이크업" && mctn==0){
-	          						$firstMakeup.append("<p class=" + pno + ">" + src + "<br>" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+	          						$firstMakeup.append("<p class=" + pno + ">" + src + "<br>" + cname + "<br>" + pname + "<br>" + price + "<br>" +"</p>"+"<br><br>");
 	          						mctn++;
-	          					}else if(ctype == "스튜디오"){
-	          						$secondStudio.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
-	          					}else if(ctype == "드레스") {
-	          						$secondDress.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
-	          					}else if(ctype == "메이크업"){
-	          						$secondMakeup.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+	          					}else{
+	          						$packageArea2.append("<p class=" + pno + ">" + src + "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" +cname + 
+	          											"&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" + pname  + 
+	          											"&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" + price  +  "</p>"+"<br>");
 	          					}
 		          				
 			          				totalPrice += price;
 		          				}
 		          				
-		          				fPrice = '<h2 id="price">' + totalPrice + "</h2>";
+		          				fPrice = '<label id="price">' + totalPrice + "</label>";
 		          				$(".finalPrice").append(fPrice);
 		          				
 		          			}, 
@@ -391,6 +430,7 @@
 					var result = confirm('패키지에서 삭제 하시겠습니까?'); 
 					
 					if(result){
+						condole.log()
 						$.ajax({
 							url : "/redding/deletePack.wi",
 			      			traditional:true,
@@ -414,6 +454,8 @@
 					          				$secondDress = $(".secondDress");
 					          				$secondMakeup = $(".secondMakeup");
 					          				$finalPrice = $(".finalPrice");
+					          				$packageArea2 = $(".packageArea2");
+					          				
 					          				var sctn = 0;
 					          				var dctn = 0;
 					          				var mctn = 0;
@@ -428,6 +470,7 @@
 					          				$secondDress.empty();
 					          				$secondMakeup.empty();
 					          				$finalPrice.empty();
+					          				$packageArea2.empty();
 					          				
 					          				for(var i in data){
 						          				var cname = data[i].cname;
@@ -437,31 +480,29 @@
 						          				var pno = data[i].pno;
 						          				var changename = data[i].changename;
 						          				
-						          				src = '<img src="' + "<%=request.getContextPath() %>/company_upload/" + changename + '" style="max-width:100%; height:200px;">';
+						          				src = '<img src="' + "<%=request.getContextPath() %>/company_upload/" + changename + '" style="width:200px; height:200px;">';
 						          				
 						          				
 						          				if(ctype == "스튜디오" && sctn==0){
-						          					$firstStudio.append("<p class=" + pno + ">" + src + "<br>" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+						          					$firstStudio.append("<p class=" + pno + ">" + src + "<br>" + cname + "<br>" + pname + "<br>" + price + "<br>" + "</p>"+"<br>")
 						          					sctn++;
 						          				}else if(ctype == "드레스" && dctn==0 ){
-					    	      					$firstDress.append("<p class=" + pno + ">" + src + "<br>" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+					    	      					$firstDress.append("<p class=" + pno + ">" + src + "<br>" + cname + "<br>" + pname + "<br>" + price + "<br>" + "</p>"+"<br>")
 					        	  					dctn++;
 					        	  				}else if(ctype == "메이크업" && mctn==0){
-					          						$firstMakeup.append("<p class=" + pno + ">" + src + "<br>" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
+					          						$firstMakeup.append("<p class=" + pno + ">" + src + "<br>" + cname + "<br>" + pname + "<br>" + price + "<br>" +"</p>"+"<br>")
 					          						mctn++;
-					          					}else if(ctype == "스튜디오"){
-					          						$secondStudio.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
-					          					}else if(ctype == "드레스") {
-					          						$secondDress.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
-					          					}else if(ctype == "메이크업"){
-					          						$secondMakeup.append("<p class=" + pno + ">" + cname + "<br>" + pname + "<br>" + price + "<br>" + pno+"</p>"+"<br>")
-					          					}
+					          					}else{
+					          						$packageArea2.append("<p class=" + pno + ">" + src + "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" +cname + 
+		          											"&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" + pname  + 
+		          											"&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" + price  +  "</p>"+"<br>");
+		          								}
 						          				
 							          			totalPrice += price; 
 					          				}
 					          				
 					          				/* console.log("삭제:" + totalPrice); */
-					          				fPrice = '<h2 id="price">' + totalPrice + '</h2>';
+					          				fPrice = '<label id="price">' + totalPrice + '</label>';
 				          					
 				          					$(".finalPrice").append(fPrice); 
 						          				
