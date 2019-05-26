@@ -7,7 +7,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/common/main.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common/joinstart.css">
-<title>Insert title here</title>
+<title>REDDING♥</title>
 </head>
 <body>
 	<header>

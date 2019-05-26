@@ -26,7 +26,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/dist/css/Chart.min.css">
 <script src="${pageContext.request.contextPath}/css/dist/js/Chart.min.js"></script>
 <script src="${pageContext.request.contextPath}/css/dist/js/utils.js"></script>
-<title>Insert title here</title>
+<title>REDDING♥</title>
 <style>
 
 </style>

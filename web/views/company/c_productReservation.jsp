@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>REDDING♥</title>
 <link rel="stylesheet"
    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script
@@ -60,7 +60,7 @@
          </div>
          
          
-         <div class="col-sm-8 text-left">
+         <div class="col-sm-10 text-left">
          <%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
             <div class="contentsArea" id="productListContentsArea" style="width:100%">
                <!-- 상품목록 밑의 전체~ 상품등록하기 버튼까지 -->

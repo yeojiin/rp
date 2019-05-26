@@ -43,7 +43,7 @@
 <style>
 
 </style>
-<title>Insert title here</title>
+<title>REDDING♥</title>
 </head>
 <body>
 	<%-- <div>

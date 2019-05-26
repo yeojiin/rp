@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>REDDING♥</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin/a_nav.css">
 </head>

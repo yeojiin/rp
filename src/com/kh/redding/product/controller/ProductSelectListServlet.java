@@ -77,9 +77,6 @@ public class ProductSelectListServlet extends HttpServlet {
       
       ArrayList<Product> proList = new ProductService().selectList(pi, cno);
       
-//      System.out.println("proList : " + proList);
-      //System.out.println("proList.get(i).getpno : " + proList.get(0).getpNo());
-      
       int productTotalCount = new ProductService().productTotalCount(cno);
       int saleProductCount = new ProductService().saleProductCount(cno, "판매");
       int noSaleProductCount = new ProductService().saleProductCount(cno, "판매안함");

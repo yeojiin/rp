@@ -34,7 +34,7 @@
 	href="<%=request.getContextPath()%>/css/semantic/modal.min.css">
 <script src="<%=request.getContextPath()%>/js/modal.min.js"></script>
 <script src="<%=request.getContextPath()%>/js/semantic.min.js"></script>
-<title>Insert title here</title>
+<title>REDDING♥</title>
 <style>
 	.ui.dimmer .ui.modal{
       margin-left:auto;

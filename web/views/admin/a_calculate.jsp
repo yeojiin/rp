@@ -31,7 +31,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin/a_stats.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common/layout.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/semantic/semantic.min.css">
-<title>Insert title here</title>
+<title>REDDING♥</title>
 </head>
 <body>
 

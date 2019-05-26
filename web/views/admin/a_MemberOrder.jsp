@@ -29,7 +29,7 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/semantic/accordion.css">
 
-<title>Insert title here</title>
+<title>REDDING♥</title>
 </head>
 <body>
 	<div>

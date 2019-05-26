@@ -61,7 +61,7 @@
 	}
 }
 </style>
-<title>Redding</title>
+<title>REDDING♥</title>
 </head>
 <body>
 	<!-- 업체 나브 -->

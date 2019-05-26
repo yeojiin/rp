@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>임시마이페이지</title>
+<title>REDDING♥</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
