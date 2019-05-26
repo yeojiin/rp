@@ -514,6 +514,7 @@ public class AdminDao {
 			close(rset);
 		}
 
+		
 		return list;
 	}
 
@@ -1680,9 +1681,94 @@ public class AdminDao {
 		
 		return list;
 	}
-	
 
+	
+	//승인 취소(계좌)
+	public int memberRefuse(int payno, Connection con) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("memberRefuse");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "승인취소");
+			pstmt.setInt(2, payno);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
+	
+
+	//관리자 환불 요청 상태 변한 update(정연)
+	public int adminRefundUpdate(int payno, Connection con) {
+		PreparedStatement pstmt = null;
+		int updateRe = 0;
+
+		String query = prop.getProperty("adminRefundUpdate");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "결제환불");
+			pstmt.setString(2, "승인대기");
+			pstmt.setInt(3, payno);
+			
+			
+			updateRe = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return updateRe;
+		
+	}
+	
+	
+	
+	//관리자 환불 요청 상태 변한 insert(정연)
+	public int adminRefundInsert(int payno, int mno, int upno, String pselect, int fprice, int cardcode, Connection con) {
+		PreparedStatement pstmt = null;
+		int insertRe = 0;
+		
+
+		String query = prop.getProperty("adminRefundInsert");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			pstmt.setInt(2, upno);
+			pstmt.setString(3, pselect);
+			pstmt.setString(4, "승인대기");
+			pstmt.setString(5, "환불");
+			pstmt.setInt(6, cardcode);
+			pstmt.setInt(7, payno);
+			pstmt.setInt(8, fprice);
+			
+			insertRe = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return insertRe;
+		
+	}
+	
+
+	
+
 }
-}
+

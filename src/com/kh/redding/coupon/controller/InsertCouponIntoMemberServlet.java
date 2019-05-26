@@ -32,6 +32,7 @@ public class InsertCouponIntoMemberServlet extends HttpServlet {
 		//System.out.println(couponCode);
 		//System.out.println(mno);
 		
+		
 		ArrayList<HashMap<String, Object>> list = new CouponService().checkInsertCouponIntoMember(couponCode, mno);
 		
 		JSONArray jList = new JSONArray();

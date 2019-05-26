@@ -252,6 +252,7 @@ private Properties prop = new Properties();
 			close(stmt);
 			close(rset);
 		}
+		
 
 		return list;
 	}
@@ -336,6 +337,7 @@ private Properties prop = new Properties();
 
 	// 중복 발급 방지용 메소드
 	public ArrayList<HashMap<String, Object>> checkInsertCouponIntoMember(Connection con, String couponCode, String mno) {
+		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		//ArrayList<Coupon> list = null;
