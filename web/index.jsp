@@ -57,7 +57,7 @@
 .con1label {
 	font-size:35px;
 	color:salmon;
-	font-family:Elephant;
+	font-family:'Noto Sans KR', sans-serif;
 }
 .con1Table {
 	width:100%;
@@ -93,7 +93,7 @@
 
 			<div class="col-sm-10 text-left">
 			<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
-				<br>
+				<br><br>
 				<div class="container">
 					<div id="myCarousel" class="carousel slide" data-ride="carousel">
 						<!-- Indicators -->
@@ -140,14 +140,14 @@
 							<td><img src="<%=request.getContextPath()%>/images/conImg3.png" class="conImg"></td>
 						</tr>
 						<tr>
-							<td><label class="com1label2"><br>내가 고른 스드메 업체 견적을 한눈에</label></td>
-							<td><label class="com1label2"><br>간편하게 위시리스트에서 결제까지 한번에</label></td>
-							<td><label class="com1label2"><br>커뮤니티 공간에서 정보 공유까지</label></td>
+							<td class="com1label2"><br>내가 고른 스드메 업체 견적을 한눈에<br><br></td>
+							<td class="com1label2"><br>간편하게 위시리스트에서 결제까지 한번에<br><br></td>
+							<td class="com1label2"><br>커뮤니티 공간에서 정보 공유까지<br><br></td>
 						</tr>
 					</table>
 					<br>
 				</div>
-
+				<br><br>
 			</div>
 			
 			<!-- 오른쪽 빈공간 -->
