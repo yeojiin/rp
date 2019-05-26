@@ -14,7 +14,6 @@ import java.util.Properties;
 import com.kh.redding.board.model.vo.BoardPageInfo;
 import com.kh.redding.member.model.dao.MemberDao;
 
-
 public class MakeQuery {
 
 	public MakeQuery() {}

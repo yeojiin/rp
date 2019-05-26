@@ -39,6 +39,7 @@ public class ReplyToAdminServlet extends HttpServlet {
 		
 		int level =2;
 		
+		
 		Message mes = new Message();
 		mes.setMesContent(content);
 		mes.setMesDisDate(disDate);

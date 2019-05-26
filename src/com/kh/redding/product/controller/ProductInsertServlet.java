@@ -23,8 +23,6 @@ import com.kh.redding.product.model.vo.UseProduct;
 @WebServlet("/insert.pr")
 public class ProductInsertServlet extends HttpServlet {
       private static final long serialVersionUID = 1L;
-          
-      
        public ProductInsertServlet() {
            super();
        }

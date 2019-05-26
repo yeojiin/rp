@@ -5,14 +5,12 @@
 	ArrayList<UseProduct> useProList = (ArrayList<UseProduct>)request.getAttribute("useProList"); 
 	Product pro = (Product) request.getAttribute("pro");
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
-	
 	int currentPage = pi.getCurrentPage();
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
 	int startRow = pi.getStartRow();
 	int endRow = pi.getEndRow();
-
 %>
 <!DOCTYPE html>
 <html>

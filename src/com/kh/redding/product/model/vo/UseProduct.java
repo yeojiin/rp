@@ -12,7 +12,6 @@ public class UseProduct implements Serializable{
    private int uNum;
    private String ustatus;
    
-   
    public UseProduct() {}
 
 

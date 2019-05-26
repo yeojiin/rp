@@ -30,6 +30,7 @@ public class CompanyMessageListServlet extends HttpServlet {
       int listCount = Integer.parseInt(request.getParameter("value"));
       //System.out.println("listCount : " + listCount);
       
+      
       int currentPage;
       int limit;
       int maxPage;

@@ -40,7 +40,6 @@ public class ProductSearchServlet extends HttpServlet {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}else {
 			currentPage = 1;
-			
 		}
 		
 		limit = 10;

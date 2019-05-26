@@ -37,6 +37,7 @@ public class SelectListReceiveMessageServlet extends HttpServlet {
 		int startRow;
 		int endRow;
 		  
+		
 		currentPage = 1;
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));

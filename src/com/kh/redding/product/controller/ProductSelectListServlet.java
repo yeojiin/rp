@@ -29,7 +29,6 @@ public class ProductSelectListServlet extends HttpServlet {
       //로그인 유저의 MNO를 받아옴
       Member member = (Member)request.getSession().getAttribute("loginUser");
       int cno = member.getMno();
-      //int cno = Integer.parseInt(request.getParameter("mno"));
 
       int currentPage;      
       int limit;            

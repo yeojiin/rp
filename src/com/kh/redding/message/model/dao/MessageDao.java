@@ -29,7 +29,6 @@ public class MessageDao {
          e.printStackTrace();
       }
    }
-   
    //쪽지 보내기를 위한 업체 번호 받아오기
    public Member selectCompanyOne(Connection con, int cno) {
       PreparedStatement pstmt = null;

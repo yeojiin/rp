@@ -25,14 +25,14 @@ public class ProductDao {
       public ProductDao() {
          String fileName = ProductDao.class.getResource("/sql/product/product-query.properties").getPath();
          
-         try {
-         prop.load(new FileReader(fileName));
-      } catch (FileNotFoundException e) {
-         e.printStackTrace();
-      } catch (IOException e) {
-         e.printStackTrace();
-      }
-         
+	         try {
+	         prop.load(new FileReader(fileName));
+	      } catch (FileNotFoundException e) {
+	         e.printStackTrace();
+	      } catch (IOException e) {
+	         e.printStackTrace();
+	      }
+	         
       }
       
       //상품리스트조회

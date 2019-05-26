@@ -25,7 +25,6 @@ public class SearchMesListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String cname = request.getParameter("cname");
 		
-		//System.out.println("cname : " + cname);
 		int wtype = 10;//수신
 
 		int listCount;

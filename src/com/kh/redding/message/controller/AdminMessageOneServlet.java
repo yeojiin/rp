@@ -20,6 +20,7 @@ public class AdminMessageOneServlet extends HttpServlet {
 		//System.out.println("업체가 관리자한테 보낸 쪽지 상세보기 서블릿");
 		int code = Integer.parseInt(request.getParameter("code"));
 
+		
 		Message mes = new MessageService().selectMesOne(code);
 		
 		String page = "";

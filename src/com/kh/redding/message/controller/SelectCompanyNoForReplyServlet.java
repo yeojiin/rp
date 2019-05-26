@@ -24,8 +24,6 @@ public class SelectCompanyNoForReplyServlet extends HttpServlet {
 	      
 	      int code = Integer.parseInt(request.getParameter("code"));
 	      
-	      //System.out.println("code : " +code);
-	      
 	      /*Member company = new MessageService().selectCompanyOne(cno);
 	      
 	      System.out.println("company : " + company);*/

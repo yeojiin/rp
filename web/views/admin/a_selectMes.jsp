@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-
 	import="com.kh.redding.message.model.vo.*, com.kh.redding.admin.model.vo.*, java.util.*"%>
 <%
 	Message mes = (Message)request.getAttribute("mes");

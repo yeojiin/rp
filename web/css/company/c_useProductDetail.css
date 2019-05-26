@@ -18,6 +18,7 @@ input[name = useDate], input[name = uproStartTime], input[name = uproEndTime]{
 	background: lightgray;
 	border: 2px solid white;
 }
+
 input[name=uproNum], input[name=uproStatus], #productInsertArea label{
 	border: none;
 	cursor: pointer;

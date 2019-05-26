@@ -33,9 +33,7 @@
    href="${pageContext.request.contextPath}/css/admin/a_message.css">
 <link rel="stylesheet"
    href="<%=request.getContextPath()%>/css/semantic/semantic.min.css">
-
 <style>
-
 </style>
 <title>Insert title here</title>
 </head>

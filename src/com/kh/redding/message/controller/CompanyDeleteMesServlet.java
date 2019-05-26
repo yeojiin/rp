@@ -21,6 +21,7 @@ public class CompanyDeleteMesServlet extends HttpServlet {
 		String checked = request.getParameter("checked");
 		//System.out.println("checked : " + checked);
 		
+		
 		String[] srr = null;
 		int[] codes = null;
 		int result = 0;

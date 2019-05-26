@@ -31,7 +31,6 @@
    .row.content {
    height: auto;
    }
-
    .sidenav1 {
       padding-top: 20px;
       height: 100%;

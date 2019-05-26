@@ -30,8 +30,6 @@ public class GetListCountMesServlet extends HttpServlet {
 		System.out.println("condition");*/
 		
 		//System.out.println("hmap : " + hmap);
-		
-		//System.out.println("hmap : " + hmap);
 		//System.out.println("hmap ck : " + hmap.get("CK_COUNT"));
 		//System.out.println("hmap nock : " + hmap.get("NOCK_COUNT"));
 		
