@@ -68,7 +68,7 @@
 				
 			
 			
-			<div class="col-sm-8 text-left">
+			<div class="col-sm-10 text-left">
 			<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 		<br>
 				<div class="pselectArea">
@@ -186,7 +186,7 @@
 				<br><br>
 				
 				
-			<div class="col-sm-2 sidenav2"></div>
+			<!-- <div class="col-sm-2 sidenav2"></div> -->
 		</div>
 	</div>
 	</div>

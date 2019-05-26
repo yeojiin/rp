@@ -138,8 +138,8 @@
 						<h2>정산 상태 리스트</h2>
 						<button class="ui green button" id="status">확인</button>
 						<br><br>
-						<table class="comCalcTable2" id="comCalcTable2" style="width:100%; text-align:center;">
-							<thead style="text-align:center; background:gray; color:white;">
+						<table class="comCalcTable2" id="comCalcTable2">
+							<thead>
 							<tr>
 								<th>월</th>
 								<th>결제코드</th>

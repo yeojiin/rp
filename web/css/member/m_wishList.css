@@ -7,39 +7,53 @@
 	text-align: center; */
 	font-family: 'Noto Sans KR', sans-serif;
 }
+body{
+	font-family: 'Noto Sans KR', sans-serif;
+	/* font-weight:bold;	 */
+}
 #wishListTable{
 	width:100%;
 	text-align:center;
-	border:1px solid black;
+	/* border:2px solid salmon; */
+	font-family: 'Noto Sans KR', sans-serif;
 }
 #wishListTable tr th{
+	height:40px;
 	text-align:center;
-	font-size:20px;
-	 border:1px solid black;
-	 background:#FFA399;
+	font-size:18px;
+	 border-bottom:1px solid gray;
+	 background:mistyrose;
+	 font-family: 'Noto Sans KR', sans-serif;
 }
 #wishListTable tr td{
-	border:1px solid black;
+	font-family: 'Noto Sans KR', sans-serif;
+	/* border:2px solid salmon; */
 }
-.imagetd{
-	width:20%;	
+#wishListTable tr{
+	border-bottom:1px solid gray;
 }
+* .imagetd{
+	max-width:30%;	
+} 
 #image{
-	max-width:99%;
+	width:150px;
+	height:100px;
 }
 .pName{
 	width:30%;
 }
 .cName{
 	width:20%; 
+	font-family: 'Noto Sans KR', sans-serif;
 	font-size:18px;
 }
 .price{
+	font-family: 'Noto Sans KR', sans-serif;
 	font-size:18px;
 }
 #pResult{
 	width:100%;
-	border:1px solid black;
+	border:1px solid salmon;
 	border:none;
 }
 #package1, #package2, #package3{
@@ -49,11 +63,11 @@
 }
 .packageArea{
 	width:100%;
-	background:mistyrose;
+	/* background:mistyrose; */
 }
 .packageArea2{
 	width:100%;
-	background:lightgray;
+	/* background:lightgray; */
 }
 .packageButton, .packagePrice{
 	float:left;
@@ -61,16 +75,16 @@
 .fisrtStudio img, .fisrtDress img, .fisrtMakeup img{
 	max-width:100%;
 }
-#totalPrice{
+/* #totalPrice{
 	margin-top:185px;
 	margin-left:20%;
 	font-size:20px;
-}
+} */
 .button {
 	float:right;
 }
 .firstStudio, .firstDress, .firstMakeup{
-	width:25%;
+	width: 27%;
 	text-align:center;
 }
 .secondStudio, .secondDress, .secondMakeup{
@@ -78,28 +92,40 @@
 	text-align:center;
 }
 
-.pWrap{
-	width : 100%;
-}
 
-.pack{
+/* .pWrap{
+	width : 100%;
+} */
+
+/* .pack{
 	width : 70%;
 	float : left;
-}
+} */
 
-.priceWrap{
+/* .priceWrap{
 	width : 30%;
 	height: 200px;
 	float : left;
 }
-
+ */
 
 .totalPrice{
 	margin-top : 30%;
 }
 
 #price{
-	margin-top: 30%;
-	margin-left: 20%;
 	font-size: 25px;
-	color: red;}
+	font-family: 'Noto Sans KR', sans-serif;
+	color: salmon;
+}
+#packReserve{
+	margin-top:0;
+}
+.fianlPrice{
+	float:left;
+}
+#plus{
+	width:20px;
+	margin-top:-380px;
+	margin-left:26px;
+}

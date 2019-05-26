@@ -223,6 +223,7 @@ private Properties prop = new Properties();
 			
 			rset = stmt.executeQuery(query);
 			
+			
 			list = new ArrayList<HashMap<String, Object>>();
 			
 			while(rset.next()) {
@@ -253,7 +254,7 @@ private Properties prop = new Properties();
 			close(rset);
 		}
 		
-
+		
 		return list;
 	}
 

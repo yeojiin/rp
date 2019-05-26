@@ -198,6 +198,8 @@ public class MemberDao {
 		
 		String query = prop.getProperty("listComCount");
 		
+		System.out.println("comType:" + comType);
+		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, comType);
@@ -252,7 +254,6 @@ public class MemberDao {
 				
 				list.add(hmap);
 			}
-			System.out.println("ff : " + hmap.get("comType"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -260,6 +261,7 @@ public class MemberDao {
 			close(rset);
 		}
 		
+		System.out.println("리ㅣ" + list);
 		return list;
 	}
 
