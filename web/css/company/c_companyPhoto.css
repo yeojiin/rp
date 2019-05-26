@@ -14,7 +14,7 @@
 	 border : 1px solid lightgray;
 }
 
- .upimg{
+.upimg{
 	width : 100%;
 	height : 100%;
 	max-width :300px;
@@ -43,7 +43,7 @@
  .wrap .centered img { 
  position: absolute; 
  top: 0; left: 0; 
- max-width: 100%; height: auto; 
+ width: 100%; height: 100%; 
  -webkit-transform: translate(-50%,-50%); 
  -ms-transform: translate(-50%,-50%); 
  transform: translate(-50%,-50%); 
