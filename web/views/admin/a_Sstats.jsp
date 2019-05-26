@@ -81,31 +81,47 @@
 			
 			<div class="col-sm-10 text-left">
 			<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
-				<div class="StatArea" style="width:100%; height:auto;">
+				<div class="StatArea" style="width:100%; height:auto;">				
+				<h2 style="text-align:center; font-weight:bold">회원 통계</h2>
 				<br><br>
-				<table>
+				<table style="border-bottom:1px solid gray">
 					<tr>
 						<td width="100%">
+						<div class="chart-container" style="position: relative; width:100%; 
+						margin-top:0;">
 							<canvas id="canvas" style=></canvas>
+						</div>
 						</td>
 						<td width="100%">
-							<canvas id="chart-area"></canvas>		
+						<div class="chart-container" style="position: relative; width:100%; 
+						margin-top:0; margin-top:auto; margin-bottom:auto">
+							<canvas id="chart-area"></canvas>
+						</div>								
+						</td>										
+					</tr>
+					<tr>
+						<td colspan="2">
+							<br><br>
 						</td>
-					</tr>													
+					</tr>
+													
 				</table>
 				<br><br>
-				
-				<div style="float:right;">
+				<br><br><br>
+				<h2 style="text-align:center; font-weight:bold">회원 상세 조회</h2>				
+				<div style="text-align:center">
 				<select class ="searchSelect" style="height:26px">
 				<option value="30">남성회원조회</option>
 				<option value="40">여성회원조회</option>
 				<option value="50">전체회원조회</option>
-				</select>&nbsp;&nbsp;
+				</select>&nbsp;&nbsp;				
 				<input type="date" class="firstDate"> ~ <input type="date" class="lastDate"> <button class="searchDate" >조회</button>
 				</div>
-				<br><br><br><br>
-				<div class="chart-container" style="position: relative; height:300px; width:90%;">
-					<canvas id="canvas" class="hels"></canvas>				
+				
+				<br>
+				<div class="chart-container" style="position: relative; height:auto; width:100%; border-bottom:1px solid gray">
+					<canvas id="canvas" class="hels"></canvas>	
+					<br>			
 				</div>
 				<br><br><br>
 				</div>

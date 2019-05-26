@@ -76,7 +76,8 @@
 			
 			<div class="col-sm-10 text-left">
 			<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
-				<div style="width:100%">
+				<h2 style="text-align:center; font-weight:bold">매출 상세 조회</h2>
+				<div style="width:100%; text-align:center">
 				<br><br>
 				<div>
 					<input type="radio" name="comTypeRadio" class="serachRadio" checked value="전체">전체 
