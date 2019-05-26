@@ -2,6 +2,14 @@
 #productInsertArea h3{
    color: salmon;
 }
+
+.paginArea button{
+   background-color: white;
+   color: salmon;
+   border: 1px solid salmon;
+   cursor: pointer;
+   border-radius: 5px;
+}
 #selectArea{
 	margin-top: 5%;	
 }

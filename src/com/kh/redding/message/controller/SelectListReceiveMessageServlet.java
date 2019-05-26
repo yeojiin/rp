@@ -57,8 +57,6 @@ public class SelectListReceiveMessageServlet extends HttpServlet {
 		startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
 		endRow = startRow + pi.getLimit() - 1;
 		  
-		  /*startRow = 1;
-		  endRow=100;*/
 		pi.setStartRow(startRow);
 		pi.setEndRow(endRow);
 		  

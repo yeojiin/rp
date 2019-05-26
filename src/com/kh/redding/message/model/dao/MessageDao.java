@@ -261,7 +261,7 @@ public class MessageDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("mesdao :" +mes);
+		//System.out.println("mesdao :" +mes);
 		return mes;
 	}
 	//확인날짜 업데이트용 메소드

@@ -285,11 +285,11 @@
 			  $("input[name=upCheck]").each(function(){
 				  var upno = $(this).parent().parent().children().eq(1).children().eq(1).val();
 				  if($(this).is(":checked")){
-					  console.log("upno : " + upno);
+					  /* console.log("upno : " + upno); */
 					  upnoArr += upno +", ";
 				  }
 			  });
-			  console.log(upnoArr);
+			  /* console.log(upnoArr); */
 			  
 			  $.ajax({
 				  url:"uproListUstatusY.pr",
@@ -311,11 +311,11 @@
  			  $("input[name=upCheck]").each(function(){
  				  var upno = $(this).parent().parent().children().eq(1).children().eq(1).val();
  				  if($(this).is(":checked")){
- 					  console.log("upno : " + upno);
+ 					  /* console.log("upno : " + upno); */
  					  upnoArr += upno +", ";
  				  }
  			  });
-			  console.log(upnoArr);
+			  /* console.log(upnoArr); */
 			  
 			  $.ajax({
 				  url:"uproListUstatusY.pr",

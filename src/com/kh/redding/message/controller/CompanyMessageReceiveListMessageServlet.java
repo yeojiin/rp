@@ -73,7 +73,7 @@ public class CompanyMessageReceiveListMessageServlet extends HttpServlet {
 	      hmap.put("pi", pi);
 	      hmap.put("compMesList", compMesList);
 	      
-	      System.out.println("compMesList.size : " + compMesList.size());
+	      //System.out.println("compMesList.size : " + compMesList.size());
 	      
 	      response.setContentType("application/json");
 	      new Gson().toJson(hmap, response.getWriter());

@@ -1,4 +1,4 @@
-package com.kh.redding.message;
+package com.kh.redding.message.controller;
 
 import java.io.IOException;
 
@@ -17,9 +17,9 @@ public class CompanyDeleteMesServlet extends HttpServlet {
         super();
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("삭제 서블릿");
+		//System.out.println("삭제 서블릿");
 		String checked = request.getParameter("checked");
-		System.out.println("checked : " + checked);
+		//System.out.println("checked : " + checked);
 		
 		String[] srr = null;
 		int[] codes = null;
@@ -29,7 +29,7 @@ public class CompanyDeleteMesServlet extends HttpServlet {
 		codes = new int[srr.length];
 		
 		for(int i=0 ; i<srr.length ; i++) {
-			System.out.println("srr["+i+"] : " + srr[i]);
+			//System.out.println("srr["+i+"] : " + srr[i]);
 			codes[i] = Integer.parseInt(srr[i]);
 			
 			result = new MessageService().deleteCompMes(codes[i]);

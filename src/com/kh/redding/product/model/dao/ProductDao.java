@@ -602,8 +602,8 @@ public class ProductDao {
 				pstmt = con.prepareStatement(query);
 				
 				pstmt.setInt(1, cno);
-				/*pstmt.setInt(2, pi.getStartRow());
-				pstmt.setInt(3, pi.getEndRow());*/
+				pstmt.setInt(2, pi.getStartRow());
+				pstmt.setInt(3, pi.getEndRow());
 				
 				rset = pstmt.executeQuery();
 				
@@ -637,8 +637,8 @@ public class ProductDao {
 				
 				pstmt.setInt(1, cno);
 				pstmt.setString(2, searchStatus);
-				/*pstmt.setInt(3, pi.getStartRow());
-				pstmt.setInt(4, pi.getEndRow());*/
+				pstmt.setInt(3, pi.getStartRow());
+				pstmt.setInt(4, pi.getEndRow());
 				
 				rset = pstmt.executeQuery();
 				proList = new ArrayList<Product>();
@@ -670,8 +670,8 @@ public class ProductDao {
 				
 				pstmt.setInt(1, cno);
 				pstmt.setString(2, searchProName);
-				/*pstmt.setInt(3, pi.getStartRow());
-				pstmt.setInt(4, pi.getEndRow());*/
+				pstmt.setInt(3, pi.getStartRow());
+				pstmt.setInt(4, pi.getEndRow());
 				
 				rset = pstmt.executeQuery();
 				proList = new ArrayList<Product>();
@@ -703,8 +703,8 @@ public class ProductDao {
 				pstmt.setInt(1, cno);
 				pstmt.setString(2, searchProName);
 				pstmt.setString(3, searchStatus);
-				/*pstmt.setInt(4, pi.getStartRow());
-				pstmt.setInt(5, pi.getEndRow());*/
+				pstmt.setInt(4, pi.getStartRow());
+				pstmt.setInt(5, pi.getEndRow());
 				
 				rset = pstmt.executeQuery();
 				proList = new ArrayList<Product>();
@@ -856,6 +856,8 @@ public class ProductDao {
 			pstmt.setString(2, ustatus);
 			pstmt.setDate(3, startDate);
 			pstmt.setDate(4, endDate);
+			pstmt.setInt(5, pi.getStartRow());
+			pstmt.setInt(6, pi.getEndRow());
 			
 			rset = pstmt.executeQuery();
 			
@@ -922,6 +924,8 @@ public class ProductDao {
 			pstmt.setInt(1, pNo);
 			pstmt.setDate(2, startDate);
 			pstmt.setDate(3, endDate);
+			pstmt.setInt(4, pi.getStartRow());
+			pstmt.setInt(5, pi.getEndRow());
 			
 			rset = pstmt.executeQuery();
 			

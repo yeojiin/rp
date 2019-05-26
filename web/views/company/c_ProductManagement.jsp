@@ -290,7 +290,7 @@
             //console.log($(this).val());
          });
          $("#productSearchDays").click(function(){
-            console.log($(this).val());
+            /* console.log($(this).val()); */
             $(".Day").attr("type","date");
          });
          
