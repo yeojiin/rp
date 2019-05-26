@@ -132,7 +132,7 @@
 						<%} } %>
 						</select></p>
 						<!-- <a class="btn btn-default" style="border-color:salmon; background:salmon; color:white; width:50%; height:auto; font-size:20px; margin-left:25%; margin-top:10%; font-family: 'Noto Sans KR', sans-serif;">예약하기</a><br><br> -->
-						<button style="border:2px solid salmon; border-radius:none; background:salmon; color:white; width:95%; height:35px; font-size:20px; margin-left:20px; font-family: 'Noto Sans KR', sans-serif;" id="wishList">위시리스트에 담기</button>
+						<button style="border:2px solid salmon; border-radius:none; background:salmon; color:white; width:95%; height:35px; font-size:20px; margin-left:20px; font-family: 'Noto Sans KR', sans-serif;" id="wishList" type="button">위시리스트에 담기</button>
 							<h2 id="pnoRe" hidden><%=pro.getpNo() %></h2>
 							<h2 id="mnoRe" hidden><%=loginUser.getMno() %></h2>
 					</div>
@@ -312,6 +312,7 @@
           			data : {pno:pno, mno:mno},
           			type : "post",
           			success : function(data){
+          				console.log("성공!!!!!!!!!!!!!!!!");
           				if(data>0){
           					alert("위시리스트 담기 성공!");
           				}else{

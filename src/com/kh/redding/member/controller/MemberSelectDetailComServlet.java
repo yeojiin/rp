@@ -36,6 +36,8 @@ public class MemberSelectDetailComServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int cno = Integer.parseInt(request.getParameter("cno"));
 		
+		System.out.println("뭐지:" + request.getParameter("cno"));
+		
 		HashMap<String, Object> list = new MemberService().selectDetailCom(cno);
 		
 		System.out.println("list : " + list);
