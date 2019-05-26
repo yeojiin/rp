@@ -45,6 +45,20 @@ int endPage = pi.getEndPage();
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
+.bntclass{
+	background : salmon;
+	outline : 0 ; 
+	border : none;
+	color : white;
+	
+}
+
+.bntclass:hover{
+	background : white;
+	color : salmon;
+}
+
+
 .row.content {
 	height: 490px;
 }
@@ -108,7 +122,7 @@ int endPage = pi.getEndPage();
 						<!-- 	<button type= "button" id = "boardUpdate" style = "margin-left : 80%">수정</button> -->
 						<% }%>
 						<% if (loginUser.getMno() == board.getBwriter() || loginUser.getMemberId() == "admin"){ %>
-							<button type= "button" id = "boardDel" style = "margin-left : 90%">삭제</button>
+							<button type= "button" id = "boardDel" style = "margin-left : 90%" class = "bntclass">삭제</button>
 						<%} %>
 						<% } %>
 					</div>
@@ -186,11 +200,11 @@ int endPage = pi.getEndPage();
 								    <textArea id = "replycontent" name = "replycontent" class = "replycontent" style = "border:none;width:100%;resize:none;height:auto;" readonly><%= reply.getReply_content() %></textArea>
 								    </h4>
 								    <% if(loginUser.getMemberId().equals(mid)){%>
-								    	<button type = "button" id = "replyUpdate">수정</button>
+								    	<button type = "button" id = "replyUpdate" class = "bntclass">수정</button>
 								   		<button type = "button" id = "replyChange" class = "changebtn">변경</button>
 								    <%} %>
 								    <% if (loginUser.getMemberId().equals(mid) || loginUser.getMemberId().equals("admin")){ %>
-								    	<button type = "button" id = "replydelete" >삭제</button>
+								    	<button type = "button" id = "replydelete" class = "bntclass">삭제</button>
 								    <%} %>
 						  		</div>
 							</div>

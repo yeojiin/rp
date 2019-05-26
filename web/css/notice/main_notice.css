@@ -26,6 +26,10 @@
 	padding-top : 40px;
 }
 
+.pagingArea{
+	backgorund: none;
+}
+
 #writerbtn{
 	margin-top : 10%;
 	margin-bottom : auto; 
