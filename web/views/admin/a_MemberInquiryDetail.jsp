@@ -43,7 +43,7 @@
 <script src="<%=request.getContextPath()%>/css/semantic/jquery-3.4.1.min.js"></script>
 <style>
 </style>
-<title>Insert title here</title>
+<title>REDDING♥</title>
 </head>
 <body>
 	<div>

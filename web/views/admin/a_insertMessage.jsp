@@ -38,7 +38,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/admin/a_insertMessage.css">	
 
-<title>Insert title here</title>
+<title>REDDING♥</title>
 </head>
 <body>
 	<%-- <div>

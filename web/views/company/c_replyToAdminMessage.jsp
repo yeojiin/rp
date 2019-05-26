@@ -31,7 +31,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/company/c_replyToAdminMessage.css">	
 
-<title>Insert title here</title>
+<title>REDDING♥</title>
 </head>
 <body>
 	<div>

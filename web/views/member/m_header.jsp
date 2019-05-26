@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>REDDING♥</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common/header.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/member/m_header.css">
 </head>

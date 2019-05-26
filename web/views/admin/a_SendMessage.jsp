@@ -35,7 +35,7 @@
    href="<%=request.getContextPath()%>/css/semantic/semantic.min.css">
 <style>
 </style>
-<title>Insert title here</title>
+<title>REDDING♥</title>
 </head>
 <body>
    <%-- <div>

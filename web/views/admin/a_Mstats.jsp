@@ -35,7 +35,7 @@
 <script>
 var sca = '01';
 </script>
-<title>Insert title here</title>
+<title>REDDING♥</title>
 <style>
 	#canvas {float:left; position:relative; width: 320px; height:400px; margin: 0}
 	#south {width: 320px; height:400px; position: absolute; top: 0px; left: 0;}
