@@ -95,52 +95,22 @@
 			<div class="col-sm-8 text-left">
 				<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 				<form action="<%=request.getContextPath()%>/selectDetailCom.dc">
-				<br>
+				<br><br>
 				
-				<p style="font-size:40px; text-align:center"><%=mem.getMemberName() %></p>
-				<div id="titleimg" style="width:100%; height:auto;">
-					<div style="width:50%; height:auto; float:left;">
+				<div id="titleimg" style="width:100%; height:340px; border-bottom:2px solid lightgray;">
+					<div style="width:50%; height:100%; float:left;">
 						<% for (int i = 0; i < attachlist.size(); i++) {
 	            			Attachment att = attachlist.get(i); 
 	            			//System.out.println("타입 :" + att.getCno_div());
 	            			String cnodiv = (String)att.getCno_div();
 	            			if(cnodiv != null && cnodiv.equals("대표")){%>
-								<img src="/redding/company_upload/<%=att.getChangename() %>" id="timg" style="max-width:100%;">
+								<img src="/redding/company_upload/<%=att.getChangename() %>" id="timg" style="width:100%; height:300px">
 							<%} %>
 						<%} %>
 					</div>
 					<div style="width:50%; height:auto; float:right;">
-					<br><br><br>
-						
-						<p style="font-size:20px; margin-left:25%;">상품이름 : <select>
+						<p style="font-size:39px; margin-left:20px; color:salmon; font-family: 'Noto Sans KR', sans-serif;"><%=mem.getMemberName() %></p>
 						<%
-						if (prolist != null && prolist.size() > 0){
-						for (int i = 0; i < prolist.size(); i++) {
-	            			pro = prolist.get(i); %>
-							<option><%=pro.getpName() %></option>
-						<%} } %>
-						</select></p>
-						<a class="btn btn-default" style="border-color:salmon; background:salmon; color:white; width:50%; height:auto; font-size:20px; margin-left:25%; margin-top:10%;">예약하기</a><br><br>
-						<a class="btn btn-default" style="border-color:salmon; background:salmon; color:white; width:50%; height:auto; font-size:20px; margin-left:25%" id="wishList">위시리스트에 담기</a>
-							<h2 id="pnoRe" hidden><%=pro.getpNo() %></h2>
-							<h2 id="mnoRe" hidden><%=loginUser.getMno() %></h2>
-					</div>
-					<br><br><br><br><br><br><br><br><br><br>
-					<hr style="border-color: black; width:100%;">
-				</div>
-				
-					<table border="1"; align="center"; style="width:100%; height:auto; background:salmon; color:white; border-color:white;">
-						<tr>
-							<td align="center" style="width:25%; font-size:20px;" onclick="fnMove('1')">업체정보</td>
-							<td align="center" style="width:25%; font-size:20px;" onclick="fnMove('2')">상품정보</td>						
-							<td align="center" style="width:25%; font-size:20px;" onclick="location.href='<%=request.getContextPath()%>/selectComReviewList.rl?cno=<%= cno %>'">후기</td>
-							<td align="center" style="width:25%; font-size:20px;" onclick="location.href='<%=request.getContextPath()%>/selectDetailComQna.cq?cno=<%= cno %>'">문의</td>				
-						</tr>
-					</table>
-					<div style="width:100%; height:auto;">
-						<div id="div1" style=" width:50%; height:auto; float:left">
-						<p style="font-size:30px;"><%=mem.getMemberName() %></p>
-						<% 
 						String address = com.getComAddress();
 						String[] addressArr = address.split("\\|");
 						if (addressArr.length > 2){
@@ -149,43 +119,62 @@
 							companyAddress = addressArr[1];
 						}
 						%>
-						<p style="font-size:23px;">주소 : <%=companyAddress %></p>
-						<p style="font-size:23px;">영업시간 : AM <%=com.getOpenTime() %> ~ PM <%=com.getEndTime() %></p>
-						<p style="font-size:23px;">홈페이지 : <a href="<%=com.getComUrl() %>">바로가기</a></p>
-						</div>
-							<div id="map" style="width:50%; height:500px; float:right"></div>	
+						<p style="font-size:17px; margin-left:20px; font-family: 'Noto Sans KR', sans-serif;">주소&nbsp;&nbsp;:&nbsp;&nbsp;<%=companyAddress %></p>
+						<p style="font-size:17px; margin-left:20px; font-family: 'Noto Sans KR', sans-serif;">영업시간&nbsp;&nbsp;:&nbsp;&nbsp;AM <%=com.getOpenTime() %> ~ PM <%=com.getEndTime() %></p>
+						<p style="font-size:17px; margin-left:20px; font-family: 'Noto Sans KR', sans-serif;">홈페이지 <a href="<%=com.getComUrl() %>">바로가기</a></p><br><br><br>
+						<p style="font-size:17px; margin-left:20px; font-family: 'Noto Sans KR', sans-serif;">상품 이름&nbsp;&nbsp;:&nbsp;&nbsp;
+						<select style="width:80%">
+						<%
+						if (prolist != null && prolist.size() > 0){
+						for (int i = 0; i < prolist.size(); i++) {
+	            			pro = prolist.get(i); %>
+							<option><%=pro.getpName() %></option>
+						<%} } %>
+						</select></p>
+						<!-- <a class="btn btn-default" style="border-color:salmon; background:salmon; color:white; width:50%; height:auto; font-size:20px; margin-left:25%; margin-top:10%; font-family: 'Noto Sans KR', sans-serif;">예약하기</a><br><br> -->
+						<button style="border:2px solid salmon; border-radius:none; background:salmon; color:white; width:96%; height:auto; font-size:20px; margin-left:20px; font-family: 'Noto Sans KR', sans-serif;" id="wishList">위시리스트에 담기</button>
+							<h2 id="pnoRe" hidden><%=pro.getpNo() %></h2>
+							<h2 id="mnoRe" hidden><%=loginUser.getMno() %></h2>
 					</div>
-
-					<hr style="align: center; border-color: black; width: 100%;">
+					<br><br><br><br><br><br><br><br><br><br>
+				</div>
+				<br><br>
+					<table border="1"; align="center"; style="width:100%; height:50px; background:mistyrose; border:1px solid white;">
+						<tr>
+							<td align="center" style="width:25%; font-size:20px; font-family: 'Noto Sans KR', sans-serif;" onclick="fnMove('1')">업체정보</td>
+							<td align="center" style="width:25%; font-size:20px; font-family: 'Noto Sans KR', sans-serif;" onclick="fnMove('2')">상품정보</td>						
+							<td align="center" style="width:25%; font-size:20px; font-family: 'Noto Sans KR', sans-serif;" onclick="location.href='<%=request.getContextPath()%>/selectComReviewList.rl?cno=<%= cno %>'">후기</td>
+							<td align="center" style="width:25%; font-size:20px; font-family: 'Noto Sans KR', sans-serif;" onclick="location.href='<%=request.getContextPath()%>/selectDetailComQna.cq?cno=<%= cno %>'">문의</td>				
+						</tr>
+					</table>
+					<br>
+					<div style="width:100%; height:auto;">
+							<div id="map" style="width:100%; height:300px; float:right">
+							</div>	
+							<br><br><br><br>
+					</div>
+					<br><br><br><br><br><br><br><br><br><br><br>
 					<div id="div2">
-						<h1>상품정보</h1>
+						<!-- <h1 style="font-family: 'Noto Sans KR', sans-serif;">상품정보</h1> -->
+           						<p style="width:100%; font-size:20px; color:salmon; font-family: 'Noto Sans KR', sans-serif;"><%=pro.getpContent() %></p>
+           						<br>
 						<% for (int i = 0; i < attachlist.size(); i++) {
 								Attachment att = attachlist.get(i); 
             					System.out.println("타입 :" + att.getCno_div());
             					String cnodiv = (String)att.getCno_div();
             					if(cnodiv != null && cnodiv.equals("서브")){%>
-            					<table border:"1" style="width:100%; height:auto;">
+            					<table border:"1" style="width:100%; height:500px;">
             					<tr>
-            					<%if(i % 2 == 0) {%>
-            					<td class="imgArea" style="width:50%;">
-            						<img src="/redding/company_upload/<%=att.getChangename() %>" id="timg" class="imgContent">
+            					<td class="imgArea" style="width:100%; height:500px;">
+            						<img src="/redding/company_upload/<%=att.getChangename() %>" id="timg" class="imgContent" style="height:700px; margin-bottom:20px;">
             						</td>
-            						<td style="width:50%; font-size:20px;"><%=pro.getpContent() %></td>
-            					<%}else{ %>
-            						<hr style="align: center; border-color: black; width: 100%;">
-									<td style="width:50%; font-size:20px;"><%=pro.getpContent() %></td>
-									<td class="imgArea" style="width:50%;">
-            						<img src="/redding/company_upload/<%=att.getChangename() %>" id="timg" class="imgContent">
-            						</td>
-									</tr>
-									<% } %>
 									<% } %>							
 						</table>
-						<% } %>	
+						<% } %>
 					</div>
-					
-					<hr style="align: center; border-color: black; width: 100%;">
-					<a href="#" class="top" style="position:fixed; left:90%; bottom: 50px; display:none; font-size:30px;">Top</a>
+					<br>
+					<!-- <hr style="align: center; border-color: black; width: 100%;"> -->
+					<a href="#" class="top" style="position:fixed; left:90%; bottom: 50px; display:none; font-size:30px; font-family: 'Noto Sans KR', sans-serif;">Top</a>
 					</form>
 				</div>
 				
@@ -301,7 +290,7 @@
                   
                           // 인포윈도우로 장소에 대한 설명을 표시합니다
                           var infowindow = new daum.maps.InfoWindow({
-                              content: '<div style="width:150px;text-align:center;padding:6px 0;"><%=mem.getMemberName() %></div>'
+                              content: '<div style="width:150px;text-align:center;padding:6px 0; font-family:Noto Sans KR, sans-serif;"><%=mem.getMemberName() %></div>'
                           });
                           infowindow.open(map, marker);
                   

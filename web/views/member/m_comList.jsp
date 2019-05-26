@@ -108,27 +108,30 @@ td {
          <div class="col-sm-8 text-left">
             <%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
             
-            <div class="list1" align="center">
+            <div class="list1">
             <br>
-            	<div style="width:100%; height:auto">
+            	<div style="width:100%; height:auto; padding-left:20px;" >
             	<%
             		HashMap<String, Object> hmap = null;
             		String name[] = null;
             		for (int i = 0; i < list.size(); i++) {
             			hmap = list.get(i);
             	%>
-            		<div style="width:25%; height:40%; float:left">
+            		<div style="width:31%; height:40%; display:inline-block; margin:10px;">
             			<div>
-		                  	<img src="/redding/company_upload/<%=hmap.get("changename") %>" style="max-width:100%"; onclick="location.href='<%=request.getContextPath() %>/selectDetailCom.dc?cno=<%=hmap.get("mno") %>'"><br>
-            				<p style="font-size:25px; color:black;"><%=hmap.get("membername") %></p>
-            				<p style="font-size:25px; font-weight:bold; color:salmon;"><%=hmap.get("price") %>~</p>
-            				<p style="font-size:25px; font-weight:bold; color:gold;">★: <%=hmap.get("ComLike") %></p>
+            				<div style="width:100%; height:100%">
+		                  	<img src="/redding/company_upload/<%=hmap.get("changename") %>" style="width:100%; height:270px"; onclick="location.href='<%=request.getContextPath() %>/selectDetailCom.dc?cno=<%=hmap.get("mno") %>'"><br>
+            				</div>
+            				<p style="font-size:25px; color:black; font-family: 'Noto Sans KR', sans-serif;"><%=hmap.get("membername") %></p>
+            				<p style="font-size:25px; font-weight:bold; color:salmon; font-family: 'Noto Sans KR', sans-serif;"><%=hmap.get("price") %>~</p>
+            				<p style="font-size:25px; font-weight:bold; color:gold; font-family: 'Noto Sans KR', sans-serif;">★: <%=hmap.get("ComLike") %></p>
             			</div>
             		</div>
                		<% } %>
             	</div>
             	<br>
-            	<div style="width:100%; height:auto; margin-top:50%;">
+            </div>
+            	<div style="width:100%; height:auto; text-align:center" >
 					<button type="button" class="test" onclick="location.href='<%=request.getContextPath() %>/listcomtype.mb?currentPage=1&comType=<%= hmap.get("comType") %>'"><<</button>
 					<% if(currentPage <= 1){ %>
 					<button disabled><</button>
@@ -151,7 +154,6 @@ td {
 					<% } %>
 					<button onclick="location.href='<%=request.getContextPath() %>/listcomtype.mb?currentPage=<%=maxPage %>&comType=<%= hmap.get("comType") %> '">>></button>
 				</div>
-            </div>
             
          </div>
 
