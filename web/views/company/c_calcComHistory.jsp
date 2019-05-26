@@ -62,15 +62,11 @@
 	<div class="container-fluid text-center">
 		<div class="row content">
 
-			<div class="visible-md visible-lg visible-sm">
-				<div class="col-sm-2 sidenav1">
-					<div class="sidenavArea">
-						<ul class="navList">
-							<li id="requestCalc">정산 요청</li>
-							<li id="clacHistory">정산 내역</li>
-						</ul>
-					</div>
-				</div>
+			
+			<div class="col-sm-2 sidenav1 visible-md visible-lg visible-sm">
+				<div id="requestCalc">정산 요청</div>
+				<br><br>
+				<div id="clacHistory">정산 내역</div>
 			</div>
 
 

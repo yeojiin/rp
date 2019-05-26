@@ -63,7 +63,6 @@
 								<th><input type="checkbox" id="allCheck"></th>
 							</tr>
 							<%
-								/* 해쉬맵으로 받은 객체 꺼내주기*/ 
 								for (int i = 0; i < list.size(); i++) {
 									HashMap<String, Object> hmap = list.get(i);
 							%>
