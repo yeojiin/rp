@@ -96,6 +96,8 @@
 						HashMap<String, Object> hmap = list.get(i);
 					%>
 						<tr>
+							<td id="cardcode" hidden><%=hmap.get("cardcode") %></td>
+							<td id="upno" hidden><%=hmap.get("upno") %></td>
 							<td id="mno" hidden><%=hmap.get("mno") %></td>
 							<td id="payno" hidden><%=hmap.get("payno") %></td>
 							<td id="rnum"><%=hmap.get("rnum")%></td>
@@ -113,12 +115,17 @@
 					%>
 							<td id="pstatus" class="pstatus" style="color:blue;"><%=hmap.get("pstatus") %></td>
 					<% 
+							}else if(hmap.get("pstatus").equals("승인취소")){
+					%>		
+							<td id="pstatus" class="pstatus" style="color:Hotpink;"><%=hmap.get("pstatus") %></td>
+					<%
 							}else{
 					%>		
+					
 							<td id="pstatus" class="pstatus" style="color:red;"><%=hmap.get("pstatus") %></td>
 					<%
 							}
-					%>		
+					%>
 						
 					<%
 							if(hmap.get("pstatus").equals("승인")){
@@ -126,11 +133,17 @@
 							<td><button class="ui blue button" id="pay" disabled>승인</button></td>
 							<td><button class="ui red button" id="refund">환불</button></td>
 					<% 
-							}else{
+							}else if(hmap.get("pstatus").equals("승인취소")){
+					%>
+							<td><button class="ui blue button" id="pay" disabled>승인</button></td>
+							<td><button class="ui pink button" id="refuse" disabled>취소</button></td>
+					<%
+							}else {
 					%>
 							<td><button class="ui blue button" id ="pay">승인</button></td>	
-							<td><button class="ui red button" id="refund">환불</button></td>
-					<%
+							<td><button class="ui pink button" id="refuse">취소</button></td>
+					
+					<% 			
 							}
 					%>	
 						
@@ -239,7 +252,63 @@
 		
 	});
 	
-	 
+	
+	//승인 취소(계좌번호)
+	$(document).on("click","#refuse",function(){
+		var payno = $(this).closest("td").siblings("#payno").text();
+		
+		
+		 $.ajax({
+			url : "/redding/memberRefuse.ad",
+  			data : {payno:payno},
+  			type : "post",
+  			success : function(data){
+  				if(data>0){
+  					alert("계좌이체 승인 취소 성공!");
+  					
+  					location.href="<%=request.getContextPath()%>/showCalc.ad?currentPage=<%= currentPage%>";
+  				}else{
+  					alert("계좌이체 승인 취소 실패!");
+  				}
+  			},error:function(){
+  				console.log("계좌이체 승인 취소 실패!");
+  			}
+		});
+		
+		
+	});
+	
+	
+	
+	//관리자가 바로 환불 요청
+	$(document).on("click","#refund",function(){
+		var payno = $(this).closest("td").siblings("#payno").text();
+		var mno = $(this).closest("td").siblings("#mno").text();
+		var upno = $(this).closest("td").siblings("#upno").text();
+		var pselect = $(this).closest("td").siblings("#pselect").text();
+		var fprice = $(this).closest("td").siblings("#fprice").text();
+		var cardcode = $(this).closest("td").siblings("#cardcode").text();
+		
+		
+		 $.ajax({
+			url : "/redding/adminRefund.ad",
+  			data : {payno:payno, mno:mno, upno:upno, pselect:pselect, fprice:fprice, cardcode:cardcode},
+  			type : "post",
+  			success : function(data){
+  				if(data>0){
+  					alert("관리자 환불 요청 성공!");
+  					
+  					location.href="<%=request.getContextPath()%>/showCalc.ad?currentPage=<%= currentPage%>";
+  				}else{
+  					alert("관리자 환불 요청 실패!");
+  				}
+  			},error:function(){
+  				console.log("관리자 환불 요청 실패!");
+  			}
+		});  
+		
+		
+	});
 	 
 	
 		

@@ -91,7 +91,6 @@
 							<th>결제상태</th>
 							<th>승인상태</th>
 							<th>환불</th>
-							<th>취소</th>
 						</tr>
 					<%
 						for (int i = 0; i < list.size(); i++) {
@@ -138,12 +137,10 @@
 							if(hmap.get("pstatus").equals("승인")){
 					%>		
 							<td><button class="ui green button" id="refund" style="width:70px;" disabled>환불</button></td>
-							<td><button class="ui red button" id="cancle" style="width:70px;" disabled>취소</button></td>
 					<% 
 							}else{
 					%>
 							<td><button class="ui green button" id ="refund" style="width:70px;">환불</button></td>	
-							<td><button class="ui red button" id="cancle" style="width:70px;">취소</button></td>
 					<%
 							}
 					%>	
