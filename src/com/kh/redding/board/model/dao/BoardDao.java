@@ -1669,6 +1669,7 @@ public class BoardDao {
 				hmap.put("btitle", rset.getString("BTITLE"));
 				hmap.put("bwriter", rset.getString("NICK_NAME"));
 				hmap.put("bdate", rset.getDate("BDATE"));
+				hmap.put("bcategory", rset.getString("BCATEGORY"));
 				hmap.put("bcount", rset.getInt("BCOUNT"));
 				hmap.put("blike", rset.getInt("BLIKE"));
 				
