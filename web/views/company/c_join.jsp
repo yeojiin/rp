@@ -143,7 +143,7 @@
 									<select name="bankcode" id="bankcode">
 										<option value=''>선택하세요</option>
 										<option value="003">기업은행</option>
-										<option value="004"'>국민은행</option>
+										<option value="004">국민은행</option>
 										<option value="011">농협중앙회</option>
 										<option value='012'>단위농협</option>
 										<option value='020'>우리은행</option>
@@ -193,13 +193,13 @@
 								<td><input type="text" name="accpnm"
 									id="accpnm" placeholder="예금주">
 								</td>
-								<td>
+							<!-- 	<td>
 									<input type="checkbox" id="sbm-flag" name="checkacc" style="display:none">
 									<label id="sbm-no" style="background:red;color:white;border-radius:3px;padding:3px;">미인증</label>
 									<label id="sbm-ok" style="background:green;color:white;border-radius:3px;padding:3px;display:none">인증됨</label>
 									<button class="btn btn-primary btn-xs" id="confirmacc" onclick="fnSearchAccessToken()">확인하기</button>
 									<button class="btn btn-primary btn-xs" style="display:none" id="changeacc" onclick="">변경하기</button>
-								</td> 
+								</td>  -->
 							</tr>
 							<tr>
 								<td></td>
