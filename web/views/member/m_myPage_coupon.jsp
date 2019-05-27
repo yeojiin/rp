@@ -118,21 +118,15 @@
 					<br><br>
 					
 					<div class="availableCoupon">
-						<div class="couponLabel1">사용가능한 쿠폰</div><br><br>
-						<label class="couponLabel21" style="cursor:pointer">1</label>
-						<label class="couponLabel3">개</label>
-					</div>
-					&nbsp;&nbsp;&nbsp;
-					<div class="imminentCoupon">
-						<div class="couponLabel1">마감임박 쿠폰</div><br><br>
-						<label class="couponLabel22" style="cursor:pointer">2</label>
-						<label class="couponLabel3">개</label>
+						<div class="couponLabel1">사용가능 쿠폰</div><br><br>
+						<label class="couponLabel21" style="cursor:pointer">확인하기 ></label>
+						<label class="couponLabel3"></label>
 					</div>
 					&nbsp;&nbsp;&nbsp;
 					<div class="downAvailableCoupon">
 						<div class="couponLabel1">발급가능 쿠폰</div><br><br>
-						<label class="couponLabel23" style="cursor:pointer">3</label>
-						<label class="couponLabel3">개</label>
+						<label class="couponLabel23" style="cursor:pointer">확인하기 ></label>
+						<label class="couponLabel3"></label>
 					</div>
 					<br><br><br><br> 
 					
