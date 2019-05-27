@@ -41,7 +41,7 @@
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="<%=request.getContextPath()%>/views/company/c_customerManager.jsp">고객관리</a></li><!-- *** -->
+					<%-- <li class="active"><a href="<%=request.getContextPath()%>/views/company/c_customerManager.jsp">고객관리</a></li><!-- *** --> --%>
 					<li><a href="<%=request.getContextPath()%>/selectProList.pr?mno=<%=loginUser.getMno()%>">상품관리</a></li><!-- *** -->
 					<li><a href="<%=request.getContextPath()%>/photo.co">정보수정</a></li>
 					<li><a href="<%=request.getContextPath()%>/showMonCalc.co?mno=<%=loginUser.getMno()%>">정산관리</a></li>

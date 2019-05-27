@@ -177,6 +177,7 @@
 		                          </tr> -->
 		                          <tr>
 		                             <td colspan="2">
+		                             <br>
 		                                <div id="searchBtn">검색하기</div>
 		                             </td>
 		                          </tr>
@@ -229,6 +230,7 @@
 		                     <tr>
 		                        <td colspan="8">
 		                           <div id="sellStatusBtns">
+		                           <br>
 		                              <div id="productSellYesBtn">판매하기</div>
 		                              <div id="productSellNoBtn">판매취소</div>
 		                           </div>
@@ -268,7 +270,7 @@
             </div>
          
          </div>
-         
+         <br><br> <br><br> <br><br> <br><br> <br><br> <br><br> <br>
          
          <div class="col-sm-2 sidenav2"></div>
       </div>
