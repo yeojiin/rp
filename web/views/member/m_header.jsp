@@ -30,7 +30,7 @@
 				<ul>
 					<li><button class="miniMenuBtn">관리자님</button></li>&nbsp;&nbsp;&nbsp;&nbsp;
 					<li><button class="miniMenuBtn" onclick="logout()">LOGOUT</button></li>&nbsp;&nbsp;&nbsp;&nbsp;
-					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/admin/a_main.jsp'">MY PAGE</button></li>
+					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/showCalc.ad'">MY PAGE</button></li>
 					<li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
 				</ul>
 				
@@ -39,8 +39,9 @@
 				<ul>
 					<li><button class="miniMenuBtn"><%=loginUser.getMemberName() %></button></li>&nbsp;&nbsp;&nbsp;&nbsp;
 					<li><button class="miniMenuBtn" onclick="logout()">LOGOUT</button></li>&nbsp;&nbsp;&nbsp;&nbsp;
-					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/company/c_main.jsp'">MY PAGE</button></li>
+					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/selectProList.pr?mno=<%=loginUser.getMno()%>'">MY PAGE</button></li>
 					<li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+					<%-- <a href="<%=request.getContextPath()%>/selectProList.pr?mno=<%=loginUser.getMno()%>"> --%>
 				</ul>
 				
 			<% } else { %>
@@ -48,8 +49,7 @@
 				<ul>
 					<li><button class="miniMenuBtn" style="color:salmon"><%=loginUser.getNickName() %>님♥</button></li>&nbsp;&nbsp;&nbsp;&nbsp;
 					<li><button class="miniMenuBtn" onclick="logout()">LOGOUT</button></li>&nbsp;&nbsp;&nbsp;&nbsp;
-					<%-- <li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/member/m_myPage_checkList.jsp'">MY PAGE</button></li>&nbsp;&nbsp;&nbsp;&nbsp; --%>
-					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/member/m_myPage.jsp'">MY PAGE</button></li>&nbsp;&nbsp;&nbsp;&nbsp;
+					<li><button class="miniMenuBtn" onclick="location.href='<%=request.getContextPath()%>/views/member/m_myPage_payment.jsp'">MY PAGE</button></li>&nbsp;&nbsp;&nbsp;&nbsp;
 					<li><form action="<%=request.getContextPath()%>/showList.wi" method="post" id = "WishForm">
 					<button class="miniMenuBtn" type="submit">WISHLIST</button>
 					<input type="hidden" name="num" value=<%=loginUser.getMno()%>></form></li>

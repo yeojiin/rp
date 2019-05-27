@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <title>REDDING♥</title>
 <link rel="stylesheet"
-   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">	
 <script
    src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script
@@ -20,6 +20,9 @@
    href="${pageContext.request.contextPath}/css/company/c_nav.css">
 <link rel="stylesheet" type="text/css"
    href="${pageContext.request.contextPath}/css/common/footer.css">
+  <%--  <link rel="stylesheet" type="text/css"
+   href="${pageContext.request.contextPath}/css/common/c_productReservation.css"> --%>
+   
 <link rel="stylesheet" type="text/css"
    href="${pageContext.request.contextPath}/css/company/c_main.css"> 
 
@@ -33,6 +36,24 @@
       padding-top: 20px;
       height: 100%;
    }
+   
+   #productUploadBtn, #proResBtn{
+    width: 140px;
+    height: 35px;
+    font-size: 22px;
+    background: salmon;
+    color: white;
+    border: 2px double salmon;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: auto;
+    margin-left: auto;
+}
+#productUploadBtn:hover, #proResBtn:hover{
+	 background: white;
+   color: salmon;
+}
    
    @media screen and (max-width: 767px) {
       .sidenav {
@@ -54,10 +75,16 @@
    <div class="container-fluid text-center">
       <div class="row content">
       
-         <div class="col-sm-2 sidenav1 visible-md visible-lg visible-sm">
+         <<!-- div class="col-sm-2 sidenav1 visible-md visible-lg visible-sm">
             <div id="productUploadBtn">상품 등록</div><br><br>
             <div id="proResBtn">예약 현황</div>
-         </div>
+         </div> -->
+         <div class="col-sm-2 sidenav1 visible-md visible-lg visible-sm">
+				<div id="productUploadBtn">상품 등록</div>
+				<br><br>
+				<div id="proResBtn">예약 현황</div>
+			</div>
+         
          
          
          <div class="col-sm-10 text-left">
