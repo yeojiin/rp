@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 .availableCoupon, .imminentCoupon, .downAvailableCoupon {
-	width:32%;
+	width:48%;
 	height:auto;
 	border:1px solid salmon;
 	background:white;
@@ -15,8 +15,7 @@
 	text-align:left;
 }
 .couponLabel21, .couponLabel22, .couponLabel23 {
-	color:#ff4733;
-	font-size:30px;
+	font-size:15px;
 }
 .couponLabel3 {
 	font-size:18px;
