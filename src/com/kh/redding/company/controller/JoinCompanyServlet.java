@@ -144,7 +144,7 @@ public class JoinCompanyServlet extends HttpServlet {
 			emailstatus = "Y";
 		}
 		
-	/*	ArrayList<String> saveFiles = new ArrayList<String>();
+		ArrayList<String> saveFiles = new ArrayList<String>();
 
 		ArrayList<String> originFiles = new ArrayList<String>();
 		
@@ -215,7 +215,7 @@ public class JoinCompanyServlet extends HttpServlet {
 			
 			request.getRequestDispatcher(page).forward(request, response);
 			
-		}*/
+		}
 				
 		
 		
