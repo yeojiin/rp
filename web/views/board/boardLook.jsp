@@ -192,7 +192,7 @@ int endPage = pi.getEndPage();
 						<br><br><br>
 						<%} %>
 							<div class="media">
-							
+								
 						  		<div class="media-body">
 								  	<input type = "hidden" id = "replycode" value = "<%=reply.getReply_code() %>">
 								    <p class="media-heading"><%=nickname %> (<%=mid %>) </p>
@@ -207,6 +207,7 @@ int endPage = pi.getEndPage();
 								    	<button type = "button" id = "replydelete" class = "bntclass">삭제</button>
 								    <%} %>
 						  		</div>
+						  		
 							</div>
 						</div>
 						<%} %>
@@ -260,6 +261,8 @@ int endPage = pi.getEndPage();
 	
 	<script>
 		$(function(){
+			
+			
 			<% if (loginUser == null){ %>
 				alert("로그인해주세요");
 				location.href = "<%=request.getContextPath()%>/views/common/login.jsp"
@@ -269,7 +272,11 @@ int endPage = pi.getEndPage();
 			
 			
 			$("#replybtn").click(function(){
-				$("#Replysubmit").submit();
+				<% if (loginUser.getMemberType() != 10 ){ %>
+					alert("회원만 댓글이 가능합니다.");
+				<%}else{%>
+					$("#Replysubmit").submit();
+				<%}%>
 			});
 			
 			$("#like").click(function(){

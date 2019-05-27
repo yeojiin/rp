@@ -46,37 +46,38 @@
 <title>REDDING♥</title>
 </head>
 <body>
-	<div>
+	<%-- <div>
 		<%@ include file="/views/admin/a_nav.jsp"%>
-	</div>
+	</div> --%>
+	<%@ include file="/views/admin/a_sideNav.jsp" %>
 	<div class="row content">
 
 		<div class="visible-md visible-lg visible-sm">
-			<div class="col-sm-2 sidenav1">
-				<div class="sidenavArea">
+			<div class="col-sm-3 sidenav1">
+				<%-- <div class="sidenavArea">
 					<ul class="navList">
 						<li onclick="location.href='a_TotalMember.jsp'">전체 회원</li>
 						<li onclick="location.href='a_MemberOrder.jsp'">주문내역</li>
 						<li onclick="location.href='<%=request.getContextPath()%>/AllQnA.no'" style="color:lightgray; padding-left:25px">문의</li>
 					</ul>
-				</div>
+				</div> --%>
 			</div>
 		</div>
 		
 		<div class="visible-xs sideListnav2">
 					<div class="col-sm-2 sidenav1">
-						<div class="sidenavArea2">
+						<%-- <div class="sidenavArea2">
 						<ul class="navList2">
 						<li onclick="location.href='a_TotalMember.jsp'" style="color:lightgray; padding-left:25px">전체 회원</li>
 						<li onclick="location.href='a_MemberOrder.jsp'">주문내역</li>
 						<li onclick="location.href='<%=request.getContextPath()%>/AllQnA.no'" style="color:lightgray; padding-left:25px">문의</li>
 						</ul>
-					</div>
+					</div> --%>
 					</div>
 					
 					<br><br>
 				</div>
-				<div class="col-sm-8 text-left">
+				<div class="col-sm-9 text-left">
 				<%-- ---------------------------------------------- 여기만 작성하세요 ---------------------------------------------- --%>
 					<br>
 					<h2>문의내역</h2>
@@ -139,7 +140,7 @@
   						  <% }
   						  } %>
 				</div>
-				<div class="col-sm-2 sidenav2"></div>
+				<!-- <div class="col-sm-2 sidenav2"></div> -->
 		</div>
 	
 
