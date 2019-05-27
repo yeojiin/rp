@@ -35,7 +35,7 @@
 </head>
 <body>
 	<div>
-		<%@include file="/views/admin/a_nav.jsp"%>
+		<%@include file="/views/company/c_nav.jsp"%>
 	</div>
 	<div class="container-fluid text-center">
 		<div class="row content">

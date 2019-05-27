@@ -49,6 +49,8 @@ public class DeleteWishList extends HttpServlet {
 			}
 
 			result = new WishListService().deleteWishList(deleteList, userNum);
+			
+			
 			String page = "";
 			if(result>0) {
 				response.sendRedirect("/redding/showList.wi?num="+userNum);
